@@ -1,3 +1,7 @@
+### personal ###
+esptool/.gitignore
+esptool/.travis.yml
+
 
 ### C++ ###
 # Prerequisites

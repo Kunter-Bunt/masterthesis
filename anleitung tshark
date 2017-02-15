@@ -4,3 +4,6 @@ sudo iwconfig wlp1s0 mode monitor
 sudo ifconfig wlp1s0 up
 Jetzt sollte bei iwconfig immernoch mode:monitor stehen
 Nun kann tshark skript gestartet werden 
+
+MAC: 5c:cf:7f:c6:a0:f1 (Feather)
+
