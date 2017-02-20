@@ -31,9 +31,6 @@ void setup() {
 
 
 void loop() {
-    // Randomize channel //
-   
-    //channel = random(1,12); 
     if (channel < 12) channel++;
     else channel = 0;
     wifi_set_channel(channel);  
