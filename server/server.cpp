@@ -2,22 +2,15 @@
 #include <fstream>
 #include <string>
 #include <unistd.h>
+#include <thread>
 using namespace std;
 
 bool working = true;
 
-int main(int argc, char** argv) {
-	cout << "Starting..." << endl;
-	
-	string inputs[argc];
-	for (int i = 0; i < argc; i++) {
-		cout << "Monitoring " << argv[i] << endl;
-		inputs[i] = argv[i];
-	}
-
-
+void monitor(string file) {
 	string dataPoint;
-	ifstream tsharkInput(inputs[1].c_str());
+	ifstream tsharkInput(file);
+
 	if (tsharkInput.is_open()){
 		while (working){
 			if (getline(tsharkInput, dataPoint)) {
@@ -31,6 +24,24 @@ int main(int argc, char** argv) {
 		tsharkInput.close();
 	}
 	else cout << "Cannot open file" << endl;
+}
+
+int main(int argc, char** argv) {
+	cout << "Starting..." << endl;
+	
+	//set up workers
+	string file[argc-1];
+	thread worker[argc-1];
+	for (int i = 0; i < argc-1; i++) {
+		cout << "Monitoring " << argv[i+1] << endl;
+		file[i] = string(argv[i+1]);
+		worker[i] = thread(monitor, file[i]);
+	}
+	
+	//Cleaning up
+	for (int i = 0; i < argc-1; i++) {
+		worker[i].join();
+	}
 	return 0;
 }
 

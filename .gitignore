@@ -1,6 +1,8 @@
 ### personal ###
 esptool/.gitignore
 esptool/.travis.yml
+server/build/txt
+server/build/xtx
 
 
 ### C++ ###
