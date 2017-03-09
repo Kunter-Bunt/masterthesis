@@ -32,7 +32,7 @@ void setup() {
 
 void loop() {
     if (channel < 12) channel++;
-    else channel = 0;
+    else channel = 1;
     wifi_set_channel(channel);  
     packet[56] = channel;
     

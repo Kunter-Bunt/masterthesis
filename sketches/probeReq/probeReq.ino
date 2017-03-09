@@ -22,7 +22,7 @@ uint8_t packet[128] = { 0x40, 0x00, 0x00, 0x00,
 
 void setup() { 
   wifi_send_pkt_freedom(packet, 57, 0);
-  ESP.deepSleep(5 * 1000000);
+  ESP.deepSleep(5 * 100000);
 }
 
 
