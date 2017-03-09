@@ -1,7 +1,7 @@
-#include <iostream>
-#include <fstream>
+#include <iostream> //stdout
+#include <fstream>	//file operations
 #include <string>
-#include <unistd.h>
+#include <unistd.h>	//sleep
 #include <thread>
 using namespace std;
 
@@ -23,7 +23,7 @@ void monitor(string file) {
 		}
 		tsharkInput.close();
 	}
-	else cout << "Cannot open file" << endl;
+	else cout << "Cannot open file " << file << endl;
 }
 
 int main(int argc, char** argv) {
