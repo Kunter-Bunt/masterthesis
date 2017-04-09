@@ -1,9 +1,6 @@
-
-#include <ESP8266WiFi.h>
-
-extern "C" {
-  #include "user_interface.h"
-}
+#include "ets_sys.h"
+#include "os_type.h"
+#include "user_interface.h"
 
 // ProbeRequest Packet buffer
 uint8_t packet[128] = { 0x40, 0x00, 0x00, 0x00, 
@@ -20,13 +17,8 @@ uint8_t packet[128] = { 0x40, 0x00, 0x00, 0x00,
                 /*56*/  0x01};     //channel                  
 
 
-void setup() { 
-  wifi_send_pkt_freedom(packet, 57, 0);
-  ESP.deepSleep(5 * 1000000);
+void ICACHE_FLASH_ATTR user_init()
+{
+	wifi_send_pkt_freedom(packet, 57, 0);
+  	system_deep_sleep(5000000);
 }
-
-
-
-void loop() {
-}
-
