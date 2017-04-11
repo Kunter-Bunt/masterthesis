@@ -1,9 +1,9 @@
-#include "ets_sys.h"
-#include "os_type.h"
-#include "osapi.h"
-#include "mem.h"
-#include "user_interface.h"
-#include "gpio.h"
+//#include "ets_sys.h"
+#include "os_type.h" //os_timer_t
+#include "osapi.h" //os_timer_setfn, os_timer_arm
+//#include "mem.h"
+#include "user_interface.h" //wifi_send_pkt_freedom
+//#include "gpio.h"
 
 // ProbeRequest Packet buffer
 uint8_t packet[128] = { 
