@@ -1,6 +1,6 @@
 #include "os_type.h" //os_timer_t
 #include "osapi.h" //os_timer_setfn, os_timer_arm
-#include "user_interface.h" //wifi_send_pkt_freedom
+#include "user_interface.h" //wifi_send_pkt_freedom, system_deep_sleep
 
 // ProbeRequest Packet buffer
 uint8_t packet[128] = { 
@@ -23,6 +23,8 @@ void some_timerfunc(void *arg)
 {
 	channel = channel % 4 + 1;
 	wifi_set_channel(channel);
+	wifi_send_pkt_freedom(packet, 26, 0);
+	wifi_send_pkt_freedom(packet, 26, 0);
 	wifi_send_pkt_freedom(packet, 26, 0);
 	//system_deep_sleep(5000000); 
 	//wifi_set_sleep_type(LIGHT_SLEEP_T);
