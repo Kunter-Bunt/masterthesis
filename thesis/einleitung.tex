@@ -5,22 +5,32 @@
 \chapter{Einleitung}
 \label{ch:Einleitung}
 %% ==============================
-Hinweis: In die Einleitung gehört die Motivation 
-und Einleitung in die Problemstellung. Die Problemstellung
-kann in der Analyse noch detaillierter beschrieben werden.
-
-Bla fasel\ldots
-
-
+Die 
 
 %% ==============================
 \section{Zielsetzung der Arbeit}
 %% ==============================
 \label{ch:Einleitung:sec:Zielsetzung}
+Ziel der Arbeit soll die Implementierung eines Bereichsortungssystems unter der Annahme einer bestehenden Struktur von WLAN Access Points (APs) sein. 
+Diese Arbeit grenzt sich von vorherigen Arbeiten dadurch ab, das die Laufzeit beziehungsweise der Energieverbrauch der mobilen Einheiten, auch Tags genannt, im Vordergrund steht. 
+Statt der nur wenige Tage umfassenden Laufzeiten anderer WLAN basierter Tags ist das Ziel dieser Arbeit eine Laufzeit von mehreren Monaten. \\
+In einem ersten Schritt können keine Änderungen an den Access Points vorgenommen werden, ihre Anzahl, Position, Software und Hardware ist gegeben. 
+Anschließend wird diese Beschränkung gelockert und die Software der APs kann verändert werden, bei diesen Veränderungen sollen aber die grundlegende Mechanismen der 802.11 Spezifikation erhalten bleiben. 
+So soll es nicht assozierten Clients nicht möglich sein direkt mit Servern im Netzwerk des APs zu kommunizieren, da dies die Sicherheit des gesamten Netzwerks gefährden könnte.
+In einer zweiten Lockerung der Beschränkungen soll auch die Hardware veränderbar sein, dies widerspricht zwar der Annahme der bestehenden Struktur von WLAN APs, da diese potenziell ausgetauscht werden müssten, erweitert den Handlungsspielraum jedoch enorm und erlaubt es eine optimale Lösung zu finden. 
+Für jeden dieser Schritte müssen die angrenzenden Komponenten, Ortungsserver und mobile Einheiten, implementiert und miteinander verglichen werden. \\
 
-Was ist die Aufgabe der Arbeit?
 
-Bla fasel\ldots
+%% ==============================
+\section{Anforderungen an das Ortungssystem}
+%% ==============================
+\label{ch:Einleitung:sec:Anforderungen}
+Da es sich um ein Bereichsortungssystem handeln soll werden keine direkten Anforderungen an die Genauigkeit der Ortung gestellt, jedoch soll ein klarer Wechsel zwischen zwei Bereichen, und damit zwei Access Points, zuverlässig erkannt werden. 
+Bei den von den Zielpersonen getragenen Positionssendern, den sogenannten Tags, soll es in den ersten beiden Schritten um Geräte handeln, die auf WLAN Basis arbeiten und somit mit den Access Points kompatibel sind.
+Im dritten Schritt ist dies nicht erforderlich und die Kompatibilität wird durch technische Änderungen am AP wiederhergestellt.
+Die Tags sollen eine Laufzeit von bis zu 3 Jahren erreichen, sie müssen jedoch mindestens eine Laufzeit von 6 Monaten aufweisen um als verwendbar angesehen zu werden. 
+Dabei sind Größe und Gewicht der Lösung zu beachten, zwar kann die Laufzeit eines Tags jederzeit durch die Vergrößerung des Energiespeichers herbeigeführt werden, die Tags müssen jedoch mühelos von den Zielpersonen an einem Band um den Hals getragen werden können.
+Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der IT-Infrastruktur so gering wie möglich gehalten werden um ein möglichst stabiles und kostengünstiges System zu garantieren. 
 
 %% ==============================
 \section{Gliederung der Arbeit}
