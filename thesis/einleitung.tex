@@ -5,19 +5,27 @@
 \chapter{Einleitung}
 \label{ch:Einleitung}
 %% ==============================
-Die 
-
+Während die Ortung im Außenbereich fest in der Hand von Satellitensystemen wie dem Global Positioning System (GPS) liegen, bietet die Ortung im Innenraum eine Vielzahl verschiedener Technologien. Neben Technologien wie Bluetooth, Radio Frequency Identification (RFID) und Ultra Wide Band (UWB) weckt WLAN wegen seiner großen Verbreitung immer wieder Interesse in Forschung und Industrie. \\
+So hat die Ortung mittels WLAN gerade im medizinischen Bereich durch kommerzielle Lösungen Verbreitung gefunden, Probleme finden sich aber bei Ortungsgenauigkeit gegenüber anderen Techniken \cite{liu2007survey} und dem vergleichsweise hohen Energieverbrauch des Protokolls [cite benötigt].
+Während viele wissenschaftliche Arbeiten sich der Ortungsgenauigkeit widmen, ist für den alltäglichen Einsatz die Batterielaufzeit der mobilen Einheiten hinderlich, wenn nicht gerade Smartphones als mobile Einheiten in Frage kommen. \\
+Auch im Tunnelbau ist eine Ortung von Mitarbeitern und Besuchern von Nöten um in Notfällen bestimmen zu können, ob und wie viele Personen sich im Gefahrenbereich befinden, dies beeinflusst die Arbeit der Rettungskräfte. 
+Das veränderliche Umfeld der Baustelle, auf der große Stahl- und Betonelemente bewegt werden, stellt dabei die genaue Ortung mittels Radiowellen vor große Probleme und es wird nur Bereichsortung durchgeführt, bei der jede Tunnelröhre in mehrere hundert Meter große Abschnitte aufgeteilt wird und der Wechsel der Mitarbeiter zwischen den Abschnitten beobachtet wird. 
+Dies stellt zwar nur eine geringe Auflösung dar, erlaubt es aber bei Bränden zu erkennen welche Personen sich durch die Abschnitte Richtung Ausgang bewegen und welche in ihrem Abschnitt verharren, sie sind vermutlich entweder bewegungsunfähig oder eingeschlossen. 
+Die geringe Auflösung hat zudem Vorteile bezüglich des Datenschutzes, da sie verhindert, dass die Arbeiter mit Bewegungsprofilen analysiert werden und zum Beispiel geprüft wird wer sich wie lange im Pausenraum aufhält.
+Die Ortung wird derzeit bei einem Referenzunternehmen mittels Bluetooth durchgeführt, dabei sind die Knoten eigenständige Bluetooth Access Points, die mit dem Ethernet Backbone verbunden sind, als mobile Einheiten kommen sowohl batteriebetriebene Tags als auch Smartphones zum Einsatz. 
+Das zentrale Sicherheitssystem fragt die gesehenen mobilen Einheiten bei den Knoten an und bereitet die Ergebnisse graphisch auf.
+ 
 %% ==============================
 \section{Zielsetzung der Arbeit}
 %% ==============================
 \label{ch:Einleitung:sec:Zielsetzung}
 Ziel der Arbeit soll die Implementierung eines Bereichsortungssystems unter der Annahme einer bestehenden Struktur von WLAN Access Points (APs) sein. 
-Diese Arbeit grenzt sich von vorherigen Arbeiten dadurch ab, das die Laufzeit beziehungsweise der Energieverbrauch der mobilen Einheiten, auch Tags genannt, im Vordergrund steht. 
+Diese Arbeit grenzt sich von vorherigen Arbeiten dadurch ab, das die Laufzeit beziehungsweise der Energieverbrauch der mobilen Einheiten im Vordergrund steht. 
 Statt der nur wenige Tage umfassenden Laufzeiten anderer WLAN basierter Tags ist das Ziel dieser Arbeit eine Laufzeit von mehreren Monaten. \\
 In einem ersten Schritt können keine Änderungen an den Access Points vorgenommen werden, ihre Anzahl, Position, Software und Hardware ist gegeben. 
 Anschließend wird diese Beschränkung gelockert und die Software der APs kann verändert werden, bei diesen Veränderungen sollen aber die grundlegende Mechanismen der 802.11 Spezifikation erhalten bleiben. 
-So soll es nicht assozierten Clients nicht möglich sein direkt mit Servern im Netzwerk des APs zu kommunizieren, da dies die Sicherheit des gesamten Netzwerks gefährden könnte.
-In einer zweiten Lockerung der Beschränkungen soll auch die Hardware veränderbar sein, dies widerspricht zwar der Annahme der bestehenden Struktur von WLAN APs, da diese potenziell ausgetauscht werden müssten, erweitert den Handlungsspielraum jedoch enorm und erlaubt es eine optimale Lösung zu finden. 
+So soll es nicht assozierten Clients nicht möglich sein direkt mit Servern im Netzwerk zu kommunizieren, da dies die Sicherheit des gesamten Netzwerks gefährden könnte.
+In einer zweiten Lockerung der Beschränkungen soll auch die Hardware veränderbar sein, dies widerspricht zwar der Annahme der bestehenden Struktur von WLAN APs, da diese potenziell ausgetauscht werden müssten, erweitert den Handlungsspielraum jedoch enorm und erlaubt es die vorherigen Implementierungen mit einer energetisch effizienten zu vergleichen. 
 Für jeden dieser Schritte müssen die angrenzenden Komponenten, Ortungsserver und mobile Einheiten, implementiert und miteinander verglichen werden. \\
 
 
@@ -30,16 +38,19 @@ Bei den von den Zielpersonen getragenen Positionssendern, den sogenannten Tags, 
 Im dritten Schritt ist dies nicht erforderlich und die Kompatibilität wird durch technische Änderungen am AP wiederhergestellt.
 Die Tags sollen eine Laufzeit von bis zu 3 Jahren erreichen, sie müssen jedoch mindestens eine Laufzeit von 6 Monaten aufweisen um als verwendbar angesehen zu werden. 
 Dabei sind Größe und Gewicht der Lösung zu beachten, zwar kann die Laufzeit eines Tags jederzeit durch die Vergrößerung des Energiespeichers herbeigeführt werden, die Tags müssen jedoch mühelos von den Zielpersonen an einem Band um den Hals getragen werden können.
-Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der IT-Infrastruktur so gering wie möglich gehalten werden um ein möglichst stabiles und kostengünstiges System zu garantieren. 
+Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der IT-Infrastruktur so gering wie möglich gehalten werden um ein stabiles und kostengünstiges System zu garantieren. 
 
 %% ==============================
 \section{Gliederung der Arbeit}
 %% ==============================
 \label{ch:Einleitung:sec:Gliederung}
-
-Was enthalten die weiteren Kapitel?
-
-Bla fasel\ldots
+Im folgenden Kapitel 2 sollen zunächst einige wissenschaftliche und kommerzielle Lösungen zur Ortung in Innenräumen diskutiert werden. 
+Anschließend soll in Kapitel 3 die Spezifikation 802.11, auch WLAN genannt, in einem für diese Arbeit notwendigem Maße erörtert werden. Dort werden auch die für das Ortungssystem nötigen Teile der Bluetooth 4.0 (Low Energy) Spezifikation erklärt. 
+In Kapitel 4 wird eine Übersicht über die Hardware der Bluetooth und WLAN Tags und deren Programmiermöglichkeiten gegeben. 
+Im Anschluss wird in Kapitel 5 der Entwurfsraum im Rahmen einer theoretischen Betrachtung abgesteckt. 
+Die nachfolgenden Kapitel 6 und 7 widmen sich der Methodik und Ausführung von Experimenten bezüglich Energieverbrauch und Reichweite der Tags.
+Die Implementierung der Ortungsserver und die Schnittstellen zu Access Points und Sicherheitssystem werden in Kapitel 8 beschrieben.
+Zum Schluss folgt ein Fazit, welches die Ergebnisse zusammenfasst und die evaluierten Lösungsansätze abschließend vergleicht.
 
 %%% Local Variables: 
 %%% mode: latex
