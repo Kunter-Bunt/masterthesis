@@ -26,6 +26,8 @@ void some_timerfunc(void *arg)
 	wifi_send_pkt_freedom(packet, 26, 0);
 	wifi_send_pkt_freedom(packet, 26, 0);
 	wifi_send_pkt_freedom(packet, 26, 0);
+	wifi_send_pkt_freedom(packet, 26, 0);
+	wifi_send_pkt_freedom(packet, 26, 0);
 	//system_deep_sleep(5000000); 
 	//wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
