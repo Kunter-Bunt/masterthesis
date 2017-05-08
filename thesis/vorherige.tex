@@ -1,0 +1,29 @@
+%% Einleitung.tex
+%% $Id: einleitung.tex 61 2012-05-03 13:58:03Z bless $
+%%
+
+\chapter{Vorherige Arbeiten}
+\label{ch:Vorherige}
+%% ==============================
+In diesem Kapitel werden vorhandene Lösungen die für die gegebene Aufgabe der Bereichsortung in Tunneln in Frage kommen diskutiert. 
+Es werden hauptsächlich Lösungen auf Basis der 802.11 Spezifikation ausgewählt, dabei aber auch solche Systeme einbezogen, die eine spezifische Position der mobilen Einheit angeben, da diese anschließend trivial einem Bereich zugeordnet werden kann. 
+Es werden sowohl wissenschaftliche als auch kommerzielle Lösungen diskutiert.
+Auffällig ist bei der Recherche, dass wissenschaftliche Veröffentlichungen sich fast immer auf eines von zwei Aufgabenfeldern beziehen: Entweder soll die Ortungsgenauigkeit erhöht oder die Anforderungen ohne signifikanten Genauigkeitsverlust gesenkt werden. 
+Diese Anforderungen können zum Beispiel Komplexität des Knoten-Netzwerks, des einzelnen Knotens, Synchronisation oder vorherige Kalibrierung sein.\\
+An den Energieverbrauch der mobilen Einheiten werden üblicherweise keine Forderungen gestellt und oft von den Veröffentlichungen komplett ignoriert.
+Dies ist akzeptabel wenn davon ausgegangen wird, dass die mobile Einheit zusätzlichen Nutzen bietet und das Laden der Einheit in Nutzungsszenario des Anwenders bereits vorgesehen ist.
+So hat der Anwender in einem Szenario, bei dem sein Smartphone mittels direkter oder indirekter Selbstlokalisation seine Position bestimmt um ihn zu navigieren nur minimale Anforderungen an den Energieverbrauch.
+In Szenarien mit direkter oder indirekter Fernlokalisation hat die mobile Einheit für den Anwender oft keinen direkten Nutzen, deshalb ist eine Forderung nach täglichem oder wöchentlichem laden beziehungsweise wechseln der Batterie schwerer durchzusetzen.\\
+
+\section{RADAR}
+\label{ch:Vorherige:sec:RADAR}
+Das RADAR System von Bahl et al. (Microsoft Research) hat als eins der ersten WLAN-basierten Ortungssysteme viel Aufmerksamkeit erfahren \cite{bahl2000radar}.
+Als Messgröße wird dieStärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. 
+Das RADAR System ist auf eine offline-Phase angewiesen in der empirisch ein Signalausbreitungsmodell aufgebaut wird, es handelt sich also um ein System mit Szenenanalyse.
+Die Verwendung einer offline-Phase ist im stark veränderlichen Baustellenumfeld nicht akzeptabel. 
+Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus. 
+Damit sich dies nicht im Modell wiederfindet müssten zunächst alle beweglichen Maschinen aus dem Bereich entfrent werden um anschließend in der online-Phase ihren Einfluss glätten zu können.
+Die offline-Phase ist deshalb wirtschaftlich gesehen nicht dürchführbar und das empirisch ermittelte Signalausbreitungsmodell müsste durch ein theoretisches ersetzt werden, für eine grobkörnige Bereichsortung sollte dies jedoch ausreichend sein.
+Bei RADAR sendet die mobile Einheit regelmäßig UDP-Pakete aus, an den Knoten wird dan der RSSI gemessen, die Autoren weisen jedoch darauf hin, dass sich dieser Vorgang leicht umkehren ließe um von einer Fernlokalisation auf eine Selbstlokalisation zu kommen.
+Bezüglich des Energieverbrauchs äußern sie sich jedoch zu keiner der beiden Varianten.
+Die Position wird anschließend bestimmt indem aus den in der offline-Phase aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird.
