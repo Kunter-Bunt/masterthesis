@@ -4,10 +4,10 @@
 
 
 
-const char* ssid     = "PhD. Sheldon Cooper";
-const char* password = "XCV,234,xcv";
+const char* ssid     = "Lothlorien";
+const char* password = "JarJarBinks&R2D2";
 
-const char* host = "192.168.178.20";
+const char* host = "192.168.0.150";
 const int port = 8080;
 WiFiUDP Udp;
 
@@ -17,7 +17,7 @@ void setup() {
 
   Serial.println();
   Serial.println();
-  Serial.print("Connecting to ");
+  Serial.print("Connecting: ");
   Serial.println(ssid);
   
   WiFi.begin(ssid, password);
@@ -38,7 +38,7 @@ void setup() {
 void loop() {
     Udp.beginPacket(host, port);
     
-    String str = "5c:cf:7f:c6:a0:f1 " + String(WiFi.gatewayIP()[0]) + "." + String(WiFi.gatewayIP()[1]) + "." + String(WiFi.gatewayIP()[2]) + "." + String(WiFi.gatewayIP()[3]) + " " + String(WiFi.RSSI());
+    String str = "5c:cf:7f:c6:a0:f1 " + String(WiFi.gatewayIP()[0]) + "." + String(WiFi.gatewayIP()[1]) + "." + String(WiFi.gatewayIP()[2]) + "." + String(WiFi.gatewayIP()[3]);// + " " + String(WiFi.RSSI());
     Udp.write(str.c_str(), str.length()); 
     
     Udp.endPacket();
