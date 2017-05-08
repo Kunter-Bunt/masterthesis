@@ -11,7 +11,7 @@ probeReq: probeReq.o
 probeReq.o: probeReq.c
 
 flash: probeReq-0x00000.bin
-	esptool.py write_flash 0 probeReq-0x00000.bin 0x10000 probeReq-0x10000.bin
+	esptool.py --baud 921600 write_flash 0 probeReq-0x00000.bin 0x10000 probeReq-0x10000.bin
 
 clean:
 	rm -f probeReq probeReq.o probeReq-0x00000.bin probeReq-0x10000.bin
