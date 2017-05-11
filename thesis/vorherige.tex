@@ -14,7 +14,7 @@ In Szenarien mit direkter oder indirekter Fernlokalisation hat die mobile Einhei
 \section{RADAR}
 \label{ch:Vorherige:sec:RADAR}
 Das RADAR System von Bahl et al. (Microsoft Research) hat als eins der ersten WLAN-basierten Ortungssysteme viel Aufmerksamkeit erfahren \cite{bahl2000radar}.
-Als Messgröße wird dieStärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. 
+Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. 
 Das RADAR System ist auf eine offline-Phase angewiesen in der empirisch ein Signalausbreitungsmodell aufgebaut wird, es handelt sich also um ein System mit Szenenanalyse.
 Die Verwendung einer offline-Phase ist im stark veränderlichen Baustellenumfeld nicht akzeptabel. 
 Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus. 
@@ -26,16 +26,62 @@ Die Position wird anschließend bestimmt indem aus den in der offline-Phase aufg
 Für die Ortung wird mehrfach gemessen und dann gemittelt um im Median eine Genauigkeit von unter 3 Metern zu erhalten, das kurze Sendeintervall von 0,25 Sekunden führt auch bei bewegten Personen zu einer Genauigkeit von 3,5 Metern.
 Gleichzeitig führt das kurze Sendeintervall aber auch zu einem hohen Energieverbrauch auf Seiten der mobilen Einheit, eine Reduktion der Sendevorgänge sollte im Kontext der Bereichsotung angestrebt werden um den Energieverbrauch zu senken und die Batterielaufzeit der mobilen Einheit zu steigern.
 
+\subsection{Verbesserungen an RADAR}
+Bahl et al. veröffentlichten anschließend noch einige Verbesserungen für das ursprüngliche RADAR System \cite{bahl2000enhancements}.
+Diese umfassen unter anderem den Einsatz von Access Points statt PCs als Knoten zu verwenden, verbesserte Ortung bewegter Personen und die Erkennung von hinzugekommenen Hindernissen wie etwa Personen.
+Letzteres geschieht durch die Analyse der Signalstärke von Beacon Frames anderer APs, da diese sich nicht bewegen können Veränderungen ind der Signalstärke als Veränderungen auf dem Signalweg gesehen werden.
+Dies ließe sich auch auf größere Hindernisse übertragen, hängt aber stark von der strategischen Platzierung und möglichst dichten Verteilung der APs ab.
+Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshalb weil sie einen Laptop als mobile Einheit verwenden.
+
 
 \section{WiFi-LLS}
 \label{ch:Vorherige:sec:LLS}
-Chen et al. kritisieren den Einsatz von spezialisierten Access Points, diese müssen eingesetzt werden, da der RSSI nur am AP gemessen werden kann und somit vom AP für den Ortungsserver zugänglich gemacht werden muss. 
+Chen et al. kritisieren den Einsatz von spezialisierten Access Points, deren Software muss verhändert werden, da der RSSI nur am AP gemessen werden kann und somit vom AP für den Ortungsserver zugänglich gemacht werden muss. 
 Sie wechseln daher auf eine indirekte Fernlokalisation, bei der sie die Signalstärke von Paketen naher APs wurden messen, in ein Paket packen und an den Ortungsserver senden. 
-Dadurch lösen sie auch das Addressierungsproblem: RADAR stellt ursprünglich keinen Addressierungsmechanismus für mehrere mobile Einheiten zur Verfügung, vor dem Versenden des Pakets mit den Signalstärken kann nun leicht ein Identifikator wie etwa die MAC-Adresse hinzugefügt werden.
+Dadurch lösen sie auch das Addressierungsproblem: RADAR stellt ursprünglich keinen Addressierungsmechanismus für mehrere mobile Einheiten zur Verfügung, vor dem Versenden des Pakets mit den Signalstärken kann nun leicht ein Identifikator wie etwa die MAC-Adresse hinzugefügt werden.\\
 Außerdem verwenden für ihr WiFi-based Loacl Location System (WiFi-LLS) ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1m$. 
 $P(d_0)$, der Pfadverlustexponent $n$ und der Hindernisdämpfungsfaktor $OAF$ müssen bestimmt werden, jedoch lassen sich $P(d_0)$ und $n$ auf einer einzelnen Teststrecke mit unterschiedlichen Abständen von AP und mobiler Einheit bestimmen und $OAF$ kann für einen Gebäudetyp bestimmt werden.
-Dadurch hat das Modell einen konstanten Aufwand, dies ist für Baustellen interessant, da sich diese Werte einmalig messen und dann sogar über mehrere gleichartige Baustellen übertragen ließen.
+Dadurch hat das Modell einen konstanten Aufwand, dies ist für Baustellen interessant, da sich diese Werte einmalig messen und dann sogar über mehrere gleichartige Baustellen übertragen ließen.\\
 Auch in dieser Veröffentlichung steht die Ortungsgenauigkeit im Vordergrund und es werden keine Angaben zum Energieverbrauch gemacht. 
-Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen Scan (siehe Kapitel 3) durchführt, die Signalstärken der 3 signalstärksten APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsserver versendet.
+Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen Scan (siehe Kapitel 3.x) durchführt, die Signalstärken der 3 signalstärksten APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsserver versendet.
+
+\section{RSS-basierte Selbstlokalisation}
+\label{ch:Vorherige:sec:RSS-basierte}
+Prasithsangaree et al. stellen ein WiFi-LLS ähnliches System vor \cite{prasithsangaree2002indoor}, welches aber auf eine offline-Phase zum sammeln von Fingerabdrücken für Positionen in einem Abstand von 1,5 beziehungsweise 3 Metern setzt. 
+Dies ist natürlich im Sinne der Aufgabenstellung nicht sinnvoll, da für eine Tunnelbreite von 10m 4000 beziehungsweise 2000 Messungen pro Kilometer vorgenommen werden müssten.\\
+Die Arbeit zeigt aber die Volatilität der empfangenen Signalstärke auf, dies wurde 2011 von Lui et al. genauer untersucht \cite{lui2011differences}.
+Lui et al. zeigen, dass die gemessene empfangene Signalstärke stark von der beteiligten Hardware abhängt und die Systeme für jedes mal neu kalibriert werden müssen wenn sie auf ein neues AP-Modell portiert werden und auf dem Areal optimalerweise nur ein AP-Modell verwendet werden sollte. \\
+Abb. \ref{fig:luiRSSI} zeigt die gemessenen RSSI Werte für die von ihnen getestenen Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Knoten und mobiler Einheit.
+Sie zeigen, dass einige AP-Modelle den RSSI speichern und nur bei größeren Veränderungen aktualisieren und dass die Antenne signifikanten Einfluss auf den protokollierten Wert hat aber im Allgemeinen die Varianz der protokollierten Werte sehr hoch ist.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/luiRSSI.png}
+  \caption{Gemessener RSSI mit verschiedenen Access Points und Distanzen, aus \cite{lui2011differences}.}
+  \label{fig:luiRSSI}
+\end{figure}
+
+
+\section{Time-of-flight Lokalisation}
+\label{ch:Vorherige:sec:TOF}
+Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die time-of-flight messen, ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
+Sie fordern optimalerweise Zugriff auf die physische Schicht (PHY) des 802.11 Protokolls, da auf dieseń aber üblicherweise kein Zugriff besteht messen sie TOF in der darüber liegenden MAC-Schicht.\\
+Ein Knoten sendet einen Beacon Frame aus und protokollieren die Sendezeit, die mobile Einheit empfängt den Beacon Frame, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, der Knoten sichert die Empfangszeit der Antwort.
+Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an den Knoten, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann um dann die Distanz $d = c*(\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
+Dieses Schema lässt sich leicht von einer Fernlokalisation in eine Selbstlokalisation umwandeln indem man den Initiator des Vorgangs tauscht.\\
+Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Knoten verwendeten Access Points. 
+Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und die Verarbeitungszeit vor/nach dem setzen muss sehr konstant sein, da eine Abweichung von $100ns$ bei $c = 299.792.458m/s$ bereits einen Fehler von $30m$ verursacht.
+Muthukrishnan et al. beschreiben diese Problematik bei dem Versuch TOF ohne Zugriff auf die Software des APs umzusetzen \cite{muthukrishnan2006using}.
+Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeitstempelfunktionen wie das Network Time Protocol (NTP), Ping und die Zeitstempel in Beacon Frames nicht eignen, da sie zum einen nur eine Auflösung im Millisekundenbereich bieten und zum anderen von der Blockierungskontrolle von 802.11 (CSMA/CA) abhängen.
+
+\subsection{Ultraschall}
+Skibiniewski et al. nutzen Ultraschall für eine Fernlokalisation mit TOF \cite{skibniewski2009simulation}.
+Ultraschall kann nicht von WLAN APs empfangen werden und es muss zusätzliche Hardware installiert werden, das System soll hier dennoch Beachtung finden, da es für die Ortung von Baumaterial auf Baustellen entwickelt wurde.\\
+Bei diesem System sendet zunächst der Knoten einen Beacon Frame der ZigBee Spezifikation (802.15.4) an die mobile Einheit, diese antwortet und sendet unmittelbar danach das Ultraschallsignal.
+Das schnelle 2.4GHz ZigBee Signal dient dem Knoten dann als Referenz für den Sendezeitpunkt des Ultraschallsignals, welches wegen seiner langsamen Ausbreitungsgeschwindigkeit $c \approx 343m/s$ wesentlich weniger anfällig für ungenaue Zeitstempel ist. 
+Außerdem kann die Zeit zwischen dem Aussenden des Beacon Frames und der Antwort gemessen werden um zusätzliche TOF-Informationen zu gewinnen. \\
+Statt ZigBee ließe sich auch WLAN nutzen, ZigBee ist jedoch bereits auf niedrigen Energieverbrauch ausgelegt und wegen des Ultraschalls wäre trotzdem ein extra Knoten nötig.
+Problematisch an der Lösung ist entweder der Energieverbrauch der Ultraschalleinheit oder die Reichweite, ausreichend kleine Einheiten reichen keine 100m weit und leiden trotzdem unter kurzer Batterielaufzeit.
+Die Autoren schließen deshalb, dass noch Innovation in diesem Bereich notwendig ist um dieses System praktikabel zu machen.
 
 
