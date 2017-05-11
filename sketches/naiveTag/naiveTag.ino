@@ -1,8 +1,10 @@
 
 #include <ESP8266WiFi.h>
 #include <WiFiUdp.h>
-
-
+extern "C" {
+#include "user_interface.h"
+  bool wifi_set_sleep_type(sleep_type_t);
+}
 
 const char* ssid     = "Lothlorien";
 const char* password = "JarJarBinks&R2D2";
@@ -42,7 +44,7 @@ void loop() {
     Udp.write(str.c_str(), str.length()); 
     
     Udp.endPacket();
-
+    wifi_set_sleep_type(LIGHT_SLEEP_T);
     delay(5000);
 
 }
