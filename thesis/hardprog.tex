@@ -1,10 +1,11 @@
 \chapter{Hardware \& Programmiermöglichkeiten}
 \label{ch:hardprog}
-In diesem Kapitel soll die für die mobilenen Einheiten verwendete Hardware und ihre Programmiermöglichkeiten näher beleuchtet werden.
-Als mobile Einheiten werden in dieser Arbeit hauptsächlich Tags behandelt: Tags sind kleine Geräte, die ausschließlich zur Ortung und demit einhergehender Identifikation genutzt werden.\\
-Diese Arbeit behandelt jedoch ebenfalls die Ortung mittels Smartphones mit dem Android Betriebssystem von Google \cite{google2017android}, um diese in das System einzugliedern und bei Personen, die ein Firmenhandy besitzen die Notwendigkeit eines zusätzlichen Tags zu eliminieren.
-Dabei sollte der Energieverbrauch nicht zu hoch sein, es werden jedoch nicht die selben Beschränkungen bezüglich der Batterielaufzeit, da es in der natürlichen Erwartung des Nutzers liegt, dass ein Smartphone häufiger geladen werden muss.
-Allerdings muss ein Smartphone mindestens eine 12-stündige Schicht ohne Ladevorgang auskommen, da sonst ein Bereichswechsel nicht mehr festgestellt werden könnte.
+In diesem Kapitel soll die für die mobilen Einheiten verwendete Hardware und ihre Programmiermöglichkeiten näher beleuchtet werden.
+Als mobile Einheiten werden in dieser Arbeit hauptsächlich Tags behandelt: Tags sind kleine Geräte, die ausschließlich zur Ortung und damit einhergehender Identifikation genutzt werden.\\
+Diese Arbeit behandelt jedoch ebenfalls die Ortung mittels Smartphones mit dem Android Betriebssystem von Google \cite{google2017android}, um diese in das System einzugliedern und bei Personen, die ein Firmenhandy besitzen die Notwendigkeit eines zusätzlichen Tags zu eliminieren.\\
+Ein Smartphone kann auch ohne Software für die Ortung nicht die geforderten 6 Monate Batterielaufzeit erfüllen, derartige Anforderungen werden deshalb fallen gelassen. 
+Stattdessen muss ein Smartphone mindestens eine 12-stündige Schicht ohne Ladevorgang auskommen, da sonst ein Bereichswechsel nicht mehr erkannt werden kann.
+Lösungen mit geringem Energieverbrauch werden dennoch bevorzugt.
 
 \begin{figure}[h]
   \centering
@@ -16,7 +17,7 @@ Allerdings muss ein Smartphone mindestens eine 12-stündige Schicht ohne Ladevor
 \section{ESP8266}
 Für WLAN-basierte Tags kommt der ESP8266 von Espressif in den Modulen ESP12-S beziehungsweise ESP12-F zum Einsatz.
 Der ESP8266 zeichnet sich durch einen niedrigen Energieverbrauch und viele Freiheiten bei der Programmierung aus, die Module ESP12-S und ESP 12-F unterscheiden sich dabei hauptsächlich durch ihre Antenne, siehe Abb. \ref{fig:espmodules}.
-Der neuere ESP12-F sollte eine höhere Reichweite entfalten, dies wird noch Gegenstand eines Experiments sein.\\
+Das neuere ESP12-F sollte eine höhere Reichweite entfalten, dies wird noch Gegenstand eines Experiments sein.\\
 Der Esp8266 besitzt neben einer CPU eine 802.11b/g/n/e/i-fähige WLAN-Einheit und diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abb. \ref{fig:espblock}.
 Der Chip selbst besitzt weder einen Flashspeicher für Programme und Daten noch eine Antenne, diese werden auf dem Modul, z.B. ESP-12F, integriert \cite{espressif2017esp8266}.
 Espressif gibt im Datenblatt auch Aufschluss über den Energieverbrauch des Chips, siehe dazu Abb. \ref{fig:esppower}.
