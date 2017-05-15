@@ -1,3 +1,5 @@
+%TODO Bluetooth Beispiel
+
 \chapter{Vorherige Arbeiten}
 \label{ch:Vorherige}
 %% ==============================
@@ -61,6 +63,18 @@ Sie zeigen, dass einige AP-Modelle den RSSI speichern und nur bei größeren Ver
   \label{fig:luiRSSI}
 \end{figure}
 
+\section{LANDMARC}
+\label{ch:Vorherige:sec:LANDMARC}
+Ni et al. stellen ein Ortungssystem auf Basis von Radio Frequency Identification (RFID) vor \cite{ni2004landmarc}.
+Dazu werden aktive RFID-Tags als mobile Einheiten eingesetzt, diese sind mit einer Batterie ausgestattet und senden regelmäßig ihre gespeicherte ID aus.\\
+Der Knoten ist mit einem Lesegerät (RFID-Reader) ausgestattet und empfängt die ID, der Knoten liefert dann die ID und ein Signalstärkelevel zwischen 1 und 8 zurück. 
+Da das Signalstärkelevel nur eine sehr grobe Auflösung hat verbessern Ni et al. die Genauigkeit durch das Ausbringen von zusätzlichen Tags an bekannten, fixen Positionen, für die Bereichsortung ist dies aber nicht notwendig.\\
+Die Autoren geben für ein Sendeintervall von 7,5 Sekunden eine Batterielaufzeit von 3-5 Jahren an, dabei sind die Tags klein genug und könnten, wie in der Einleitung gefordert, an einem Band um den Hals getragen werden.
+%"System lässt sich leicht auf Bluetooth übertragen"
+
+\section{Bluetooth}
+\label{ch:Vorherige:sec:Bluetooth}
+Hier habe ich noch kein Paper, es kommt aber fix noch mindestens ein System auf Bluetooth-Basis + Kritik an verschiedenen Buetooth Parametern.
 
 \section{Time-of-flight Lokalisation}
 \label{ch:Vorherige:sec:TOF}
@@ -83,5 +97,21 @@ Außerdem kann die Zeit zwischen dem Aussenden des Beacon Frames und der Antwort
 Statt ZigBee ließe sich auch WLAN nutzen, ZigBee ist jedoch bereits auf niedrigen Energieverbrauch ausgelegt und wegen des Ultraschalls wäre trotzdem ein extra Knoten nötig.
 Problematisch an der Lösung ist entweder der Energieverbrauch der Ultraschalleinheit oder die Reichweite, ausreichend kleine Einheiten reichen keine 100m weit und leiden trotzdem unter kurzer Batterielaufzeit.
 Die Autoren schließen deshalb, dass noch Innovation in diesem Bereich notwendig ist um dieses System praktikabel zu machen.
+
+\section{Ortung ohne mobile Einheit}
+Eine Ortung ohne mobile Einheit erfüllt wegen ihrer Abwesenheit offensichtlich jede Anforderung an die Batterielaufzeit der mobilen Einheit.
+Mit MonoPHY stellen Abdel-Nasser et al. ein System zur Ortung ohne mobile Einheit vor \cite{abdel2013monophy}. \\
+Dazu verwenden sie einen 802.11n-fähigen Laptop und Access Point und analysieren die Channel State Information (CSI) der physischen Schicht (PHY) der zwischen AP und Laptop übertragenen Daten.
+Um die bestehende Struktur von APs zu nutzen sollte das System angepasst und die CSI zwischen den APS gemessen werden.
+Das System hat jedoch einige Aspekte, die es ungeeignet für die Aufgabenstellung machen.\\
+Das System unterscheidet nicht zwischen Personen, sondern erkennt nur, dass jemand anwesend ist, außerdem ist es nur für eine Person in einem $100m^2$ gestaltet worden und müsste auf Baustellengröße und die Verfolgung mehrerer dutzend Personen erweitert werden.
+Aber auch dann ist fraglich, wie gesichert werden kann, dass alle Personen durchgehend erkannt werden können, zum Beispiel wenn sich mehrere Personen auf oder in einem Transportfahrzeug aufhalten.
+Auch ist es ohne Identifikation schwerer Fehler zu erkennen, wird fälschlicherweise angezeigt, dass sich noch eine Peron im Tunnel befindet kann oft durch ausrufen des Betreffenden festgestellt werden, dass dieser nicht im Tunnel ist. 
+Hat man dagegen nur die Information, dass sich noch eine Person im Tunnel befindet müsste jede Gruppe durchgezählt werden und selbst dann bestünde die Möglichkeit, dass eine Person ohne das Wissen anderer in den Tunnel gegangen ist und diesen nicht mehr verlassen hat.\\
+Weitere Probleme entstehen durch die Baumaschinen und Container, diese haben einen starken Einfluss auf die CSI und verdecken dadurch möglicherweise nahe Personen und auch die Fahrzeugführer.
+Wegen der Verdeckung Letzterer müssten diese Objekte ebenfalls als Entitäten angezeigt werden, die Anzeige diverser Kommandostände, Pausenräume und stehen gelassener Baumaschinen verwirrt im Notfall jedoch, da sich in jedem Objekt potentiell eine Peron befinden könnte.\\
+Die Veröffentlichung beruht außerdem auf der Verfügbarkeit der CSI, diese sind dort durch die Auswahl einer bestimmten Netzwerkkarte gegeben und sind nicht zwingend in einer bestehenden Struktur von APs verfügbar.
+Als letzter Kritikpunkt steht die Verwendung eine offline-Phase, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist. \\ 
+Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Energieverbrauch, jedoch nicht die Forderung nach sicherer Erkennung von Abschnittswechseln, deshalb scheidet diese Technik zumindestens für Baustellen aus.
 
 
