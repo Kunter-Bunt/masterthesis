@@ -1,8 +1,7 @@
 #include "os_type.h" //os_timer_t
 #include "osapi.h" //os_timer_setfn, os_timer_arm
 #include "user_interface.h" //wifi_send_pkt_freedom
-#include "gpio.h"
-#include "espconn.h"
+#include "espconn.h" //udp stuff
 	
 struct espconn sendResponse;
 esp_udp udp;
