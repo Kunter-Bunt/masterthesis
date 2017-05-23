@@ -30,7 +30,7 @@ void scan_done(void *arg, STATUS status)
     Udp.write(buf, l); 
     Udp.endPacket();
     
-    //wifi_set_sleep_type(LIGHT_SLEEP_T);
+    wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void setup() {
@@ -64,6 +64,6 @@ void loop() {
     
     wifi_station_scan(NULL,scan_done);
     
-    //wifi_set_sleep_type(LIGHT_SLEEP_T);
+    wifi_set_sleep_type(LIGHT_SLEEP_T);
     delay(5000);
 }
