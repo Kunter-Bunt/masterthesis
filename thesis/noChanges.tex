@@ -65,3 +65,20 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
   \label{fig:luiRSSI}
 \end{figure}
 
+\section{Grundlagen der 802.11 Spezifikation}
+\section{ch:phase1:sec:grundlagen}
+802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen.
+Die Spezifikation beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass sich mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
+Wird ein solches Netzwerk in ein Local Area Network (LAN) eingebunden spricht man üblicherweise vom Wireless Local Area Network (WLAN).
+Die 1997 erstmals verabschiedete Spezifikation wurde häufig erweitert und wird in ihrer ursprünglichen Form praktisch nicht mehr angewendet, da die Datenraten zu gering sind.
+Der ESP8266 beherrscht die Erweiterungen b, g und n, die alle im 2,4 GHz Spektrum senden, jedoch unterschiedliche Modulationsverfahren verwenden.\\
+Zur Vermeidung von Kollisionen kommt Carrier Sense Multiple Access/Collision Avoidance (CSMA/CA) zum Einsatz.
+Bei CSMA/CA wird zunächst das Medium belauscht und gewartet bis keine Signale mehr auf dem Medium sind. 
+Dann muss ein Inter Frame Spacing (IFS) abgewartet werden, je nach Priorität ist dieses unterschiedlich lang (SIFS<PIFS<DIFS<EIFS), anschließend kann gesendet werden.
+Tritt trotzdem eine Kollision auf, versucht der Sender es erneut mit einem längeren IFS.\\
+802.11 spezifiziert ebenfalls mehrere Operationen, die beispielsweise zur Entdeckung von Ressourcen und der Authentifizierung an einer Ressource dienen, einige, für diese Arbeit wichtige Operationen werden im Folgenden beschrieben.
+
+\subsection{Scan}
+Scan ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) aktiv oder passiv ausgeführt werden.
+Bei einem passiven Scan empfängt die Station und filtert die von Access Points regelmäßig gesendeten Beacon Frames heraus, diese gelten dann als entdeckt.
+Ein Beacon Frame ist ein Management Frame, der dazu gedacht ist, technische Möglichkeiten des APs 
