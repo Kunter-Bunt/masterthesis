@@ -66,7 +66,7 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
 \end{figure}
 
 \section{Grundlagen der 802.11 Spezifikation}
-\section{ch:phase1:sec:grundlagen}
+\label{ch:phase1:sec:grundlagen}
 802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen.
 Die Spezifikation beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass sich mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
 Wird ein solches Netzwerk in ein Local Area Network (LAN) eingebunden spricht man üblicherweise vom Wireless Local Area Network (WLAN).
@@ -81,4 +81,115 @@ Tritt trotzdem eine Kollision auf, versucht der Sender es erneut mit einem läng
 \subsection{Scan}
 Scan ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) aktiv oder passiv ausgeführt werden.
 Bei einem passiven Scan empfängt die Station und filtert die von Access Points regelmäßig gesendeten Beacon Frames heraus, diese gelten dann als entdeckt.
-Ein Beacon Frame ist ein Management Frame, der dazu gedacht ist, technische Möglichkeiten des APs 
+Ein Beacon Frame ist ein Management Frame, der dazu gedacht ist, technische Möglichkeiten des APs zu bewerben, zum Beispiel die möglichen Datenraten und Zeitstempel zur Synchronisierung.
+Versteckte APs senden keine Beacon Frames. \\
+Bei einem aktiven Scan sendet die Station einen Probe Request aus, dieser kann sowohl an alle APs (broadcast) als auch an einen speziellen AP adressiert sein.
+Ein Probe Requests bewirbt, ähnlich wie ein Beacon Frame, die technischen Möglichkeiten der Station.
+Der addressierte AP, beziehungsweise im Falle des broadcasts alle, beantwortet den Probe Request mit einer Probe Response in der er mitteilt welche der beworbenen Funktionen er ebenfalls unterstützt, die Station schließt den Vorgang mit einem Acknowlegement ab. \\
+Das 2,4GHz ISM-Band wird in Europa in 13 10MHz breite Kanäle aufgeteilt, da ein AP immer nur auf einem Kanal aktiv ist müsste jeder Kanal gescant werden.
+Praktisch werden jedoch breitere Kanäle verwendet, 802.11g verwendet beispielsweise 20MHz breite Kanäle, so dass effektiv nur die Kanäle 1, 5, 9 und 13 geprüft werden müssen. \\
+Tabelle \ref{table:management} listet alle in der 802.11 Spezifikation gelisteten Management Frames.
+Ein Management Frame wird durch die Typenbits markiert und durch die Bits für den Subtypen weiter unterschieden.
+
+\begin{table}[h]
+	\centering
+	\caption{Management Frames nach 802.11}
+	\label{table:management}
+	\begin{tabular}{l|l|l}
+		Type & Subtype & Beschreibung \\
+		\hline
+		00 & 0000 & Association Request  \\
+		00 & 0001 & Association Response  \\
+		00 & 0010 & Reassociation Request  \\
+		00 & 0011 & Reassociation Response  \\
+		00 & 0100 & Probe Request  \\
+		00 & 0101 & Probe Response  \\
+		00 & 0110 & Timing Advertisement  \\
+		00 & 0111 & Reserved  \\
+		00 & 1000 & Beacon  \\
+		00 & 1001 & ATIM  \\
+		00 & 1010 & Disassociation  \\
+		00 & 1011 & Authentification  \\
+		00 & 1100 & Deauthentification  \\
+		00 & 1101 & Action  \\
+		00 & 1110 & Action No Ack  \\
+		00 & 1111 & Reserved  \\
+	\end{tabular}
+\end{table}
+
+\subsection{Join}
+Aus den entdeckten APs kann nun einer ausgewählt werden um seinem Netzwerk (BSS) beizutreten.
+Es kann zwar geschehen, dass mehrere APs eines Netzwerks entdeckt wurden, eine Statíon kann jedoch zu jedem Zeitpunkt nur mit einem AP assoziert sein. \\
+Um einem Netzwerk beizutreten muss sich die Station zunächst authentifizieren, dieser Vorgang wird über einen Authentication Frame (siehe Tabelle \ref{table:management}) initiiert. 
+Das weitere Vorgehen hängt vom Authentifizierungsverfahren ab, zum Beispiel kann der AP einen Challange Text an die Station senden, die mit  einem, aus dem Passwort erzeugten, Schlüssel entschlüsselt wird und an den AP zurück gesendet werden kann. 
+Ist die Antwort korrekt bestätigt der AP den Vorgang mit einem Acknowledgement und eventuell zusätzlichen Informationen für eine Verschlüsselung. \\
+Anschließend kann die Station mit dem AP assoziiert werden. 
+Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die Station zuständig ist, dies geschiet  üblicherweise über das Address Resolution Protokoll (ARP). \\
+Ist eine Station assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen um eine Webseite anzufordern.
+
+\subsection{Reassociation}
+Eine Reassociation wird durchgeführt wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet.
+Um diesen neuen AP zu entdecken muss zunächst ein Scan durchgeführt werden. \\
+Anschließend sendet die Station einen Reassociation Request an den neuen AP, im Reassociation Request wird der alte AP benannt, so dass der neue AP überprüfen kann, ob die Station tatsächlich mit ihm assoziert ist, gepufferte Pakete von ihm entgegennehmen und die Assoziation mit ihm auflösen kann.
+Der Kommunikationsvorgang zwischen den APs wird auch als Handoff bezeichnet, wird dieser erfolgreich abgeschlossen antwortet der neue AP der Station mit einer Reassiziation Response.
+Abschließend wird dem Netzwerk die neue Assoziation mittels ARP mitgeteilt.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/espblock.png}
+  \caption{Blockdiagramm des ESP8266, aus \cite{espressif2017esp8266}}
+  \label{fig:espblock}
+\end{figure}
+
+\section{ESP8266}
+Der ESP8266 soll für das Tag eingesetzt werden, dabei handelt es sich um einen Microcontroller von Espressif.
+Der Esp8266 besitzt neben einer CPU eine 802.11b/g/n/e/i-fähige WLAN-Einheit und diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abb. \ref{fig:espblock}. \\
+Da der ESP8266 selbt weder über Flashspeicher, noch über eine Antenne verfügt wird er auf einem Modul mit diesen Komponenten verbaut, die in dieser Arbeit betrachteten Module sind das ESP12-S und das ESP12-F.
+Das neuere ESP12-F sollte eine höhere Reichweite entfalten, dies wird noch Gegenstand eines Experiments sein.
+Abb. \ref{fig:espmodules} zeigt die beiden Module nebeneinander, die unterschiedlichen Antennenformen sind deutlich zu erkennen.\\
+Espressif gibt im Datenblatt auch Aufschluss über den Energieverbrauch des Chips, siehe dazu Abb. \ref{fig:esppower}.
+Für die Prototypenentwicklung wird ein ESP12-S Modul auf einem Adafruit Feather Huzzah verwendet, dieses stellt mit dem CP2104 eine serielle Schnittstelle zum Chip her, reguliert die Spannung für den Chip auf 3,3V und bringt den 2mm Pinabstand des ESP12-S Moduls auf die für Breadboards üblichen 2,5mm.
+Das Adafruit Feather Huzzah mit ESP12-S ist in Abb. \ref{fig:espmodules} links abgebildet.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/espmodules.png}
+  \caption{Vergleich der Antennen, links: ESP12-S verbaut auf einem Adafruit Feather Huzzah, rechts: ESP12-F}
+  \label{fig:espmodules}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/esppower.png}
+  \caption{Energieverbrauch des ESP8266 bei verschiedenen Operationen, aus \cite{espressif2017esp8266}}
+  \label{fig:esppower}
+\end{figure}
+
+
+\subsection{ESP8266 Arduino Core}
+Eine einfache Möglichkeit den ESP8266 zu programmieren stellt die bekannte Arduino IDE dar.\\
+Unter Windows muss zunächst der Treiber für den \textit{CP2104 USB-to-Serial Chip} installiert werden, auf Linux und Mac entfält dieser Schritt.
+Nach der Installation der Arduino IDE muss dort in den Einstellungen unter \textit{Additional Boards Manager URLs} die URL \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json} hinzugefügt werden.  
+Nach einem Neustart der IDE kann im \textit{Boards Manager} das Paket für den ESP8266 heruntergeladen werden und anschließend das Board \textit{Adafruit HUZZAH ESP8266} ausgewählt werden. \\
+Ist das Board über USB mit dem Computer verbunden kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit HUZZAH ESP8266} mit STRG+U auf den Chip geladen werden. 
+Dieser Vorgang wird im Folgenden als flashen bezeichnet. \\
+Der ESP8266 Arduino Core wird als Open Source Projekt gepflegt und setzt die ESP Open SDK auf einen, für die Arduino IDE üblichen Stil um. 
+Dabei wird möglichst die Kompatibilität zu Arduino gewahrt, das führt oft dazu, dass bereitgestellte Funktionen der SDK nicht in Arduino umgesetzt wurden.
+Sollten die Funktionen dennoch benötigt werden können die Header-Dateien der SDK direkt importiert werden:
+
+\begin{verbatim}
+//Hier wird ein Header des ESP8266 Arduino Core importiert
+#include <ESP8266WiFi.h> 
+
+//Hier wird ein Header der ESP Open SDK importiert
+extern "C" {#include "user_interface.h"} 
+\end{verbatim}
+
+\subsection{ESP Open SDK}
+Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden.
+Dazu muss zunächst das Github Projekt geklont werden: git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git und anschließend mit make kompiliert werden.
+Wurde die Kompilierung erfolgreich abgeschlossen sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden.
+
+
+
+
