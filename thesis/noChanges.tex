@@ -186,10 +186,13 @@ extern "C" {#include "user_interface.h"}
 \end{verbatim}
 
 \subsection{ESP Open SDK}
-Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden.
-Dazu muss zunächst das Github Projekt geklont werden: git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git und anschließend mit make kompiliert werden.
-Wurde die Kompilierung erfolgreich abgeschlossen sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden.
-
-
+Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden. \\
+Dazu muss zunächst das Github Projekt geklont werden: git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git und anschließend mit \texttt{make} kompiliert werden.
+Wurde die Kompilierung erfolgreich abgeschlossen sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden. \\
+Die in C geschriebenen Programme können nun mit einem modifizierten GCC-Kompiler kompiliert und anschließend mit dem esptool.py zunächst in ein Image umgewandelt und dann geflasht werden. 
+Das in \textit{examples} enthaltene \textit{blinky} Beispiel beinhaltet neben dem Beispielcode eine Makefile, in der diese Schritte nachvollzogen werden können, mit \texttt{make flash} wird das Beispiel kompiliert und geflasht. \\
+Programme werden in regulärem C unter Zuhilfenahme der in \texttt{/sdk/include} enthaltenen Header-Dateien geschrieben, zu beachten ist nur, dass einige Funktionen der stdlib.h nicht verwendet werden können.
+Dies betrifft vor allem direkten Speicherzugriff wie zum Beispiel memcpy, hier muss stattdessen os\_memcpy verwendet werden.
+Alle betroffenen Funktionen sind in \texttt{osapi.h} beschrieben.
 
 
