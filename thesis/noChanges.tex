@@ -218,7 +218,7 @@ Eine Implementierung die nur einen Kanal scannt tritt deshalb nur außer Konkure
 Tabelle \ref{table:llsconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep} und eine Implementierung, die nur einen Channel scannt.
 Für die Tests wurde das Adafruit Feather Huzzah verwendet, es wurde mit $5\ V$ aus einer USB-Powerbank mit Energie versorgt, der Verbrauch wurde mit einem dazwischen geschalteten USB-Power-Meter gemessen.\\
 Die Werte wurden stationär in einer Mietwohnung in einem 5-stöckigen Wohnhaus und damit nicht unter realen Bedingungen aufgezeichnet.
-Unter realen Bedingungen finden durch die Bewegung des Mitarbeiters regelmäßig Reassications statt, im Gegenzug liefert ein Scan in einem Tunnel weniger Ergebnisse als in einem Wohnhaus.
+Unter realen Bedingungen finden durch die Bewegung des Mitarbeiters regelmäßig eine Reassization statt, im Gegenzug liefert ein Scan in einem Tunnel weniger Ergebnisse als in einem Wohnhaus.
 Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er beinhaltet jedoch nur noch die Implementierung in C mit \texttt{light\_sleep} und einem Scan auf allen 4 Kanälen.
 
 \begin{table}[h]
@@ -241,6 +241,35 @@ Die Tests zeigen, dass die Programmierung mit der ESP Open SDK einen Vorteil bei
 Andererseits fällt auf, dass die Reduzierung der gescannten Channel eine signifikante Senkung des Energieverbrauchs nach sich zieht, die Scan-Funktion ist also der Hauptverbraucher.\\
 Um die finale Laufzeit zu bestimmen muss die Kapazität des Akkus bekannt sein.
 Ein Lithium-Polymer Akku hat eine Nennspannung von $3,7\ V$, seine Kapazität wird in $mAh$ angegeben. 
-Ein beispielhafter $1400\ mAh$  Lithium-Polymer Akku liefert folglich $1400\ mAh * 3,7\ V = 5180\ mWh$.
+Ein beispielhafter $1400\ mAh$ Lithium-Polymer Akku liefert folglich $1400\ mAh * 3,7\ V = 5180\ mWh$.
 Die Laufzeit beträgt dann $5180\ mWh/95\ mW \approx 54,53\ h$, also etwas mehr als 2,25 Tage.
+
+\section{Anpassungen für Bereichsortung}
+Bei WiFi-LLS wird der Scan durchgeführt um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
+Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
+Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP um das Tag einem Bereich zuzuordnen.
+Hier kann man sich statt des Scans der Assoziation beziehungsweise der Reassoziation bedienen.
+Da dem Tag, welches im Sinne der 802.11 Spezifikation als Station arbeitet, die Adresse seines Netztzugangs (Gateway) bekannt sein muss, ist ihm die IP-Adresse des AP bekannt mit dem er assoziiert ist.
+Diese Information wird nun als String kodiert und per UDP an den Ortungsserver versendet.\\
+Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep}.
+
+\begin{table}[h]
+	\centering
+	\caption{Energieverbrauch verbesserter WiFi-LLS Tags}
+	\label{table:naiveconsumption}
+	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}}
+		SDK & manueller \texttt{light\_sleep} & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		\hline
+		Arduino Core & Nein & 5 & 14 & 70 \\
+		Arduino Core & Ja & 5 & 7 & 35 \\
+		ESP Open SDK & Nein & 5 & 6 & 30 \\
+		ESP Open SDK & Ja & 5 & 5,5 & 27,5 \\
+	\end{tabular}
+\end{table}
+
+Der Verbrauch liegt wie erwartet unter dem der WiFi-LLS Implementierung, sogar unter der Implementierung, die nur einen Kanal scannt.
+Wird der selbe $1400\ mAh$ beziehnungsweise $5180\ mWh$ Lithium-Polymer Akku angenommen liegt die Laufzeit diesmal  bei $5180\ mWh/27,5\ mW \approx 188,36\ h$, also bei fast 8 Tagen.
+Als weitere Optimierung könnte ein Tag nur dann senden, wenn sich eine Reassoziation stattgefunden hat.
+Die mangelnde Transportsicherheit von UDP macht dieses Vorgehen jedoch riskant, wenn das Paket verloren geht wird kein Bereichswechsel erkannt.
+
 
