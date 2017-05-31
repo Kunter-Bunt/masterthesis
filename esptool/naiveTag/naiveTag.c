@@ -10,6 +10,7 @@ struct ip_info ip;
 static volatile os_timer_t connect_timer, build_timer, send_timer;
 int len;
 char buf[17];
+uint32 oldip;
 
 void connect(void *arg) {
 	wifi_station_connect();
@@ -26,9 +27,12 @@ void build(void *arg) {
 
 void send_UDP(void *arg) {
  	wifi_get_ip_info(STATION_IF, &ip);
- 	len = os_sprintf(buf, "%d.%d.%d.%d", IP2STR(&ip.gw.addr));
-	
-	err = espconn_send(&sendResponse, buf, len);
+ 	
+ 	if (ip.gw.addr != oldip) {
+ 		len = os_sprintf(buf, "%d.%d.%d.%d", IP2STR(&ip.gw.addr));
+		oldip = ip.gw.addr;
+		err = espconn_send(&sendResponse, buf, len);
+	}
 	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
