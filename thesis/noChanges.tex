@@ -11,7 +11,7 @@ Somit scheidet die direkte Fernlokalisierung mangels Messgrößen aus, es wird s
 
 \section{Vorherige Arbeiten}
 \label{ch:phase1:sec:vorherige}
-Zunächst werden vorherige Arbeiten behandelt, sowohl wissenschaftliche als auch kommerzielle Lösungen.
+Zunächst werden vorherige Arbeiten behandelt, es werden sowohl wissenschaftliche als auch kommerzielle Lösungen betrachtet.
 
 
 \subsection{WiFi-LLS}
@@ -248,16 +248,16 @@ Die Laufzeit beträgt dann $5180\ mWh/95\ mW \approx 54,53\ h$, also etwas mehr 
 Bei WiFi-LLS wird der Scan durchgeführt um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP um das Tag einem Bereich zuzuordnen.
-Hier kann man sich statt des Scans der Assoziation beziehungsweise der Reassoziation bedienen.
+Hier kann man sich statt der Informationen aus einem Scan jenen aus 
 Da dem Tag, welches im Sinne der 802.11 Spezifikation als Station arbeitet, die Adresse seines Netztzugangs (Gateway) bekannt sein muss, ist ihm die IP-Adresse des AP bekannt mit dem er assoziiert ist.
 Diese Information wird nun als String kodiert und per UDP an den Ortungsserver versendet.\\
 Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep}.
 
 \begin{table}[h]
 	\centering
-	\caption{Energieverbrauch verbesserter WiFi-LLS Tags}
+	\caption{Energieverbrauch der Bereichsortungs-Tags}
 	\label{table:naiveconsumption}
-	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}}
+	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.7cm}|p{2.5cm}|p{2.5cm}}
 		SDK & manueller \texttt{light\_sleep} & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
 		\hline
 		Arduino Core & Nein & 5 & 14 & 70 \\
@@ -268,8 +268,31 @@ Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementi
 \end{table}
 
 Der Verbrauch liegt wie erwartet unter dem der WiFi-LLS Implementierung, sogar unter der Implementierung, die nur einen Kanal scannt.
-Wird der selbe $1400\ mAh$ beziehnungsweise $5180\ mWh$ Lithium-Polymer Akku angenommen liegt die Laufzeit diesmal  bei $5180\ mWh/27,5\ mW \approx 188,36\ h$, also bei fast 8 Tagen.
+Wird der selbe $1400\ mAh$ beziehnungsweise $5180\ mWh$ Lithium-Polymer Akku angenommen liegt die Laufzeit diesmal  bei $5180\ mWh/27,5\ mW \approx 188,36\ h$, also bei fast 8 Tagen. \\
 Als weitere Optimierung könnte ein Tag nur dann senden, wenn sich eine Reassoziation stattgefunden hat.
 Die mangelnde Transportsicherheit von UDP macht dieses Vorgehen jedoch riskant, wenn das Paket verloren geht wird kein Bereichswechsel erkannt.
+Um wieder eine begrenzte Transportsicherheit zu erhalten kann entweder das UDP-Paket mehrfach versandt werden; auch ohne Reassoziation in einen festen, aber größeren Intervall gesendet werden oder statt eine UDP-Verbindung eine TCP-Verbindung verwenden.
+Somit ergeben sich neue Testszenarien: Ohne zusätzliche Sicherung, UDP-Paket mehrfach (dreifach) versenden, zusätzliches (30 beziehungsweise 60 Sekunden) Sendeintervall, TCP-Verbindung. \\
+Da der Verbrauch nun stark von der Anzahl der Reassoziationen abhängt sind im gegeben, stationären Testszenario keine aussagekräftigen Ergebnisse möglich.
+Dennoch sollen die Tests eine Ausgangswert ermitteln, dieser kann als untere Grenze für den Verbrauch einer Implementierung angesehen werden.
+Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchsärmer waren, wurden alle in Tabelle \ref{table:naiveoptconsumption} gezeigten Implementierungen mit ihr erstellt, der manuelle \texttt{light\_sleep} ist immer aktiv.
 
+\begin{table}[h]
+	\centering
+	\caption{Energieverbrauch der verbesserten Bereichsortungs-Tags}
+	\label{table:naiveoptconsumption}
+	\begin{tabular}{p{3.5cm}|p{1.7cm}|p{2.5cm}|p{2.5cm}}
+		Transportsicherung & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		\hline
+		Ohne & 5 & ? & ? \\
+		Dreifach UDP & 5 & ? & ? \\
+		Zusatzintervall 30s & 5 & ? & ? \\
+		Zusatzintervall 60s & 5 & ? & ? \\
+		TCP & 5 & ? & ? \\
+	\end{tabular}
+\end{table}
+
+Tests unter realen Bedingungen sind in Abschnitt \ref{kommtnoch} zu finden, dort wird xyz getestet.
+
+[Mehr noch zur Tabelle]
 
