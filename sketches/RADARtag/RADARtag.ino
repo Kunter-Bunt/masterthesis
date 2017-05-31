@@ -41,11 +41,11 @@ void setup() {
 void loop() {
     Udp.beginPacket(host, port);
     
-    String str = "5c:cf:7f:c6:a0:f1 ";// + String(WiFi.gatewayIP()[0]) + "." + String(WiFi.gatewayIP()[1]) + "." + String(WiFi.gatewayIP()[2]) + "." + String(WiFi.gatewayIP()[3]);// + " " + String(WiFi.RSSI());
+    String str = "5c:cf:";//7f:c6:a0:f1 " + String(WiFi.gatewayIP()[0]) + "." + String(WiFi.gatewayIP()[1]) + "." + String(WiFi.gatewayIP()[2]) + "." + String(WiFi.gatewayIP()[3]);// + " " + String(WiFi.RSSI());
     Udp.write(str.c_str(), str.length()); 
     
     Udp.endPacket();
-    wifi_set_sleep_type(LIGHT_SLEEP_T);
+    //wifi_set_sleep_type(LIGHT_SLEEP_T);
     delay(5000);
 }
 
