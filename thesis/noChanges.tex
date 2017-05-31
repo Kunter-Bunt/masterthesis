@@ -245,6 +245,7 @@ Ein beispielhafter $1400\ mAh$ Lithium-Polymer Akku liefert folglich $1400\ mAh 
 Die Laufzeit beträgt dann $5180\ mWh/95\ mW \approx 54,53\ h$, also etwas mehr als 2,25 Tage.
 
 \section{Anpassungen für Bereichsortung}
+\label{ch:phase1:sec:anpassungbereich}
 Bei WiFi-LLS wird der Scan durchgeführt um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP um das Tag einem Bereich zuzuordnen.
@@ -255,7 +256,7 @@ Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementi
 
 \begin{table}[h]
 	\centering
-	\caption{Energieverbrauch der Bereichsortungs-Tags}
+	\caption{Energieverbrauch der Bereichsortungstags}
 	\label{table:naiveconsumption}
 	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.7cm}|p{2.5cm}|p{2.5cm}}
 		SDK & manueller \texttt{light\_sleep} & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
@@ -279,7 +280,7 @@ Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchs
 
 \begin{table}[h]
 	\centering
-	\caption{Energieverbrauch der verbesserten Bereichsortungs-Tags}
+	\caption{Energieverbrauch der verbesserten Bereichsortungstags}
 	\label{table:naiveoptconsumption}
 	\begin{tabular}{p{3.5cm}|p{1.7cm}|p{2.5cm}|p{2.5cm}}
 		Transportsicherung & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
