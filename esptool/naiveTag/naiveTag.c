@@ -32,6 +32,8 @@ void send_UDP(void *arg) {
  		len = os_sprintf(buf, "%d.%d.%d.%d", IP2STR(&ip.gw.addr));
 		oldip = ip.gw.addr;
 		err = espconn_send(&sendResponse, buf, len);
+		err = espconn_send(&sendResponse, buf, len);
+		err = espconn_send(&sendResponse, buf, len);
 	}
 	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
