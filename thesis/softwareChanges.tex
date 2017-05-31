@@ -1,0 +1,11 @@
+\chapter{Phase 2 - Mit Softwareänderungen an den APs}
+\label{ch:phase2}
+Alle bisher betrachteten Lösungen arbeiteten mindestens auf Protokollebene 4 des OSI-Modells.
+Die Lösungen benutzten TCP oder UDP um ihre Position dem Ortungsserver mitzuteilen und mussten somit dem Netzwerk beitreten, da es sonst nicht möglich gewesen wäre mit dem Ortungsserver zu kommunizieren.\\
+Da nun die Software der Access Points veränderlich ist ergeben sich neue Freiheiten bezüglich der Kommunikation.
+Da die Zielsetzung in Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} jedoch die Einschränkung macht, dass ohne Authorisierung nicht mit dem Ortungsserver kommuniziert werden darf können die in Kapitel \ref{ch:phase1} vorgestellten Verfahren der indirekten Fernlokalisierung nicht von diesen Freiheiten Gebrauch machen.\\
+Stattdessen werden in diesem Kapitel Verfahren der direkten Fernloaklisierung betrachtet.
+Die Veränderbarkeit der Software des AP wird dazu genutzt auf diesem Messgrößen zu ermitteln und dann über eine Datenverbindung an den Ortungsserver übermittelt.
+Da für die APs keine Beschränkungen bezüglich des Energieverbrauchs vorliegen, kann die Verbindung zu Ortungsserver regulär auf Schicht 4 oder 5 aufgebaut werden, für die Kommunikation zwischen Tag und AP sollte jedoch auf niedrigere Protokollebenen ausgewichen werden, um den Energieverbrauch des Tags zu senken. \\
+
+
