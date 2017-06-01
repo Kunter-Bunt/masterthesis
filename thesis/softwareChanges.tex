@@ -68,7 +68,7 @@ Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Ener
 Ein RADAR Tag versendet alle 0,25s ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.
 Das Sendeintervall wurde so kurz gewählt, um spontane Schwankungen im RSSI durch mehrfache Messung zu glätten und sich bewegende Personen möglichst genau zu erfassen.
 Für eine Bereichsortung reicht ein wesentlich längeres Sendeintervall, es wird erneut ein Intervall von 5 Sekunden gewählt, in dem sich ein Mitarbeiter maximal $42\ m$ bewegt. 
-Tabelle \ref{radarconsumption} zeigt den gemessenen Verbrauch der Implementierung für RADAR Tags jeweils in Arduino und C, mit unterschiedlich langen Sendeintervallen und mit und ohne manuellen \texttt{light\_sleep}.
+Tabelle \ref{table:radarconsumption} zeigt den gemessenen Verbrauch der Implementierung für RADAR Tags jeweils in Arduino und C, mit unterschiedlich langen Sendeintervallen und mit und ohne manuellen \texttt{light\_sleep}.
 
 \begin{table}[h]
 	\centering
@@ -112,7 +112,8 @@ Um die Änderungen an der Software des AP jedoch gering zu halten wurde der Prob
 Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management} der für den in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen Scan Vorgang verwendet wird.
 Der Probe Request hat dabei den Vorteil, dass er bereits vom AP verarbeitet und mit einer Probe Response beantwortet wird. 
 Es wird also lediglich gefordert, dass der AP den Empfang des Probe Request im Zuge der Verarbeitung protokolliert. 
-Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsserver abrufbar gemacht werden. \\
+Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsserver abrufbar gemacht werden. 
+Manche kommerzielle APs bieten sein solches Protokoll für Probe Requests und Beacons im Zuge eine \textit{Rouge Client/AP Detection} an \cite{lancom2017rouge}.\\
 Die ESP Open SDK bietet über die Operationen wie Scan und Join hinaus mit \texttt{wifi\_send\_pkt\_freedom} eine Funktion zum Senden von Paketen auf Schicht 2 an.
 Der ESP8266 Arduino Core implementiert diese Funktion nicht, stattdessen muss sie mit \texttt{extern \dq C\dq $\lbrace$\#include \dq user\_interface.h\dq $\rbrace$} importiert werden. \\
 \texttt{wifi\_send\_pkt\_freedom} setzt den PHY-Header selbst, der MAC-Header und Inhalt des Paketes muss über einen Puffer übergeben werden.
@@ -130,4 +131,27 @@ uint8_t packet[26] = {
 /*25*/ 	0x00, //Tag length
 }; 
 \end{verbatim}
-Ein gewöhnlicher Probe Request beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichenkeiten, wie etwa unterstützde Standards und Datenraten, da das Tag aber nicht tatsächlich beitreten will kanndarauf verzichtet werden. \\
+Ein gewöhnlicher Probe Request beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichenkeiten, wie etwa unterstützde Standards und Datenraten, da das Tag aber nicht tatsächlich beitreten will kann darauf verzichtet werden. \\
+Da keine Verbindung mehr aufrecht erhalten werden muss können tiefere Schlafzustände eingenommen werden, statt des \texttt{light\_sleep} kann der \texttt{deep\_sleep} verwendet werden.
+Dieser schaltet den Chip und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird Pin 16 mit der negativen Seite der Stromquelle verbunden.
+Damit der Chip wieder aufwacht muss Pin 16 mit dem Reset Pin (RST) verbunden werden, da dies zu einem Reset führt initialisiert der Chip neu.
+Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass das Tag versuchen würde dem Netztwerk erneut beizutreten, hingegen kann bei einer Lösung auf Schicht 2 sofort gesendet und danach wieder geschlafen werden.\\
+Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementierungen jeweils mit mauell herbeigeührtem Schlafzustand, das Sendeintervall liegt bei konstant 5 Sekunden.
+\begin{table}[h]
+	\centering
+	\caption{Energieverbrauch Probe Request Tags}
+	\label{table:probeconsumption}
+	\begin{tabular}{p{3cm}|p{2.2cm}|p{2cm}|p{2cm}|p{2cm}}
+		SDK & Schlafzustand  & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		\hline
+		Arduino Core & light\_sleep & 5 & ? & ? \\
+		Arduino Core & deep\_sleep & 5 & ? & ? \\
+		ESP Open SDK & light\_sleep & 5 & ? & ? \\
+		ESP Open SDK & deep\_sleep & 5 & 0,8 & 4 \\
+	\end{tabular}
+\end{table}
+
+[Hier noch mehr zur Tabelle]
+
+Für den $1400\ mAh$ Akku ergibt sich eine Laufzeit von $5180\ mWh/4\ mW \approx 1295\ h$ für die Implementierung in C mit \texttt{deep\_sleep}.
+Dies entspricht einer Laufzeit von fast 54 Tagen.

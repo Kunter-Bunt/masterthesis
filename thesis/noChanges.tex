@@ -16,7 +16,7 @@ Zunächst werden vorherige Arbeiten behandelt, es werden sowohl wissenschaftlich
 
 \subsection{WiFi-LLS}
 \label{ch:Vorherige:sec:LLS}
-Chen et al. stellen mit dem WiFi-based Local Location System (WiFi-LLS) ein System zur indirekten Fernlokalisierung vor \ref{chen2007design}.
+Chen et al. stellen mit dem WiFi-based Local Location System (WiFi-LLS) ein System zur indirekten Fernlokalisierung vor \cite{chen2007design}.
 Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. \\
 Für die Ortung wird zunächst der RSSI von Paketen naher APs gemssen und zusammen mit der MAC-Adresse der mobilen Einheit in ein Paket gepackt und versenden es an den Ortungsserver.
 Anschließend wird auf dem Ortungsserver ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1m$ zur Bestimmung der Position der mobilen Einheit verwendet. 
@@ -67,7 +67,7 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
 
 \section{Grundlagen der 802.11 Spezifikation}
 \label{ch:phase1:sec:grundlagen}
-802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen.
+802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen \cite{ieee2012macphy}.
 Die Spezifikation beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass sich mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
 Wird ein solches Netzwerk in ein Local Area Network (LAN) eingebunden spricht man üblicherweise vom Wireless Local Area Network (WLAN).
 Die 1997 erstmals verabschiedete Spezifikation wurde häufig erweitert und wird in ihrer ursprünglichen Form praktisch nicht mehr angewendet, da die Datenraten zu gering sind.
@@ -80,7 +80,7 @@ Tritt trotzdem eine Kollision auf, versucht der Sender es erneut mit einem läng
 
 \subsection{Scan}
 \label{ch:phase1:sec:scan}
-Scan ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) aktiv oder passiv ausgeführt werden.
+Scan ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) aktiv oder passiv ausgeführt werden \cite{ieee2012scan}.
 Bei einem passiven Scan empfängt die Station und filtert die von Access Points regelmäßig gesendeten Beacon Frames heraus, diese gelten dann als entdeckt.
 Ein Beacon Frame ist ein Management Frame, der dazu gedacht ist, technische Möglichkeiten des APs zu bewerben, zum Beispiel die möglichen Datenraten und Zeitstempel zur Synchronisierung.
 Versteckte APs senden keine Beacon Frames. \\
@@ -94,7 +94,7 @@ Ein Management Frame wird durch die Typenbits markiert und durch die Bits für d
 
 \begin{table}[h]
 	\centering
-	\caption{Management Frames nach 802.11}
+	\caption{Management Frames nach 802.11 \cite{ieee2012management}}
 	\label{table:management}
 	\begin{tabular}{l|l|l}
 		Type & Subtype & Beschreibung \\
@@ -119,17 +119,17 @@ Ein Management Frame wird durch die Typenbits markiert und durch die Bits für d
 \end{table}
 
 \subsection{Join}
-Aus den entdeckten APs kann nun einer ausgewählt werden um seinem Netzwerk (BSS) beizutreten.
+Aus den entdeckten APs kann nun einer ausgewählt werden um seinem Netzwerk (BSS) beizutreten \cite{ieee2012join}.
 Es kann zwar geschehen, dass mehrere APs eines Netzwerks entdeckt wurden, eine Statíon kann jedoch zu jedem Zeitpunkt nur mit einem AP assoziert sein. \\
-Um einem Netzwerk beizutreten muss sich die Station zunächst authentifizieren, dieser Vorgang wird über einen Authentication Frame (siehe Tabelle \ref{table:management}) initiiert. 
+Um einem Netzwerk beizutreten muss sich die Station zunächst authentifizieren, dieser Vorgang wird über einen Authentication Frame (siehe Tabelle \ref{table:management}) initiiert \cite{ieee2012auth}. 
 Das weitere Vorgehen hängt vom Authentifizierungsverfahren ab, zum Beispiel kann der AP einen Challange Text an die Station senden, die mit  einem, aus dem Passwort erzeugten, Schlüssel entschlüsselt wird und an den AP zurück gesendet werden kann. 
 Ist die Antwort korrekt bestätigt der AP den Vorgang mit einem Acknowledgement und eventuell zusätzlichen Informationen für eine Verschlüsselung. \\
-Anschließend kann die Station mit dem AP assoziiert werden. 
+Anschließend kann die Station mit dem AP assoziiert werden \cite{ieee2012associate}. 
 Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die Station zuständig ist, dies geschiet  üblicherweise über das Address Resolution Protokoll (ARP). \\
 Ist eine Station assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen um eine Webseite anzufordern.
 
 \subsection{Reassociation}
-Eine Reassociation wird durchgeführt wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet.
+Eine Reassociation wird durchgeführt wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
 Um diesen neuen AP zu entdecken muss zunächst ein Scan durchgeführt werden. \\
 Anschließend sendet die Station einen Reassociation Request an den neuen AP, im Reassociation Request wird der alte AP benannt, so dass der neue AP überprüfen kann, ob die Station tatsächlich mit ihm assoziert ist, gepufferte Pakete von ihm entgegennehmen und die Assoziation mit ihm auflösen kann.
 Der Kommunikationsvorgang zwischen den APs wird auch als Handoff bezeichnet, wird dieser erfolgreich abgeschlossen antwortet der neue AP der Station mit einer Reassiziation Response.
@@ -168,13 +168,13 @@ Das Adafruit Feather Huzzah mit ESP12-S ist in Abb. \ref{fig:espmodules} links a
 
 
 \subsection{ESP8266 Arduino Core}
-Eine einfache Möglichkeit den ESP8266 zu programmieren stellt die bekannte Arduino IDE dar.\\
-Unter Windows muss zunächst der Treiber für den \textit{CP2104 USB-to-Serial Chip} installiert werden, auf Linux und Mac entfält dieser Schritt.
+Eine einfache Möglichkeit den ESP8266 zu programmieren stellt die bekannte Arduino IDE dar \cite{banzi2017arduino}.\\
+Unter Windows muss zunächst der Treiber für den \textit{CP2104 USB-to-Serial Chip} installiert werden, auf Linux und Mac entfält dieser Schritt \cite{fried2017feather}.
 Nach der Installation der Arduino IDE muss dort in den Einstellungen unter \textit{Additional Boards Manager URLs} die URL \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json} hinzugefügt werden.  
 Nach einem Neustart der IDE kann im \textit{Boards Manager} das Paket für den ESP8266 heruntergeladen werden und anschließend das Board \textit{Adafruit HUZZAH ESP8266} ausgewählt werden. \\
 Ist das Board über USB mit dem Computer verbunden kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit HUZZAH ESP8266} mit STRG+U auf den Chip geladen werden. 
 Dieser Vorgang wird im Folgenden als flashen bezeichnet. \\
-Der ESP8266 Arduino Core wird als Open Source Projekt gepflegt und setzt die ESP Open SDK auf einen, für die Arduino IDE üblichen Stil um. 
+Der ESP8266 Arduino Core wird als Open Source Projekt gepflegt und setzt die ESP Open SDK auf einen, für die Arduino IDE üblichen Stil um \cite{arduino2017core}. 
 Dabei wird möglichst die Kompatibilität zu Arduino gewahrt, das führt oft dazu, dass bereitgestellte Funktionen der SDK nicht in Arduino umgesetzt wurden.
 Sollten die Funktionen dennoch benötigt werden können die Header-Dateien der SDK direkt importiert werden:
 
@@ -186,9 +186,11 @@ Sollten die Funktionen dennoch benötigt werden können die Header-Dateien der S
 extern "C" {#include "user_interface.h"} 
 \end{verbatim}
 
+Der ESP8266 Arduino Core wurde in der Version 2.3.0 verwendet.
+
 \subsection{ESP Open SDK}
-Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden. \\
-Dazu muss zunächst das Github Projekt geklont werden: git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git und anschließend mit \texttt{make} kompiliert werden.
+Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden \cite{esp2017open}. \\
+Dazu muss zunächst das Github Projekt geklont werden: \texttt{git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git} und anschließend mit \texttt{make} kompiliert werden.
 Wurde die Kompilierung erfolgreich abgeschlossen sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden. \\
 Die in C geschriebenen Programme können nun mit einem modifizierten GCC-Kompiler kompiliert und anschließend mit dem esptool.py zunächst in ein Image umgewandelt und dann geflasht werden. 
 Das in \textit{examples} enthaltene \textit{blinky} Beispiel beinhaltet neben dem Beispielcode eine Makefile, in der diese Schritte nachvollzogen werden können, mit \texttt{make flash} wird das Beispiel kompiliert und geflasht. \\
@@ -196,12 +198,13 @@ Programme werden in regulärem C unter Zuhilfenahme der in \texttt{/sdk/include}
 Dies betrifft vor allem direkten Speicherzugriff wie zum Beispiel \texttt{memcpy}, hier muss stattdessen \texttt{os\_memcpy} verwendet werden.
 Alle betroffenen Funktionen sind in \texttt{osapi.h} beschrieben. \\
 Einige frühe Experimente zeigten, dass Programme, die mit der ESP Open SDK geschrieben wurden auf dem Chip schneller starten als solche, die mit dem ESP8266 Arduino Core geschrieben wurden.
-Diese Andeutung von Ineffizienzen bei der Übersetzung von Arduino Code wurde zum Anlass genommen, für die nachfolgenden Implementierungen nach der Fertigstellung des Prototypen in Arduino ebenfalls eine Implementierung in C hinzuzufügen, um ein energetisch optimales Programm zu erhalten.
+Diese Andeutung von Ineffizienzen bei der Übersetzung von Arduino Code wurde zum Anlass genommen, für die nachfolgenden Implementierungen nach der Fertigstellung des Prototypen in Arduino ebenfalls eine Implementierung in C hinzuzufügen, um ein energetisch optimales Programm zu erhalten. \\
+Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 
 
 
 \section{WiFi-LSS Implementierung}
-Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsserver.
+Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsserver \cite{chen2007design}.
 Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt werden für die Referenzimplementierung eines WiFi-LLS-Tags die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermitttelt. 
 Damit wird der overhead einer TCP-Verbindung vermieden.\\
 Zunächst muss sich das Tag dem Netzwerk beitreten (Join) und anschließend einen Scan ausführen und ein UDP-Paket versenden.
