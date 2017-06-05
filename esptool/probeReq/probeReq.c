@@ -3,7 +3,7 @@
 #include "user_interface.h" //wifi_send_pkt_freedom
 
 // ProbeRequest Packet buffer - shortest possible version (sender sided)
-uint8_t packet[128] = { 
+uint8_t packet[26] = { 
 				/*0*/ 	0x40, //Version (2bit), Type (2bit), Subtype(4bit)
 				/*1*/ 	0x00, //Flags 
 				/*2*/ 	0x00, 0x00, //Duration
