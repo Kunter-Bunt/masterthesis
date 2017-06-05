@@ -5,6 +5,7 @@
 	
 struct espconn sendResponse;
 esp_udp udp;
+
 sint8 err;
 struct ip_info ip;
 static volatile os_timer_t connect_timer, build_timer, send_timer;
