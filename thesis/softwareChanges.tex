@@ -146,11 +146,13 @@ Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementier
 	\caption{Energieverbrauch Probe Request Tags}
 	\label{table:probeconsumption}
 	\begin{tabular}{p{3cm}|p{2.4cm}|p{2cm}|p{2cm}|p{2cm}}
-		SDK & Schlafzustand  & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		SDK & manueller Schlafzustand  & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
 		\hline
-		Arduino Core & light\_sleep & 5 & ? & ? \\
-		Arduino Core & deep\_sleep & 5 & ? & ? \\
-		ESP Open SDK & light\_sleep & 5 & ? & ? \\
+		Arduino Core & Ohne & 5 & 40,5 & 202,5 \\
+		Arduino Core & light\_sleep & 5 & 5 & 25 \\
+		Arduino Core & deep\_sleep & 5 & 4,25 & 21,25 \\
+		ESP Open SDK & Ohne & 5 & 8,33 & 41,66 \\
+		ESP Open SDK & light\_sleep & 5 & 3 & 15 \\
 		ESP Open SDK & deep\_sleep & 5 & 0,8 & 4 \\
 	\end{tabular}
 \end{table}
