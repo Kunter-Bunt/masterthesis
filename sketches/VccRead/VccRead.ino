@@ -17,6 +17,7 @@ void setup() {
 void loop() {
   //what comes from battery
   bat = analogRead(A0);
+  
   //level = map(level, 580, 774, 0, 100);
   //Serial.print("Battery level: "); Serial.print(level); Serial.println("%");
   Serial.println(bat);
@@ -25,6 +26,8 @@ void loop() {
   vdd = ESP.getVcc();
   Serial.println(vdd);
   */
+
+  if(digitalRead(12) == HIGH) Serial.println("HIGH");
   
   delay(1000);
 }

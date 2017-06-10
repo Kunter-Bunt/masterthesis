@@ -47,7 +47,6 @@ user_tcp_connect_cb(void *arg)
 
 	espconn_set_opt(pespconn, ESPCONN_KEEPALIVE); // enable TCP keep alive
 
-	//set keepalive: 75s = 60 + 5*3 
 	keeplive = 1800; 
 	espconn_set_keepalive(pespconn, ESPCONN_KEEPIDLE, &keeplive); 
 	keeplive = 5; 
