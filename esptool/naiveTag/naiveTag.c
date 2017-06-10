@@ -6,10 +6,9 @@
 struct espconn sendResponse;
 esp_udp udp;
 
-sint8 err;
 struct ip_info ip;
 static volatile os_timer_t connect_timer, build_timer, send_timer;
-int len, count;
+uint8 len;
 char buf[17];
 uint32 oldip;
 
@@ -24,23 +23,22 @@ void build(void *arg) {
 	sendResponse.proto.udp = &udp;
 	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 0, 150);
 	sendResponse.proto.udp->remote_port = 8080; // Remote port
-	err = espconn_create(&sendResponse);
+	espconn_create(&sendResponse);
 }
 
 void send_UDP(void *arg) {
- 	wifi_get_ip_info(STATION_IF, &ip);
- 	count++;
- 	if (ip.gw.addr != oldip || count > 11) {
+ 	wifi_get_ip_info(STATION_IF, &ip);	
+ 	if (ip.gw.addr != oldip) {
  		len = os_sprintf(buf, "%d.%d.%d.%d", IP2STR(&ip.gw.addr));
 		oldip = ip.gw.addr;
-		count = 0;
-		err = espconn_send(&sendResponse, buf, len);
+		espconn_send(&sendResponse, buf, len);
 	}
 	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void initDone() {
-	wifi_set_opmode_current(STATION_MODE);
+	//wifi_set_opmode_current(STATION_MODE);
+	//if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
 	struct station_config stationConfig;
 	strncpy(stationConfig.ssid, "Lothlorien", 32);
 	strncpy(stationConfig.password, "JarJarBinks&R2D2", 64);
