@@ -138,7 +138,7 @@ uint8_t packet[26] = {
 Ein gewöhnlicher Probe Request beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichenkeiten, wie etwa unterstützte Standards und Datenraten, da das Tag aber nicht tatsächlich beitreten will kann darauf verzichtet werden. \\
 Da keine Verbindung mehr aufrecht erhalten werden muss können tiefere Schlafzustände eingenommen werden, statt des \texttt{light\_sleep} kann der \texttt{deep\_sleep} verwendet werden.
 Dieser schaltet den ESP und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird Pin 16 mit der negativen Seite der Stromquelle verbunden.
-Damit der ESP wieder aufwacht muss Pin 16 mit dem Reset Pin (RST) verbunden werden, da dies zu einem Reset führt initialisiert der ESP neu.
+Damit der ESP wieder aufwacht muss Pin 16 mit dem Reset Pin (RST) verbunden werden, bei einem Reset initialisiert der ESP neu.
 Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass das Tag versucht dem Netztwerk erneut beizutreten, hingegen kann bei einer Lösung auf Schicht 2 sofort gesendet und danach wieder geschlafen werden.\\
 Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementierungen jeweils mit mauell herbeigeührtem Schlafzustand, das Sendeintervall liegt bei konstant 5 Sekunden.
 \begin{table}[h]
@@ -157,7 +157,11 @@ Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementier
 	\end{tabular}
 \end{table}
 
-[Hier noch mehr zur Tabelle]
-
+Zu erkennen ist, dass die Verwendung des \texttt{deep\_sleep} zu einem geringeren Verbrauch führt. 
+Allerdings benötigt das mit dem Arduino Core programmierte Tag deutlich im Vergleich zu dem mit der ESP Open SDK programmierten Tag deutlich länger zum Starten.
+Es verbraucht deshalb sogar mehr Energie als die Bereichsortungstags aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Energie als diese.
 Für den $1400\ mAh$ Akku ergibt sich eine Laufzeit von $5180\ mWh/4\ mW \approx 1295\ h$ für die Implementierung in C mit \texttt{deep\_sleep}.
 Dies entspricht einer Laufzeit von fast 54 Tagen.
+Hinzu kommt, dass sich der Verbrauch dieser Tags nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
+Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten 6 Monate Laufzeit zu erreichen werden in Abschnitt \ref{kommtnoch} weitere Verbesserungen besprochen.
+

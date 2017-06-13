@@ -254,8 +254,8 @@ Die Laufzeit beträgt dann $5180\ mWh/95\ mW \approx 54,53\ h$, also etwas mehr 
 Bei WiFi-LLS wird der Scan durchgeführt um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP um das Tag einem Bereich zuzuordnen.
-Da dem Tag, welches im Sinne der 802.11 Spezifikation als Station arbeitet, die Adresse seines Netztzugangs (Gateway) bekannt sein muss, ist ihm die IP-Adresse des AP bekannt mit dem er assoziiert ist.
-Diese Information wird nun als String kodiert und per UDP an den Ortungsserver versendet.\\
+Da dem Tag, welches im Sinne der 802.11 Spezifikation als Station arbeitet, die IP-Adresse seines Netztzugangs (Gateway) bekannt sein muss, diese Information kann dann als Ortungsinformation verwendet werden.
+Die IP-Adresse wird nun zusammen mit der eigenen MAC-Adresse als Identifikator als String kodiert und per UDP an den Ortungsserver versendet.\\
 Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep}.
 
 \begin{table}[h]
@@ -298,7 +298,12 @@ Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchs
 	\end{tabular}
 \end{table}
 
-Tests unter realen Bedingungen sind in Abschnitt \ref{kommtnoch} zu finden, dort wird xyz getestet.
+Der Energieverbrauch sinkt durch das Einsparen von Sendevorgänge deutlich.
+Für das Tag, das eine TCP-Verbindung öffnet, dem Ortungsserver seine Assoziation mitteilt und die Verbindung dann wieder schließt, ergibt sich für den angenommenen $5180\ mWh$ Lithium-Polymer Akku eine Laufzeit von $5180\ mWh/5,35\ mW \approx 968,22\ h$. 
+Dies entspricht gut 40 Tagen mit einer Akkuladung, diese werden jedoch in einem Szenario ohne Reassoziation erreicht.
+Die tatsächliche Laufzeit muss unter realen Umständen gemessen werden, siehe dazu Abschnitt \ref{kommtnoch}.
+Da die zusätzlichen Reassoziationen jedoch auch die vorherigen Implementierungen betreffen kann man schließen, dass Tags für die Bereichsortung durch die Ausnutzung von Assoziation und Reassoziation einen erheblich reduzierten Energieverbrauch gegenüber herkömmlichen Tags für die Trilateration aufweisen.
 
-[Mehr noch zur Tabelle]
+
+
 
