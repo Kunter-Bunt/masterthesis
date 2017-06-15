@@ -2,8 +2,8 @@
 \label{ch:phase1}
 In einem ersten Schritt sollten laut Aufgabenstellung keine Veränderungen an den Access Points vorgenommen werden können.
 Weil die Ortung deshalb auf WLAN basieren muss sind die Knoten im Folgenden immer APs. 
-Ein Tag ist eine mobile Einheit, umgekehrt gilt dies jedoch nicht, da auch alle anderen WLAN-fähigen Geräte, wie Smartphones und Laptops, eine mobile Einheit sein kommen. \\
-Die Unveränderlichkeit bedeutet insbesondere auch, dass keine Messwerte verwendet werden können, die direkt am AP gemessen werden müssen und nicht als Teil der 802.11 in das dahinterliegende Netzwerk weitergeleitet werden.
+%TODO Ein Tag ist eine mobile Einheit, umgekehrt gilt dies jedoch nicht, da auch alle anderen WLAN-fähigen Geräte, wie Smartphones und Laptops, eine mobile Einheit sein können. \\
+Die Unveränderlichkeit bedeutet insbesondere auch, dass keine Messwerte verwendet werden können, die direkt am AP gemessen werden und nicht als Teil der 802.11 Spezifikation in das dahinterliegende Netzwerk weitergeleitet werden.
 Da time of arrival Synchronisation und präzise Timer bei den APs vorraussetzt und time difference of arrival nur von den APs gemessen werden kann, eignen sich diese Messgrößen nicht für diese Aufgabenstellung.
 Received signal strength und roundtrip time of flight können auf der mobilen Einheit gemessen werden, nicht jedoch an den APs, da die in der PHY- beziehungsweise MAC-Schicht gemessenen Werte nicht an weitere Empfänger im Netzwerk propagiert werden. 
 Somit scheidet die direkte Fernlokalisierung mangels Messgrößen aus, es wird stattdessen eine indirekte Fernlokalisierung durchgeführt bei der die mobile Einheit eine Selbstlokalisierung durchführt und das Ergebnis dem Ortungsserver über eine Datenverbindung mitteilt.
@@ -17,18 +17,19 @@ Zunächst werden vorherige Arbeiten behandelt, es werden sowohl wissenschaftlich
 \subsection{WiFi-LLS}
 \label{ch:Vorherige:sec:LLS}
 Chen et al. stellen mit dem WiFi-based Local Location System (WiFi-LLS) ein System zur indirekten Fernlokalisierung vor \cite{chen2007design}.
-Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. \\
-Für die Ortung wird zunächst der RSSI von Paketen naher APs gemessen und zusammen mit der MAC-Adresse der mobilen Einheit in ein Paket gepackt und an den Ortungsserver versendet.
-Anschließend wird auf dem Ortungsserver ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1m$ zur Bestimmung der Position der mobilen Einheit verwendet. \\
+Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt. 
+Diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. \\
+Für die Ortung wird zunächst der RSSI von Paketen naher Access Points gemessen und zusammen mit der MAC-Adresse der mobilen Einheit in ein Paket gepackt und an den Ortungsserver versendet.
+Anschließend wird auf dem Ortungsserver ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1$m zur Bestimmung der Position der mobilen Einheit verwendet. \\
 $P(d_0)$, der Pfadverlustexponent $n$ und der Hindernisdämpfungsfaktor $OAF$ müssen bestimmt werden, jedoch lassen sich $P(d_0)$ und $n$ auf einer einzelnen Teststrecke mit unterschiedlichen Abständen von AP und mobiler Einheit bestimmen. $OAF$ kann sogar für einen Gebäudetyp einmalig bestimmt werden.
 Dadurch hat das Modell einen konstanten Aufwand. 
 Dies ist für Baustellen interessant, da sich diese Werte einmalig messen und dann sogar über mehrere gleichartige Baustellen übertragen ließen.\\
 In dieser Veröffentlichung steht die Ortungsgenauigkeit im Vordergrund und es werden keine Angaben zum Energieverbrauch gemacht. 
-Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen Scan (siehe Abschnitt \ref{ch:phase1:sec:scan}) durchführt, dann werden die Signalstärken entdeckten APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsserver versendet.
+Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen Scan (siehe Abschnitt \ref{ch:phase1:sec:scan}) durchführt, dann werden die Signalstärken entdeckter APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsserver versendet.
 
 \subsection{AiRISTA Flow RTLS}
-Ekahau bietet unter der Marke \textit{AiRISTA Flow RTLS} eine, zu WiFi-LLS ähnliche, Lösung kommerziell an \cite{airista2017airista}.
-Ihr Ekahau B4 Badge Tag ermittelt regelmäßig den RSSI zu nahegelegenen Access Points und versendet diese an einen Ortungsserver \cite{liu2007survey}.
+Ekahau bietet unter der Marke \textit{AiRISTA Flow RTLS} eine zu WiFi-LLS ähnliche Lösung kommerziell an \cite{airista2017airista}.
+Ihr Ekahau B4 Badge Tag ermittelt regelmäßig den RSSI zu nahegelegenen APs und versendet diese an einen Ortungsserver \cite{liu2007survey}.
 Das Tag bietet darüber hinaus noch einige Zusatzfunktionen, so können über die Datenverbindung auch Nachrichten und Alarmierungen an das Tag gesendet werden und die drei angebrachten Knöpfe können programmiert werden.\\
 Bezüglich des Energieverbrauchs gibt sich das Informationsblatt des B4 Badge Tag vage: Das Tag soll abhängig vom Ortungsintervall wochenlang halten, danach muss der $600\ mA/h$ Akku geladen werden \cite{ekahau2017b4}.
 Das Informationsblatt zum Ekahau W4, welches statt um den Hals am Handgelenk getragen wird, gibt an, dass der verbaute $530\ mA/h$ Akku bei einem Ortungsintervall von 15 Sekunden 500 Stunden (ca. 21 Tage) hält \cite{ekahau2017w4}.\\
@@ -46,7 +47,7 @@ Eine Angabe zu dem verwendeten Typ, der Konfiguration oder der Kapazität des ve
 Prasithsangaree et al. stellen ein System zur Selbstlokalisierung vor \cite{prasithsangaree2002indoor}, es verwendet aber eine offline-Phase zum Sammeln von Fingerabdrücken für Positionen in einem Abstand von 1,5 beziehungsweise 3 Metern. 
 In diesen Fingerabdrücken werden die gemessenen RSSI der von den APs empfangenen Pakete als Merkmale zusammen mit der Position als Label gespeichert.
 In der anschließenden online-Phase werden die gemessenen RSSI mit den Fingerabdrücken verglichen und die Position als gewichtetes Mittel der Labels bestimmt. \\
-Die offline-Phase ist natürlich im Sinne der Aufgabenstellung nicht sinnvoll, da für eine Tunnelbreite von 10m 4000 beziehungsweise 2000 Messungen pro Kilometer vorgenommen werden müssten.
+Die offline-Phase ist natürlich im Sinne der Aufgabenstellung nicht sinnvoll, da für eine Tunnelbreite von im Schnitt zehn Metern 4000 beziehungsweise 2000 Messungen pro Kilometer vorgenommen werden müssten.
 Generell eignen sich Lösungen mit Szenenanalyse nicht gut für Baustellen, da diese nicht auf die potentiell höhere Genauigkeit angewiesen sind. 
 Üblicherweise müssen dort sehr große Flächen vermessen werden und die Veränderungen durch den Baufortschritt führen dazu, dass regelmäßig neu gemessen werden muss.
 Außerdem müssen bewegliche Störquellen wie Baumaschinen vorher aus dem Bereich entfernt werden, um unverfälschte Fingerabdrücke zu erhalten.
@@ -68,28 +69,31 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
 
 \section{Grundlagen der 802.11 Spezifikation}
 \label{ch:phase1:sec:grundlagen}
+%TODO Spezifikation in den ersten Satz bringen um es später weglassen zu können
 802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen \cite{ieee2012macphy}.
-Die Spezifikation beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass sich mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
+Die Spezifikation beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
 Wird ein solches Netzwerk in ein Local Area Network (LAN) eingebunden spricht man üblicherweise vom Wireless Local Area Network (WLAN).
 Die 1997 erstmals verabschiedete Spezifikation wurde häufig erweitert und wird in ihrer ursprünglichen Form praktisch nicht mehr angewendet, da die Datenraten zu gering sind.
-Die Erweiterungen werden mit Buchstaben benannt (zum Beispiel 802.11g) und verändern entwa die verwendete Frequenz und Modulationsverfahren.\\
+Die Erweiterungen werden mit Buchstaben benannt (zum Beispiel 802.11g) und verändern etwa die verwendete Frequenz und Modulationsverfahren.\\
 Zur Vermeidung von Kollisionen kommt Carrier Sense Multiple Access/Collision Avoidance (CSMA/CA) zum Einsatz.
 Bei CSMA/CA wird zunächst das Medium belauscht und gewartet bis keine Signale mehr auf dem Medium sind. 
 Dann muss ein Inter Frame Spacing (IFS) abgewartet werden, je nach Priorität ist dieses unterschiedlich lang (SIFS<PIFS<DIFS<EIFS), anschließend kann gesendet werden.
 Tritt trotzdem eine Kollision auf, versucht der Sender es erneut mit einem längeren IFS.\\
-802.11 spezifiziert ebenfalls mehrere Operationen, die beispielsweise zur Entdeckung von Ressourcen und der Authentifizierung an einer Ressource dienen, einige, für diese Arbeit wichtige Operationen werden im Folgenden beschrieben.
+802.11 spezifiziert ebenfalls mehrere Operationen, die beispielsweise zur Entdeckung von Ressourcen und der Authentifizierung an einer Ressource dienen, einige, für diese Arbeit wichtige, Operationen werden im Folgenden beschrieben.
 
 \subsection{Scan}
 \label{ch:phase1:sec:scan}
-Scan ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) aktiv oder passiv ausgeführt werden \cite{ieee2012scan}.
+Scan ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) passiv oder aktiv ausgeführt werden \cite{ieee2012scan}.
 Bei einem passiven Scan empfängt die Station und filtert die von Access Points regelmäßig gesendeten Beacons heraus, diese gelten dann als entdeckt.
-Ein Beacon Frame ist ein Management Frame, der dazu gedacht ist, technische Möglichkeiten des APs zu bewerben, zum Beispiel die möglichen Datenraten und Zeitstempel zur Synchronisierung.
+Ein Beacon ist ein Management Frame, der dazu gedacht ist, technische Möglichkeiten des APs zu bewerben, zum Beispiel die möglichen Datenraten und Zeitstempel zur Synchronisierung.
 Versteckte APs senden keine Beacons. \\
-Bei einem aktiven Scan sendet die Station einen Probe Request aus, dieser kann sowohl an alle APs (broadcast) als auch an einen speziellen AP adressiert sein.
-Ein Probe Requests bewirbt, ähnlich wie ein Beacon, die technischen Möglichkeiten der Station.
-Der addressierte AP, beziehungsweise im Falle des broadcasts alle APs, beantwortet den Probe Request mit einer Probe Response in der er mitteilt welche der beworbenen Funktionen er ebenfalls unterstützt, die Station schließt den Vorgang mit einem Acknowlegement ab. \\
-Das 2,4GHz ISM-Band wird in Europa in 13 je 10MHz breite Kanäle aufgeteilt, da ein AP immer nur auf einem Kanal aktiv ist müsste jeder Kanal gescannt werden.
-Praktisch werden jedoch breitere Kanäle verwendet, 802.11g verwendet beispielsweise 20MHz breite Kanäle, so dass effektiv nur die Kanäle 1, 5, 9 und 13 geprüft werden müssen. \\
+Bei einem aktiven Scan sendet die Station einen Probe Request aus, dieser kann sowohl an alle APs (Broadcast) als auch an einen speziellen AP adressiert sein.
+Ein Probe Request bewirbt, ähnlich wie ein Beacon, die technischen Möglichkeiten der Station.
+Der addressierte AP, beziehungsweise im Falle eines Broadcasts alle APs, beantwortet den Probe Request mit einer Probe Response, in der er mitteilt welche der beworbenen Funktionen er ebenfalls unterstützt. 
+Die Station schließt den Vorgang mit einem Acknowlegement ab. \\
+Das 2,4 GHz ISM-Band wird in Europa in 13 je 10 MHz breite Kanäle aufgeteilt, da ein AP immer nur auf einem Kanal aktiv ist, müsste jeder Kanal gescannt werden.
+Praktisch werden jedoch breitere Kanäle verwendet. 
+802.11g verwendet beispielsweise 20 MHz breite Kanäle, sodass effektiv nur die Kanäle 1, 5, 9 und 13 geprüft werden müssen. \\
 Tabelle \ref{table:management} listet alle in der 802.11 Spezifikation gelisteten Management Frames.
 Ein Management Frame wird durch die Typenbits markiert und durch die Bits für den Subtypen weiter unterschieden.
 
@@ -120,20 +124,24 @@ Ein Management Frame wird durch die Typenbits markiert und durch die Bits für d
 \end{table}
 
 \subsection{Join}
-Aus den entdeckten APs kann nun einer ausgewählt werden um seinem Netzwerk (BSS) beizutreten \cite{ieee2012join}.
-Es kann zwar geschehen, dass mehrere APs eines Netzwerks entdeckt wurden, eine Statíon kann jedoch zu jedem Zeitpunkt nur mit einem AP assoziert sein. \\
-Um einem Netzwerk beizutreten muss sich die Station zunächst authentifizieren, dieser Vorgang wird über einen Authentication Frame (siehe Tabelle \ref{table:management}) initiiert \cite{ieee2012auth}. 
+Aus den entdeckten APs kann nun einer ausgewählt werden, um seinem Netzwerk (BSS) beizutreten \cite{ieee2012join}.
+Es kann zwar geschehen, dass mehrere APs eines Netzwerks entdeckt wurden, eine Station kann jedoch zu jedem Zeitpunkt nur mit einem AP assoziert sein. \\
+Um einem Netzwerk beizutreten muss sich die Station zunächst authentifizieren. 
+Dieser Vorgang wird über einen Authentication Frame (siehe Tabelle \ref{table:management}) initiiert \cite{ieee2012auth}. 
 Das weitere Vorgehen hängt vom Authentifizierungsverfahren ab, zum Beispiel kann der AP einen verschlüsselten Challenge Text an die Station senden, der mit einem aus dem Passwort erzeugten Schlüssel entschlüsselt wird und an den AP zurück gesendet werden kann. 
-Ist die Antwort korrekt bestätigt der AP den Vorgang mit einem Acknowledgement und eventuell zusätzlichen Informationen für eine Stromchiffre. \\
+Ist die Antwort korrekt, bestätigt der AP den Vorgang mit einem Acknowledgement und eventuell zusätzlichen Informationen für eine Stromchiffre. \\
 Anschließend kann die Station mit dem AP assoziiert werden \cite{ieee2012associate}. 
-Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die Station zuständig ist, dies geschiet  üblicherweise über das Address Resolution Protokoll (ARP). [evtl IGMP?] \\
-Ist eine Station assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen um eine Webseite anzufordern.
+Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die Station zuständig ist. 
+Dies geschieht üblicherweise über das Address Resolution Protokoll (ARP). [evtl IGMP?] \\%TODO Kai fragen.
+Ist eine Station assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen, um eine Webseite anzufordern.
 
 \subsection{Reassociation}
-Eine Reassociation wird durchgeführt wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
+Eine Reassociation wird durchgeführt, wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
 Um diesen neuen AP zu entdecken muss zunächst ein Scan durchgeführt werden. \\
-Anschließend sendet die Station einen Reassociation Request an den neuen AP, im Reassociation Request wird der alte AP benannt, so dass der neue AP überprüfen kann, ob die Station tatsächlich mit ihm assoziert ist, gepufferte Pakete von ihm entgegennehmen und die Assoziation mit ihm auflösen kann.
-Der Kommunikationsvorgang zwischen den APs wird auch als Handoff bezeichnet, wird dieser erfolgreich abgeschlossen antwortet der neue AP der Station mit einer Reassiciation Response.
+Anschließend sendet die Station einen Reassociation Request an den neuen AP. 
+Im Reassociation Request wird der alte AP benannt, sodass der neue AP überprüfen kann, ob die Station tatsächlich mit ihm assoziert ist, gepufferte Pakete von ihm entgegennehmen und die Assoziation mit ihm auflösen kann.
+Der Kommunikationsvorgang zwischen den APs wird auch als Handoff bezeichnet. 
+Wird dieser erfolgreich abgeschlossen antwortet der neue AP der Station mit einer Reassiciation Response.
 Abschließend wird dem Netzwerk die neue Assoziation mittels ARP mitgeteilt.
 
 \begin{figure}[h]
