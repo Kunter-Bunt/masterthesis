@@ -153,12 +153,14 @@ Abschließend wird dem Netzwerk die neue Assoziation mittels ARP mitgeteilt.
 
 \section{ESP8266}
 Der ESP8266 soll als Hardware für das Tag eingesetzt werden, dabei handelt es sich um einen Microcontroller von Espressif.
-Der Esp8266 besitzt neben einer CPU eine 802.11b/g/n"-/e/i-fähige WLAN-Einheit und diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abb. \ref{fig:espblock}. \\
-Da der ESP8266 selbst weder über Flashspeicher, noch über eine Antenne verfügt wird er auf einem Modul mit diesen Komponenten verbaut, die in dieser Arbeit betrachteten Module sind das ESP12-S und das ESP12-F.
+Der ESP8266 besitzt neben einer CPU eine 802.11b/g/n"-/e/i-fähige WLAN-Einheit und beherrscht diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abb. \ref{fig:espblock}. \\
+Da der ESP8266 selbst weder über Flashspeicher, noch über eine Antenne verfügt wird er auf einem Modul mit diesen Komponenten verbaut. 
+Die in dieser Arbeit betrachteten Module sind das ESP12-S und das ESP12-F.
 Das neuere ESP12-F sollte eine höhere Reichweite bei der Funkübertragung entfalten, dies wird noch Gegenstand eines Experiments sein.
+%TODO Antennen markieren
 Abb. \ref{fig:espmodules} zeigt die beiden Module nebeneinander, die unterschiedlichen Antennenformen sind deutlich zu erkennen.\\
 Espressif gibt im Datenblatt auch Aufschluss über den Energieverbrauch des ESPs, siehe dazu Abb. \ref{fig:esppower}.
-Für die Prototypenentwicklung wird ein ESP12-S Modul auf einem Adafruit Feather Huzzah verwendet, dieses stellt mit dem CP2104 eine serielle Schnittstelle zum ESP her, reguliert die Spannung für das Modul auf 3,3V und bringt den 2mm Pinabstand des ESP12-S Moduls auf die für Breadboards üblichen 2,5mm.
+Für die Prototypenentwicklung wird ein ESP12-S Modul auf einem Adafruit Feather Huzzah verwendet, dieses stellt mit dem CP2104 eine serielle Verbindung zum ESP her, reguliert die Spannung für das Modul auf 3,3V und bringt den 2mm Pinabstand des ESP12-S Moduls auf die für Breadboards üblichen 2,5mm.
 Das Adafruit Feather Huzzah mit ESP12-S ist in Abb. \ref{fig:espmodules} links abgebildet.
 
 \begin{figure}[h]
@@ -181,11 +183,11 @@ Eine einfache Möglichkeit den ESP8266 zu programmieren stellt die bekannte Ardu
 Unter Windows muss zunächst der Treiber für den \textit{CP2104 USB-to-Serial Chip} installiert werden, auf Linux und Mac entfällt dieser Schritt \cite{fried2017feather}.
 Nach der Installation der Arduino IDE muss dort in den Einstellungen unter \textit{Additional Boards Manager URLs} die URL \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json} hinzugefügt werden.  
 Nach einem Neustart der IDE kann im \textit{Boards Manager} das Paket für den ESP8266 heruntergeladen werden und anschließend das Board \textit{Adafruit HUZZAH ESP8266} ausgewählt werden. \\
-Ist das Board über USB mit dem Computer verbunden kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit HUZZAH ESP8266} mit STRG+U auf den ESP geladen werden. 
+Ist das Board über USB mit dem Computer verbunden, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit HUZZAH ESP8266} mit STRG+U auf den ESP geladen werden. 
 Dieser Vorgang wird im Folgenden als flashen bezeichnet. \\
 Der ESP8266 Arduino Core wird als Open Source Projekt gepflegt und setzt die ESP Open SDK auf einen, für die Arduino IDE üblichen Stil um \cite{arduino2017core}. 
 Dabei wird möglichst die Kompatibilität zu Arduino gewahrt, das führt oft dazu, dass bereitgestellte Funktionen der SDK nicht in Arduino umgesetzt wurden.
-Sollten die Funktionen dennoch benötigt werden können die Header-Dateien der SDK direkt importiert werden:
+Sollten die Funktionen dennoch benötigt werden, können die Header-Dateien der SDK direkt importiert werden:
 
 \begin{verbatim}
 //Hier wird ein Header des ESP8266 Arduino Core importiert
@@ -200,13 +202,13 @@ Der ESP8266 Arduino Core wurde in der Version 2.3.0 verwendet.
 \subsection{ESP Open SDK}
 Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden \cite{esp2017open}. \\
 Dazu muss zunächst das Github Projekt geklont werden: \texttt{git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git} und anschließend mit \texttt{make} kompiliert werden.
-Wurde die Kompilierung erfolgreich abgeschlossen sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden. \\
+Wurde die Kompilierung erfolgreich abgeschlossen, sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden. \\
 Die in C geschriebenen Programme können nun mit einem modifizierten GCC-Kompiler kompiliert und anschließend mit dem esptool.py zunächst in ein Image umgewandelt und dann geflasht werden. 
 Das in \textit{examples} enthaltene \textit{blinky} Beispiel beinhaltet neben dem Beispielcode eine Makefile, in der diese Schritte nachvollzogen werden können, mit \texttt{make flash} wird das Beispiel kompiliert und geflasht. \\
 Programme werden in regulärem C unter Zuhilfenahme der in \texttt{/sdk/include} enthaltenen Header-Dateien geschrieben, zu beachten ist nur, dass einige Funktionen der \texttt{stdlib.h} nicht verwendet werden können.
 Dies betrifft vor allem direkten Speicherzugriff wie zum Beispiel \texttt{memcpy}, hier muss stattdessen \texttt{os\_memcpy} verwendet werden.
 Alle betroffenen Funktionen sind in \texttt{osapi.h} beschrieben. \\
-Einige frühe Experimente zeigten, dass Programme, die mit der ESP Open SDK geschrieben wurden auf dem ESP schneller starten als solche, die mit dem ESP8266 Arduino Core geschrieben wurden.
+Einige frühe Experimente zeigten, dass Programme, die mit der ESP Open SDK geschrieben wurden auf dem ESP schneller starten, als solche, die mit dem ESP8266 Arduino Core geschrieben wurden.
 Diese Andeutung von Ineffizienzen bei der Übersetzung von Arduino Code wurde zum Anlass genommen, für die nachfolgenden Implementierungen nach der Fertigstellung des Prototypen in Arduino ebenfalls eine Implementierung in C hinzuzufügen, um ein optimales Programm zu erhalten. \\
 Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 
@@ -214,26 +216,29 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 
 \section{WiFi-LSS Implementierung}
 Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsserver \cite{chen2007design}.
-Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt werden für die Referenzimplementierung eines WiFi-LLS-Tags die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermittelt. 
-Damit wird der overhead einer TCP-Verbindung vermieden.\\
-Zunächst muss sich das Tag dem Netzwerk beitreten (Join) und anschließend einen Scan ausführen und ein UDP-Paket versenden.
+Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung eines WiFi-LLS-Tags die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermittelt. 
+Damit wird der Overhead einer TCP-Verbindung vermieden.\\
+Zunächst muss das Tag dem Netzwerk beitreten (Join), einen Scan ausführen und ein UDP-Paket versenden.
 Da die Scan-Funktion des ESP8266 Arduino Core es nicht erlaubt den RSSI zu einem AP auszulesen muss \texttt{user\_interface.h} importiert und die Scan-Funktion der SDK direkt verwendet werden.
 Um den Energieverbrauch weiter zu reduzieren, soll der ESP möglichst viel Zeit in Energiesparzuständen verbringen.
 Der tiefste Schlafzustand, der dennoch eine Aufrechterhaltung der WLAN-Verbindung erlaubt ist der \texttt{light\_sleep}. 
 Er wird vom ESP automatisch aufgerufen, wenn er keine Aufgaben zu erledigen hat.
 Er kann aber auch manuell aufgerufen werden, beides wurde getestet.\\
-Einige Parameter können gewählt werden: Insbesondere die Intervallzeit bestimmt, wie oft der ESP aktiv ist und damit auch wie viel Energie er verbraucht.
-Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ km/h$ ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
+Einige Parameter können gewählt werden. 
+Die Intervallzeit bestimmt, wie oft der ESP aktiv ist und damit auch wie viel Energie er verbraucht.
+Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ $km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
 Die maximale Reichweite des ESP12-S beziehungsweise ESP12-F Moduls ist nicht bekannt und muss noch bestimmt werden, sie wird zwischen 50 und 100 Metern angenommen.
-Es wurde daher ein Intervall von 5 Sekunden gewählt, in dieser Zeit bewegt sich ein Mitarbeiter bei $30\ km/h$ ca. $42\ m$.\\
-Des Weiteren kann theoretisch die Zahl der gescannten Kanäle gewählt werden, da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen ist es aber sinnvoll diese über die 4 nichtüberlappenden Kanäle zu verteilen. 
-Eine Implementierung die nur einen Kanal scannt tritt deshalb nur außer Konkurenz an.\\
-Tabelle \ref{table:llsconsumption} zeigt den gemessen Energieverbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep} und eine Implementierung, die nur einen Channel scannt.
-Für die Tests wurde das Adafruit Feather Huzzah verwendet, es wurde mit $5\ V$ aus einer USB-Powerbank mit Energie versorgt, der Verbrauch wurde mit einem dazwischen geschalteten USB-Power-Meter gemessen.\\
-Die Werte wurden stationär in einer Mietwohnung in einem 5-stöckigen Wohnhaus und damit nicht unter realen Bedingungen aufgezeichnet.
+Es wurde daher ein Intervall von 5 Sekunden gewählt, in dieser Zeit bewegt sich ein Mitarbeiter bei 30 km/h ca. 42 Meter.\\
+Des Weiteren kann theoretisch die Zahl der gescannten Kanäle gewählt werden. 
+Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier nichtüberlappenden Kanäle zu verteilen. 
+Eine Implementierung, die nur einen Kanal scannt tritt deshalb nur außer Konkurenz an.\\
+Tabelle \ref{table:llsconsumption} zeigt den gemessenen Energieverbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep} und eine Implementierung, die nur einen Channel scannt.
+Für die Tests wurde das Adafruit Feather Huzzah verwendet, es wurde mit 5 Volt aus einer USB-Powerbank mit Energie versorgt, der Verbrauch wurde mit einem dazwischen geschalteten USB-Power-Meter gemessen.\\
+Die Werte wurden stationär in einer Mietwohnung in einem fünfstöckigen Wohnhaus und damit nicht unter realen Bedingungen aufgezeichnet.
 Unter realen Bedingungen finden durch die Bewegung des Mitarbeiters regelmäßig Reassizationen statt, im Gegenzug liefert ein Scan in einem Tunnel weniger Ergebnisse als in einem Wohnhaus.
-Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er beinhaltet jedoch nur noch die Implementierung in C mit manuellem \texttt{light\_sleep} und einem Scan auf allen 4 Kanälen.
+Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er beinhaltet jedoch nur noch die Implementierung in C mit manuellem \texttt{light\_sleep} und einem Scan auf allen vier Kanälen.
 
+%TODO Abstand Tabellenüberschrift
 \begin{table}[h]
 	\centering
 	\caption{Energieverbrauch WiFi-LLS-artiger Tags}
@@ -250,19 +255,19 @@ Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er
 	\end{tabular}
 \end{table}
 
-Die Tests zeigen, dass die Programmierung mit der ESP Open SDK einen Vorteil beim Energieverbrauch hat, dieser liegt bei ca $10\%$.
+Die Tests zeigen, dass die Programmierung mit der ESP Open SDK einen Vorteil beim Energieverbrauch hat, dieser liegt bei ca 10\%.
 Andererseits fällt auf, dass die Reduzierung der gescannten Channel eine signifikante Senkung des Energieverbrauchs nach sich zieht, die Scan-Funktion ist also der Hauptverbraucher.\\
 Um die finale Laufzeit zu bestimmen muss die Kapazität des Akkus bekannt sein.
-Ein Lithium-Polymer Akku hat eine Nennspannung von $3,7\ V$, seine Kapazität wird in $mAh$ angegeben. 
-Ein beispielhafter $1400\ mAh$ Lithium-Polymer Akku liefert folglich $1400\ mAh * 3,7\ V = 5180\ mWh$.
-Die Laufzeit beträgt dann $5180\ mWh/95\ mW \approx 54,53\ h$, also etwas mehr als 2,25 Tage.
+Ein Lithium-Polymer Akku hat eine Nennspannung von 3,7 Volt, seine Kapazität wird in mAh angegeben. 
+Ein beispielhafter 1400 mAh Lithium-Polymer Akku liefert folglich 1400 mAh * 3,7 V = 5180 mWh.
+Die Laufzeit beträgt dann 5180 mWh/95 mW $\approx$ 54,53 h, also etwas mehr als 2,25 Tage.
 
 \section{Anpassungen für Bereichsortung}
 \label{ch:phase1:sec:anpassungbereich}
-Bei WiFi-LLS wird der Scan durchgeführt um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
+Bei WiFi-LLS wird der Scan durchgeführt, um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
-Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP um das Tag einem Bereich zuzuordnen.
-Da dem Tag, welches im Sinne der 802.11 Spezifikation als Station arbeitet, die IP-Adresse seines Netztzugangs (Gateway) bekannt sein muss, diese Information kann dann als Ortungsinformation verwendet werden.
+Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP, um das Tag einem Bereich zuzuordnen.
+Da dem Tag, die IP-Adresse seines Netztzugangs (Gateway) bekannt sein muss, kann dies als Ortungsinformation verwendet werden.
 Die IP-Adresse wird nun zusammen mit der eigenen MAC-Adresse als Identifikator als String kodiert und per UDP an den Ortungsserver versendet.\\
 Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep}.
 
@@ -281,13 +286,13 @@ Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementi
 \end{table}
 
 Der Verbrauch liegt wie erwartet unter dem der WiFi-LLS Implementierung, sogar unter der Implementierung, die nur einen Kanal scannt.
-Wird der selbe $1400\ mAh$ beziehnungsweise $5180\ mWh$ Lithium-Polymer Akku angenommen liegt die Laufzeit diesmal  bei $5180\ mWh/27,5\ mW \approx 188,36\ h$, also bei fast 8 Tagen. \\
+Wird der selbe 1400 mAh beziehungsweise 5180 mWh Lithium-Polymer Akku angenommen, liegt die Laufzeit diesmal  bei 5180 mWh/27,5 mW $\approx$ 188,36 h, also bei fast 8 Tagen. \\
 Als weitere Optimierung könnte ein Tag nur dann senden, wenn eine Reassoziation stattgefunden hat.
 Die mangelnde Transportsicherheit von UDP macht dieses Vorgehen jedoch riskant, wenn das Paket verloren geht wird kein Bereichswechsel erkannt.
-Um wieder eine begrenzte Transportsicherheit zu erhalten kann entweder das UDP-Paket mehrfach versandt werden; auch ohne Reassoziation in einen festen, aber größeren Intervall gesendet werden oder statt eine UDP-Verbindung eine TCP-Verbindung verwendet werden.
-Somit ergeben sich neue Testszenarien: Ohne zusätzliche Sicherung, UDP-Paket mehrfach (dreifach) versenden, zusätzliches (30 beziehungsweise 60 Sekunden) Sendeintervall, TCP-Verbindung (offen halten oder nach dem senden schließen). \\
-Da der Verbrauch nun stark von der Anzahl der Reassoziationen abhängt sind im gegeben, stationären Testszenario keine aussagekräftigen Ergebnisse möglich.
-Dennoch sollen die Tests eine Ausgangswert ermitteln, dieser kann als untere Grenze für den Verbrauch einer Implementierung angesehen werden.
+Um wieder eine begrenzte Transportsicherheit zu erhalten, kann entweder das UDP-Paket mehrfach versendet werden; ohne Reassoziation in einen festen, aber größeren Intervall gesendet werden oder statt eine UDP-Verbindung eine TCP-Verbindung verwendet werden.
+Somit ergeben sich neue Testszenarien: Ohne zusätzliche Sicherung, UDP-Paket mehrfach (dreifach) versenden, zusätzliches (30 beziehungsweise 60 Sekunden) Sendeintervall, TCP-Verbindung (offen halten oder nach dem Senden schließen). \\
+Da der Verbrauch nun stark von der Anzahl der Reassoziationen abhängt sind im gegebenen, stationären Testszenario keine aussagekräftigen Ergebnisse möglich.
+Dennoch sollen die Tests einen Ausgangswert ermitteln, dieser kann als untere Grenze für den Verbrauch einer Implementierung angesehen werden.
 Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchsärmer waren, wurden alle in Tabelle \ref{table:naiveoptconsumption} gezeigten Implementierungen mit ihr erstellt, der manuelle \texttt{light\_sleep} ist immer aktiv.
 
 \begin{table}[h]

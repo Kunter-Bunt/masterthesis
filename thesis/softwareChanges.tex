@@ -1,12 +1,12 @@
 \chapter{Phase 2 - Mit Softwareänderungen an den APs}
 \label{ch:phase2}
-Alle bisher betrachteten Lösungen arbeiteten mindestens auf Protokollebene 4 des OSI-Modells.
-Die Lösungen benutzten TCP oder UDP um ihre Position dem Ortungsserver mitzuteilen und mussten somit dem Netzwerk beitreten, da es sonst nicht möglich gewesen wäre mit dem Ortungsserver zu kommunizieren.\\
+Alle bisher betrachteten Lösungen arbeiten mindestens auf Protokollebene vier des OSI-Modells.
+Die Lösungen benutzen TCP oder UDP, um ihre Position dem Ortungsserver mitzuteilen und müsseen somit dem Netzwerk beitreten, da es sonst nicht ist mit dem Ortungsserver zu kommunizieren.\\
 Da nun die Software der Access Points veränderbar ist, ergeben sich neue Freiheiten bezüglich der Kommunikation.
-Da die Zielsetzung in Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} jedoch die Einschränkung macht, dass ohne Authorisierung nicht mit dem Ortungsserver kommuniziert werden darf können die in Kapitel \ref{ch:phase1} vorgestellten Verfahren der indirekten Fernlokalisierung nicht von diesen Freiheiten Gebrauch machen.\\
+Weil die Zielsetzung in Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} jedoch die Einschränkung macht, dass ohne Authorisierung nicht mit dem Ortungsserver kommuniziert werden darf, können die in Kapitel \ref{ch:phase1} vorgestellten Verfahren der indirekten Fernlokalisierung nicht von diesen Freiheiten Gebrauch machen.\\
 Stattdessen werden in diesem Kapitel Verfahren der direkten Fernlokalisierung betrachtet.
-Die Veränderbarkeit der Software des AP wird dazu genutzt auf diesem Messgrößen zu ermitteln und dann über eine Datenverbindung an den Ortungsserver übermittelt.
-Da für die APs keine Beschränkungen bezüglich des Energieverbrauchs vorliegen, kann die Verbindung zu Ortungsserver regulär auf Schicht 4 oder 5 aufgebaut werden.
+Die Veränderbarkeit der Software des AP wird dazu genutzt auf diesem Messgrößen zu ermitteln und dann über eine Datenverbindung an den Ortungsserver zu übermitteln.
+Da für die APs keine Beschränkungen bezüglich des Energieverbrauchs vorliegen, kann die Verbindung zum Ortungsserver regulär auf Schicht vier oder fünf aufgebaut werden.
 Für die Kommunikation zwischen Tag und AP sollte jedoch auf niedrigere Protokollebenen ausgewichen werden, um den Energieverbrauch des Tags zu senken. \\
 
 \section{Vorherige Arbeiten}
@@ -18,35 +18,38 @@ Zunächst werden vorherige Arbeiten behandelt, sie wurden so ausgewählt, dass m
 \label{ch:Vorherige:sec:RADAR}
 Das RADAR System von Bahl et al. (Microsoft Research) hat als eins der ersten WLAN-basierten Ortungssysteme viel Aufmerksamkeit erfahren \cite{bahl2000radar}.
 Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. 
-Das RADAR System ist auf eine offline-Phase angewiesen in der empirisch ein Signalausbreitungsmodell aufgebaut wird, es handelt sich also um ein System mit Szenenanalyse.\\
+Das RADAR System ist auf eine offline-Phase angewiesen, in der empirisch ein Signalausbreitungsmodell aufgebaut wird. 
+Es handelt sich also um ein System mit Szenenanalyse.\\
 Die Verwendung einer offline-Phase ist im stark veränderlichen Baustellenumfeld nicht akzeptabel. 
 Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus. 
-Damit sich dies nicht im Modell wiederfindet müssten zunächst alle beweglichen Maschinen aus dem Bereich entfernt werden um anschließend in der online-Phase ihren Einfluss glätten zu können.
+Damit sich dies nicht im Modell wiederfindet, müssten zunächst alle beweglichen Maschinen aus dem Bereich entfernt werden, um anschließend in der online-Phase ihren Einfluss glätten zu können.
 Die offline-Phase ist deshalb wirtschaftlich gesehen nicht durchführbar und das empirisch ermittelte Signalausbreitungsmodell müsste durch ein theoretisches ersetzt werden, für eine grobkörnige Bereichsortung sollte dies jedoch ausreichend sein.\\
-Bei RADAR sendet die mobile Einheit 4 UDP-Pakete pro Sekunde aus, an den Knoten wird dann der RSSI gemessen.
-Die Autoren weisen jedoch darauf hin, dass sich dieser Vorgang leicht umkehren ließe um von einer Fernlokalisierung auf eine Selbstlokalisierung zu kommen.
+Bei RADAR sendet die mobile Einheit vier UDP-Pakete pro Sekunde aus, an den Knoten wird dann der RSSI gemessen.
+Die Autoren weisen jedoch darauf hin, dass sich dieser Vorgang leicht umkehren ließe, um von einer Fernlokalisierung auf eine Selbstlokalisierung zu kommen.
 Bezüglich des Energieverbrauchs äußern sie sich jedoch zu keiner der beiden Varianten.\\
-Die Position wird anschließend bestimmt indem aus den in der offline-Phase aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird, dies wird im \textit{nearest neighbour in signal space (NNSS)} Algorithmus beschrieben.
-Für die Ortung wird mehrfach gemessen und dann gemittelt um im Median eine Genauigkeit von unter 3 Metern zu erhalten. 
+Die Position wird anschließend bestimmt, indem aus den in der offline-Phase aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird. 
+Dies wird im \textit{nearest neighbour in signal space (NNSS)} Algorithmus beschrieben.
+Für die Ortung wird mehrfach gemessen und dann gemittelt, um im Median eine Genauigkeit von unter 3 Metern zu erhalten. 
 Das kurze Sendeintervall von 0,25 Sekunden führt auch bei bewegten Personen zu einer Genauigkeit von 3,5 Metern.
-Gleichzeitig sorgt das kurze Sendeintervall aber auch für einem hohen Energieverbrauch auf Seiten der mobilen Einheit, eine Reduktion der Sendevorgänge sollte im Kontext der Bereichsortung angestrebt werden um den Energieverbrauch zu senken und die Batterielaufzeit der mobilen Einheit zu steigern.
+Gleichzeitig sorgt das kurze Sendeintervall aber auch für einem hohen Energieverbrauch auf Seiten der mobilen Einheit, eine Reduktion der Sendevorgänge sollte im Kontext der Bereichsortung angestrebt werden, um den Energieverbrauch zu senken und die Batterielaufzeit der mobilen Einheit zu steigern.
 
 \subsection{Verbesserungen an RADAR}
 Bahl et al. veröffentlichten anschließend noch einige Verbesserungen für das ursprüngliche RADAR System \cite{bahl2000enhancements}.
 Diese umfassen unter anderem den Einsatz von Access Points statt PCs als Knoten, verbesserte Ortung bewegter Personen und die Erkennung von hinzugekommenen Hindernissen wie etwa Personen.
-Letzteres geschieht durch die Analyse der Signalstärke von Beacons anderer APs, da diese sich nicht bewegen können Veränderungen in der Signalstärke als Veränderungen auf dem Signalweg gesehen werden.
+Letzteres geschieht durch die Analyse der Signalstärke von Beacons anderer APs, da diese sich nicht bewegen, können Veränderungen in der Signalstärke als Veränderungen auf dem Signalweg gesehen werden.
 Dies ließe sich auch auf größere Hindernisse übertragen, hängt aber stark von der strategischen Platzierung und möglichst dichten Verteilung der APs ab.\\
 Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshalb weil sie einen Laptop als mobile Einheit verwenden.
 
 \subsection{Time-of-flight Lokalisierung}
 \label{ch:Vorherige:sec:TOF}
-Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die time-of-flight (TOF) messen, ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
-Sie fordern optimalerweise Zugriff auf die physische Schicht (PHY) des 802.11 Protokolls, da auf dieseń aber üblicherweise kein Zugriff besteht messen sie TOF in der darüber liegenden MAC-Schicht.\\
-Ein Knoten sendet einen Beacon aus und protokolliert die Sendezeit, die mobile Einheit empfängt den Beacon Frame, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, der Knoten sichert die Empfangszeit der Antwort.
-Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an den Knoten, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann, um dann die Distanz $d = c*(\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
-Dieses Schema lässt sich leicht von einer Fernlokalisierung in eine Selbstlokalisierung umwandeln indem man den Initiator des Vorgangs tauscht.\\
+Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die time-of-flight (TOF) messen. 
+Ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
+Sie fordern optimalerweise Zugriff auf die physische Schicht (PHY) des 802.11 Protokolls, da auf diesen aber üblicherweise kein Zugriff besteht, messen sie TOF in der darüber liegenden MAC-Schicht.\\
+Ein Knoten sendet einen Beacon aus und protokolliert die Sendezeit, die mobile Einheit empfängt den Beacon, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, der Knoten sichert die Empfangszeit der Antwort.
+Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an den Knoten, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann, um dann die Distanz $d = c * (\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
+Dieses Schema lässt sich leicht von einer Fernlokalisierung in eine Selbstlokalisierung umwandeln, indem man den Initiator des Vorgangs tauscht.\\
 Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Knoten verwendeten Access Points. 
-Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und die Verarbeitungszeit vor/nach dem Setzen muss sehr konstant sein, da eine Abweichung von $100ns$ bei $c = 299.792.458m/s$ bereits einen Fehler von $30m$ verursacht.\\
+Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und die Verarbeitungszeit vor/nach dem Setzen muss sehr konstant sein, da eine Abweichung von 100 ns bei c = 299.792.458 m/s bereits einen Fehler von 30 Metern verursacht.\\
 Muthukrishnan et al. beschreiben diese Problematik bei dem Versuch TOF ohne Zugriff auf die Software des APs umzusetzen \cite{muthukrishnan2006using}.
 Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeitstempelfunktionen wie das Network Time Protocol (NTP), Ping und die Zeitstempel in Beacons nicht eignen, da sie zum einen nur eine Auflösung im Millisekundenbereich bieten und zum anderen von der Blockierungskontrolle von 802.11 (CSMA/CA) abhängen.
 
@@ -54,23 +57,26 @@ Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeits
 Eine Ortung ohne mobile Einheit erfüllt wegen ihrer Abwesenheit offensichtlich jede Anforderung an die Batterielaufzeit der mobilen Einheit.
 Mit MonoPHY stellen Abdel-Nasser et al. ein System zur Ortung ohne mobile Einheit vor \cite{abdel2013monophy}. \\
 Dazu verwenden sie einen 802.11n-fähigen Laptop und Access Point und analysieren die Channel State Information (CSI) der physischen Schicht (PHY) der zwischen AP und Laptop übertragenen Daten.
-Um die bestehende Struktur von APs zu nutzen sollte das System angepasst und die CSI zwischen den APs gemessen werden.
+Um die bestehende Struktur von APs zu nutzen, sollte das System angepasst und die CSI zwischen den APs gemessen werden.
 Es hat jedoch einige Aspekte, die es ungeeignet für die Aufgabenstellung machen.\\
-Das System unterscheidet nicht zwischen Personen, sondern erkennt nur, dass jemand anwesend ist, außerdem ist es nur für eine Person in einem $100m^2$ gestaltet worden und müsste auf Baustellengröße und die Verfolgung mehrerer dutzend Personen erweitert werden.
+Das System unterscheidet nicht zwischen Personen, sondern erkennt nur, dass jemand anwesend ist. 
+Außerdem ist es nur für eine Person in einem 100 $m^2$ Apartment gestaltet worden und müsste auf Baustellengröße und die Verfolgung vieler Personen erweitert werden.
 Aber auch dann ist fraglich, wie gesichert werden kann, dass alle Personen durchgehend erkannt werden können, zum Beispiel wenn sich mehrere Personen auf oder in einem Transportfahrzeug aufhalten.
 Auch ist es ohne Identifikation schwerer Fehler zu erkennen. 
-Wird fälschlicherweise angezeigt, dass sich noch eine Peron im Tunnel befindet kann oft durch ausrufen des Betreffenden festgestellt werden, dass dieser nicht im Tunnel ist. 
-Hat man dagegen nur die Information, dass sich noch eine Person im Tunnel befindet hat man keine Möglichkeit schnell herauszufinden ob dies der Wahrheit entspricht.\\
-Weitere Probleme entstehen durch die Baumaschinen und Container, diese haben einen starken Einfluss auf die CSI und verdecken dadurch möglicherweise nahe Personen und die Fahrzeugführer.
-Deshalb müssten diese Objekte ebenfalls als Entitäten angezeigt werden, die Anzeige diverser Kommandostände, Pausenräume und stehen gelassener Baumaschinen verwirrt im Notfall jedoch, da sich in jedem Objekt potentiell eine Person befinden könnte.\\
+Wird fälschlicherweise angezeigt, dass sich noch eine Peron im Tunnel befindet, kann oft durch ausrufen des Betreffenden festgestellt werden, dass dieser nicht im Tunnel ist. 
+Hat man dagegen nur die Information, dass sich noch eine Person im Tunnel befindet, hat man keine Möglichkeit schnell herauszufinden ob dies der Wahrheit entspricht.\\
+Weitere Probleme entstehen durch die Baumaschinen und Container. 
+Diese haben einen starken Einfluss auf die CSI und verdecken dadurch möglicherweise nahe Personen und die Fahrzeugführer.
+Deshalb müssten diese Objekte ebenfalls als Entitäten angezeigt werden. 
+Die Anzeige diverser Kommandostände, Pausenräume und stehen gelassener Baumaschinen verwirrt im Notfall jedoch, da sich in jedem Objekt potentiell eine Person befinden könnte.\\
 Die Veröffentlichung beruht außerdem auf der Verfügbarkeit der CSI, diese sind dort durch die Auswahl einer bestimmten Netzwerkkarte gegeben und sind nicht zwingend in einer bestehenden Struktur von APs verfügbar.
 Als letzter Kritikpunkt steht die Verwendung eine offline-Phase, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist. \\ 
 Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Energieverbrauch, jedoch nicht die Forderung nach sicherer Erkennung von Abschnittswechseln, deshalb scheidet diese Technik zumindestens für Baustellen aus.
 
 \section{RADAR Implementierung}
-Ein RADAR Tag versendet alle 0,25s ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.
+Ein RADAR Tag versendet alle 0,25 Sekunden ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.
 Das Sendeintervall wurde so kurz gewählt, um spontane Schwankungen im RSSI durch mehrfache Messung zu glätten und sich bewegende Personen möglichst genau zu erfassen.
-Für eine Bereichsortung reicht ein wesentlich längeres Sendeintervall, es wird erneut ein Intervall von 5 Sekunden gewählt, in dem sich ein Mitarbeiter maximal $42\ m$ bewegt. 
+Für eine Bereichsortung reicht ein wesentlich längeres Sendeintervall, es wird erneut ein Intervall von 5 Sekunden gewählt, in dem sich ein Mitarbeiter maximal 42 Meter bewegt. 
 Tabelle \ref{table:radarconsumption} zeigt den gemessenen Verbrauch der Implementierung für RADAR Tags jeweils in Arduino und C, mit unterschiedlich langen Sendeintervallen mit und ohne manuellen \texttt{light\_sleep}.
 
 \begin{table}[h]
@@ -91,43 +97,45 @@ Tabelle \ref{table:radarconsumption} zeigt den gemessenen Verbrauch der Implemen
 	\end{tabular}
 \end{table}
 
-Der Energieverbrauch einer Lösung, die 4 Pakete pro Sekunde sendet ist wie erwartet hoch.
+Der Energieverbrauch einer Lösung die vier Pakete pro Sekunde sendet ist wie erwartet hoch.
 Die Implementierungen mit der ESP Open SDK und manuellem \texttt{light\_sleep} unterscheiden sich ausschließlich im Sendeintervall, dies verändert die projezierte Laufzeit jedoch stark.
-Für den $1400\ mAh$ Akku ergibt sich eine Laufzeit von $5180\ mWh/190\ mW \approx 27,26\ h$ für ein Sendeintervall von 0,25s, hingegegen ergibt sich für ein Sendeintervall von 5s eine Laufzeit von $5180\ mWh/25\ mW = 207,2\ h$.
+Für den 1400 mAh Akku ergibt sich eine Laufzeit von 5180 mWh/190 mW $\approx$ 27,26 h für ein Sendeintervall von 0,25 Sekunden, hingegegen ergibt sich für ein Sendeintervall von 5 Sekunden eine Laufzeit von 5180\ mWh/25\ mW = 207,2\ h.
 Das Tag mit dem längeren Sendeintervall hält somit 7,6 mal so lang wie das andere mit einer Akkuladung durch. 
-Dennoch ist der Verbrauch nur marginal geringer als der der Bereichsortungstags ($27,5\ mW$). \\
+Dennoch ist der Verbrauch nur marginal geringer als der der Bereichsortungstags (27,5 mW). \\
 Die in Abschnitt \ref{ch:phase1:sec:anpassungbereich} besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die RADAR Implementierung verwendet werden, das RADAR-artige Tag ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem Bereichsortungstag.
 Der Energieverbrauch sollte sich somit kaum unterscheiden und ein System mit RADAR-artigen Tags benötigt Veränderungen der Software der APs, ein System mit Bereichortungstags ist deshalb vorzuziehen. \\
+%TODO Einfach nur eingebucht bleiben
 
 \section{Time-of-Flight Implementierung}
 [Kommt noch Text, wird nicht implementiert, weil schon theoretisch teurer als RADAR]
 
 \section{Anpassungen für Bereichsortung}
 \label{ch:phase2:sec:anpassungbereich}
-RADAR versendet immer noch UDP Pakete und arbeitet damit auf Schicht 4 (Transport) des OSI-Modells und muss im Netzwerk authentifiziert und mit einem Access Point assoziiert sein.
-Das ist für eine direkte Fernlokalisierung aber nicht notwendig, der RSSI wird auf Schicht 1 (PHY) gemessen.
+RADAR versendet immer noch UDP Pakete und arbeitet damit auf Schicht vier (Transport) des OSI-Modells und muss im Netzwerk authentifiziert und mit einem Access Point assoziiert sein.
+Das ist für eine direkte Fernlokalisierung aber nicht notwendig, der RSSI wird auf Schicht eins (PHY) gemessen.
 Grundsätzlich kann aufgrund der möglichen Änderungen am AP ein beliebiges Paket mit einer speziellen Kennung versendet und vom AP als Positionsmitteilung des Tags erkannt werden. \\
-Ein Sendevorgang, der nur Schicht 1 nutzt hat einen geringeren Energieverbrauch, da er nur senden und nie empfangen muss.
-Ein solcher Sendevorgang könnte aber die Funktion des Netzwerks beeinträchtigen und stellt nicht sicher, dass die eigene Übertragung nicht durch andere Übertragungen beeinträchtigt wurde.
-Es sollte deshalb nicht auf Schicht 1 gearbeitet werden.\\
-Stattdessen sollte Schicht 2 (MAC) des OSI-Modells verwendet werden. Da 802.11 für den Mediumszugriff eine Kollisionsvermeidung (CSMA/CA) verwendet muss das Tag vor dem Senden das Medium belauschen um zu bestimmen ob es belegt ist.
-Der Energieverbrauch ist somit pro Sendevorgang höher als bei einer Lösung auf Schicht 1, stellt dafür aber die Verfügbarkeit des Mediums (der Frequenz) für die übrigen Teilnehmer sicher. \\
+Ein Sendevorgang, der nur Schicht eins nutzt hat einen geringeren Energieverbrauch, da er nur senden und nie empfangen muss.
+Ein solcher Sendevorgang könnte aber die Funktion des Netzwerks beeinträchtigen und stellt nicht sicher, dass die eigene Übertragung nicht durch andere Übertragungen gestört wurde.
+Es sollte deshalb nicht auf Schicht eins gearbeitet werden.\\
+Stattdessen sollte Schicht zwei (MAC) des OSI-Modells verwendet werden. 
+Da 802.11 für den Mediumszugriff eine Kollisionsvermeidung (CSMA/CA) verwendet wird, muss das Tag vor dem Senden das Medium belauschen, um zu bestimmen ob es belegt ist.
+Der Energieverbrauch ist somit pro Sendevorgang höher als bei einer Lösung auf Schicht eins, stellt dafür aber die Verfügbarkeit des Mediums (der Frequenz) für die übrigen Teilnehmer sicher. \\
 Um die Änderungen an der Software des AP jedoch gering zu halten wurde der Probe Request als zu sendenden Frame gewählt.
-Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management}) der für den in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen Scan Vorgang verwendet wird.
+Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management}) der für den, in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen, Scan Vorgang verwendet wird.
 Der Probe Request hat dabei den Vorteil, dass er bereits vom AP verarbeitet und mit einer Probe Response beantwortet wird. \\
 Es wird also lediglich gefordert, dass der AP den Empfang des Probe Request im Zuge der Verarbeitung protokolliert. 
 Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsserver abrufbar gemacht werden. 
-Manche kommerzielle APs bieten sein solches Protokoll für Probe Requests und Beacons im Zuge eine \textit{Rouge Client/AP Detection} an \cite{lancom2017rouge}.\\
-Die ESP Open SDK bietet über die Operationen wie Scan und Join hinaus mit \texttt{wifi\_send\_pkt\_freedom} eine Funktion zum Senden von Paketen auf Schicht 2 an.
+Manche kommerzielle APs bieten ein solches Protokoll für Probe Requests und Beacons im Zuge einer \textit{Rogue Client/AP Detection} an \cite{lancom2017rouge}.\\
+Die ESP Open SDK bietet über die Operationen wie Scan und Join hinaus mit \texttt{wifi\_send\_pkt\_freedom} eine Funktion zum Senden von Paketen auf Schicht zwei an.
 Der ESP8266 Arduino Core implementiert diese Funktion nicht, stattdessen muss sie mit \texttt{extern \dq C\dq $\lbrace$\#include \dq user\_interface.h\dq $\rbrace$} importiert werden. \\
-\texttt{wifi\_send\_pkt\_freedom} setzt den PHY-Header selbst, der MAC-Header und Inhalt des Paketes muss über einen Puffer übergeben werden.
+\texttt{wifi\_send\_pkt\_freedom} setzt den PHY-Header selbst, der MAC-Header und Inhalt des Paketes müssen über einen Puffer übergeben werden.
 \begin{verbatim}
 uint8_t packet[26] = { 
 /*0*/ 	0x40, //Version (2bit), Type (2bit), Subtype(4bit)
 /*1*/ 	0x00, //Flags 
 /*2*/ 	0x00, 0x00, //Duration
-/*4*/   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, //destination MAC
-/*10*/  0x01, 0x02, 0x03, 0x04, 0x05, 0x06, //source MAC
+/*4*/   0xff, 0xff, 0xff, 0xff, 0xff, 0xff, //Destination MAC
+/*10*/  0x01, 0x02, 0x03, 0x04, 0x05, 0x06, //Source MAC
 /*16*/  0xff, 0xff, 0xff, 0xff, 0xff, 0xff, //BSSID, all ff=broadcast
 /*22*/  0x00, 0x00, //Sequence Number (12bit), Fragment Number (4bit) 
 //[End of MAC-Header][Start of Management tags]
@@ -135,12 +143,15 @@ uint8_t packet[26] = {
 /*25*/ 	0x00, //Tag length
 }; 
 \end{verbatim}
-Ein gewöhnlicher Probe Request beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichenkeiten, wie etwa unterstützte Standards und Datenraten, da das Tag aber nicht tatsächlich beitreten will kann darauf verzichtet werden. \\
-Da keine Verbindung mehr aufrecht erhalten werden muss können tiefere Schlafzustände eingenommen werden, statt des \texttt{light\_sleep} kann der \texttt{deep\_sleep} verwendet werden.
+Ein gewöhnlicher Probe Request beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichenkeiten, wie etwa unterstützte Standards und Datenraten. 
+Da das Tag aber nicht tatsächlich beitreten will, kann darauf verzichtet werden. \\
+Da keine Verbindung mehr aufrecht erhalten werden muss, können tiefere Schlafzustände eingenommen werden. 
+Statt des \texttt{light\_sleep} kann der \texttt{deep\_sleep} verwendet werden.
 Dieser schaltet den ESP und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird Pin 16 mit der negativen Seite der Stromquelle verbunden.
 Damit der ESP wieder aufwacht muss Pin 16 mit dem Reset Pin (RST) verbunden werden, bei einem Reset initialisiert der ESP neu.
-Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass das Tag versucht dem Netztwerk erneut beizutreten, hingegen kann bei einer Lösung auf Schicht 2 sofort gesendet und danach wieder geschlafen werden.\\
-Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementierungen jeweils mit mauell herbeigeührtem Schlafzustand, das Sendeintervall liegt bei konstant 5 Sekunden.
+Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass das Tag versucht dem Netztwerk erneut beizutreten. 
+Hingegen kann bei einer Lösung auf Schicht zwei sofort gesendet und danach wieder geschlafen werden.\\
+Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementierungen jeweils mit manuell herbeigeführtem Schlafzustand, das Sendeintervall liegt bei konstant 5 Sekunden.
 \begin{table}[h]
 	\centering
 	\caption{Energieverbrauch Probe Request Tags}
@@ -157,11 +168,13 @@ Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementier
 	\end{tabular}
 \end{table}
 
+%TODO Kann auch für genaue RSSI Trilateration genutzt werden.
+
 Zu erkennen ist, dass die Verwendung des \texttt{deep\_sleep} zu einem geringeren Verbrauch führt. 
-Allerdings benötigt das mit dem Arduino Core programmierte Tag deutlich im Vergleich zu dem mit der ESP Open SDK programmierten Tag deutlich länger zum Starten.
+Allerdings benötigt das mit dem Arduino Core programmierte Tag im Vergleich zu dem mit der ESP Open SDK programmierten Tag deutlich länger zum Starten.
 Es verbraucht deshalb sogar mehr Energie als die Bereichsortungstags aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Energie als diese.
-Für den $1400\ mAh$ Akku ergibt sich eine Laufzeit von $5180\ mWh/4\ mW \approx 1295\ h$ für die Implementierung in C mit \texttt{deep\_sleep}.
+Für den 1400\ mAh Akku ergibt sich eine Laufzeit von 5180\ mWh/4\ mW $\approx$ 1295\ h für die Implementierung in C mit \texttt{deep\_sleep}.
 Dies entspricht einer Laufzeit von fast 54 Tagen.
 Hinzu kommt, dass sich der Verbrauch dieser Tags nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
-Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten 6 Monate Laufzeit zu erreichen werden in Abschnitt \ref{kommtnoch} weitere Verbesserungen besprochen.
+Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten sechs Monate Laufzeit zu erreichen, werden in Abschnitt \ref{kommtnoch} weitere Verbesserungen besprochen.
 
