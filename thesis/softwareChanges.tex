@@ -9,69 +9,6 @@ Die Veränderbarkeit der Software des AP wird dazu genutzt auf diesem Messgröß
 Da für die APs keine Beschränkungen bezüglich des Energieverbrauchs vorliegen, kann die Verbindung zum Ortungsserver regulär auf Schicht vier oder fünf aufgebaut werden.
 Für die Kommunikation zwischen Tag und AP sollte jedoch auf niedrigere Protokollebenen ausgewichen werden, um den Energieverbrauch des Tags zu senken. \\
 
-\section{Vorherige Arbeiten}
-\label{ch:phase2:sec:vorherige}
-Zunächst werden vorherige Arbeiten behandelt, sie wurden so ausgewählt, dass möglichst viele Messgrößen abgedeckt sind.
-
-
-\subsection{RADAR}
-\label{ch:Vorherige:sec:RADAR}
-Das RADAR System von Bahl et al. (Microsoft Research) hat als eins der ersten WLAN-basierten Ortungssysteme viel Aufmerksamkeit erfahren \cite{bahl2000radar}.
-Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. 
-Das RADAR System ist auf eine offline-Phase angewiesen, in der empirisch ein Signalausbreitungsmodell aufgebaut wird. 
-Es handelt sich also um ein System mit Szenenanalyse.\\
-Die Verwendung einer offline-Phase ist im stark veränderlichen Baustellenumfeld nicht akzeptabel. 
-Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus. 
-Damit sich dies nicht im Modell wiederfindet, müssten zunächst alle beweglichen Maschinen aus dem Bereich entfernt werden, um anschließend in der online-Phase ihren Einfluss glätten zu können.
-Die offline-Phase ist deshalb wirtschaftlich gesehen nicht durchführbar und das empirisch ermittelte Signalausbreitungsmodell müsste durch ein theoretisches ersetzt werden, für eine grobkörnige Bereichsortung sollte dies jedoch ausreichend sein.\\
-Bei RADAR sendet die mobile Einheit vier UDP-Pakete pro Sekunde aus, an den Knoten wird dann der RSSI gemessen.
-Die Autoren weisen jedoch darauf hin, dass sich dieser Vorgang leicht umkehren ließe, um von einer Fernlokalisierung auf eine Selbstlokalisierung zu kommen.
-Bezüglich des Energieverbrauchs äußern sie sich jedoch zu keiner der beiden Varianten.\\
-Die Position wird anschließend bestimmt, indem aus den in der offline-Phase aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird. 
-Dies wird im \textit{nearest neighbour in signal space (NNSS)} Algorithmus beschrieben.
-Für die Ortung wird mehrfach gemessen und dann gemittelt, um im Median eine Genauigkeit von unter 3 Metern zu erhalten. 
-Das kurze Sendeintervall von 0,25 Sekunden führt auch bei bewegten Personen zu einer Genauigkeit von 3,5 Metern.
-Gleichzeitig sorgt das kurze Sendeintervall aber auch für einem hohen Energieverbrauch auf Seiten der mobilen Einheit, eine Reduktion der Sendevorgänge sollte im Kontext der Bereichsortung angestrebt werden, um den Energieverbrauch zu senken und die Batterielaufzeit der mobilen Einheit zu steigern.
-
-\subsection{Verbesserungen an RADAR}
-Bahl et al. veröffentlichten anschließend noch einige Verbesserungen für das ursprüngliche RADAR System \cite{bahl2000enhancements}.
-Diese umfassen unter anderem den Einsatz von Access Points statt PCs als Knoten, verbesserte Ortung bewegter Personen und die Erkennung von hinzugekommenen Hindernissen wie etwa Personen.
-Letzteres geschieht durch die Analyse der Signalstärke von Beacons anderer APs, da diese sich nicht bewegen, können Veränderungen in der Signalstärke als Veränderungen auf dem Signalweg gesehen werden.
-Dies ließe sich auch auf größere Hindernisse übertragen, hängt aber stark von der strategischen Platzierung und möglichst dichten Verteilung der APs ab.\\
-Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshalb weil sie einen Laptop als mobile Einheit verwenden.
-
-\subsection{Time-of-flight Lokalisierung}
-\label{ch:Vorherige:sec:TOF}
-Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die time-of-flight (TOF) messen. 
-Ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
-Sie fordern optimalerweise Zugriff auf die physische Schicht (PHY) des 802.11 Protokolls, da auf diesen aber üblicherweise kein Zugriff besteht, messen sie TOF in der darüber liegenden MAC-Schicht.\\
-Ein Knoten sendet einen Beacon aus und protokolliert die Sendezeit, die mobile Einheit empfängt den Beacon, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, der Knoten sichert die Empfangszeit der Antwort.
-Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an den Knoten, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann, um dann die Distanz $d = c * (\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
-Dieses Schema lässt sich leicht von einer Fernlokalisierung in eine Selbstlokalisierung umwandeln, indem man den Initiator des Vorgangs tauscht.\\
-Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Knoten verwendeten Access Points. 
-Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und die Verarbeitungszeit vor/nach dem Setzen muss sehr konstant sein, da eine Abweichung von 100 ns bei c = 299.792.458 m/s bereits einen Fehler von 30 Metern verursacht.\\
-Muthukrishnan et al. beschreiben diese Problematik bei dem Versuch TOF ohne Zugriff auf die Software des APs umzusetzen \cite{muthukrishnan2006using}.
-Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeitstempelfunktionen wie das Network Time Protocol (NTP), Ping und die Zeitstempel in Beacons nicht eignen, da sie zum einen nur eine Auflösung im Millisekundenbereich bieten und zum anderen von der Blockierungskontrolle von 802.11 (CSMA/CA) abhängen.
-
-\subsection{Ortung ohne mobile Einheit}
-Eine Ortung ohne mobile Einheit erfüllt wegen ihrer Abwesenheit offensichtlich jede Anforderung an die Batterielaufzeit der mobilen Einheit.
-Mit MonoPHY stellen Abdel-Nasser et al. ein System zur Ortung ohne mobile Einheit vor \cite{abdel2013monophy}. \\
-Dazu verwenden sie einen 802.11n-fähigen Laptop und Access Point und analysieren die Channel State Information (CSI) der physischen Schicht (PHY) der zwischen AP und Laptop übertragenen Daten.
-Um die bestehende Struktur von APs zu nutzen, sollte das System angepasst und die CSI zwischen den APs gemessen werden.
-Es hat jedoch einige Aspekte, die es ungeeignet für die Aufgabenstellung machen.\\
-Das System unterscheidet nicht zwischen Personen, sondern erkennt nur, dass jemand anwesend ist. 
-Außerdem ist es nur für eine Person in einem 100 $m^2$ Apartment gestaltet worden und müsste auf Baustellengröße und die Verfolgung vieler Personen erweitert werden.
-Aber auch dann ist fraglich, wie gesichert werden kann, dass alle Personen durchgehend erkannt werden können, zum Beispiel wenn sich mehrere Personen auf oder in einem Transportfahrzeug aufhalten.
-Auch ist es ohne Identifikation schwerer Fehler zu erkennen. 
-Wird fälschlicherweise angezeigt, dass sich noch eine Peron im Tunnel befindet, kann oft durch ausrufen des Betreffenden festgestellt werden, dass dieser nicht im Tunnel ist. 
-Hat man dagegen nur die Information, dass sich noch eine Person im Tunnel befindet, hat man keine Möglichkeit schnell herauszufinden ob dies der Wahrheit entspricht.\\
-Weitere Probleme entstehen durch die Baumaschinen und Container. 
-Diese haben einen starken Einfluss auf die CSI und verdecken dadurch möglicherweise nahe Personen und die Fahrzeugführer.
-Deshalb müssten diese Objekte ebenfalls als Entitäten angezeigt werden. 
-Die Anzeige diverser Kommandostände, Pausenräume und stehen gelassener Baumaschinen verwirrt im Notfall jedoch, da sich in jedem Objekt potentiell eine Person befinden könnte.\\
-Die Veröffentlichung beruht außerdem auf der Verfügbarkeit der CSI, diese sind dort durch die Auswahl einer bestimmten Netzwerkkarte gegeben und sind nicht zwingend in einer bestehenden Struktur von APs verfügbar.
-Als letzter Kritikpunkt steht die Verwendung eine offline-Phase, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist. \\ 
-Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Energieverbrauch, jedoch nicht die Forderung nach sicherer Erkennung von Abschnittswechseln, deshalb scheidet diese Technik zumindestens für Baustellen aus.
 
 \section{RADAR Implementierung}
 Ein RADAR Tag versendet alle 0,25 Sekunden ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.

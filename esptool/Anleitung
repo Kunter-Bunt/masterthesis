@@ -1,3 +1,0 @@
-1. [Im jeweiligen Ordner] make
-2. sudo chmod 777 /dev/ttyUSB0
-3. make flash
