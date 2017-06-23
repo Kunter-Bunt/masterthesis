@@ -36,7 +36,7 @@ Beliebte Messgrößen für die Positionsbestimmung sind Ankunftszeit des Signals
 TOA beruht auf der begrenzten Ausbreitungsgeschwindigkeit des Signals, hochfrequente Signale breiten sich mit Lichtgeschwindigkeit $c = 299.792.458\ m/s$, Ultraschall mit Schallgeschwindigkeit $c \approx 343\ m/s$ bei $20^{\ \circ}C$ aus, damit ergibt sich die Distanz $d_i = c\ *\ (t_{empfangen,i} - t_{gesendet})$ mit $i$ sei der empfangende Knoten. Die Position der mobilen Einheit kann dann mit der Methode der kleinsten Quadrate bestimmt werden, dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i f^2_i(x,y,t_{gesendet})$ mit $f_i(x,y,t_{gesendet}) = d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2}$ und ${\alpha}_i$ sei die Konfidenz von Knoten $i$, minimiert. Dies erfordert, dass die Knoten zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird um Varianzen zu vermeiden. Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss, da $t_{gesendet}$ dann entsprechend der Synchronisation und dem Sendeintervall als gegeben angenommen werden kann. Die Forderung nach Synchronität ist jedoch für $c = 299.792.458\ m/s$ sehr stark, da das Signal nur $0.00000000336\ s/m$ benötigt und somit bereits kleine zeitliche Ungenauigkeiten große Fehler verursachen und erst durch zusätzliche Messungen oder Glättungstechniken hohe Genauigkeiten erreicht werden können. Skibniewski et al. konnten hohe Genauigkeit durch die Verwendung von Ultraschall erzielen, da sich durch die geringere Ausbreitungsgeschwindigkeit Imperfektionen in der Synchronisierung weniger stark auswirken \cite{skibniewski2009simulation}. 
 Bei einer Selbstlokalisierung ist zu beachten, dass $t_{gesendet}$ den Sendezeitpunkt der Knoten darstellt, sie müssen also entweder alle gleichzeitig auf verschiedenen Frequenzen oder in einem vordefinierten Muster nacheinander senden, die Zeitdifferenz des tatsächlichen Sendezeitpunkts zu $t_{gesendet}$ muss dann vom Empfangszeitpunkt $t_{empfangen,i}$ abgezogen werden. \\
 
-\begin{figure}[!b]
+\begin{figure}[h]
   \centering
 	\includegraphics[width=0.5\textwidth]{images/tdoa.png}
   \caption{Positionsbestimmung mit der Differenz der Ankunftszeiten (TDOA), aus \cite{liu2007survey}.}
@@ -178,7 +178,7 @@ BLE wurde für niedrigen Energieverbrauch optimiert, es verzichtet auf den Verbi
 Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als Header um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate von 3 Mbps (Bluetooth 4.0) auf 0.7 Mbps (Bluetooth Low Energy). %TODO cite
 BLE eignet sich somit vor allem dann, wenn wenige oder selten Informationen ausgetauscht werden müssen.
 Im Folgenden werden die, für die Lokalisation wichtigen Operationen vorgestellt.
-Es handelt sich dabei jeweils um die Funktion des Entdeckens von Ressourcen mittels Inquiry für Bluetooth beziehungsweise mittels Beacon für BLE.
+Es handelt sich dabei jeweils um die Funktion des Entdeckens von Ressourcen mittels Inquiry Scan für Bluetooth beziehungsweise mittels Advertising für BLE.
 
 \subsection{Inquiry Scan}
 Eine Bluetooth Verbindung besitzt immer einen Master und einen Slave \cite{blue2010inquiry}.
@@ -190,10 +190,18 @@ Diese Zeiten sind den bei Bluetooth vorgesehenen Frequenzsprüngen angepasst.
 Abb. \ref{fig:inqscan} zeigt den Vorgang inklusive erweiterter Inquiry Response.
 Die Pakete sind entsprechend ihrer Inhaltsspezifikation benannt, ID entspricht der Inquiry Message, FHS der Inquiry Response und Extended Inquiry Response Packet der erweiterten Inquiry Response.
 
-\begin{figure}[!b]
+\begin{figure}[h]
   \centering
-	\includegraphics[width=0.5\textwidth]{images/inqscan.png}
+	\includegraphics[width=\textwidth]{images/inqscan.png}
   \caption{Inquiry Scan Vorgang, aus \cite{blue2010inquiry}.}
   \label{fig:inqscan}
 \end{figure}
+
+\subsection{Advertising}
+Für das Advertising stellt die Bluetooth Spezifikation drei über das Frequenzband verteilte Kanäle bereit \cite{blue2010channel}.
+Auf diesen können BLE Geräte Advertising Pakete in einem unidrektionalen Broadcast versenden.
+Advertising Pakete dürfen auch Nutzdaten enthalten, diese können dann von anderen, scannenden BLE Geräten empfangen werden \cite{blue2010advertising}.
+Allerdings dürfen die Nutzdaten maximal eine Länge von 31 Byte aufweisen \cite{blue2010pdu}.
+Wurde zusätzlich im Advertising Paket markiert, dass das Gerät verbindungsfähig ist, kann ein scannendes Gerät nach empfangen des Advertising Paketes einen Scan Request an das verbindungsfähige Gerät richten, um die Parameter für eine Verbindung auszuhandeln \cite{blue2010scanning}.
+
 
