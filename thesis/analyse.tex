@@ -146,15 +146,27 @@ Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für e
   \label{fig:bluetoothmess}
 \end{figure}
 
-\subsection{RSSI-basierte BLE Ortung}
-Jianyong et al. stellen ein System zur Ortung auf Basis von Bluetooth Low Energie (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}. \\
-Sie messen an den Knoten den RSSI von Inquirys, die zuvor von den mobilen Einheiten versendet wurden.
+\subsection{Antwortbasierte Inquiry Lokalisierung}
+Bargh et al. stellen ein System zur Fernlokalisierung mittels Bluetooth Inquiry Scan vor \cite{bargh2008indoor}.
+Die mobilen Einheiten sind dabei im discoverable ("entdeckbar") Modus.
+Die Knoten senden regelmäßig eine Inquiry Message aus, die dann von mobilen Einheiten in Reichweite mit einer Inquiry Response beantwortet werden. 
+Anschließend werden die Antworten auf einem zentralen Ortungsserver gesammelt und die Positionen der mobilen Einheiten bestimmt.
+Diese Information wird aus den beantworteten Inquiry Messages jeder mobilen Einheit gewonnen.
+Dazu werden vorher in einer offline-Phase Fingerabdrücke für jeden Raum gesammelt.
+In diesen wird gespeichert welche Inquiry Messages von der mobilen Einheit an einem bestimmten Ort beantwortet wurden.
+Für die Bereichsortung entfiele diese offline-Phase, da der Bereich über die Beantwortung einer einzelnen Inquiry Message implizit bestimmt werden kann.
+
+
+\subsection{RSSI-basierte BLE Lokalisierung}
+Jianyong et al. stellen ein System zur Lokalisierung auf Basis von Bluetooth Low Energie (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}. \\
+Sie messen an den Knoten den RSSI von Advertising Paketen, die zuvor von den mobilen Einheiten versendet wurden.
 Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet und für jeden Knoten die Parameter für ein Signalausbreitungsmodell bestimmt.
 Das gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke A im Abstand von einem Meter, dem Dämpfungsfaktor n und der Distanz d ab. \\
 Jianyong et al. bestimmen die Referenzsignalstärke und den Dämpfungsfaktor für jeden Knoten.
 Da jedoch nur eine Bereichsortung für diese Arbeit gefordert wurde, sollten A und n nur beispielhaft für einen Knoten bestimmt werden, um den Aufwand beim Aufbau der Infrastruktur zu reduzieren.
 Abb. \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell. 
 Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development Kit von Texas Instruments von einem Access Point nur auf 20 Meter detektiert werden konnte.
+
 
 \begin{figure}[h]
   \centering
