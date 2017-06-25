@@ -122,9 +122,17 @@ Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er
 Die Tests zeigen, dass die Programmierung mit der ESP Open SDK einen Vorteil beim Energieverbrauch hat, dieser liegt bei ca 10\%.
 Andererseits fällt auf, dass die Reduzierung der gescannten Channel eine signifikante Senkung des Energieverbrauchs nach sich zieht, die Scan-Funktion ist also der Hauptverbraucher.\\
 Um die finale Laufzeit zu bestimmen muss die Kapazität des Akkus bekannt sein.
-Ein Lithium-Polymer Akku hat eine Nennspannung von 3,7 Volt, seine Kapazität wird in mAh angegeben. 
-Ein beispielhafter 1400 mAh Lithium-Polymer Akku liefert folglich 1400 mAh * 3,7 V = 5180 mWh.
-Die Laufzeit beträgt dann 5180 mWh/95 mW $\approx$ 54,53 h, also etwas mehr als 2,25 Tage.
+
+%TODO So ein Einfügungsblock.
+Ein Lithium-Polymer Akku hat eine Nennspannung von 3,7 Volt, seine Kapazität wird in mAh angegeben, der Stromverbrauch wurde aber bei einer Spannung von 5 Volt gemessen. 
+Das Feather Huzzah verwendet jedoch einen linearen Spannungsregler.
+Für diesen gilt ein Wirkungsgrad $\eta \approx \frac{U_{ein}}{U{aus}}$ mit der ein- beziehungsweise ausgehenden Spannung $U_{ein/aus}$, da die eingehende Stromstärke $I_{ein}$ immer geringfügig über der ausgehenden Stomstärke $I_{aus}$ liegt \cite{streichert2012elektrik}.
+
+
+Eine Milliamperstunde bei einer Eingangsspannung von 5 Volt kann also mit einer Milliamperstunde bei einer Eingangspannung bei 3,7 Volt gleichgesetzt werden.
+Die Laufzeit für einen beispielhaften 1400 mAh Lithium-Polymer Akku beträgt also 1400\ mAh/19\ mA $\approx$ 73,68\ h.
+Dies entpricht circa drei Tagen.
+
 
 \section{Anpassungen für Bereichsortung}
 \label{ch:phase1:sec:anpassungbereich}
@@ -150,7 +158,7 @@ Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementi
 \end{table}
 
 Der Verbrauch liegt wie erwartet unter dem der WiFi-LLS Implementierung, sogar unter der Implementierung, die nur einen Kanal scannt.
-Wird der selbe 1400 mAh beziehungsweise 5180 mWh Lithium-Polymer Akku angenommen, liegt die Laufzeit diesmal  bei 5180 mWh/27,5 mW $\approx$ 188,36 h, also bei fast 8 Tagen. \\
+Wird der selbe 1400 mAh beziehungsweise 1400 mAh Lithium-Polymer Akku angenommen, liegt die Laufzeit diesmal  bei 1400 mAh/5,5 mA $\approx$ 254,54 h, also bei über zehn Tagen. \\
 Als weitere Optimierung könnte ein Tag nur dann senden, wenn eine Reassoziation stattgefunden hat.
 Die mangelnde Transportsicherheit von UDP macht dieses Vorgehen jedoch riskant, wenn das Paket verloren geht wird kein Bereichswechsel erkannt.
 Um wieder eine begrenzte Transportsicherheit zu erhalten, kann entweder das UDP-Paket mehrfach versendet werden; ohne Reassoziation in einen festen, aber größeren Intervall gesendet werden oder statt eine UDP-Verbindung eine TCP-Verbindung verwendet werden.
@@ -176,8 +184,8 @@ Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchs
 \end{table}
 
 Der Energieverbrauch sinkt durch das Einsparen von Sendevorgänge deutlich.
-Für das Tag, das eine TCP-Verbindung öffnet, dem Ortungsserver seine Assoziation mitteilt und die Verbindung dann wieder schließt, ergibt sich für den angenommenen $5180\ mWh$ Lithium-Polymer Akku eine Laufzeit von $5180\ mWh/5,35\ mW \approx 968,22\ h$. 
-Dies entspricht gut 40 Tagen mit einer Akkuladung, diese werden jedoch in einem Szenario ohne Reassoziation erreicht.
+Für das Tag, das eine TCP-Verbindung öffnet, dem Ortungsserver seine Assoziation mitteilt und die Verbindung dann wieder schließt, ergibt sich für den angenommenen 1400\ mAh Lithium-Polymer Akku eine Laufzeit von 1400\ mAh/1,07\ mA $\approx$ 1308,41\ h. 
+Dies entspricht gut 54 Tagen mit einer Akkuladung, diese werden jedoch in einem Szenario ohne Reassoziation erreicht.
 Die tatsächliche Laufzeit muss unter realen Umständen gemessen werden, siehe dazu Abschnitt \ref{kommtnoch}.
 Da die zusätzlichen Reassoziationen jedoch auch die vorherigen Implementierungen betreffen kann man schließen, dass Tags für die Bereichsortung durch die Ausnutzung von Assoziation und Reassoziation einen erheblich reduzierten Energieverbrauch gegenüber herkömmlichen Tags für die Trilateration aufweisen.
 

@@ -36,10 +36,10 @@ Tabelle \ref{table:radarconsumption} zeigt den gemessenen Verbrauch der Implemen
 
 Der Energieverbrauch einer Lösung die vier Pakete pro Sekunde sendet ist wie erwartet hoch.
 Die Implementierungen mit der ESP Open SDK und manuellem \texttt{light\_sleep} unterscheiden sich ausschließlich im Sendeintervall, dies verändert die projezierte Laufzeit jedoch stark.
-Für den 1400 mAh Akku ergibt sich eine Laufzeit von 5180 mWh/190 mW $\approx$ 27,26 h für ein Sendeintervall von 0,25 Sekunden, hingegegen ergibt sich für ein Sendeintervall von 5 Sekunden eine Laufzeit von 5180\ mWh/25\ mW = 207,2\ h.
-Das Tag mit dem längeren Sendeintervall hält somit 7,6 mal so lang wie das andere mit einer Akkuladung durch. 
-Dennoch ist der Verbrauch nur marginal geringer als der der Bereichsortungstags (27,5 mW). \\
-Die in Abschnitt \ref{ch:phase1:sec:anpassungbereich} besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die RADAR Implementierung verwendet werden, das RADAR-artige Tag ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem Bereichsortungstag.
+Für den 1400 mAh Akku ergibt sich eine Laufzeit von 1400 mAh/38 mA $\approx$ 38,84 h für ein Sendeintervall von 0,25 Sekunden, hingegegen ergibt sich für ein Sendeintervall von 5 Sekunden eine Laufzeit von 1400\ mAh/5\ mA = 280\ h.
+Das Tag mit dem längeren Sendeintervall hält somit 7,2 mal so lang wie das andere mit einer Akkuladung durch. 
+Dennoch ist der Verbrauch nur marginal geringer als der der Bereichsortungstags (5,5 mA) aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}. \\
+Die dort besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die RADAR Implementierung verwendet werden, das RADAR-artige Tag ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem Bereichsortungstag.
 Der Energieverbrauch sollte sich somit kaum unterscheiden und ein System mit RADAR-artigen Tags benötigt Veränderungen der Software der APs, ein System mit Bereichortungstags ist deshalb vorzuziehen. \\
 %TODO Einfach nur eingebucht bleiben
 
@@ -110,8 +110,8 @@ Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementier
 Zu erkennen ist, dass die Verwendung des \texttt{deep\_sleep} zu einem geringeren Verbrauch führt. 
 Allerdings benötigt das mit dem Arduino Core programmierte Tag im Vergleich zu dem mit der ESP Open SDK programmierten Tag deutlich länger zum Starten.
 Es verbraucht deshalb sogar mehr Energie als die Bereichsortungstags aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Energie als diese.
-Für den 1400\ mAh Akku ergibt sich eine Laufzeit von 5180\ mWh/4\ mW $\approx$ 1295\ h für die Implementierung in C mit \texttt{deep\_sleep}.
-Dies entspricht einer Laufzeit von fast 54 Tagen.
+Für den 1400\ mAh Akku ergibt sich eine Laufzeit von 1400\ mAh/0,8\ mA = 1750\ h für die Implementierung in C mit \texttt{deep\_sleep}.
+Dies entspricht einer Laufzeit von fast 73 Tagen.
 Hinzu kommt, dass sich der Verbrauch dieser Tags nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
 Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten sechs Monate Laufzeit zu erreichen, werden in Abschnitt \ref{kommtnoch} weitere Verbesserungen besprochen.
 
