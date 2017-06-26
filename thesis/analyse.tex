@@ -2,10 +2,12 @@
 \label{ch:Analyse}
 %TODO Problem analysieren, Verwendbare Topologien aussuchen, 
 
-\section{Verwandte Arbeiten - Selbstlokalisierung \& indirekte Fernlokalisierung mit 802.11}
+\section{Verwandte Arbeiten} 
+
+\subsection{Verwandte Arbeiten - Selbstlokalisierung \& indirekte Fernlokalisierung mit 802.11}
 %TODO Einleitung
 
-\subsection{WiFi-LLS}
+\subsubsection{WiFi-LLS}
 \label{ch:Vorherige:sec:LLS}
 Chen et al. stellen mit dem WiFi-based Local Location System (WiFi-LLS) ein System zur indirekten Fernlokalisierung vor \cite{chen2007design}.
 Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt. 
@@ -18,7 +20,7 @@ Dies ist für Baustellen interessant, da sich diese Werte einmalig messen und da
 In dieser Veröffentlichung steht die Ortungsgenauigkeit im Vordergrund und es werden keine Angaben zum Energieverbrauch gemacht. 
 Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen Scan (siehe Abschnitt \ref{ch:phase1:sec:scan}) durchführt, dann werden die Signalstärken entdeckter APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsserver versendet.
 
-\subsection{AiRISTA Flow RTLS}
+\subsubsection{AiRISTA Flow RTLS}
 Ekahau bietet unter der Marke \textit{AiRISTA Flow RTLS} eine zu WiFi-LLS ähnliche Lösung kommerziell an \cite{airista2017airista}.
 Ihr Ekahau B4 Badge Tag ermittelt regelmäßig den RSSI zu nahegelegenen APs und versendet diese an einen Ortungsserver \cite{liu2007survey}.
 Das Tag bietet darüber hinaus noch einige Zusatzfunktionen, so können über die Datenverbindung auch Nachrichten und Alarmierungen an das Tag gesendet werden und die drei angebrachten Knöpfe können programmiert werden.\\
@@ -27,13 +29,13 @@ Das Informationsblatt zum Ekahau W4, welches statt um den Hals am Handgelenk get
 AiRISTA Flow spricht auf ihrer Website zum Beispiel Krankenhäuser, Schulen und Regierungseinrichtungen an, hier sollen zusätzlich bewegliche Objekte, wie etwa Krankenhausbetten, geortet werden.
 Die dazu verwendeten Asset Tags werden über einen Beschleunigungssensor aktiviert und können, wenn die Objekte selten bewegt werden, deutlich längere Laufzeiten erreichen \cite{ekahau2017a4}. \\
 
-\subsection{AeroScout}
+\subsubsection{AeroScout}
 Auch das AeroScout System von Stanley Healthcare richtet sich an den medizinischen Sektor und soll Objekte und Personen orten \cite{aeroscout2017asset}, \cite{aeroscout2017staff}.
 Da sich auch dieses System in das bestehende WLAN-Netzwerk einfügt, sollte es ebenfalls auf einer indirekten Fernlokalisierung beruhen und demnach ähnliche Eigenschaften bezüglich des Energieverbrauchs aufweisen.\\
 Das Informationsblatt ihres T14 Tags für Personen gibt eine Laufzeit von bis zu drei Wochen, abhängig von Konfiguration und Typ des Tags, an \cite{aeroscout2017t14}. 
 Eine Angabe zu dem verwendeten Typ, der Konfiguration oder der Kapazität des verbauten Akkus wird nicht gemacht.\\
 
-\subsection{Selbstlokalisierung mit Szenenanalyse}
+\subsubsection{Selbstlokalisierung mit Szenenanalyse}
 \label{ch:Vorherige:sec:RSS-basierte}
 Prasithsangaree et al. stellen ein System zur Selbstlokalisierung vor \cite{prasithsangaree2002indoor}, es verwendet aber eine offline-Phase zum Sammeln von Fingerabdrücken für Positionen in einem Abstand von 1,5 beziehungsweise 3 Metern. 
 In diesen Fingerabdrücken werden die gemessenen RSSI der von den APs empfangenen Pakete als Merkmale zusammen mit der Position als Label gespeichert.
@@ -58,10 +60,10 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
   \label{fig:luiRSSI}
 \end{figure}
 
-\section{Verwandte Arbeiten - Fernlokalisierung \& indirekte Selbstlokalisierung mit 802.11}
+\subsection{Verwandte Arbeiten - Fernlokalisierung \& indirekte Selbstlokalisierung mit 802.11}
 %TODO Einleitung
 
-\subsection{RADAR}
+\subsubsection{RADAR}
 \label{ch:Vorherige:sec:RADAR}
 Das RADAR System von Bahl et al. (Microsoft Research) hat als eins der ersten WLAN-basierten Ortungssysteme viel Aufmerksamkeit erfahren \cite{bahl2000radar}.
 Als Messgröße wird die Stärke des empfangenen Signals (received signal strength, RSS) genutzt, diese wird laut 802.11 Spezifikation als Index (RSSI) von der Hardware zurückgegeben. 
@@ -80,14 +82,14 @@ Für die Ortung wird mehrfach gemessen und dann gemittelt, um im Median eine Gen
 Das kurze Sendeintervall von 0,25 Sekunden führt auch bei bewegten Personen zu einer Genauigkeit von 3,5 Metern.
 Gleichzeitig sorgt das kurze Sendeintervall aber auch für einem hohen Energieverbrauch auf Seiten der mobilen Einheit, eine Reduktion der Sendevorgänge sollte im Kontext der Bereichsortung angestrebt werden, um den Energieverbrauch zu senken und die Batterielaufzeit der mobilen Einheit zu steigern.
 
-\subsection{Verbesserungen an RADAR}
+\subsubsection{Verbesserungen an RADAR}
 Bahl et al. veröffentlichten anschließend noch einige Verbesserungen für das ursprüngliche RADAR System \cite{bahl2000enhancements}.
 Diese umfassen unter anderem den Einsatz von Access Points statt PCs als Knoten, verbesserte Ortung bewegter Personen und die Erkennung von hinzugekommenen Hindernissen wie etwa Personen.
 Letzteres geschieht durch die Analyse der Signalstärke von Beacons anderer APs, da diese sich nicht bewegen, können Veränderungen in der Signalstärke als Veränderungen auf dem Signalweg gesehen werden.
 Dies ließe sich auch auf größere Hindernisse übertragen, hängt aber stark von der strategischen Platzierung und möglichst dichten Verteilung der APs ab.\\
 Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshalb weil sie einen Laptop als mobile Einheit verwenden.
 
-\subsection{Time-of-flight Lokalisierung}
+\subsubsection{Time-of-flight Lokalisierung}
 \label{ch:Vorherige:sec:TOF}
 Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die time-of-flight (TOF) messen. 
 Ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
@@ -100,7 +102,7 @@ Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und
 Muthukrishnan et al. beschreiben diese Problematik bei dem Versuch TOF ohne Zugriff auf die Software des APs umzusetzen \cite{muthukrishnan2006using}.
 Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeitstempelfunktionen wie das Network Time Protocol (NTP), Ping und die Zeitstempel in Beacons nicht eignen, da sie zum einen nur eine Auflösung im Millisekundenbereich bieten und zum anderen von der Blockierungskontrolle von 802.11 (CSMA/CA) abhängen.
 
-\subsection{Ortung ohne mobile Einheit}
+\subsubsection{Ortung ohne mobile Einheit}
 Eine Ortung ohne mobile Einheit erfüllt wegen ihrer Abwesenheit offensichtlich jede Anforderung an die Batterielaufzeit der mobilen Einheit.
 Mit MonoPHY stellen Abdel-Nasser et al. ein System zur Ortung ohne mobile Einheit vor \cite{abdel2013monophy}. \\
 Dazu verwenden sie einen 802.11n-fähigen Laptop und Access Point und analysieren die Channel State Information (CSI) der physischen Schicht (PHY) der zwischen AP und Laptop übertragenen Daten.
@@ -120,10 +122,10 @@ Die Veröffentlichung beruht außerdem auf der Verfügbarkeit der CSI, diese sin
 Als letzter Kritikpunkt steht die Verwendung eine offline-Phase, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist. \\ 
 Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Energieverbrauch, jedoch nicht die Forderung nach sicherer Erkennung von Abschnittswechseln, deshalb scheidet diese Technik zumindestens für Baustellen aus.
 
-\section{Verwandte Arbeiten - Funkbasierte Lokalisierung ohne 802.11}
+\subsection{Verwandte Arbeiten - Funkbasierte Lokalisierung ohne 802.11}
 %TODO Einleitung
 
-\subsection{Geeignete Messwerte für Bluetooth}
+\subsubsection{Geeignete Messwerte für Bluetooth}
 Hossain et al. untersuchen die laut Bluetooth Spezifikation zurückgegebenen Messwerte bezüglich ihrer Eignung für die Lokalisierung \cite{hossain2007comprehensive}.\\ 
 Link Quality (LQ) beschreibt, wie gut die Verbindung zwischen zwei Geräten ist.
 Der Wert wird aus der Bitfehlerrate beim Empfänger berechnet, allerdings ist nicht spezifiziert, wie der Wert zu berechnen ist, er hängt also in hohem Maße vom Hersteller des Empfängers ab. \\
@@ -146,7 +148,7 @@ Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für e
   \label{fig:bluetoothmess}
 \end{figure}
 
-\subsection{Antwortbasierte Inquiry Lokalisierung}
+\subsubsection{Antwortbasierte Inquiry Lokalisierung}
 Bargh et al. stellen ein System zur Fernlokalisierung mittels Bluetooth Inquiry Scan vor \cite{bargh2008indoor}.
 Die mobilen Einheiten sind dabei im discoverable ("entdeckbar") Modus.
 Die Knoten senden regelmäßig eine Inquiry Message aus, die dann von mobilen Einheiten in Reichweite mit einer Inquiry Response beantwortet werden. 
@@ -155,9 +157,26 @@ Diese Information wird aus den beantworteten Inquiry Messages jeder mobilen Einh
 Dazu werden vorher in einer offline-Phase Fingerabdrücke für jeden Raum gesammelt.
 In diesen wird gespeichert welche Inquiry Messages von der mobilen Einheit an einem bestimmten Ort beantwortet wurden.
 Für die Bereichsortung entfiele diese offline-Phase, da der Bereich über die Beantwortung einer einzelnen Inquiry Message implizit bestimmt werden kann.
+Abb. \ref{fig:irr} zeigt die abnehmende Warscheinlichkeit für eine Antwort auf die Inquiry Message mit steigender Distanz.
 
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.7\textwidth]{images/irr.png}
+  \caption{Rate der beantworteten Inquiry Messages (Inquiry Response Rate, IRR) gegen Distanz, aus \cite{bargh2008indoor}}
+  \label{fig:blemodel}
+\end{figure}
 
-\subsection{RSSI-basierte BLE Lokalisierung}
+\subsubsection{RSSI-basierte Inquiry Lokalisierung}
+Ling et al. lokalisieren Bluetooth-fähige Geräte über den RSSI der Inquiry Response \cite{ling2010inquiry}.
+Ihre Knoten versenden regelmäßig Inquiry Messages und messen den RSSI der Inquiry Responses.
+Mobile Einheiten, die geortet werden wollen beziehungsweise sollen, bewerben in der Inquiry Response einen speziellen Service.
+Dies erlaubt es diese herauszufiltern und die Privatsphäre anderer Personen zu wahren.
+Die Autoren verwenden eine anfängliche offline-Phase um Fingerabdrücke für den RSSI an gegebenen zu finden.
+Allerdings messen sie dazu an den Knoten die empfangene Signalstärke von Übertragungen anderer Knoten, folglich kann die offline-Phase automatisiert durchgeführt werden.
+Für die online-Phase werden die gemessenen RSSI Werten über eine Warscheinlichkeitsverteilung geglättet, um eine bessere Ortungsgenauigkeit zu erreichen.
+Für die eigentliche Lokalsierung werden die gemessenen RSSI mit den Warscheinlichkeitsverteilungen aus der offline-Phase verglichen und die Warscheinlichkeit für die Emission dieser Werte über die Position maximiert.
+
+\subsubsection{RSSI-basierte BLE Lokalisierung}
 Jianyong et al. stellen ein System zur Lokalisierung auf Basis von Bluetooth Low Energie (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}. \\
 Sie messen an den Knoten den RSSI von Advertising Paketen, die zuvor von den mobilen Einheiten versendet wurden.
 Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet und für jeden Knoten die Parameter für ein Signalausbreitungsmodell bestimmt.
@@ -174,3 +193,14 @@ Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development
   \caption{Signalausbreitungsmodelle aus \cite{jianyong2014rssi}}
   \label{fig:blemodel}
 \end{figure}
+
+\section{Auswahl der Topologie}
+Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
+Das Sicherheitssystem fungiert daher konzeptionell auch als zentraler Ortungsserver.
+Daher muss eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. \\
+Weil laut 802.11 keine für die Lokalisierung geeigneten Messwerte vom AP in das angeschlossene Netzwerk propagiert werden, kommt keine der verwandten Arbeiten zur direkten Fernlokalisierung ohne Zugriff auf die Software des AP aus.
+In Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} wurden sowohl Systeme ohne Änderungen der AP-Software als auch mit Änderungen dieser gefordert. \\
+Diese Forderung lässt sich also in ein System zur indirekten Fernlokalisierung ohne Änderungen am AP und in ein System zur direkten Fernlokalisierung übersetzen.
+Das System zur direkten Fernlokalisierung bedingt dabei Änderungen an der Software des AP, damit dieser den gwählten Messwert an den zentralen Ortungsserver übermittelt.
+
+\section{Auswahl der Messwerte}
