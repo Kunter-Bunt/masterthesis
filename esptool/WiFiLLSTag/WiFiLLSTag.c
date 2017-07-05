@@ -52,6 +52,7 @@ void send_UDP(void *arg) {
 }
 
 void initDone() {
+		if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
 	strncpy(stationConfig.ssid, "Lothlorien", 32);
 	strncpy(stationConfig.password, "JarJarBinks&R2D2", 64);
 	wifi_station_set_config(&stationConfig);
