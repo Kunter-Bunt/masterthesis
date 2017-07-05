@@ -44,5 +44,5 @@ void ICACHE_FLASH_ATTR user_init() {
   	os_timer_arm(&build_timer, 100, 0); //timer, milliseconds, repeating
   	
   	os_timer_setfn(&send_timer, (os_timer_func_t *)send_UDP, NULL);
-  	os_timer_arm(&send_timer, 5000, 1); //timer, milliseconds, repeating
+  	os_timer_arm(&send_timer, 1000, 1); //timer, milliseconds, repeating
 }
