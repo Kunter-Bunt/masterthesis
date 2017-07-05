@@ -2,12 +2,12 @@
 
 import socket
 import time
-import thread
+import _thread
 
 def on_new_client (conn, addr):
 		while True:
 			data = conn.recv(32);
-			if data: print "received data:", data, "from:", addr;
+			if data: print ("received data:", data, "from:", addr);
 			time.sleep(1);
 
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
@@ -21,5 +21,5 @@ try:
 		conn, addr = s.accept()
 		thread.start_new_thread(on_new_client, (conn, addr));
 except KeyboardInterrupt:
-	print "Exiting...";
+	print ("Exiting...");
 
