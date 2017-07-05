@@ -2,7 +2,7 @@
 #include "osapi.h" //os_timer_setfn, os_timer_arm
 #include "user_interface.h" //wifi_send_pkt_freedom
 #include "gpio.h"
-//#include "eagle_soc.h"
+
 
 // ProbeRequest Packet buffer - shortest possible version (sender sided)
 uint8_t packet[26] = { 
@@ -30,16 +30,19 @@ void some_timerfunc(void *arg)
 
 void ICACHE_FLASH_ATTR user_init()
 {
+	wifi_station_set_auto_connect(0);
 	gpio_init();
 
+	PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U  , FUNC_GPIO0);
 	PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDO_U , FUNC_GPIO15);
 	PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTCK_U, FUNC_GPIO13);
-	GPIO_DIS_OUTPUT(BIT13);
+	GPIO_DIS_OUTPUT(BIT15);
+	//PIN_PULLUP_EN(PERIPHS_IO_MUX_MTDO_U); 
 	
-	if (!GPIO_INPUT_GET(13)) GPIO_OUTPUT_SET(15, 1);
+	//if (!GPIO_INPUT_GET(15)) GPIO_OUTPUT_SET(13, 1);
 	
 	voltage = system_adc_read() / 10;
-
-  os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
-  os_timer_arm(&some_timer, 0, 0); //timer, milliseconds, repeating
+	
+  	os_timer_setfn(&some_timer, (os_timer_func_t *)some_timerfunc, NULL);
+  	os_timer_arm(&some_timer, 0, 0); //timer, milliseconds, repeating
 }
