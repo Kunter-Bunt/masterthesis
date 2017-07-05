@@ -13,13 +13,13 @@ struct ip_info ip;
 int len, count;
 char buf[32];
 uint32 oldip;
- 
+uint8 *mac;
  
 
 void ICACHE_FLASH_ATTR
 user_tcp_sent_cb(void *arg)
 {
-	//espconn_disconnect(&user_tcp_conn); 
+	espconn_disconnect(&user_tcp_conn); 
     wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
@@ -27,7 +27,6 @@ void ICACHE_FLASH_ATTR
 user_tcp_discon_cb(void *arg)
 {
 	wifi_set_sleep_type(LIGHT_SLEEP_T);
-    //TODO Cut power
 }
 
 void ICACHE_FLASH_ATTR
@@ -42,7 +41,7 @@ void ICACHE_FLASH_ATTR
 user_tcp_connect_cb(void *arg)
 {
     struct espconn *pespconn = arg;
-    
+    /*
     uint32_t keeplive; 
 
 	espconn_set_opt(pespconn, ESPCONN_KEEPALIVE); // enable TCP keep alive
@@ -53,7 +52,7 @@ user_tcp_connect_cb(void *arg)
 	espconn_set_keepalive(pespconn, ESPCONN_KEEPINTVL, &keeplive); 
 	keeplive = 3; //try times 
 	espconn_set_keepalive(pespconn, ESPCONN_KEEPCNT, &keeplive); 
-
+	*/
     //espconn_regist_recvcb(pespconn, user_tcp_recv_cb);
 	espconn_regist_sentcb(pespconn, user_tcp_sent_cb);
 	espconn_regist_disconcb(pespconn, user_tcp_discon_cb);
@@ -64,21 +63,19 @@ user_tcp_connect_cb(void *arg)
 void ICACHE_FLASH_ATTR
 user_tcp_recon_cb(void *arg, sint8 err)
 {
-    //TODO Cut power
+    wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void ICACHE_FLASH_ATTR
 user_check_ip(void)
 { 
-   //get ip info of ESP8266 station
     wifi_get_ip_info(STATION_IF, &ip);
  
     if (wifi_station_get_connect_status() == STATION_GOT_IP && ip.ip.addr != 0 && ip.gw.addr != oldip) 
-   { 
-      // Connect to tcp server as NET_DOMAIN
-      user_tcp_conn.proto.tcp = &user_tcp;
-      user_tcp_conn.type = ESPCONN_TCP;
-      user_tcp_conn.state = ESPCONN_NONE;
+   	{ 
+      	user_tcp_conn.proto.tcp = &user_tcp;
+      	user_tcp_conn.type = ESPCONN_TCP;
+      	user_tcp_conn.state = ESPCONN_NONE;
 
  
 		const char esp_tcp_server_ip[4] = {192, 168, 0, 150}; 
@@ -95,17 +92,29 @@ user_check_ip(void)
        	espconn_connect(&user_tcp_conn); 
  
     } 
-   else
-   {
-        
-        if ((wifi_station_get_connect_status() == STATION_WRONG_PASSWORD ||
-                wifi_station_get_connect_status() == STATION_NO_AP_FOUND ||
-                wifi_station_get_connect_status() == STATION_CONNECT_FAIL)) 
-        {
-         //TODO Cut power
-        } 
-    }
     wifi_set_sleep_type(LIGHT_SLEEP_T);
+}
+
+void wifi_event_cb(System_Event_t *evt) {
+	if (evt->event == EVENT_STAMODE_CONNECTED) {
+	    user_tcp_conn.proto.tcp = &user_tcp;
+      	user_tcp_conn.type = ESPCONN_TCP;
+      	user_tcp_conn.state = ESPCONN_NONE;
+
+ 
+		const char esp_tcp_server_ip[4] = {192, 168, 0, 150}; 
+ 
+		os_memcpy(user_tcp_conn.proto.tcp->remote_ip, esp_tcp_server_ip, 4);
+		user_tcp_conn.proto.tcp->remote_port = 8080;
+       	user_tcp_conn.proto.tcp->local_port = espconn_port(); 
+       	
+       	espconn_regist_connectcb(&user_tcp_conn, user_tcp_connect_cb);
+       	espconn_regist_reconcb(&user_tcp_conn, user_tcp_recon_cb);
+
+		len = os_sprintf(buf, "5c:cf:7f:93:3c:9c %s %s", *mac, evt->event_info.connected.bssid);
+
+		espconn_connect(&user_tcp_conn); 
+	}
 }
  
 void ICACHE_FLASH_ATTR
@@ -131,15 +140,21 @@ user_set_station_config(void)
    //set a timer to check whether got ip from router succeed or not.
    os_timer_disarm(&test_timer);
     os_timer_setfn(&test_timer, (os_timer_func_t *)user_check_ip, NULL);
-    os_timer_arm(&test_timer, 5000, 1);
+	
+	//OLD BEHAVIOR
+    //os_timer_arm(&test_timer, 5000, 1); 
+	
+	//NEW BEHAVIOR
+	wifi_set_event_handler_cb(wifi_event_cb);
  
 }
  
 void user_init(void)
 {   
-   wifi_set_opmode(STATION_MODE); 
- 
-   user_set_station_config();
-   
-   espconn_init();
+   	wifi_set_opmode(STATION_MODE); 
+	wifi_get_macaddr(STATION_IF, mac);
+ 	
+   	user_set_station_config();
+   	
+   	espconn_init();
 }
