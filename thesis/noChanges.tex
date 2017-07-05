@@ -1,4 +1,4 @@
-\chapter{Phase 1 - Keine Veränderungen an den APs}
+\chapter{Phase 1 - Indirekte Fernlokalisierung mit 802.11}
 \label{ch:phase1}
 In einem ersten Schritt sollten laut Aufgabenstellung keine Veränderungen an den Access Points vorgenommen werden können.
 Weil die Ortung deshalb auf WLAN basieren muss sind die Knoten im Folgenden immer APs. 
@@ -97,7 +97,9 @@ Des Weiteren kann theoretisch die Zahl der gescannten Kanäle gewählt werden.
 Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier nichtüberlappenden Kanäle zu verteilen. 
 Eine Implementierung, die nur einen Kanal scannt tritt deshalb nur außer Konkurenz an.\\
 Tabelle \ref{table:llsconsumption} zeigt den gemessenen Energieverbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep} und eine Implementierung, die nur einen Channel scannt.
-Für die Tests wurde das Adafruit Feather Huzzah verwendet, es wurde mit 5 Volt aus einer USB-Powerbank mit Energie versorgt, der Verbrauch wurde mit einem dazwischen geschalteten USB-Power-Meter gemessen.\\
+Für die Tests wurde das Adafruit Feather Huzzah verwendet, es wurde mit 5 Volt aus einer USB-Powerbank mit Energie versorgt, der Verbrauch wurde mit einem dazwischen geschalteten TM103 USB-Power-Meter der Marke Muker gemessen. 
+Jeder Versuch wurde mindestens eine Stunde durchgeführt.
+Wurde in dieser Zeit der Verbrauchswert von 10 mAh nicht überschritten, wurde der Versuch verlängert, da der TM103 den Verbrauch ohne Nachkommastellen anzeigt.\\
 Die Werte wurden stationär in einer Mietwohnung in einem fünfstöckigen Wohnhaus und damit nicht unter realen Bedingungen aufgezeichnet.
 Unter realen Bedingungen finden durch die Bewegung des Mitarbeiters regelmäßig Reassizationen statt, im Gegenzug liefert ein Scan in einem Tunnel weniger Ergebnisse als in einem Wohnhaus.
 Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er beinhaltet jedoch nur noch die Implementierung in C mit manuellem \texttt{light\_sleep} und einem Scan auf allen vier Kanälen.
