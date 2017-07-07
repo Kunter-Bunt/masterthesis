@@ -1,11 +1,27 @@
-\chapter{Phase 3 - Fernlokalisierung mit Bluetooth}
+\chapter{Fernlokalisierung mit Bluetooth}
 \label{ch:phase3}
 War die Infrastruktur von WLAN Access Points bisher gegeben und die Hardware somit unveränderlich, soll diese nun ausstauschbar beziehungsweise erweiterbar sein.
 Dies erlaubt die Implementierung eines Bereichsortungssystems, welches nicht an die 802.11 Spezifikation gebunden ist.
-Es soll eine Funkübetragungstechnik gewählt werden, die es den Tags erlaubt die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} maximal geforderten 3 Jahre Akkulaufzeit zu erreichen.
+Es soll eine Funkübetragungstechnik gewählt werden, die es den Tags erlaubt die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} maximal geforderten 3 Jahre Akkulaufzeit zu erreichen.\\
 Da mehrere Topologien für das Knotennetzwerk denkbar sind, werden die Begriffe Knoten und AP im Folgenden nicht mehr gleichgesetzt.
 Eine Möglichkeit wäre, APs einzusetzen, die eine zweite Funkübetragungstechnik beherrschen, optional könnnte diese Fähigkeit etwa über einen USB-Port nachgerüstet werden.
 Stattdessen kann die neu eingesetzte Technik auch von der bestehenden Infrastruktur getrennt und eine neue Infrastruktur aus Knoten aufgebaut werden.
 Als Kompromiss der vorherigen Möglichkeiten können sich die neuen Knoten auch mittels LAN oder WLAN in die bestehende Infrastruktur einfügen. 
-Dieser Kompromiss ist grundsätzlich zu bevorzugen, da er die Komplexität geringer als bei zwei eigenständigen Netzen ist.
+Dieser Kompromiss ist grundsätzlich zu bevorzugen, da die Komplexität geringer als bei zwei eigenständigen Netzen ist.
+
+\section{nRF52832}
+Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
+Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4GHz Transceiver, der Bluetooth 5 inklusive low energy und das proprietäre ANT Protokoll unterstützt.\\
+Für diese Arbeit wird ein Adafruit Feather nRF52 verwendet, der nRF52832 wird deshalb im Folgenden auf nRF52 abgekürzt.
+Das Adafruit Feather nRF52 besitzt neben dem nRF52832 Spannungswandler für die 3,3V Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. Die verbaute CP2104 USB-to-Serial Schnittstelle erlaubt es, den Chip über USB zu programmieren.\\
+Abb. \ref{fig:nrf52} zeigt das Adafruit Feather nRF52.
+
+\subsection{Arduino Bluefruit nRF52 API}
+Der nRF52 kann ebenfalls mit der Arduino IDE programmiert werden.
+Dazu muss dieser zunächst das Board Support Package hinzugefügt werden \cite{fried2017nrf}.
+In den Einstellungen wird unter \textit{Additional Boards Manager URLs} die URL \url{https://www.adafruit.com/package_adafruit_index.json} hinzugefügt.
+Nach einem Neustart der Arduino IDE kann im \textit{Boards Manager} das Paket Adafruit nRF52 installiert werden.
+Nachdem das Board ausgewählt und über USB mit dem Computer verbunden wurde, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit Bluefruit nRF52 Feather} mit STRG+U auf den nRF52 geladen werden.
+
+
 
