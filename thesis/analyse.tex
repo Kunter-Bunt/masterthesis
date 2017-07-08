@@ -48,7 +48,7 @@ Der Aufwand ein System mit Szenenanalyse auf einer Baustelle zu betreiben ist de
 Die Arbeit zeigt aber die Volatilität der empfangenen Signalstärke auf, dies wurde 2011 von Lui et al. genauer untersucht \cite{lui2011differences}.
 Lui et al. zeigen, dass die gemessene empfangene Signalstärke stark von der beteiligten Hardware abhängt und die Systeme jedes mal neu kalibriert werden müssen wenn sie auf ein neues AP-Modell portiert werden. 
 Auf dem Areal sollte deshalb optimalerweise nur ein AP-Modell verwendet werden. \\
-Abb. \ref{fig:luiRSSI} zeigt die gemessenen RSSI Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Knoten und mobiler Einheit.
+Abb. \ref{fig:luiRSSI} zeigt die gemessenen RSSI Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
 Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei größeren Veränderungen aktualisieren und dass die Antenne signifikanten Einfluss auf den protokollierten Wert hat.
 
 
@@ -73,7 +73,7 @@ Die Verwendung einer offline-Phase ist im stark veränderlichen Baustellenumfeld
 Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus. 
 Damit sich dies nicht im Modell wiederfindet, müssten zunächst alle beweglichen Maschinen aus dem Bereich entfernt werden, um anschließend in der online-Phase ihren Einfluss glätten zu können.
 Die offline-Phase ist deshalb wirtschaftlich gesehen nicht durchführbar und das empirisch ermittelte Signalausbreitungsmodell müsste durch ein theoretisches ersetzt werden, für eine grobkörnige Bereichsortung sollte dies jedoch ausreichend sein.\\
-Bei RADAR sendet die mobile Einheit vier UDP-Pakete pro Sekunde aus, an den Knoten wird dann der RSSI gemessen.
+Bei RADAR sendet die mobile Einheit vier UDP-Pakete pro Sekunde aus, an den Basisstationen wird dann der RSSI gemessen.
 Die Autoren weisen jedoch darauf hin, dass sich dieser Vorgang leicht umkehren ließe, um von einer Fernlokalisierung auf eine Selbstlokalisierung zu kommen.
 Bezüglich des Energieverbrauchs äußern sie sich jedoch zu keiner der beiden Varianten.\\
 Die Position wird anschließend bestimmt, indem aus den in der offline-Phase aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird. 
@@ -84,7 +84,7 @@ Gleichzeitig sorgt das kurze Sendeintervall aber auch für einem hohen Energieve
 
 \subsubsection{Verbesserungen an RADAR}
 Bahl et al. veröffentlichten anschließend noch einige Verbesserungen für das ursprüngliche RADAR System \cite{bahl2000enhancements}.
-Diese umfassen unter anderem den Einsatz von Access Points statt PCs als Knoten, verbesserte Ortung bewegter Personen und die Erkennung von hinzugekommenen Hindernissen wie etwa Personen.
+Diese umfassen unter anderem den Einsatz von Access Points statt PCs als Basisstationen, verbesserte Ortung bewegter Personen und die Erkennung von hinzugekommenen Hindernissen wie etwa Personen.
 Letzteres geschieht durch die Analyse der Signalstärke von Beacons anderer APs, da diese sich nicht bewegen, können Veränderungen in der Signalstärke als Veränderungen auf dem Signalweg gesehen werden.
 Dies ließe sich auch auf größere Hindernisse übertragen, hängt aber stark von der strategischen Platzierung und möglichst dichten Verteilung der APs ab.\\
 Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshalb weil sie einen Laptop als mobile Einheit verwenden.
@@ -94,10 +94,10 @@ Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshal
 Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die time-of-flight (TOF) messen. 
 Ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
 Sie fordern optimalerweise Zugriff auf die physische Schicht (PHY) des 802.11 Protokolls, da auf diesen aber üblicherweise kein Zugriff besteht, messen sie TOF in der darüber liegenden MAC-Schicht.\\
-Ein Knoten sendet einen Beacon aus und protokolliert die Sendezeit, die mobile Einheit empfängt den Beacon, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, der Knoten sichert die Empfangszeit der Antwort.
-Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an den Knoten, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann, um dann die Distanz $d = c * (\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
+Eine Basisstation sendet einen Beacon aus und protokolliert die Sendezeit, die mobile Einheit empfängt den Beacon, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, die Basisstation sichert die Empfangszeit der Antwort.
+Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an die Basisstation, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann, um dann die Distanz $d = c * (\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
 Dieses Schema lässt sich leicht von einer Fernlokalisierung in eine Selbstlokalisierung umwandeln, indem man den Initiator des Vorgangs tauscht.\\
-Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Knoten verwendeten Access Points. 
+Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Basisstation verwendeten Access Points. 
 Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und die Verarbeitungszeit vor/nach dem Setzen muss sehr konstant sein, da eine Abweichung von 100 ns bei c = 299.792.458 m/s bereits einen Fehler von 30 Metern verursacht.\\
 Muthukrishnan et al. beschreiben diese Problematik bei dem Versuch TOF ohne Zugriff auf die Software des APs umzusetzen \cite{muthukrishnan2006using}.
 Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeitstempelfunktionen wie das Network Time Protocol (NTP), Ping und die Zeitstempel in Beacons nicht eignen, da sie zum einen nur eine Auflösung im Millisekundenbereich bieten und zum anderen von der Blockierungskontrolle von 802.11 (CSMA/CA) abhängen.
@@ -151,7 +151,7 @@ Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für e
 \subsubsection{Antwortbasierte Inquiry Lokalisierung}
 Bargh et al. stellen ein System zur Fernlokalisierung mittels Bluetooth Inquiry Scan vor \cite{bargh2008indoor}.
 Die mobilen Einheiten sind dabei im discoverable ("entdeckbar") Modus.
-Die Knoten senden regelmäßig eine Inquiry Message aus, die dann von mobilen Einheiten in Reichweite mit einer Inquiry Response beantwortet werden. 
+Die Basisstationen senden regelmäßig eine Inquiry Message aus, die dann von mobilen Einheiten in Reichweite mit einer Inquiry Response beantwortet werden. 
 Anschließend werden die Antworten auf einem zentralen Ortungsserver gesammelt und die Positionen der mobilen Einheiten bestimmt.
 Diese Information wird aus den beantworteten Inquiry Messages jeder mobilen Einheit gewonnen.
 Dazu werden vorher in einer offline-Phase Fingerabdrücke für jeden Raum gesammelt.
@@ -168,21 +168,21 @@ Abb. \ref{fig:irr} zeigt die abnehmende Warscheinlichkeit für eine Antwort auf 
 
 \subsubsection{RSSI-basierte Inquiry Lokalisierung}
 Ling et al. lokalisieren Bluetooth-fähige Geräte über den RSSI der Inquiry Response \cite{ling2010inquiry}.
-Ihre Knoten versenden regelmäßig Inquiry Messages und messen den RSSI der Inquiry Responses.
+Ihre Basisstationen versenden regelmäßig Inquiry Messages und messen den RSSI der Inquiry Responses.
 Mobile Einheiten, die geortet werden wollen beziehungsweise sollen, bewerben in der Inquiry Response einen speziellen Service.
 Dies erlaubt es diese herauszufiltern und die Privatsphäre anderer Personen zu wahren.
 Die Autoren verwenden eine anfängliche offline-Phase um Fingerabdrücke für den RSSI an gegebenen zu finden.
-Allerdings messen sie dazu an den Knoten die empfangene Signalstärke von Übertragungen anderer Knoten, folglich kann die offline-Phase automatisiert durchgeführt werden.
+Allerdings messen sie dazu an den Basisstationen die empfangene Signalstärke von Übertragungen anderer Basisstationen, folglich kann die offline-Phase automatisiert durchgeführt werden.
 Für die online-Phase werden die gemessenen RSSI Werten über eine Warscheinlichkeitsverteilung geglättet, um eine bessere Ortungsgenauigkeit zu erreichen.
 Für die eigentliche Lokalsierung werden die gemessenen RSSI mit den Warscheinlichkeitsverteilungen aus der offline-Phase verglichen und die Warscheinlichkeit für die Emission dieser Werte über die Position maximiert.
 
 \subsubsection{RSSI-basierte BLE Lokalisierung}
 Jianyong et al. stellen ein System zur Lokalisierung auf Basis von Bluetooth Low Energie (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}. \\
-Sie messen an den Knoten den RSSI von Advertising Paketen, die zuvor von den mobilen Einheiten versendet wurden.
-Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet und für jeden Knoten die Parameter für ein Signalausbreitungsmodell bestimmt.
+Sie messen an den Basisstationen den RSSI von Advertising Paketen, die zuvor von den mobilen Einheiten versendet wurden.
+Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet und für jede Basisstation die Parameter für ein Signalausbreitungsmodell bestimmt.
 Das gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke A im Abstand von einem Meter, dem Dämpfungsfaktor n und der Distanz d ab. \\
-Jianyong et al. bestimmen die Referenzsignalstärke und den Dämpfungsfaktor für jeden Knoten.
-Da jedoch nur eine Bereichsortung für diese Arbeit gefordert wurde, sollten A und n nur beispielhaft für einen Knoten bestimmt werden, um den Aufwand beim Aufbau der Infrastruktur zu reduzieren.
+Jianyong et al. bestimmen die Referenzsignalstärke und den Dämpfungsfaktor für jede Basisstation.
+Da jedoch nur eine Bereichsortung für diese Arbeit gefordert wurde, sollten A und n nur beispielhaft für eine Basisstation bestimmt werden, um den Aufwand beim Aufbau der Infrastruktur zu reduzieren.
 Abb. \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell. 
 Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development Kit von Texas Instruments von einem Access Point nur auf 20 Meter detektiert werden konnte.
 
