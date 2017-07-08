@@ -2,18 +2,12 @@
 
 void setup() 
 {
-  Serial.begin(115200);
   Bluefruit.begin();
-  Bluefruit.setName("Bluefruit52");
-  Bluefruit.stopConnLed();
-  //Bluefruit.setTxPower(-4);
-  Serial.println(Bluefruit.getTxPower());
+  Bluefruit.setTxPower(4);
 
-  // Setup the advertising packet
-  Bluefruit.Advertising.addTxPower();
+  Bluefruit.setName("TestTag");
   Bluefruit.Advertising.addName();
 
-  // Start advertising
   Bluefruit.Advertising.start();
 }
 
