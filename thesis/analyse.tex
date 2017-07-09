@@ -180,7 +180,7 @@ Für die eigentliche Lokalsierung werden die gemessenen RSSI mit den Warscheinli
 Jianyong et al. stellen ein System zur Lokalisierung auf Basis von Bluetooth Low Energie (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}. \\
 Sie messen an den Basisstationen den RSSI von Advertising Paketen, die zuvor von den mobilen Einheiten versendet wurden.
 Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet und für jede Basisstation die Parameter für ein Signalausbreitungsmodell bestimmt.
-Das gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke A im Abstand von einem Meter, dem Dämpfungsfaktor n und der Distanz d ab. \\
+Die gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke A im Abstand von einem Meter, dem Dämpfungsfaktor n und der Distanz d ab. \\
 Jianyong et al. bestimmen die Referenzsignalstärke und den Dämpfungsfaktor für jede Basisstation.
 Da jedoch nur eine Bereichsortung für diese Arbeit gefordert wurde, sollten A und n nur beispielhaft für eine Basisstation bestimmt werden, um den Aufwand beim Aufbau der Infrastruktur zu reduzieren.
 Abb. \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell. 
@@ -197,10 +197,28 @@ Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development
 \section{Auswahl der Topologie}
 Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
 Das Sicherheitssystem fungiert daher konzeptionell auch als zentraler Ortungsserver.
-Daher muss eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. \\
+Es muss deshalb eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. \\
 Weil laut 802.11 keine für die Lokalisierung geeigneten Messwerte vom AP in das angeschlossene Netzwerk propagiert werden, kommt keine der verwandten Arbeiten zur direkten Fernlokalisierung ohne Zugriff auf die Software des AP aus.
 In Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} wurden sowohl Systeme ohne Änderungen der AP-Software als auch mit Änderungen dieser gefordert. \\
 Diese Forderung lässt sich also in ein System zur indirekten Fernlokalisierung ohne Änderungen am AP und in ein System zur direkten Fernlokalisierung übersetzen.
-Das System zur direkten Fernlokalisierung bedingt dabei Änderungen an der Software des AP, damit dieser den gwählten Messwert an den zentralen Ortungsserver übermittelt.
+Das System zur direkten Fernlokalisierung bedingt dabei Änderungen an der Software des AP, damit dieser den gewählten Messwert an den zentralen Ortungsserver übermittelt.\\
+Dürfen Veränderungen der Hardware vorgenommen werden, bietet sich ebenfalls eine direkte Fernlokalisierung an, da dort die mobilen Einheiten, abgesehen von der Kollisionsdetektion/-vermeidung, nicht empfangen müssen.\\
+Eine Topologie ohne Basisstationen kommt nicht in Frage, da diese Topologie Einzelpersonen insbesondere in Notsituationen nicht ausreichend gut erfasst.
+
+\section{Auswahl des Funkprotokolls}
+Soll das bestehende WLAN Netzwerk genutzt werden ist die Wahl auf die 802.11 Spezifikation beschränkt.\\
+Für den dritten Schritt, der eine Änderung der verwendeten Hardware für die Basisstationen erlaubt, kann das Protokoll jedoch frei gewählt werden.
+In der engeren Auswahl sind LoRaWAN, Bluetooth und Bluetooth Low Energy.
+Bluetooth Low Energy wird gegenüber normalem Bluettoth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.\\
+LoRaWAN bietet zwar theoretisch eine Reichweite von bis zu zwei Kilometern im Stadtgebiet, wird jedoch von großen, stählernen, über 100 Meter langen Schalungswagen stark absorbiert.
+Es kann deshalb seine überlegene Reichweite im Tunnel nicht nutzen und es müssten ähnlich viele Basisstationen wie bei Bluetooth ausgebracht werden.\\
+Soll jedoch keine Bereichsortung, sondern eine genaue Lokalisierung vorgenommen werden, eignet sich LoRaWAN besser. 
+Da durch eine Ausbringung der Basisstationen in 500 Meter Abständen potentiell mehrere Basisstationen in Reichweite der mobilen Einheit liegen.
+Dieser Umstand kann dann für eine Triangulation beziehungsweise Trilateration der Position der mobilen Einheit genutzt werden.
+%TODO Belege für Aussagen, LoRa verbraucht auch etwas mehr Strom?
 
 \section{Auswahl der Messwerte}
+Da nur eine Bereichsortung durchgeführt werden soll, sind die Anforderungen an die Genauigkeit eines Messwertes gering.
+Stattdessen sollte darauf geachtet werden, dass die Anforderung für die Messung gering ist.
+Messwerte, die Zeitsynchronität vorraussetzen sind daher nicht geeignet.\\
+Als Messwert wird der Received Signal Strength Index sowohl für WLAN als auch für Bluetooth Low Energy gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.
