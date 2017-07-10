@@ -111,18 +111,16 @@ Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er
 	\caption{Energieverbrauch WiFi-LLS-artiger Tags}
 	\label{table:llsconsumption}
 	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}}
-		SDK & manueller \texttt{light\_sleep} & Anzahl Kanäle & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		SDK & manueller \texttt{light\_sleep} & Anzahl Kanäle & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA  \\
 		\hline
-		Arduino Core & Nein & 4 & 5 & 22 & 110 \\
-		Arduino Core & Ja & 4 & 5 & 21 & 105 \\
-		ESP Open SDK & Nein & 4 & 5 & 19 & 95 \\
-		ESP Open SDK & Ja & 4 & 5 & 19 & 95 \\
+		Arduino Core & Nein & 4 & 1 & 22 & 22 \\
+		Arduino Core & Ja & 4 & 1 & 21 & 21 \\
+		ESP Open SDK & Nein & 4 & 1 & 19 & 19 \\
+		ESP Open SDK & Ja & 4 & 1 & 19 & 19 \\
 		\hline
-		ESP Open SDK & Ja & 1 & 5 & 6,5 & 32,5 \\
+		ESP Open SDK & Ja & 1 & 2 & 13 & 6,5 \\
 	\end{tabular}
 \end{table}
-
-
 
 Die Tests zeigen, dass die Programmierung mit der ESP Open SDK einen Vorteil beim Energieverbrauch hat, dieser liegt bei ca 10\%.
 Andererseits fällt auf, dass die Reduzierung der gescannten Channel eine signifikante Senkung des Energieverbrauchs nach sich zieht, die Scan-Funktion ist also der Hauptverbraucher.\\
@@ -153,12 +151,12 @@ Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementi
 	\caption{Energieverbrauch der Bereichsortungstags}
 	\label{table:naiveconsumption}
 	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.7cm}|p{2.5cm}|p{2.5cm}}
-		SDK & manueller \texttt{light\_sleep} & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		SDK & manueller \texttt{light\_sleep} & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
 		\hline
-		Arduino Core & Nein & 5 & 14 & 70 \\
-		Arduino Core & Ja & 5 & 7 & 35 \\
-		ESP Open SDK & Nein & 5 & 6 & 30 \\
-		ESP Open SDK & Ja & 5 & 5,5 & 27,5 \\
+		Arduino Core & Nein & 1 & 14 & 14 \\
+		Arduino Core & Ja & 3 & 212 & 7 \\
+		ESP Open SDK & Nein & 2 & 12 & 6 \\
+		ESP Open SDK & Ja & 2 & 11 & 5,5 \\
 	\end{tabular}
 \end{table}
 
@@ -177,14 +175,14 @@ Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchs
 	\caption{Energieverbrauch der verbesserten Bereichsortungstags}
 	\label{table:naiveoptconsumption}
 	\begin{tabular}{p{3.5cm}|p{1.7cm}|p{2.5cm}|p{2.5cm}}
-		Transportsicherung & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		Transportsicherung & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
 		\hline
-		Ohne & 5 & 2 & 10 \\
-		Dreifach UDP & 5 & 1,4 & 7 \\
-		Zusatzintervall 30s & 5 & 2,62 & 13,1 \\
-		Zusatzintervall 60s & 5 & 1,6 & 8 \\
-		TCP (halten) & 5 & 1,2 & 6 \\
-		TCP (schließen) & 5 & 1,07 & 5,35 \\
+		Ohne & 5 & 10 & 2 \\
+		Dreifach UDP & 10 & 14 & 1,4 \\
+		Zusatzintervall 30s & 13 & 34 & 2,62 \\
+		Zusatzintervall 60s & 5 & 8 & 1,6 \\
+		TCP (halten) & 10 & 12 & 1,2 \\
+		TCP (schließen) & 11 & 12 & 1,09 \\
 	\end{tabular}
 \end{table}
 
