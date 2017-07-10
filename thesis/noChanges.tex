@@ -78,7 +78,8 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 
 
 
-\section{WiFi-LSS Implementierung}
+\section{WiFi-LLS Implementierung}
+\label{ch:phase1:sec:wifills}
 Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsserver \cite{chen2007design}.
 Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung eines WiFi-LLS-Tags die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermittelt. 
 Damit wird der Overhead einer TCP-Verbindung vermieden.\\

@@ -1,0 +1,25 @@
+\chapter{Vergleich der Implementierungen}
+\label{ch:vergleich}
+Bisher wurden die Implementierungen nur in einem stationären Szenario mit dem Access Point in Reichweite getestet. 
+Dies spiegelt jedoch nicht das Szenario der Arbeit im Tunnel wieder, bei der sich die Mitarbeiter sich regelmäßig bewegen und auch in Bereiche arbeiten, in denen kein AP WLAN zur Verfügung stellt. \\
+Ein Test mit den Mitarbeitern war leider nicht möglich, da der Versuchsaufbau mit Powerbank, USB-Power-Meter und ESP8266 Feather zu ausladend und wegen der Steckverbindungen zu fragil für den Arbeitsalltag ist.
+Auch das mitführen des Versuchaufbaus durch den Autor ist nicht praktikabel, da die Versuche über mehrere Stunden durchgeführt werden müssen und in den Arbeitsbereichen auf der Tunnelbohrmaschine nur wenig Platz vorhanden ist, so dass die normale Arbeit behindert werden würde.
+Dies ist insbesondere der Fall, wenn realistische Bewegungsprofile nachvollzogen werden sollen. 
+Dazu müsste ständig ein Arbeiter verfolgt werden, das behindert diesen natürlich und ist auch nicht einfach möglich, da Gefahrenbereiche vom Autor mangels Sicherheitseinweisungen nicht betreten werden dürften.
+Die Bedingungen wurden deshalb stationär simuliert.
+
+\section{Simulationsumgebung}
+Für ein realistischen Verbrauch mangelte es der bisherigen stationären Versuchumgebung an Reassiziationen (Wechsel des AP) und dem nicht vorhanden sein eines APs.
+Dies soll durch abschalten des APs simuliert werden. \\
+Es wurde ein Schema gewählt, in dem der AP nach jeweils 15 Minuten für fünf Minuten abgeschaltet wird. 
+Für einen echten Arbeiter sind die Zeitabschnitte anders und je nach Aufgabe unterschiedlich, insbesondere sind die Zeitabschnitte in der Realität länger und die Arbeit außerhalb der Reichweite eines APs wird üblicherweise länger als günf Minuten dauern.
+Weil aber nur ein AP zur Verfügung steht sollen auch Reassoziationen adäquat modelliert werden.
+Dies geschiet durch die kurzen Intervalle, da nach dem erneuten anschalten des Aps beim beitreten der mobilen Einheit zum Netzwerk eine Assoziation durchgeführt wird. 
+Diese löst, analog zur Reassoziation, einen Sendevorgang bei mobilen Einheiten aus, die nur bei Bereichswechsel senden.
+
+\section{Anpassungen der Implementierungen}
+Zu Beginn der Tests konnte ein massiver Anstieg des Stromverbrauchs festgestellt werden sobald der AP abgeschaltet wurde.
+Geht die Verbindung zu diesem verloren beginnt die mobile Einheit mit einem Scan, in Abschnitt \ref{ch:phase1:sec:wifills} wurde festgestellt, dass diese Operation energetisch sehr teuer ist.
+Da der ESP nach einem fehlgeschlagenen Scan sofort einen neuen begann belief sich der Stromverbrauch für Implementierungen, die dem WLAN Netzwerk beitreten, auf 40mA in den Zeiten, in denen der AP abgeschaltet war.
+Die Implementierungen wurden daher angepasst, so dass sie nach einem fehlgeschlagenen Scan für das ermittelte Sendeintervall in den \texttt{deep\_sleep} versetzt werden bevor sie einen neuen Scan starten.
+Dieses Verhalten senkt den Energieverbrauch der mobilen Einheiten deutlich.
