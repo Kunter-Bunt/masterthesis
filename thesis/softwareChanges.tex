@@ -115,3 +115,13 @@ Dies entspricht einer Laufzeit von fast 73 Tagen.
 Hinzu kommt, dass sich der Verbrauch dieser Tags nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
 Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten sechs Monate Laufzeit zu erreichen, werden in Abschnitt \ref{kommtnoch} weitere Verbesserungen besprochen.
 
+\subsection{Anzahl der verwendeten Kanäle}
+Eine Lösung die nicht vor dem Versenden das Spektrum nach den Access Points durchsucht muss entweder auf der Annahme beruhen, dass alle Access Points auf einem Kanal agieren oder in allen in Frage kommenden Kanälen senden.\\
+Je nach Erweiterung der 802.11 Spezifiktion ergeben sich unterschiedlich viele solcher Kanäle.
+802.11b verwendet eine Kanalbreite von 22MHz, es stehen daher effektiv nur drei Kanäle zur Verfügung: 1, 7 und 13 in Europa beziehungsweise 1, 6 und 11 in Nordamerika.
+Für 802.11g/n mit 20MHz Kanalbreite sind zwar in Europa theoretisch vier Kanäle verfügbar (1,5,9,13), es werden aber in der Paxis meist dieselben Kanäle wie bei 802.11b verwendet um die Kompatibilität zu 802.11b zu gewährleisten.
+802.11n ist auch für eine Kanalbreite von 40 MHz spezifiziert, hier stehen effektiv nur noch 2 Kanäle zur Verfügung üblicherweise werden Kanal 3 und 11 gewählt.\\
+Die Implementierung in C mit \texttt{deep\_sleep} wurde sowohl auf einem Kanal, als auch auf vier Kanälen getestet.
+Dabei ergab sich in 24 Stunden kein messbarer Unterschied.
+Es sollte daher auf eine Festlegung des Kanals verzichtet werden, weil diese die reguläre Funktionsweise des WLAN Netzwerks beeinträchtigen könnte.
+
