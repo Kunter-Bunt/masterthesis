@@ -27,8 +27,18 @@ Die indirekte Fernlokalisierung gleicht der direkten Selbstlokalisierung, allerd
 Auch die indirekte Selbstlokalisierung erweitert die direkte Fernlokalisierung um eine Datenverbindung zwischen mobiler Einheit und zentralem Ortungsserver. 
 So kann sie sich über die eigene und eventuelle auch andere mobile Einheiten informieren. 
 Dies kann insbesondere bei der Verwendung von Mischtechnologien notwendig sein, wenn die zur Ortung genutzte Technik es nicht erlaubt an den mobilen Einheiten zu empfangen, aber dennoch eine Selbstlokalisierung durchgeführt werden soll.
+
+\subsection{Lokalisierung ohne Basisstationen} 
+Die mobilen Einheiten können sich auch gegenseitig lokalisieren, dazu messen sie die Distanz zu anderen mobilen Einheiten.
+Sie können diese Ergebnisse dann wiederum anderen mobilen Stationen mitteilen um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
+Dadurch ensteht eine maßstabslose Karte, die die realtive Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
+Diese kann zusätzlich an einen zentralen Ortungsserver versendet werden um sie dort verfügbar zu machen.
+
+\subsection{Hybride Topoligie}
+In einer hybriden Toplogie orten sich die mobilen Einheiten gegenseitig, werden dabei aber von wenigen Basisstationen unterstützt.
+Diese Basisstationen geben ihre feste Position bekannt, dadurch ist es möglich der enstehenden Karte Punkte für die Ausrichtung und Skalierung hinzuzufügen.
+Außerdem können sie mit dem zentralen Ortungsserver kommunizieren um eine indirekte Fernlokalisierung mittels der durch die mobilen Einheiten propagierten Karten eine indirekte Fernlokaliserung durchzuführen.
 %TODO Mach eine Kreuzgrafik mit Kreuzen!! 
-%TODO Wir wollen eine Erklärung! Zu Knoten! Und zu Gummibärchen!!
 
 \subsection{Lokalisierungsprinzip}
 Das einfachste Lokalisierungsprinzip ist das Umgebungsprinzip, hier wird eine mobile Einheit der Basisstation mit dem stärksten Signal zugeordnet, die Basisstation kann sowohl als Sender als auch als Empfänger auftreten. Die gewonnene Position ist dabei nur symbolisch und ihre Genauigkeit ist abhängig von der Dichte des Netzes. Für eine erfolgreiche Lokalisierung muss nur eine Basisstation in Reichweite der mobilen Einheit sein, was diese Möglichkeit auch in komplexeren Lokalisierungsprinzipien zu einer sinnvollen Ausweichmöglichkeit macht, falls nicht genügend Basisstationen in Reichweite sind. \\
@@ -74,10 +84,10 @@ Ein weiteres Problem von RSS ist der starke Einfluss von Hindernissen und andere
 \section{Grundlagen der 802.11 Spezifikation}
 \label{ch:phase1:sec:grundlagen}
 %TODO Spezifikation in den ersten Satz bringen um es später weglassen zu können
-802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen \cite{ieee2012macphy}.
-Die Spezifikation beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
+Die Spezifikation 802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen \cite{ieee2012macphy}.
+Sie beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
 Wird ein solches Netzwerk in ein Local Area Network (LAN) eingebunden spricht man üblicherweise vom Wireless Local Area Network (WLAN).
-Die 1997 erstmals verabschiedete Spezifikation wurde häufig erweitert und wird in ihrer ursprünglichen Form praktisch nicht mehr angewendet, da die Datenraten zu gering sind.
+802.11 wurde 1997 erstmals verabschiedet und wurde häufig erweitert und wird in ihrer ursprünglichen Form praktisch nicht mehr angewendet, da die Datenraten zu gering sind.
 Die Erweiterungen werden mit Buchstaben benannt (zum Beispiel 802.11g) und verändern etwa die verwendete Frequenz und Modulationsverfahren.\\
 Zur Vermeidung von Kollisionen kommt Carrier Sense Multiple Access/Collision Avoidance (CSMA/CA) zum Einsatz.
 Bei CSMA/CA wird zunächst das Medium belauscht und gewartet bis keine Signale mehr auf dem Medium sind. 
@@ -136,7 +146,7 @@ Das weitere Vorgehen hängt vom Authentifizierungsverfahren ab, zum Beispiel kan
 Ist die Antwort korrekt, bestätigt der AP den Vorgang mit einem Acknowledgement und eventuell zusätzlichen Informationen für eine Stromchiffre. \\
 Anschließend kann die Station mit dem AP assoziiert werden \cite{ieee2012associate}. 
 Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die Station zuständig ist. 
-Dies geschieht üblicherweise über das Address Resolution Protokoll (ARP). [evtl IGMP?] \\%TODO Kai fragen.
+Dies geschieht üblicherweise über das Address Resolution Protokoll (ARP) oder das Internet Group Management Protocol (IGMP).\\
 Ist eine Station assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen, um eine Webseite anzufordern.
 
 \subsection{Reassociation}
