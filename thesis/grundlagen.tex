@@ -83,7 +83,6 @@ Ein weiteres Problem von RSS ist der starke Einfluss von Hindernissen und andere
 
 \section{Grundlagen der 802.11 Spezifikation}
 \label{ch:phase1:sec:grundlagen}
-%TODO Spezifikation in den ersten Satz bringen um es später weglassen zu können
 Die Spezifikation 802.11 beschreibt eine Form der drahtlosen Datenübertragung mittels Funkwellen \cite{ieee2012macphy}.
 Sie beschreibt die physische Schicht (PHY-Layer) und den Mediumszugriff (MAC-Layer) für ein Funknetzwerk, dass mit den darüber liegenden Schichten des OSI-Modells in andere Netzwerke eingebunden werden kann.
 Wird ein solches Netzwerk in ein Local Area Network (LAN) eingebunden spricht man üblicherweise vom Wireless Local Area Network (WLAN).
@@ -161,29 +160,23 @@ Abschließend wird dem Netzwerk die neue Assoziation mittels ARP mitgeteilt.
 
 \section{Grundlagen der Bluetooth Spezifikation}
 Bluetooth beschreibt eine Form der Funkkommunikation über kurze Distanzen, die zunächst für Mobiltelefone entwickelt und dann auf weitere Geräteklassen übertragen wurde.
-Ursprünglich wurde die physische Schicht (PHY-Layer) und der Mediumszugriff (MAC-Layer) in der Spezifikation 802.15.1 definiert. %TODO cite
+Ursprünglich wurde die physische Schicht (PHY-Layer) und der Mediumszugriff (MAC-Layer) in der Spezifikation 802.15.1 definiert \cite{ieee2002blue}. 
 Diese wird allerdings nicht mehr vom Institute of Electrical and Electronics Engineers (IEEE) gepflegt. \\
-Bluetooth ist bereits in der Version 5.0 erschienen, da jedoch zum Zeitpunkt der Recherche für diese Arbeit kaum kompatible Geräte wird im Folgenden auf Bluetooth 4.0 Bezug genommen.
+Bluetooth ist bereits in der Version 5.0 erschienen, da jedoch zum Zeitpunkt der Recherche für diese Arbeit kaum kompatible Geräte wird im Folgenden auf Bluetooth 4.0 Bezug genommen \cite{blue2010spec}.
 Bluetooth erlaubt es nach der Entdeckung eines Kommunikationspartners und anschließendem Aufbau einer Verbindung mit ihm im 2,4 GHz ISM-Band.
-Die Reichweite für die Verbindung hängt neben äußeren Hindernissen und den verwendeten Antennen auch von der jweiligen Sendeleistung ab.
+Die Reichweite für die Verbindung hängt neben äußeren Hindernissen und den verwendeten Antennen auch von der jeweiligen Sendeleistung ab.
 Bluetooth Geräte werden dazu in drei Klassen eingeteilt, siehe Tabelle \ref{table:blclass}.
 
-\begin{table}[h]
-	\centering
-	\caption{Klasseneinteilung für Bluetooth Geräte nach Sendeleistung} %TODO cite
-	\label{table:blclass}
-	\begin{tabular}{l|l|l}
-		Geräte-Klasse & Maximale Sendeleistung & Ungefähre Reichweite \\
-		\hline
-		Klasse 1 & 100 mW & ca. 100 m \\
-		Klasse 2 & 2,5 mw & ca. 10 m  \\
-		Klasse 3 & 1 mw & ca. 1 m  \\
-	\end{tabular}
-\end{table}
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.9\textwidth]{images/blueclasses.png}
+  \caption{Klasseneinteilung für Bluetooth Geräte nach Sendeleistung, aus \cite{blue2010classes}.}
+  \label{fig:blclass}
+\end{figure}
 
 Mit Bluetooth 4.0 wurde erstmals Bluetooth Low Energie (BLE, auch Bluetooth Smart) vorgestellt.
-BLE wurde für niedrigen Energieverbrauch optimiert, es verzichtet auf den Verbindungsaufbau um den Zeitabschnitt, in dem das Gerät aktiv ist, zu reduzieren.
-Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als Header um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate von 3 Mbps (Bluetooth 4.0) auf 0.7 Mbps (Bluetooth Low Energy). %TODO cite
+BLE wurde für niedrigen Energieverbrauch optimiert, es verzichtet auf den Verbindungsaufbau, um den Zeitabschnitt in dem das Gerät aktiv ist zu reduzieren.
+Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als Header um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate von 2,1 Mbps (Bluetooth 4.0) auf 0,7 Mbps (Bluetooth Low Energy). %TODO cite
 BLE eignet sich somit vor allem dann, wenn wenige oder selten Informationen ausgetauscht werden müssen.
 Im Folgenden werden die, für die Lokalisation wichtigen Operationen vorgestellt.
 Es handelt sich dabei jeweils um die Funktion des Entdeckens von Ressourcen mittels Inquiry Scan für Bluetooth beziehungsweise mittels Advertising für BLE.
