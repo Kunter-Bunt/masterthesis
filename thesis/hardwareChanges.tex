@@ -62,15 +62,19 @@ Deshalb soll zunächst Abb. \ref{fig:nrf52consumption} für eine theoretische Be
 \subsection{Theoretischer Verbrauch}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
 Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein Advertising Paket, welches zusätzlich den Gerätenamen "TestTag" versendet, werden 24 Bytes (192 Bit) gesendet.
-Um die Kollisionsvermeidung einzufügen werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, der die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. \\[1cm]
+Um die Kollisionsvermeidung einzufügen werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, der die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. 
+Es müssen ebenfalls die weiteren Komponenten auf dem Feather bedacht werden. 
+Adafruit gibt für den Spannungswandler einen Verbrauch von 55 Mikroamper und für den Lithium-Polymer-Ladeschaltkreis einen Verbrauch von bis zu 100 Mikroamper an \cite{fried2016lora}. 
+Der Verbrauch des anderen Komponenten des Feather wird daher konservativ auf 155 Mikroamper geschätzt.\\[1cm]
 
-$y = (1s-\frac{Bits_gesendet}{1000000 b/s} - \frac{Bits_empfangen}{1000000 b/s})*I_{ON\_RAMOFF\_RTC} + \frac{Bits_gesendet}{1000000 b/s} * I_{RADIO\_RX0} + \frac{Bits_empfangen}{1000000 b/s} * I_{RADIO\_RX0}$\\[0.5cm]
-$y = (1s - 0,000192s - 0,002s) * 0,0019mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
-$y \approx 0,001896mA + 0,001363mA + 0,013mA = 0,016259mA$ \\[1cm]
+$y = (1s-\frac{Bits_gesendet}{1000000 b/s} - \frac{Bits_empfangen}{1000000 b/s}) * (I_{ON\_RAMOFF\_RTC} + 155 {\mu}A) + \frac{Bits_gesendet}{1000000 b/s} * I_{RADIO\_RX0} + \frac{Bits_empfangen}{1000000 b/s} * I_{RADIO\_RX0}$\\[0.5cm]
+$y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
+$y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 
-Wird erneut der 1400 mAh Lithium Polymer Akku angenommen beträgt die Laufzeit $1400mAh / 0,016259mA \approx 86106h$.
-Dies entspräche circa 10 Jahren.\\
-Dabei handelt es sich natürlich um eine rein theoretische Laufzeit, da die Selbstentladung der Akkus über derart lange Zeiträume eine große Rolle spielt. 
+Wird erneut der 1400 mAh Lithium Polymer Akku angenommen beträgt die Laufzeit $1400mAh / 0,170919mA \approx 8191h$.
+Dies entspräche circa 341 Tagen.\\
+ 
 
 \subsection{Tatsächlicher Verbrauch}
-[Idee für tatsächlichen Verbrauch wäre 110mAh Akku anschließen und Spannungsabfall über Zeit ansehen. Aber wenn die Werte des Datenblatts stimmten ergäbe sich eine Laufzeit von 9 Monaten. Also eigentlich auch nicht in sinnvollen Zeiträumen messbar, insbesondere, weil LiPo die Spannung nicht linear verlieren => \url{http://fmadirect.com/new_applications/FuelGauge/images/image001.jpg}]
+Ein Messung zum Verbrauch ist in Abschnitt \ref{ch:realworld:sec:ble} zu finden. 
+
