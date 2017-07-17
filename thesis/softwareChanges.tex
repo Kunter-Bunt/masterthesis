@@ -43,9 +43,6 @@ Die dort besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch fü
 Der Energieverbrauch sollte sich somit kaum unterscheiden und ein System mit RADAR-artigen Tags benötigt Veränderungen der Software der APs, ein System mit Bereichortungstags ist deshalb vorzuziehen. \\
 %TODO Einfach nur eingebucht bleiben
 
-\section{Time-of-Flight Implementierung}
-[Kommt noch Text, wird nicht implementiert, weil schon theoretisch teurer als RADAR]
-
 \section{Anpassungen für Bereichsortung}
 \label{ch:phase2:sec:anpassungbereich}
 RADAR versendet immer noch UDP Pakete und arbeitet damit auf Schicht vier (Transport) des OSI-Modells und muss im Netzwerk authentifiziert und mit einem Access Point assoziiert sein.
@@ -113,7 +110,7 @@ Es verbraucht deshalb sogar mehr Energie als die Bereichsortungstags aus Abschni
 Für den 1400\ mAh Akku ergibt sich eine Laufzeit von 1400\ mAh/0,8\ mA = 1750\ h für die Implementierung in C mit \texttt{deep\_sleep}.
 Dies entspricht einer Laufzeit von fast 73 Tagen.
 Hinzu kommt, dass sich der Verbrauch dieser Tags nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
-Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten sechs Monate Laufzeit zu erreichen, werden in Abschnitt \ref{kommtnoch} weitere Verbesserungen besprochen.
+Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten sechs Monate Laufzeit zu erreichen, werden in Abschnitt \ref{ch:Beschleunigungssensor:sec:Abschaltautomatik} weitere Verbesserungen besprochen.
 
 \subsection{Anzahl der verwendeten Kanäle}
 Eine Lösung die nicht vor dem Versenden das Spektrum nach den Access Points durchsucht muss entweder auf der Annahme beruhen, dass alle Access Points auf einem Kanal agieren oder in allen in Frage kommenden Kanälen senden.\\

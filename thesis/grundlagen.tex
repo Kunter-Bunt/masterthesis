@@ -28,13 +28,13 @@ Auch die indirekte Selbstlokalisierung erweitert die direkte Fernlokalisierung u
 So kann sie sich über die eigene und eventuelle auch andere mobile Einheiten informieren. 
 Dies kann insbesondere bei der Verwendung von Mischtechnologien notwendig sein, wenn die zur Ortung genutzte Technik es nicht erlaubt an den mobilen Einheiten zu empfangen, aber dennoch eine Selbstlokalisierung durchgeführt werden soll.
 
-\subsection{Lokalisierung ohne Basisstationen} 
+\subsubsection{Lokalisierung ohne Basisstationen} 
 Die mobilen Einheiten können sich auch gegenseitig lokalisieren, dazu messen sie die Distanz zu anderen mobilen Einheiten.
 Sie können diese Ergebnisse dann wiederum anderen mobilen Stationen mitteilen um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
 Dadurch ensteht eine maßstabslose Karte, die die realtive Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
 Diese kann zusätzlich an einen zentralen Ortungsserver versendet werden um sie dort verfügbar zu machen.
 
-\subsection{Hybride Topoligie}
+\subsubsection{Hybride Topoligie}
 In einer hybriden Toplogie orten sich die mobilen Einheiten gegenseitig, werden dabei aber von wenigen Basisstationen unterstützt.
 Diese Basisstationen geben ihre feste Position bekannt, dadurch ist es möglich der enstehenden Karte Punkte für die Ausrichtung und Skalierung hinzuzufügen.
 Außerdem können sie mit dem zentralen Ortungsserver kommunizieren um eine indirekte Fernlokalisierung mittels der durch die mobilen Einheiten propagierten Karten eine indirekte Fernlokaliserung durchzuführen.
@@ -176,7 +176,7 @@ Bluetooth Geräte werden dazu in drei Klassen eingeteilt, siehe Tabelle \ref{tab
 
 Mit Bluetooth 4.0 wurde erstmals Bluetooth Low Energie (BLE, auch Bluetooth Smart) vorgestellt.
 BLE wurde für niedrigen Energieverbrauch optimiert, es verzichtet auf den Verbindungsaufbau, um den Zeitabschnitt in dem das Gerät aktiv ist zu reduzieren.
-Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als Header um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate von 2,1 Mbps (Bluetooth 4.0) auf 0,7 Mbps (Bluetooth Low Energy). %TODO cite
+Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als Header um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate gegenüber Bluetooth deutlich \cite{rigado2016practical}. 
 BLE eignet sich somit vor allem dann, wenn wenige oder selten Informationen ausgetauscht werden müssen.
 Im Folgenden werden die, für die Lokalisation wichtigen Operationen vorgestellt.
 Es handelt sich dabei jeweils um die Funktion des Entdeckens von Ressourcen mittels Inquiry Scan für Bluetooth beziehungsweise mittels Advertising für BLE.

@@ -16,6 +16,7 @@ Leider konnte bei Laufbewegungen bei einem Herz nicht sicher der interrupt ausge
 Für eine Frequenz von zehn Herz im ultra-low-power Modus listet das Datenblatt einen Verbrauch von 3 Mikroamper.
 
 \section{Abschaltautomatik}
+\label{ch:Beschleunigungssensor:sec:Abschaltautomatik}
 Der ESP8266 besitzt einen Enable Pin, ist dieser mit der Versorungsspannung verbunden werden die internen Spannungregler aktiviert und der ESP8266 mit Strom versorgt.
 Die eigentliche Stromversorgung bezieht er dabei jedoch aus dem Vcc Pin.
 Der ESP8266 soll durch den LIS3DH angeschaltet werden, dieser darf die Stromversorgung bei Bedarf trennen, sie kann danach wieder vom LIS3DH wieder aktiviert werden. \\

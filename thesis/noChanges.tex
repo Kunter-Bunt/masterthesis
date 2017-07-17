@@ -76,7 +76,12 @@ Einige frühe Experimente zeigten, dass Programme, die mit der ESP Open SDK gesc
 Diese Andeutung von Ineffizienzen bei der Übersetzung von Arduino Code wurde zum Anlass genommen, für die nachfolgenden Implementierungen nach der Fertigstellung des Prototypen in Arduino ebenfalls eine Implementierung in C hinzuzufügen, um ein optimales Programm zu erhalten. \\
 Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 
-
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.9\textwidth]{images/activescan.png}
+  \caption{Ablaufdiagramm eines aktiven Scan, aus \cite{ieee2012active}.}
+  \label{fig:activescan}
+\end{figure}
 
 \section{WiFi-LLS Implementierung}
 \label{ch:phase1:sec:wifills}
@@ -84,6 +89,7 @@ Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, k
 Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung eines WiFi-LLS-Tags die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermittelt. 
 Damit wird der Overhead einer TCP-Verbindung vermieden.\\
 Zunächst muss das Tag dem Netzwerk beitreten (Join), einen Scan ausführen und ein UDP-Paket versenden.
+Der Ablauf eines Scans wird in Abb. \ref{fig:activescan} gezeigt, dieser Vorgang muss für jeden nicht überlappenden Kanal durchgeführt werden.\\
 Da die Scan-Funktion des ESP8266 Arduino Core es nicht erlaubt den RSSI zu einem AP auszulesen muss \texttt{user\_interface.h} importiert und die Scan-Funktion der SDK direkt verwendet werden.
 Um den Energieverbrauch weiter zu reduzieren, soll der ESP möglichst viel Zeit in Energiesparzuständen verbringen.
 Der tiefste Schlafzustand, der dennoch eine Aufrechterhaltung der WLAN-Verbindung erlaubt ist der \texttt{light\_sleep}. 
