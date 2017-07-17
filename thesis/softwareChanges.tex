@@ -21,16 +21,16 @@ Tabelle \ref{table:radarconsumption} zeigt den gemessenen Verbrauch der Implemen
 	\caption{Energieverbrauch RADAR-artiger Tags}
 	\label{table:radarconsumption}
 	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}}
-		SDK & manueller \texttt{light\_sleep} & Sende"-intervall in s & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		SDK & manueller \texttt{light\_sleep} & Sende"-intervall in s & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
 		\hline
-		Arduino Core & Nein & 0,25 & 5 & 40 & 200 \\
-		Arduino Core & Ja & 0,25 & 5 & 40 & 200 \\
-		Arduino Core & Nein & 5 & 5 & 8 & 40 \\
-		Arduino Core & Ja & 5 & 5 & 8 & 40 \\
-		ESP Open SDK & Nein & 0,25 & 5 & 40 & 200 \\
-		ESP Open SDK & Ja & 0,25 & 5 & 38 & 190 \\
-		ESP Open SDK & Nein & 5 & 5 & 6 & 30 \\
-		ESP Open SDK & Ja & 5 & 5 & 5 & 25 \\
+		Arduino Core & Nein & 0,25 & 2 & 80 & 40 \\
+		Arduino Core & Ja & 0,25 & 3 & 119 & 39,66 \\
+		Arduino Core & Nein & 5 & 3 & 28 & 9,33 \\
+		Arduino Core & Ja & 5 & 3 & 23 & 7,66 \\
+		ESP Open SDK & Nein & 0,25 & 1 & 40 & 40 \\
+		ESP Open SDK & Ja & 0,25 & 1 & 38 & 38 \\
+		ESP Open SDK & Nein & 5 & 2 & 12 & 6 \\
+		ESP Open SDK & Ja & 5 & 2 & 10 & 5 \\
 	\end{tabular}
 \end{table}
 
@@ -84,7 +84,7 @@ Ein gewöhnlicher Probe Request beinhaltet noch zusätzliche Informationen bezü
 Da das Tag aber nicht tatsächlich beitreten will, kann darauf verzichtet werden. \\
 Da keine Verbindung mehr aufrecht erhalten werden muss, können tiefere Schlafzustände eingenommen werden. 
 Statt des \texttt{light\_sleep} kann der \texttt{deep\_sleep} verwendet werden.
-Dieser schaltet den ESP und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird Pin 16 mit der negativen Seite der Stromquelle verbunden.
+Dieser schaltet den ESP und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird Pin 16 mit der Masse verbunden.
 Damit der ESP wieder aufwacht muss Pin 16 mit dem Reset Pin (RST) verbunden werden, bei einem Reset initialisiert der ESP neu.
 Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass das Tag versucht dem Netztwerk erneut beizutreten. 
 Hingegen kann bei einer Lösung auf Schicht zwei sofort gesendet und danach wieder geschlafen werden.\\
@@ -94,14 +94,14 @@ Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementier
 	\caption{Energieverbrauch Probe Request Tags}
 	\label{table:probeconsumption}
 	\begin{tabular}{p{3cm}|p{2.4cm}|p{2cm}|p{2cm}|p{2cm}}
-		SDK & manueller Schlafzustand  & Spannung in V & $\varnothing$ Verbrauch in mA & $\varnothing$ Verbrauch in mW \\
+		SDK & manueller Schlafzustand  & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
 		\hline
-		Arduino Core & Ohne & 5 & 40,5 & 202,5 \\
-		Arduino Core & light\_sleep & 5 & 5 & 25 \\
-		Arduino Core & deep\_sleep & 5 & 4,25 & 21,25 \\
-		ESP Open SDK & Ohne & 5 & 8,33 & 41,66 \\
-		ESP Open SDK & light\_sleep & 5 & 3 & 15 \\
-		ESP Open SDK & deep\_sleep & 5 & 0,8 & 4 \\
+		Arduino Core & Ohne & 2 & 81 & 40,5 \\
+		Arduino Core & light\_sleep & 2 & 10 & 5 \\
+		Arduino Core & deep\_sleep & 4 & 17 & 4,25 \\
+		ESP Open SDK & Ohne & 5 & 8,33 & 8,33 \\
+		ESP Open SDK & light\_sleep & 25 & 75 & 3 \\
+		ESP Open SDK & deep\_sleep & 48 & 39 & 0,81 \\
 	\end{tabular}
 \end{table}
 
