@@ -103,7 +103,7 @@ Jeder Versuch wurde mindestens eine Stunde durchgeführt.
 Wurde in dieser Zeit der Verbrauchswert von 10 mAh nicht überschritten, wurde der Versuch verlängert, da der TM103 den Verbrauch ohne Nachkommastellen anzeigt.\\
 Die Werte wurden stationär in einer Mietwohnung in einem fünfstöckigen Wohnhaus und damit nicht unter realen Bedingungen aufgezeichnet.
 Unter realen Bedingungen finden durch die Bewegung des Mitarbeiters regelmäßig Reassizationen statt, im Gegenzug liefert ein Scan in einem Tunnel weniger Ergebnisse als in einem Wohnhaus.
-Ein Test unter realen Bedingungen ist im Abschnitt \ref{kommtnoch} zu finden, er beinhaltet jedoch nur noch die Implementierung in C mit manuellem \texttt{light\_sleep} und einem Scan auf allen vier Kanälen.
+Ein Test unter realen Bedingungen ist im Abschnitt \ref{ch:realworld:sec:wifills} zu finden, er beinhaltet jedoch nur noch die Implementierung in C mit manuellem \texttt{light\_sleep} und einem Scan auf allen vier Kanälen.
 
 %TODO Abstand Tabellenüberschrift
 \begin{table}[h]
@@ -189,7 +189,7 @@ Da in den vorherigen Tests die Implementierungen mit der ESP Open SDK verbrauchs
 Der Energieverbrauch sinkt durch das Einsparen von Sendevorgänge deutlich.
 Für das Tag, das eine TCP-Verbindung öffnet, dem Ortungsserver seine Assoziation mitteilt und die Verbindung dann wieder schließt, ergibt sich für den angenommenen 1400\ mAh Lithium-Polymer Akku eine Laufzeit von 1400\ mAh/1,07\ mA $\approx$ 1308,41\ h. 
 Dies entspricht gut 54 Tagen mit einer Akkuladung, diese werden jedoch in einem Szenario ohne Reassoziation erreicht.
-Die tatsächliche Laufzeit muss unter realen Umständen gemessen werden, siehe dazu Abschnitt \ref{kommtnoch}.
+Die tatsächliche Laufzeit muss unter realen Umständen gemessen werden, siehe dazu Abschnitt \ref{ch:realworld:sec:indirekt}.
 Da die zusätzlichen Reassoziationen jedoch auch die vorherigen Implementierungen betreffen kann man schließen, dass Tags für die Bereichsortung durch die Ausnutzung von Assoziation und Reassoziation einen erheblich reduzierten Energieverbrauch gegenüber herkömmlichen Tags für die Trilateration aufweisen.
 
 
