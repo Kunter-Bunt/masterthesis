@@ -1,11 +1,17 @@
 \chapter{Analyse}
 \label{ch:Analyse}
 %TODO Problem analysieren, Verwendbare Topologien aussuchen, 
+In diesem Kapitel werden zunächst einige verwandte Arbeiten vorgestellt und danach werden auf Basis dieser die Topologie, Protokolle und Messwerte für die Implementierungen dieser Arbeit ausgewählt.
 
 \section{Verwandte Arbeiten} 
+Die verwandten Arbeiten wurden in drei Unterkategorien unterteilt. 
+Die erste Kategorie beschäftigt sich mit Selbstlokalisierung beziehungsweise indirekter Fernlokalisierung mittels 802.11.
+Die Arbeiten der zweiten Kategorie basieren ebenfalls auf 802.11, hier wird jedoch eine Fernlokalisierung oder eine indirekte Selbstlokalisierung durchgeführt.
+Die letzte Kategorie beschäftigt sich mit Arbeiten, die nicht auf 802.11 basieren, hier sind Verfahren beschrieben, die andere Protokolle verwenden.
 
 \subsection{Verwandte Arbeiten - Selbstlokalisierung \& indirekte Fernlokalisierung mit 802.11}
-%TODO Einleitung
+Für die Selbstlokalisierung mit 802.11 werden auf der mobilen Einheit Messwerte für empfangene Pakete bestimmt und daraus die Position der mobilen Einheit berechnet.
+Diese Information kann anschließend an einen Ortungsserver übertragen werden, dann handelt es sich um eine indirekte Fernlokaliserung.
 
 \subsubsection{WiFi-LLS}
 \label{ch:Vorherige:sec:LLS}
@@ -51,8 +57,6 @@ Auf dem Areal sollte deshalb optimalerweise nur ein AP-Modell verwendet werden. 
 Abb. \ref{fig:luiRSSI} zeigt die gemessenen RSSI Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
 Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei größeren Veränderungen aktualisieren und dass die Antenne signifikanten Einfluss auf den protokollierten Wert hat.
 
-
-
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/luiRSSI.png}
@@ -60,8 +64,12 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
   \label{fig:luiRSSI}
 \end{figure}
 
+
+
+
 \subsection{Verwandte Arbeiten - Fernlokalisierung \& indirekte Selbstlokalisierung mit 802.11}
-%TODO Einleitung
+Für die Fernlokalisierung mit 802.11 werden auf den Basisstationen Messwerte für empfangene Pakete bestimmt und daraus die Position der mobilen Einheit berechnet.
+Diese Information kann anschließend an die mobile Einheit übertragen werden, dann handelt es sich um eine indirekte Selbstlokaliserung.
 
 \subsubsection{RADAR}
 \label{ch:Vorherige:sec:RADAR}
@@ -122,8 +130,12 @@ Die Veröffentlichung beruht außerdem auf der Verfügbarkeit der CSI, diese sin
 Als letzter Kritikpunkt steht die Verwendung eine offline-Phase, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist. \\ 
 Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Energieverbrauch, jedoch nicht die Forderung nach sicherer Erkennung von Abschnittswechseln, deshalb scheidet diese Technik zumindestens für Baustellen aus.
 
+
+
+
 \subsection{Verwandte Arbeiten - Funkbasierte Lokalisierung ohne 802.11}
-%TODO Einleitung
+Die Arbeiten in dieser Kategorie verwenden nicht 802.11 für die Lokalisierung.
+Sie verwenden stattdessen andere Protokolle, die sich durch einen geringeren Energieverbrauch als 802.11 auszeichnen sollen.
 
 \subsubsection{Geeignete Messwerte für Bluetooth}
 Hossain et al. untersuchen die laut Bluetooth Spezifikation zurückgegebenen Messwerte bezüglich ihrer Eignung für die Lokalisierung \cite{hossain2007comprehensive}.\\ 
@@ -193,6 +205,8 @@ Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development
   \caption{Signalausbreitungsmodelle aus \cite{jianyong2014rssi}}
   \label{fig:blemodel}
 \end{figure}
+
+\subsubsection{LoRa Paper}
 
 \section{Auswahl der Topologie}
 Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
