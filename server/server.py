@@ -3,6 +3,8 @@
 import socket
 import time
 import _thread as thread
+from subprocess import call, Popen, PIPE
+import re
 
 def on_new_client (conn, addr):
 		while True:
@@ -13,8 +15,10 @@ def on_new_client (conn, addr):
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM);
 s.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1);
 
-s.bind(('192.168.200.191', 8080));
+s.bind(('ideapad', 8080));
 s.listen(5);
+
+
 
 try:
 	while True:
