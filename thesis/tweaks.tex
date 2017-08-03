@@ -14,6 +14,14 @@ Der Beschleunigungssensor bietet ein $I^2C$ und ein SPI Interface um ihn zu konf
 Der LIS3DH benötigt bei einer Frequenz von einem Herz nur 2 Mikroamper (0,002 mA).\\
 Leider konnte bei Laufbewegungen bei einem Herz nicht sicher der interrupt ausgelöst werden, die Frequenz wurde deshalb auf zehn Herz erhöht.
 Für eine Frequenz von zehn Herz im ultra-low-power Modus listet das Datenblatt einen Verbrauch von 3 Mikroamper.
+Abb. \ref{fig:lis3dh} zeigt eine Platine mit integriertem LIS3DH.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.5\textwidth]{images/lis3dh.jpg}
+  \caption{LIS3DH integriert auf einer Platine für die Entwicklung.}
+  \label{fig:lis3dh}
+\end{figure}
 
 \section{Abschaltautomatik}
 \label{ch:Beschleunigungssensor:sec:Abschaltautomatik}
@@ -29,12 +37,20 @@ Es wurde Pin 16 ausgewählt, da dieser für das Aufwecken aus dem Tiefschlaf zus
 Stattdessen soll er nun die Stromversorgung abschalten und durch die zuvor im \texttt{deep\_sleep} verbrachte Zeit das Sendeintervall abwarten.\\
 Da das Aufwecken mit Pin 16 durch das Verbinden des Pins mit der Masse funktioniert, kann damit nicht direkt der RESET Eingang des Latches betrieben werden.
 Stattdessen wird das Ergebnis von Pin 16 mit der Versorgungsspannung über ein XOR Gatter verschaltet und mit dem RESET Eingang verbunden \cite{texas2014xor}.
+Abb. \ref{fig:schematics} zeigt das Schema der Verbindung von ESP8266 und LISD3H.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/schematics.png}
+  \caption{Schema der Verbindung von ESP8266 und LIS3DH.}
+  \label{fig:schematics}
+\end{figure}
 
 \section{Bewertung}
 Der Verbrauch des Beschleunigungssensors ersetzt lediglich den Verbrauch des Mikrocontrollers, die anderen Komponenten bleiben davon unberührt.
 Zu den 3 Mikroamper Verbrauch addiert sich deshalb der Verbrauch des Spannungswandlers (55 Mikroamper) und des Lithium-Polymer-Ladeschaltkreises (bis zu 100 Mirkoamper).
 Hinzu kommen bis zu 1 Mikroamper für das Latch und 10 Mikroamper für das XOR Gatter.\\
-Die Integration des Beschleunigungssensor kann also den Verbrauch des ESP8266 außerhalb der Arbeitszeiten durch einen Verbrauch von 14 Mikroamper ersetzen, die bis zu 155 Mikroamper Verbrauch der umliegenden Komponenten bleibt jedoch vorhanden.
-Die Laufzeit für eine nicht bewegte mobilen Einheit mit ESP8266 beträgt dann mindestens $1400mAh / 0,169mA = 8284h$, dies entspricht ca. 345 Tagen.\\
-Für die mobile Einheit mit nRF52 macht die Integration des Beschleunigungssensors keinen Sinn, da der mittlere Verbrauch dieses Mikrocontrollers nur ca. 2 Mikroamper über dem des Beschleunigungssensors liegt.
+Die Integration des Beschleunigungssensor kann also den Verbrauch des ESP8266 außerhalb der Arbeitszeiten durch einen Verbrauch von 14 Mikroamper ersetzen, die bis zu 166 Mikroamper Verbrauch der umliegenden Komponenten bleibt jedoch vorhanden.
+Die Laufzeit für eine nicht bewegte mobilen Einheit mit ESP8266 beträgt dann mindestens $1400mAh / 0,18mA = 7777,77h$, dies entspricht ca. 324 Tagen.\\
+Für die mobile Einheit mit dem nRF52 Bluetooth-Chip macht die Integration des Beschleunigungssensors keinen Sinn, da der mittlere Verbrauch dieses Mikrocontrollers nur ca. 2 Mikroamper über dem des Beschleunigungssensors liegt.
 

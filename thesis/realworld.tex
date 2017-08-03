@@ -33,6 +33,14 @@ Der INA219 kann den Verbrauch mit bis zu 200Hz bestimmen und besitzt dabei eine 
 Der Stromverbrauch wird über den Spannungsabfall über einen 0,1$\Omega$ Widerstand bestimmt, der verwendete Widerstand besitzt eine Fertigungstoleranz von 1\%.
 Die Messgenauigkeit sinkt deshalb auf $99,5\% * 99\% = 98,505\%$. \\
 Außerdem wird dieses mal durch den JST-Anschluss für den Akku gemessen, dadurch können eventuelle Ineffizienzen des Lithium-Polymer-Ladeschaltkreises aufgezeichnet werden. 
+Abb. \ref{fig:ina219} zeigt den INA219 integriert auf einer Platine, diese wird für die Messungen verwendet.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.5\textwidth]{images/ina219.jpg}
+  \caption{INA219, die mit R100 beschriftete Komponente über dem INA219 ist der Messwiderstand.}
+  \label{fig:ina219}
+\end{figure}
 
 \section{Ergebnisse}
 Nachfolgend sind die Ergebnisse für die in dieser Arbeit entstandenen Implementierungen unter den simulierten Bedingungen gelistet.
