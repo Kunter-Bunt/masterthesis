@@ -16,7 +16,7 @@ void build(void *arg) {
 	sendResponse.type = ESPCONN_UDP;
 	sendResponse.state = ESPCONN_NONE;
 	sendResponse.proto.udp = &udp;
-	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 0, 150);
+	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 200, 191);
 	sendResponse.proto.udp->remote_port = 8080; // Remote port
 	err = espconn_create(&sendResponse);
 }
@@ -29,8 +29,8 @@ void send_UDP(void *arg) {
 void initDone() {
 	wifi_set_opmode_current(STATION_MODE);
 	struct station_config stationConfig;
-	strncpy(stationConfig.ssid, "Lothlorien", 32);
-	strncpy(stationConfig.password, "JarJarBinks&R2D2", 64);
+	strncpy(stationConfig.ssid, "WIFI_TAG_TESTING", 32);
+	strncpy(stationConfig.password, "key4WIFI!", 64);
 	wifi_station_set_config(&stationConfig);
 }
 

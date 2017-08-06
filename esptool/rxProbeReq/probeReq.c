@@ -26,13 +26,17 @@ void send_sleep(void *arg)
 		system_deep_sleep(5000000);
 }
 
+void sleep(void *arg)
+{
+		system_deep_sleep(5000000);
+}
 
 void promisc_cb(uint8_t *buf, uint16_t len)
 {
 	//if (buf[0] == 0x80) {
 	if (len == 128){
-		wifi_promiscuous_enable(0);
-		send_sleep(NULL);	
+		//wifi_promiscuous_enable(0);
+		//send_sleep(NULL);	
     }
 }
 
@@ -64,6 +68,6 @@ void ICACHE_FLASH_ATTR user_init()
   	os_timer_setfn(&start_promisc_timer, (os_timer_func_t *)start_promisc, NULL);
   	os_timer_arm(&start_promisc_timer, 0, 0); //timer, milliseconds, repeating
 
-	os_timer_setfn(&send_sleep_timer, (os_timer_func_t *)send_sleep, NULL);
-  	os_timer_arm(&send_sleep_timer, 500, 0); //timer, milliseconds, repeating
+	os_timer_setfn(&send_sleep_timer, (os_timer_func_t *)sleep, NULL);
+  	os_timer_arm(&send_sleep_timer, 600, 0); //timer, milliseconds, repeating
 }

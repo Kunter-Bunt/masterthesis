@@ -38,7 +38,7 @@ void build(void *arg) {
 	sendResponse.type = ESPCONN_UDP;
 	sendResponse.state = ESPCONN_NONE;
 	sendResponse.proto.udp = &udp;
-	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 0, 150);
+	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 10, 253, 23, 75);
 	sendResponse.proto.udp->remote_port = 8080; // Remote port
 	espconn_create(&sendResponse);
 }
@@ -53,8 +53,8 @@ void send_UDP(void *arg) {
 
 void initDone() {
 		if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
-	strncpy(stationConfig.ssid, "Lothlorien", 32);
-	strncpy(stationConfig.password, "JarJarBinks&R2D2", 64);
+	strncpy(stationConfig.ssid, "VCC-Mobile", 32);
+	strncpy(stationConfig.password, "VcM0b1L3n3T", 64);
 	wifi_station_set_config(&stationConfig);
 	
 	//scanC.channel = (uint8)1;
@@ -66,7 +66,7 @@ void ICACHE_FLASH_ATTR user_init() {
   	os_timer_setfn(&connect_timer, (os_timer_func_t *)connect, NULL);
   	os_timer_arm(&connect_timer, 10, 0); //timer, milliseconds, repeating
   	
-  	  	os_timer_setfn(&build_timer, (os_timer_func_t *)build, NULL);
+  	os_timer_setfn(&build_timer, (os_timer_func_t *)build, NULL);
   	os_timer_arm(&build_timer, 100, 0); //timer, milliseconds, repeating
   	
   	os_timer_setfn(&send_timer, (os_timer_func_t *)send_UDP, NULL);

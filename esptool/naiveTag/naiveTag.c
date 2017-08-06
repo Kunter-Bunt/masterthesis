@@ -21,18 +21,18 @@ void build(void *arg) {
 	sendResponse.type = ESPCONN_UDP;
 	sendResponse.state = ESPCONN_NONE;
 	sendResponse.proto.udp = &udp;
-	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 0, 150);
+	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 10, 253, 23, 75);
 	sendResponse.proto.udp->remote_port = 8080; // Remote port
 	espconn_create(&sendResponse);
 }
 
 void send_UDP(void *arg) {
  	wifi_get_ip_info(STATION_IF, &ip);	
- 	if (ip.gw.addr != oldip) {
+ 	//if (ip.gw.addr != oldip) {
  		len = os_sprintf(buf, "%d.%d.%d.%d", IP2STR(&ip.gw.addr));
 		oldip = ip.gw.addr;
 		espconn_send(&sendResponse, buf, len);
-	}
+	//}
 	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
@@ -40,8 +40,8 @@ void initDone() {
 	//wifi_set_opmode_current(STATION_MODE);
 	//if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
 	struct station_config stationConfig;
-	strncpy(stationConfig.ssid, "Lothlorien", 32);
-	strncpy(stationConfig.password, "JarJarBinks&R2D2", 64);
+	strncpy(stationConfig.ssid, "VCC-Mobile", 32);
+	strncpy(stationConfig.password, "VcM0b1L3n3T", 64);
 	wifi_station_set_config(&stationConfig);
 }
 
