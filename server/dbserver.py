@@ -25,9 +25,11 @@ def on_new_client (conn, addr):
 		while True:
 			data += conn.recv(64).decode("UTF-8");	
 			if data: 
-				cur, data = data.split("_",1);
-				print ("received data:", cur, "from:", addr);
-				json.loads(cur, object_hook=dataPointFromJSON)
+				try: 
+					cur, data = data.split("___",1);
+					print ("received data:", cur, "from:", addr);
+					json.loads(cur, object_hook=dataPointFromJSON);
+				except ValueError: pass;
 			time.sleep(1);
 
 
@@ -41,5 +43,4 @@ try:
 	while True:
 		conn, addr = s.accept()
 		thread.start_new_thread(on_new_client, (conn, addr));
-except KeyboardInterrupt:
-	print ("Exiting...");
+except KeyboardInterrupt: print ("Exiting...");
