@@ -148,8 +148,17 @@ Dies entpricht circa drei Tagen.
 Bei WiFi-LLS wird der Scan durchgeführt, um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP, um das Tag einem Bereich zuzuordnen.
-Da dem Tag, die IP-Adresse seines Netztzugangs (Gateway) bekannt sein muss, kann dies als Ortungsinformation verwendet werden.
-Die IP-Adresse wird nun zusammen mit der eigenen MAC-Adresse als Identifikator als String kodiert und per UDP an den Ortungsserver versendet.\\
+Da dem Tag, die MAC-Adresse seines Netztzugangs bekannt sein muss, kann dies als Ortungsinformation verwendet werden.
+Der Wechsel zwischen zwei Access Points wird exemplarisch in Abb. \ref{fig:reassociation} dargestellt.
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{images/reassociation.eps}
+  \caption{Vorgang von Assoziation und Reassoziation.}
+  \label{fig:reassociation}
+\end{figure}
+
+Die MAC-Adresse des Access Points wird nun zusammen mit der eigenen MAC-Adresse als Identifikator als String kodiert und per UDP an den Ortungsserver versendet.\\
 Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep}.
 
 \begin{table}[h]

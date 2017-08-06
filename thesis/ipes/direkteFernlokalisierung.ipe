@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170727131745" modified="D:20170727133103"/>
+<info created="D:20170727131745" modified="D:20170806211145"/>
 <bitmap id="1" width="219" height="188" length="2430" ColorSpace="DeviceRGB" Filter="FlateDecode" BitsPerComponent="8" encoding="base64">
 eNrtnctS20gUhhPZuvkKdsDABAiXTCpVeTpeYiqryRu5ss4zeDPJzlXZDUWqTDGNPRAHgmn1
 RX0kfX9lleK3pD6fpO4+fVo3NwghhBBCyIvOz09brdYLPUVRtL29dXZ2QrshVxoOB51OnqZJ
@@ -7917,12 +7917,12 @@ h
 416 752 m
 288 800 l
 </path>
-<text matrix="0.874587 0 0 -8.62561 19.0893 4312.28" transformations="translations" pos="216 448" stroke="black" type="label" width="67.11" height="6.918" depth="0" valign="baseline">mobile Einheit
+<text matrix="0.874587 0 0 -8.62561 19.0893 4312.28" transformations="translations" pos="216 448" stroke="black" type="label" width="106.06" height="11.955" depth="0" valign="baseline" size="LARGE">mobile Einheit
 </text>
-<text transformations="translations" pos="40 672" stroke="black" type="label" width="52.608" height="6.808" depth="0" valign="baseline">Basisstation</text>
-<text transformations="translations" pos="336 648" stroke="black" type="label" width="55.929" height="6.808" depth="0" valign="baseline">Basisstation
+<text transformations="translations" pos="40 672" stroke="black" type="label" width="83.093" height="11.761" depth="0" valign="baseline" size="LARGE">Basisstation</text>
+<text transformations="translations" pos="336 648" stroke="black" type="label" width="88.29" height="11.761" depth="0" valign="baseline" size="LARGE">Basisstation
 </text>
-<text matrix="1 0 0 1 0 -8" transformations="translations" pos="216 760" stroke="black" type="label" width="64.398" height="6.815" depth="1.93" valign="baseline">Ortungsserver
+<text matrix="1 0 0 1 0 -8" transformations="translations" pos="216 760" stroke="black" type="label" width="101.72" height="11.76" depth="3.35" valign="baseline" size="LARGE">Ortungsserver
 </text>
 </page>
 </ipe>

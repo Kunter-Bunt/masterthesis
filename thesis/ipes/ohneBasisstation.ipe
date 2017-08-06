@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <!DOCTYPE ipe SYSTEM "ipe.dtd">
 <ipe version="70107" creator="Ipe 7.1.10">
-<info created="D:20170727131745" modified="D:20170727134335"/>
+<info created="D:20170727131745" modified="D:20170806211441"/>
 <bitmap id="1" width="2400" height="240" length="3929" ColorSpace="DeviceRGB" Filter="FlateDecode" BitsPerComponent="8" encoding="base64">
 eNrt2UGOEDEMRcHc/9KwYINAoEHMJE5e1RHSif3d/vYNAAAAAACAX62fOA0AAAAAAAB42Poz
 hwMAAAAAAAAvWR/joAAAAAAAAOAB6x85MQAAAAAAALjX+g9ODwAAAAAAAO6yPomTBAAAAAAA
@@ -7798,14 +7798,14 @@ h
 <view layers="alpha" active="alpha"/>
 <image layer="alpha" matrix="0.138583 0 0 0.13318 198.261 454.521" rect="123.38 44.44 471.62 797.56" bitmap="5"/>
 <image matrix="0.415549 -0.481507 0.407333 0.534035 -124.128 537.6" rect="180.716 409.322 414.284 432.678" bitmap="1"/>
-<text matrix="0.874587 0 0 -8.62561 19.0893 4312.28" transformations="translations" pos="216 448" stroke="black" type="label" width="67.11" height="6.918" depth="0" valign="baseline">mobile Einheit
+<text matrix="0.874587 0 0 -8.62561 19.0893 4312.28" transformations="translations" pos="216 448" stroke="black" type="label" width="106.06" height="11.955" depth="0" valign="baseline" size="LARGE">mobile Einheit
 </text>
 <image matrix="-0.459183 0.564319 -0.50261 -0.58201 503.689 679.986" rect="180.716 409.322 414.284 432.678" bitmap="1"/>
 <image matrix="0.138583 0 0 0.13318 54.261 662.521" rect="123.38 44.44 471.62 797.56" bitmap="5"/>
-<text matrix="0.874587 0 0 -8.62561 -124.911 4632.28" transformations="translations" pos="216 448" stroke="black" type="label" valign="baseline">mobile Einheit
+<text matrix="0.874587 0 0 -8.62561 -124.911 4632.28" transformations="translations" pos="216 448" stroke="black" type="label" width="106.06" height="11.955" depth="0" valign="baseline" size="LARGE">mobile Einheit
 </text>
 <image matrix="0.138583 0 0 0.13318 246.261 726.521" rect="123.38 44.44 471.62 797.56" bitmap="5"/>
-<text matrix="0.874587 0 0 -8.62561 59.0893 4584.28" transformations="translations" pos="216 448" stroke="black" type="label" valign="baseline">mobile Einheit
+<text matrix="0.874587 0 0 -8.62561 59.0893 4584.28" transformations="translations" pos="216 448" stroke="black" type="label" width="106.06" height="11.955" depth="0" valign="baseline" size="LARGE">mobile Einheit
 </text>
 <image matrix="-0.57554 -0.182059 0.302709 -0.590235 234.604 1033.83" rect="180.716 409.322 414.284 432.678" bitmap="1"/>
 <image matrix="0.579151 0.140548 -0.290762 0.496469 140.927 499.857" rect="180.716 409.322 414.284 432.678" bitmap="1"/>

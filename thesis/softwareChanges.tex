@@ -59,7 +59,17 @@ Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:manage
 Der Probe Request hat dabei den Vorteil, dass er bereits vom AP verarbeitet und mit einer Probe Response beantwortet wird. \\
 Es wird also lediglich gefordert, dass der AP den Empfang des Probe Request im Zuge der Verarbeitung protokolliert. 
 Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsserver abrufbar gemacht werden. 
-Manche kommerzielle APs bieten ein solches Protokoll für Probe Requests und Beacons im Zuge einer \textit{Rogue Client/AP Detection} an \cite{lancom2017rouge}.\\
+Manche kommerzielle APs bieten ein solches Protokoll für Probe Requests und Beacons im Zuge einer \textit{Rogue Client/AP Detection} an \cite{lancom2017rouge}.
+Abb. \ref{fig:probeReq} zeigt den Vorgang schematisch.\\
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.5\textwidth]{images/probeReq.eps}
+  \caption{Schema der Bereichsortung mit Probe Request.}
+  \label{fig:probeReq}
+\end{figure}
+
+
 Die ESP Open SDK bietet über die Operationen wie Scan und Join hinaus mit \texttt{wifi\_send\_pkt\_freedom} eine Funktion zum Senden von Paketen auf Schicht zwei an.
 Der ESP8266 Arduino Core implementiert diese Funktion nicht, stattdessen muss sie mit \texttt{extern \dq C\dq $\lbrace$\#include \dq user\_interface.h\dq $\rbrace$} importiert werden. \\
 \texttt{wifi\_send\_pkt\_freedom} setzt den PHY-Header selbst, der MAC-Header und Inhalt des Paketes müssen über einen Puffer übergeben werden.
