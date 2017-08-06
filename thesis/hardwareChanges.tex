@@ -34,7 +34,7 @@ Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-
 
 \subsection{Arduino Bluefruit nRF52 API}
 Der nRF52 kann ebenfalls mit der Arduino IDE programmiert werden.\\
-Dazu muss dieser zunächst das Board Support Package hinzugefügt werden \cite{fried2017nrf}.
+Dazu muss dieser zunächst das Board Support Package hinzugefügt werden \cite{townsend2017nrf}.
 In den Einstellungen wird unter \textit{Additional Boards Manager URLs} die URL \url{https://www.adafruit.com/package_adafruit_index.json} hinzugefügt.
 Nach einem Neustart der Arduino IDE kann im \textit{Boards Manager} das Paket Adafruit nRF52 installiert werden.
 Um das Board programmieren zu können wird zusätzlich das \textit{nrfutil} benötigt.
@@ -48,12 +48,12 @@ Die Bluetooth Low Energy Implementierung ist an die Arbeit von Jianyong et al. a
 Es wird immer nach Ablauf des Sendeintervalls ein Advertising Paket gesendet.\\
 In der Praxis wird dazu das Advertising Interval entsprechend gesetzt, dabei handelt es sich um einen in Bluetooth 4.0 spezifizierten Parameter für die Häufigkeit des Advertisings.
 Da die Bluefruit nRF52 API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
-Die entsprechende BLEAdvertising Klasse ist in \\\texttt{~/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
+Die entsprechende BLEAdvertising Klasse ist in \\\texttt{\~/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
 In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Energieverbrauch zu senken.
 Beim nRF52 handelt es sich um ein Klasse 2 Bluetooth Gerät mit einer maximalen Sendeleistung bis 4 dBm.
 Der ESP8266 erreicht bis zu 17 dBm, die maximale Reichweite sollte dementsprechend für den nRF52 geringer geschätzt werden.
 Es wird eine Reichweite von 20 Metern angenommen und das Sendeintervall etsprechend der maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt. 
-In dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen, es werden also bei der Durchquerung des Einflussbereichs mindestens drei Advertising Pakete vom Tag versendet.\\
+In dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen, es werden also bei der Durchquerung des Einflussbereichs mindestens drei Advertising Pakete von der mobilen Einheit versendet.\\
 Der Verbrauch sollte erneut mit dem Muker TM103 USB-Power-Meter gemessen werden.
 Jedoch ist dieser nicht in der Lage den Stromverbrauch des nRF52 zu messen, da diese im niedrigen Mikroamper-Bereich liegen wenn nicht gesendet wird.
 Die Sendeabschnitte sind zu kurz um einen messbaren Stromverbrauch zu erzeugen.\\
@@ -78,3 +78,35 @@ Dies entspräche circa 341 Tagen.\\
 \subsection{Tatsächlicher Verbrauch}
 Messungen zum Verbrauch ist in Abschnitt \ref{ch:realworld:sec:ble} zu finden. 
 
+
+\section{RFM95}
+\label{ch:hardwarechanges:sec:rfm95}
+Bei dem RFM95 handelt es sich um ein LoRa (Long Range) fähiges Radio-Modul für den Frequenzbereich 868/915MHz \cite{hope2006rfm}. 
+915MHz sind jedoch nur in Amerika lizenzfrei, in Deutschland muss das Radio mit 868MHz betrieben werden.\\
+Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 RFM95 LoRa Radio verwendet.
+Dieses verwendet zusätzlich einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler zur einfachen Programmierung des Radios über USB.
+Zusätzlich ist eine Antenne notwendig, die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
+Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).\\
+Abb. \ref{fig:loramodule} zeigt zwei Feather M0 RFM95 LoRa Radio. 
+Das RFM95 mit Kabelantenne dient als mobile Einheit und das RFM95 mit fester Antenne dient als Basisstation.
+
+\subsection{RadioHead RFM9x für Arduino}
+Der M0 Mikrocontroller ist Arduino kompatibel, wird zusätzlich die RadioHead RFM9x Bibliothek verwendet, kann er über ein SPI-Interface das Radio steuern.
+Dazu muss zunächst in den Optionen der Arduino IDE unter \textit{Additional Boards Manager URLs} die URL \url{https://adafruit.github.io/arduino-board-index/package_adafruit_index.json} hinzugefügt werden \cite{treece2016lora}.
+Nach einem Neustart der IDE können im \textit{Board Manager} die \texttt{Arduino SAMD Boards} installiert werden. 
+Der M0 kann nun programmiert werden, um das RFM95 verwenden zu können muss die RadioHead RFM9x Bibliothek von \url{https://cdn-learn.adafruit.com/assets/assets/000/035/106/original/RadioHead-1.62.zip?1472068723} heruntergeladen und nach \\\texttt{\~/Arduino/libraries/} entpackt werden.
+
+\section{LoRa Implementierung}
+Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
+Die mobile Einheit versendet regelmäßig ein Paket, welches einen Identifikator für die mobile Einheit enthält.
+Das Sendeintervall beträgt entsprechend der hohen erwarteten Reichweite 10 Sekunden.\\
+Die Basisstation empfängt durchgehend und bestimmt den RSSI für eingehende Pakete.
+Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem RSSI und einer Kennung für die Basisstation an den Ortungsserver weiter.\\
+Auf der mobilen Einheit müssen lediglich die Sendefrequenz, die Sendeleistung und der Identifikator gesetzt werden, dann kann immer nach Ablauf des Sendeintervalls gesendet werden.
+Die Basisstation muss dabei auf der selben Frequenz aktiv sein und empfangen.
+
+\subsection{Theoretischer Verbrauch}
+
+
+\subsection{Tatsächlicher Verbrauch}
+Messungen zum Verbrauch ist in Abschnitt \ref{ch:realworld:sec:lora} zu finden.

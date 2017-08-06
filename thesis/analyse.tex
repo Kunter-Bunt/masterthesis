@@ -206,7 +206,21 @@ Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development
   \label{fig:blemodel}
 \end{figure}
 
-\subsubsection{LoRa Paper}
+\subsubsection{Lokalisierung mit LoRa}
+Kim et al. stellen ein System zur Lokalisierung mit LoRa vor \cite{kim2016poster}.
+Sie beziehen sich dabei auf eine Lokalisierung im Außenbereich in einem 30x30km Areal. 
+Sie senden Pakete von der mobilen Einheit und messen die Time of Arrival (ToA) an den Basisstationen.
+Dazu müssen die Basisstationen zeitsynchron arbeiten, dies wird über GPS sichergestellt.\\
+Eine Lokalisierung über den RSSI lehnen sie ab, da dieser im Bereich von 20 bis 30km Entfernung nur um 3-6dBm fällt und die Varianz die Korrelation von RSSI und Distanz über lange Distanzen überdeckt.
+Sie erreichen, abhängig von der Anzahl der verwendeten Basisstationen eien Genauigkeit zwischen wenigen Hundert und fast eintausend Metern, siehe dazu Abb. \ref{fig:loraacc}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.7\textwidth]{images/loraacc.png}
+  \caption{Quadratischer Fehler der Lokalisierung aus \cite{kim2016poster}, Gateways stellen Basisstationen dar.}
+  \label{fig:loraacc}
+\end{figure}
+
 
 \section{Auswahl der Topologie}
 Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
@@ -222,17 +236,18 @@ Eine Topologie ohne Basisstationen kommt nicht in Frage, da diese Topologie Einz
 \section{Auswahl des Funkprotokolls}
 Soll das bestehende WLAN Netzwerk genutzt werden ist die Wahl auf die 802.11 Spezifikation beschränkt.\\
 Für den dritten Schritt, der eine Änderung der verwendeten Hardware für die Basisstationen erlaubt, kann das Protokoll jedoch frei gewählt werden.
-In der engeren Auswahl sind LoRaWAN, Bluetooth und Bluetooth Low Energy.
-Bluetooth Low Energy wird gegenüber normalem Bluettoth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.\\
-LoRaWAN bietet zwar theoretisch eine Reichweite von bis zu zwei Kilometern im Stadtgebiet, wird jedoch von großen, stählernen, über 100 Meter langen Schalungswagen stark absorbiert.
-Es kann deshalb seine überlegene Reichweite im Tunnel nicht nutzen und es müssten ähnlich viele Basisstationen wie bei Bluetooth ausgebracht werden.\\
-Soll jedoch keine Bereichsortung, sondern eine genaue Lokalisierung vorgenommen werden, eignet sich LoRaWAN besser. 
-Da durch eine Ausbringung der Basisstationen in 500 Meter Abständen potentiell mehrere Basisstationen in Reichweite der mobilen Einheit liegen.
-Dieser Umstand kann dann für eine Triangulation beziehungsweise Trilateration der Position der mobilen Einheit genutzt werden.
-%TODO Belege für Aussagen, LoRa verbraucht auch etwas mehr Strom?
+Bluetooth Low Energy wird gegenüber normalem Bluetooth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.\\
+LoRa bietet zwar theoretisch eine sehr hohe Reichweite, diese ist jedoch stark von verwendeten Antennen und den Hindernissen abhängig.
+Ob LoRa einen signifikanten Vorteil bei der Reichweite hat muss geprüft werden.
+Sollte dieser Vorteil bestehen, bietet LoRa durch seine bessere Abdeckung eine höhere Sicherheit bei der Erkennung von Abschnittswechseln. 
+Außerdem ist es dadurch potentiell möglich auf triangulierte Positionen zu wechseln ohne mehr Basisstationen aufbauen zu müssen.
+
 
 \section{Auswahl der Messwerte}
 Da nur eine Bereichsortung durchgeführt werden soll, sind die Anforderungen an die Genauigkeit eines Messwertes gering.
 Stattdessen sollte darauf geachtet werden, dass die Anforderung für die Messung gering ist.
 Messwerte, die Zeitsynchronität vorraussetzen sind daher nicht geeignet.\\
-Als Messwert wird der Received Signal Strength Index sowohl für WLAN als auch für Bluetooth Low Energy gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.
+Als Messwert wird der Received Signal Strength Index sowohl für WLAN als auch für Bluetooth Low Energy gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.\\
+Auch bei LoRa wird der RSSI gewählt. 
+Da sich das Szenario im Gegensatz zu dem aus der Veröffentlichung von Kim et al. unter Tage abspielt kann keine Synchronisierung über GPS gewährleistet werden. 
+Außerdem müssen die Distanzen zwischen den Basisstationen geringer gewählt werden, da die Ungenauigkeiten aus dieser Veröffentlichung zu hoch für das Szenario sind.
