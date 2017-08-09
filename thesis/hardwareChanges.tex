@@ -67,7 +67,7 @@ Es müssen ebenfalls die weiteren Komponenten auf dem Feather bedacht werden.
 Adafruit gibt für den Spannungswandler einen Verbrauch von 55 Mikroamper und für den Lithium-Polymer-Ladeschaltkreis einen Verbrauch von bis zu 100 Mikroamper an \cite{fried2016lora}. 
 Der Verbrauch des anderen Komponenten des Feather wird daher konservativ auf 155 Mikroamper geschätzt.\\[1cm]
 
-$y = (1s-\frac{Bits_gesendet}{1000000 b/s} - \frac{Bits_empfangen}{1000000 b/s}) * (I_{ON\_RAMOFF\_RTC} + 155 {\mu}A) + \frac{Bits_gesendet}{1000000 b/s} * I_{RADIO\_RX0} + \frac{Bits_empfangen}{1000000 b/s} * I_{RADIO\_RX0}$\\[0.5cm]
+$y = (1s-\frac{Bits\_gesendet}{1000000 b/s} - \frac{Bits\_empfangen}{1000000 b/s}) * (I_{ON\_RAMOFF\_RTC} + 155 {\mu}A) + \frac{Bits\_gesendet}{1000000 b/s} * I_{RADIO\_RX0} + \frac{Bits\_empfangen}{1000000 b/s} * I_{RADIO\_RX0}$\\[0.5cm]
 $y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
 $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 
@@ -106,7 +106,39 @@ Auf der mobilen Einheit müssen lediglich die Sendefrequenz, die Sendeleistung u
 Die Basisstation muss dabei auf der selben Frequenz aktiv sein und empfangen.
 
 \subsection{Theoretischer Verbrauch}
+Für die Berechnung des theroretischen Verbrauchs der mobilen Einheit werden die Datenblätter des M0 Mikrocontrollers und des RFM95 Radios herangezogen. 
+Die dort gelisteten Verbräuche sind in Abb. \ref{fig:m0power} und Abb. \ref{fig:lorapower} zu finden.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/m0power.png}
+  \caption{Stromverbrauch des M0 Mikrocontrollers, aus \cite{nxp2016m0}}
+  \label{fig:m0power}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/lorapower.png}
+  \caption{Stromverbrauch des RFM95, aus \cite{hope2006rfm}}
+  \label{fig:lorapower}
+\end{figure}
+
+Da das Adadfruit Feather M0 RFM95 Lora Radio ansonsten baugleich zum Adafruit Feather nRF52 ist werden die 155 Mikroamper für die sonstigen Komponenten übernommen.\\
+Die Sendeleistung des RFM95 Radio ist zwischen 5dBm und 23dBm einstellbar. 
+Das Datenblatt listet jedoch nur Verbräuche zwischen 7dBm und 20dBm Sendeleistung, der Verbrauch wird für diese beiden Sendeleistungen berechnet.
+Für die Nachricht "TagTest" werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.\\[1cm]
+
+$y = \frac{1}{10} * [(10 - \frac{Bits\_gesendet}{21875 b/s} - \frac{Bits\_empfangen}{21875 b/s}) * (M0\_Deep\_sleep\_mode + RMF95\_IDDIDLE + 155 {\mu}A) + \frac{Bits\_gesendet}{21875 b/s} * RFM95\_XdBm + \frac{Bits\_empfangen}{21875 b/s} * RFM95\_IDDR]$\\[0.5cm]
+$y_{20dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 120mA + 0,0229s * 12,1mA]$\\[0.5cm]
+$y_{20dBm} \approx \frac{1}{10} * (1,58mA + 0,876mA + 0,2771mA) = 0,2683mA$\\[1cm]
+
+$y_{7dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 20mA + 0,0229s * 12,1mA]$\\[0.5cm]
+$y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$\\[1cm]
+
+Wird erneut der 1400 mAh Lithium Polymer Akku angenommen beträgt die Laufzeit für eine Sendeleistung von 20dBm $1400mAh / 0,2683mA \approx 5218h$.
+Dies entspräche circa 217 Tagen.\\
+Für eine Sendeleistung von 7dBm ergeben sich $1400mAh / 0,1953mA \approx 7168h$, also circa 298 Tage.
 
 
 \subsection{Tatsächlicher Verbrauch}
-Messungen zum Verbrauch ist in Abschnitt \ref{ch:realworld:sec:lora} zu finden.
+Messungen zum Verbrauch sind in Abschnitt \ref{ch:realworld:sec:lora} zu finden.
