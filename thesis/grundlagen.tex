@@ -220,4 +220,32 @@ Advertising Pakete dürfen auch Nutzdaten enthalten, diese können dann von ande
 Allerdings dürfen die Nutzdaten maximal eine Länge von 31 Byte aufweisen \cite{blue2010pdu}.
 Wurde zusätzlich im Advertising Paket markiert, dass das Gerät verbindungsfähig ist, kann ein scannendes Gerät nach empfangen des Advertising Paketes einen Scan Request an das verbindungsfähige Gerät richten, um die Parameter für eine Verbindung auszuhandeln \cite{blue2010scanning}.
 
+\section{Grundlagen von LoRaWAN}
+Bei Long Range Wide Area Network (LoRaWAN) handelt es sich um ein Netzwerkprotokoll, welches die proprietäre Modulationstechnick LoRa verwendet.
+Es ist für betteriebetriebene Endgeräte optimiert und wird von der LoRa Alliance spezifiziert \cite{lora2015spec}.
+LoRa beherrscht neben unterschiedlichen Frequenzen des ISM Bands, in Europa beispielsweise 433 und 868 MHz, auch eine adaptive Datenrate zwischen 0,3 und 50kbps.\\
+LoRaWAN verwendet keine Kollisionsvermeidung, stattdessen dürfen Endgeräte zu jedem Zeitpunkt senden, solange sie dabei den Kanal zufällig wählen und die maximale Sendezeit beziehungsweise relative Frequenzbelegungsdauer nicht überschreiten.
+Maximale Sendezeit und relative Frequenzbelegungsdauer werden dabei durch die länderspezifischen Regulierungsbehörden festgelegt.\\
+LoRaWAN unterscheidet drei Geräteklassen.
+Klasse A Geräte halten nach dem Senden zwei kurze Empfangsfenster offen um eine Antwort des Kommunikationspartners zu empfangen, siehe dazu Abb. \ref{fig:sendrecv}.
+Klasse B Geräte öffnen zusätzliche Empfangsfenster zu festgelegten Zeiten, diese werden durch Beacons der Gateways festgelegt.
+Klasse C Geräte empfangen immer wenn sie nicht senden. 
+Klasse C Geräte verbrauchen deshalb deutlich mehr Energie als Klasse A beziehungsweise B Geräte, haben dafür aber eine geringere Latenz bei Anfragen durch den Kommunikationspartner.\\
+Soll eine Verbindung nicht direkt zwischen zwei Kommunikationspartnern, sondern über ein Gateway zustande kommen, muss diesem Gateway zunächst beigetreten werden, danach können bestätige und unbestätigte Datenpakete über das Gateway und ein dahinterliegendes Netzwerk ausgetauscht werden.
+Abb. \ref{fig:mtype} zeigt die Nachrichtentypen von LoRaWAN.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.7\textwidth]{images/sendrecv.png}
+  \caption{Senden/Empfangen-Schema von Klasse A Geräten, aus \cite{lora2015spec}.}
+  \label{fig:sendrecv}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.8\textwidth]{images/mtype.png}
+  \caption{Nachrichtentypen von LoRaWAN, aus \cite{lora2015spec}.}
+  \label{fig:mtype}
+\end{figure}
+
 
