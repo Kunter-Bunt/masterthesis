@@ -14,8 +14,8 @@ Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
 Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4GHz Transceiver, der Bluetooth 5 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
 Für diese Arbeit wird ein Adafruit Feather nRF52 verwendet, der nRF52832 wird deshalb im Folgenden auf nRF52 abgekürzt.
 Das Adafruit Feather nRF52 besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. Die verbaute CP2104 USB-to-Serial Schnittstelle erlaubt es, den Chip über USB zu programmieren.\\
-Abb. \ref{fig:nrf52layout} zeigt das Adafruit Feather nRF52.
-Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-on-Chip an, diese sind in Abb. \ref{fig:nrf52consumption} aufgeführt.
+Abbildung \ref{fig:nrf52layout} zeigt das Adafruit Feather nRF52.
+Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-on-Chip an, diese sind in Tabelle \ref{table:nrf52consumption} aufgeführt.
 
 \begin{figure}[h]
   \centering
@@ -24,12 +24,12 @@ Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-
   \label{fig:nrf52layout}
 \end{figure}
 
-\begin{figure}[h]
+\begin{table}[h]
   \centering
-	\includegraphics[width=\textwidth]{images/nrf52consumption.png}
   \caption{Energieverbrauch des nRF52832 in verschiedenen Zuständen, aus \cite{nordic2017nrf}}
-  \label{fig:nrf52consumption}
-\end{figure}
+	\includegraphics[width=\textwidth]{images/nrf52consumption.png}
+  \label{table:nrf52consumption}
+\end{table}
 
 
 \subsection{Arduino Bluefruit nRF52 API}
@@ -57,9 +57,9 @@ In dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen, es werden also
 Der Verbrauch sollte erneut mit dem Muker TM103 USB-Power-Meter gemessen werden.
 Jedoch ist dieser nicht in der Lage den Stromverbrauch des nRF52 zu messen, da diese im niedrigen Mikroamper-Bereich liegen wenn nicht gesendet wird.
 Die Sendeabschnitte sind zu kurz um einen messbaren Stromverbrauch zu erzeugen.\\
-Deshalb soll zunächst Abb. \ref{fig:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
+Deshalb soll zunächst Abbildung \ref{fig:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
 
-\subsection{Theoretischer Verbrauch}
+\subsection{Theoretische Energieverbrauchsabschätzung}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
 Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein Advertising Paket, welches zusätzlich den Gerätenamen "TestTag" versendet, werden 24 Bytes (192 Bit) gesendet.
 Um die Kollisionsvermeidung einzufügen werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, der die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. 
@@ -87,14 +87,14 @@ Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 RFM95 LoRa Rad
 Dieses verwendet zusätzlich einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler zur einfachen Programmierung des Radios über USB.
 Zusätzlich ist eine Antenne notwendig, die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
 Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).\\
-Abb. \ref{fig:loramodule} zeigt zwei Feather M0 RFM95 LoRa Radio. 
+Abbildung \ref{fig:loramodule} zeigt zwei Feather M0 RFM95 LoRa Radio. 
 Das RFM95 mit Kabelantenne dient als mobile Einheit und das RFM95 mit fester Antenne dient als Basisstation.
 
 \subsection{RadioHead RFM9x für Arduino}
 Der M0 Mikrocontroller ist Arduino kompatibel, wird zusätzlich die RadioHead RFM9x Bibliothek verwendet, kann er über ein SPI-Interface das Radio steuern.
 Dazu muss zunächst in den Optionen der Arduino IDE unter \textit{Additional Boards Manager URLs} die URL \url{https://adafruit.github.io/arduino-board-index/package_adafruit_index.json} hinzugefügt werden \cite{treece2016lora}.
 Nach einem Neustart der IDE können im \textit{Board Manager} die \texttt{Arduino SAMD Boards} installiert werden. 
-Der M0 kann nun programmiert werden, um das RFM95 verwenden zu können muss die RadioHead RFM9x Bibliothek von \url{https://cdn-learn.adafruit.com/assets/assets/000/035/106/original/RadioHead-1.62.zip?1472068723} heruntergeladen und nach \\\texttt{\~/Arduino/libraries/} entpackt werden.
+Der M0 kann nun programmiert werden, um das RFM95 verwenden zu können muss die RadioHead RFM9x Bibliothek von \url{https://cdn-learn.adafruit.com/assets/assets/000/035/106/original/RadioHead-1.62.zip} heruntergeladen und nach \\\texttt{\~/Arduino/libraries/} entpackt werden.
 
 \section{LoRa Implementierung}
 Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
@@ -105,23 +105,23 @@ Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem 
 Auf der mobilen Einheit müssen lediglich die Sendefrequenz, die Sendeleistung und der Identifikator gesetzt werden, dann kann immer nach Ablauf des Sendeintervalls gesendet werden.
 Die Basisstation muss dabei auf der selben Frequenz aktiv sein und empfangen.
 
-\subsection{Theoretischer Verbrauch}
+\subsection{Theoretische Energieverbrauchsabschätzung}
 Für die Berechnung des theroretischen Verbrauchs der mobilen Einheit werden die Datenblätter des M0 Mikrocontrollers und des RFM95 Radios herangezogen. 
-Die dort gelisteten Verbräuche sind in Abb. \ref{fig:m0power} und Abb. \ref{fig:lorapower} zu finden.
+Die dort gelisteten Verbräuche sind in Tabelle \ref{table:m0power} und Tabelle \ref{table:lorapower} zu finden.
 
-\begin{figure}[h]
+\begin{table}[h]
   \centering
-	\includegraphics[width=\textwidth]{images/m0power.png}
   \caption{Stromverbrauch des M0 Mikrocontrollers, aus \cite{nxp2016m0}}
-  \label{fig:m0power}
-\end{figure}
+	\includegraphics[width=\textwidth]{images/m0power.png}
+  \label{table:m0power}
+\end{table}
 
-\begin{figure}[h]
+\begin{table}[h]
   \centering
-	\includegraphics[width=\textwidth]{images/lorapower.png}
   \caption{Stromverbrauch des RFM95, aus \cite{hope2006rfm}}
-  \label{fig:lorapower}
-\end{figure}
+	\includegraphics[width=\textwidth]{images/lorapower.png}
+  \label{table:lorapower}
+\end{table}
 
 Da das Adadfruit Feather M0 RFM95 Lora Radio ansonsten baugleich zum Adafruit Feather nRF52 ist werden die 155 Mikroamper für die sonstigen Komponenten übernommen.\\
 Die Sendeleistung des RFM95 Radio ist zwischen 5dBm und 23dBm einstellbar. 

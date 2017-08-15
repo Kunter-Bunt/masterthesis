@@ -9,7 +9,7 @@ Die Veränderbarkeit der Software des AP wird dazu genutzt auf diesem Messgröß
 Da für die APs keine Beschränkungen bezüglich des Energieverbrauchs vorliegen, kann die Verbindung zum Ortungsserver regulär auf Schicht vier oder fünf aufgebaut werden.
 Für die Kommunikation zwischen Tag und AP sollte jedoch auf niedrigere Protokollebenen ausgewichen werden, um den Energieverbrauch des Tags zu senken. \\
 
-
+%TODO Tags weg
 \section{RADAR Implementierung}
 Ein RADAR Tag versendet alle 0,25 Sekunden ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.
 Das Sendeintervall wurde so kurz gewählt, um spontane Schwankungen im RSSI durch mehrfache Messung zu glätten und sich bewegende Personen möglichst genau zu erfassen.
@@ -41,7 +41,6 @@ Das Tag mit dem längeren Sendeintervall hält somit 7,2 mal so lang wie das and
 Dennoch ist der Verbrauch nur marginal geringer als der der Bereichsortungstags (5,5 mA) aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}. \\
 Die dort besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die RADAR Implementierung verwendet werden, das RADAR-artige Tag ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem Bereichsortungstag.
 Der Energieverbrauch sollte sich somit kaum unterscheiden und ein System mit RADAR-artigen Tags benötigt Veränderungen der Software der APs, ein System mit Bereichortungstags ist deshalb vorzuziehen. \\
-%TODO Einfach nur eingebucht bleiben
 
 \section{Anpassungen für Bereichsortung}
 \label{ch:phase2:sec:anpassungbereich}
@@ -60,7 +59,7 @@ Der Probe Request hat dabei den Vorteil, dass er bereits vom AP verarbeitet und 
 Es wird also lediglich gefordert, dass der AP den Empfang des Probe Request im Zuge der Verarbeitung protokolliert. 
 Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsserver abrufbar gemacht werden. 
 Manche kommerzielle APs bieten ein solches Protokoll für Probe Requests und Beacons im Zuge einer \textit{Rogue Client/AP Detection} an \cite{lancom2017rouge}.
-Abb. \ref{fig:probeReq} zeigt den Vorgang schematisch.\\
+Abbildung \ref{fig:probeReq} zeigt den Vorgang schematisch.\\
 
 \begin{figure}[h]
   \centering

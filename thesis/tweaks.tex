@@ -14,7 +14,7 @@ Der Beschleunigungssensor bietet ein $I^2C$ und ein SPI Interface um ihn zu konf
 Der LIS3DH benötigt bei einer Frequenz von einem Herz nur 2 Mikroamper (0,002 mA).\\
 Leider konnte bei Laufbewegungen bei einem Herz nicht sicher der interrupt ausgelöst werden, die Frequenz wurde deshalb auf zehn Herz erhöht.
 Für eine Frequenz von zehn Herz im ultra-low-power Modus listet das Datenblatt einen Verbrauch von 3 Mikroamper.
-Abb. \ref{fig:lis3dh} zeigt eine Platine mit integriertem LIS3DH.
+Abbildung \ref{fig:lis3dh} zeigt eine Platine mit integriertem LIS3DH.
 
 \begin{figure}[h]
   \centering
@@ -37,7 +37,7 @@ Es wurde Pin 16 ausgewählt, da dieser für das Aufwecken aus dem Tiefschlaf zus
 Stattdessen soll er nun die Stromversorgung abschalten und durch die zuvor im \texttt{deep\_sleep} verbrachte Zeit das Sendeintervall abwarten.\\
 Da das Aufwecken mit Pin 16 durch das Verbinden des Pins mit der Masse funktioniert, kann damit nicht direkt der RESET Eingang des Latches betrieben werden.
 Stattdessen wird das Ergebnis von Pin 16 mit der Versorgungsspannung über ein XOR Gatter verschaltet und mit dem RESET Eingang verbunden \cite{texas2014xor}.
-Abb. \ref{fig:schematics} zeigt das Schema der Verbindung von ESP8266 und LISD3H.
+Abbildung \ref{fig:schematics} zeigt das Schema der Verbindung von ESP8266 und LISD3H.
 
 \begin{figure}[h]
   \centering

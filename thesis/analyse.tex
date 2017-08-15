@@ -1,6 +1,5 @@
 \chapter{Analyse}
 \label{ch:Analyse}
-%TODO Problem analysieren, Verwendbare Topologien aussuchen, 
 In diesem Kapitel werden zunächst einige verwandte Arbeiten vorgestellt und danach werden auf Basis dieser die Topologie, Protokolle und Messwerte für die Implementierungen dieser Arbeit ausgewählt.
 
 \section{Verwandte Arbeiten} 
@@ -54,7 +53,7 @@ Der Aufwand ein System mit Szenenanalyse auf einer Baustelle zu betreiben ist de
 Die Arbeit zeigt aber die Volatilität der empfangenen Signalstärke auf, dies wurde 2011 von Lui et al. genauer untersucht \cite{lui2011differences}.
 Lui et al. zeigen, dass die gemessene empfangene Signalstärke stark von der beteiligten Hardware abhängt und die Systeme jedes mal neu kalibriert werden müssen wenn sie auf ein neues AP-Modell portiert werden. 
 Auf dem Areal sollte deshalb optimalerweise nur ein AP-Modell verwendet werden. \\
-Abb. \ref{fig:luiRSSI} zeigt die gemessenen RSSI Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
+Abbildung \ref{fig:luiRSSI} zeigt die gemessenen RSSI Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
 Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei größeren Veränderungen aktualisieren und dass die Antenne signifikanten Einfluss auf den protokollierten Wert hat.
 
 \begin{figure}[h]
@@ -148,7 +147,7 @@ In der Untersuchung von Hossain et al. führte das dazu, dass der RSSI mit 0 gem
 Transmission Power Level (TPL) ist die Sendeleistung eines Geräts. 
 TPL kann während einer bestehenden Verbindung durch Anfragen des Verbindungspartners verändert werden.
 Dazu muss diese Energiesparfunktion jedoch unterstützt werden, was bei dem von Hossain et al. vwrwendeten Gerät nicht der Fall war.
-Abb. \ref{fig:bluetoothmess} zeigt deshalb für TPL eine waagerechte Linie.\\
+Abbildung \ref{fig:bluetoothmess} zeigt deshalb für TPL eine waagerechte Linie.\\
 Für Inquirys wird die Stärke des eingehenden Signals ohne die Beactung des GRPR bestimmt.
 Außerdem werden Inquirys immer mit voller Sendeleistung gesendet, da sie zur Entdeckung von Ressourcen verwendet werden.
 Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für eine Verbindung deutlich zu machen nennen Hossain et al. diesen Wert RX Power Level.
@@ -169,14 +168,15 @@ Diese Information wird aus den beantworteten Inquiry Messages jeder mobilen Einh
 Dazu werden vorher in einer offline-Phase Fingerabdrücke für jeden Raum gesammelt.
 In diesen wird gespeichert welche Inquiry Messages von der mobilen Einheit an einem bestimmten Ort beantwortet wurden.
 Für die Bereichsortung entfiele diese offline-Phase, da der Bereich über die Beantwortung einer einzelnen Inquiry Message implizit bestimmt werden kann.
-Abb. \ref{fig:irr} zeigt die abnehmende Warscheinlichkeit für eine Antwort auf die Inquiry Message mit steigender Distanz.
+Tabelle \ref{table:irr} zeigt die abnehmende Warscheinlichkeit für eine Antwort auf die Inquiry Message mit steigender Distanz.
 
-\begin{figure}[h]
+\begin{table}[h]
   \centering
-	\includegraphics[width=0.7\textwidth]{images/irr.png}
   \caption{Rate der beantworteten Inquiry Messages (Inquiry Response Rate, IRR) gegen Distanz, aus \cite{bargh2008indoor}}
-  \label{fig:blemodel}
-\end{figure}
+	\includegraphics[width=0.7\textwidth]{images/irr.png}
+
+  \label{table:irr}
+\end{table}
 
 \subsubsection{RSSI-basierte Inquiry Lokalisierung}
 Ling et al. lokalisieren Bluetooth-fähige Geräte über den RSSI der Inquiry Response \cite{ling2010inquiry}.
@@ -195,8 +195,8 @@ Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet u
 Die gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke A im Abstand von einem Meter, dem Dämpfungsfaktor n und der Distanz d ab. \\
 Jianyong et al. bestimmen die Referenzsignalstärke und den Dämpfungsfaktor für jede Basisstation.
 Da jedoch nur eine Bereichsortung für diese Arbeit gefordert wurde, sollten A und n nur beispielhaft für eine Basisstation bestimmt werden, um den Aufwand beim Aufbau der Infrastruktur zu reduzieren.
-Abb. \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell. 
-Abb. \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development Kit von Texas Instruments von einer Basisstation nur auf 20 Meter detektiert werden konnte.
+Abbildung \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell. 
+Abbildung \ref{fig:blemodel} zeigt außerdem, dass die verwendeten CC2540 Development Kit von Texas Instruments von einer Basisstation nur auf 20 Meter detektiert werden konnte.
 
 
 \begin{figure}[h]
@@ -212,7 +212,7 @@ Sie beziehen sich dabei auf eine Lokalisierung im Außenbereich in einem 30x30km
 Sie senden Pakete von der mobilen Einheit und messen die Time of Arrival (ToA) an den Basisstationen.
 Dazu müssen die Basisstationen zeitsynchron arbeiten, dies wird über GPS sichergestellt.\\
 Eine Lokalisierung über den RSSI lehnen sie ab, da dieser im Bereich von 20 bis 30km Entfernung nur um 3-6dBm fällt und die Varianz die Korrelation von RSSI und Distanz über lange Distanzen überdeckt.
-Sie erreichen, abhängig von der Anzahl der verwendeten Basisstationen eien Genauigkeit zwischen wenigen Hundert und fast eintausend Metern, siehe dazu Abb. \ref{fig:loraacc}
+Sie erreichen, abhängig von der Anzahl der verwendeten Basisstationen eien Genauigkeit zwischen wenigen Hundert und fast eintausend Metern, siehe dazu Abbildung \ref{fig:loraacc}
 
 \begin{figure}[h]
   \centering

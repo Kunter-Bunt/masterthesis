@@ -17,15 +17,15 @@ Somit scheidet die direkte Fernlokalisierung mangels Messgrößen aus, es wird s
 
 \section{ESP8266}
 Der ESP8266 soll als Hardware für das Tag eingesetzt werden, dabei handelt es sich um einen Microcontroller von Espressif.
-Der ESP8266 besitzt neben einer CPU eine 802.11b/g/n"-/e/i-fähige WLAN-Einheit und beherrscht diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abb. \ref{fig:espblock}. \\
+Der ESP8266 besitzt neben einer CPU eine 802.11b/g/n"-/e/i-fähige WLAN-Einheit und beherrscht diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abbildung \ref{fig:espblock}. \\
 Da der ESP8266 selbst weder über Flashspeicher, noch über eine Antenne verfügt wird er auf einem Modul mit diesen Komponenten verbaut. 
 Die in dieser Arbeit betrachteten Module sind das ESP12-S und das ESP12-F.
 Das neuere ESP12-F sollte eine höhere Reichweite bei der Funkübertragung entfalten, dies wird noch Gegenstand eines Experiments sein.
 %TODO Antennen markieren
-Abb. \ref{fig:espmodules} zeigt die beiden Module nebeneinander, die unterschiedlichen Antennenformen sind deutlich zu erkennen.\\
-Espressif gibt im Datenblatt auch Aufschluss über den Energieverbrauch des ESPs, siehe dazu Abb. \ref{fig:esppower}.
+Abbildung \ref{fig:espmodules} zeigt die beiden Module nebeneinander, die unterschiedlichen Antennenformen sind deutlich zu erkennen.\\
+Espressif gibt im Datenblatt auch Aufschluss über den Energieverbrauch des ESPs, siehe dazu Tabelle \ref{table:esppower}.
 Für die Prototypenentwicklung wird ein ESP12-S Modul auf einem Adafruit Feather Huzzah verwendet, dieses stellt mit dem CP2104 eine serielle Verbindung zum ESP her, reguliert die Spannung für das Modul auf 3,3V und bringt den 2mm Pinabstand des ESP12-S Moduls auf die für Breadboards üblichen 2,5mm.
-Das Adafruit Feather Huzzah mit ESP12-S ist in Abb. \ref{fig:espmodules} links abgebildet.
+Das Adafruit Feather Huzzah mit ESP12-S ist in Abbildung \ref{fig:espmodules} links abgebildet.
 
 \begin{figure}[h]
   \centering
@@ -34,12 +34,13 @@ Das Adafruit Feather Huzzah mit ESP12-S ist in Abb. \ref{fig:espmodules} links a
   \label{fig:espmodules}
 \end{figure}
 
-\begin{figure}[h]
+\begin{table}[h]
   \centering
-	\includegraphics[width=\textwidth]{images/esppower.png}
   \caption{Energieverbrauch des ESP8266 bei verschiedenen Operationen, aus \cite{espressif2017esp8266}}
-  \label{fig:esppower}
-\end{figure}
+	\includegraphics[width=\textwidth]{images/esppower.png}
+
+  \label{table:esppower}
+\end{table}
 
 
 \subsection{ESP8266 Arduino Core}
@@ -89,7 +90,7 @@ Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, k
 Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung eines WiFi-LLS-Tags die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermittelt. 
 Damit wird der Overhead einer TCP-Verbindung vermieden.\\
 Zunächst muss das Tag dem Netzwerk beitreten (Join), einen Scan ausführen und ein UDP-Paket versenden.
-Der Ablauf eines Scans wird in Abb. \ref{fig:activescan} gezeigt, dieser Vorgang muss für jeden nicht überlappenden Kanal durchgeführt werden.\\
+Der Ablauf eines Scans wird in Abbildung \ref{fig:activescan} gezeigt, dieser Vorgang muss für jeden nicht überlappenden Kanal durchgeführt werden.\\
 Da die Scan-Funktion des ESP8266 Arduino Core es nicht erlaubt den RSSI zu einem AP auszulesen muss \texttt{user\_interface.h} importiert und die Scan-Funktion der SDK direkt verwendet werden.
 Um den Energieverbrauch weiter zu reduzieren, soll der ESP möglichst viel Zeit in Energiesparzuständen verbringen.
 Der tiefste Schlafzustand, der dennoch eine Aufrechterhaltung der WLAN-Verbindung erlaubt ist der \texttt{light\_sleep}. 
@@ -149,7 +150,7 @@ Bei WiFi-LLS wird der Scan durchgeführt, um den RSSI zu nahen Access Points zu 
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP, um das Tag einem Bereich zuzuordnen.
 Da dem Tag, die MAC-Adresse seines Netztzugangs bekannt sein muss, kann dies als Ortungsinformation verwendet werden.
-Der Wechsel zwischen zwei Access Points wird exemplarisch in Abb. \ref{fig:reassociation} dargestellt.
+Der Wechsel zwischen zwei Access Points wird exemplarisch in Abbildung \ref{fig:reassociation} dargestellt.
 
 \begin{figure}[h!]
   \centering
