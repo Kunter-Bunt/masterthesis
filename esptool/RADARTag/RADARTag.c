@@ -16,7 +16,7 @@ void build(void *arg) {
 	sendResponse.type = ESPCONN_UDP;
 	sendResponse.state = ESPCONN_NONE;
 	sendResponse.proto.udp = &udp;
-	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 200, 191);
+	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 0, 150);
 	sendResponse.proto.udp->remote_port = 8080; // Remote port
 	err = espconn_create(&sendResponse);
 }
@@ -44,5 +44,5 @@ void ICACHE_FLASH_ATTR user_init() {
   	os_timer_arm(&build_timer, 100, 0); //timer, milliseconds, repeating
   	
   	os_timer_setfn(&send_timer, (os_timer_func_t *)send_UDP, NULL);
-  	os_timer_arm(&send_timer, 1000, 1); //timer, milliseconds, repeating
+  	os_timer_arm(&send_timer, 5000, 1); //timer, milliseconds, repeating
 }

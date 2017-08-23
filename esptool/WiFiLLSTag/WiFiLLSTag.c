@@ -5,7 +5,7 @@
 	
 struct espconn sendResponse;
 struct station_config stationConfig;
-//struct scan_config scanC;
+struct scan_config scanC;
 
 esp_udp udp;
 
@@ -38,7 +38,7 @@ void build(void *arg) {
 	sendResponse.type = ESPCONN_UDP;
 	sendResponse.state = ESPCONN_NONE;
 	sendResponse.proto.udp = &udp;
-	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 10, 253, 23, 75);
+	IP4_ADDR((ip_addr_t *)sendResponse.proto.udp->remote_ip, 192, 168, 0, 150);
 	sendResponse.proto.udp->remote_port = 8080; // Remote port
 	espconn_create(&sendResponse);
 }
@@ -47,17 +47,18 @@ void send_UDP(void *arg) {
  	len = 0;
 	len += os_sprintf(buf, "5c:cf:7f:c6:a0:f1; ");
 	
-	wifi_station_scan(NULL, scan_done);
+	wifi_station_scan(&scanC, scan_done);
 	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void initDone() {
-		if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
-	strncpy(stationConfig.ssid, "VCC-Mobile", 32);
-	strncpy(stationConfig.password, "VcM0b1L3n3T", 64);
+	wifi_set_phy_mode(PHY_MODE_11B);
+	if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
+	strncpy(stationConfig.ssid, "WIFI_TAG_TESTING", 32);
+	strncpy(stationConfig.password, "key4WIFI!", 64);
 	wifi_station_set_config(&stationConfig);
 	
-	//scanC.channel = (uint8)1;
+	scanC.channel = (uint8)1;
 }
 
 void ICACHE_FLASH_ATTR user_init() {

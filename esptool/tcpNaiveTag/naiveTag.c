@@ -19,20 +19,20 @@ uint8 mac[6];
 void ICACHE_FLASH_ATTR
 user_tcp_sent_cb(void *arg)
 {
-		//espconn_disconnect(&user_tcp_conn); 
-    	wifi_set_sleep_type(LIGHT_SLEEP_T);
+	espconn_disconnect(&user_tcp_conn); 
+	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void ICACHE_FLASH_ATTR
 user_tcp_recv_cb(void *arg)
 {
-    	wifi_set_sleep_type(LIGHT_SLEEP_T);
+	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 void ICACHE_FLASH_ATTR
 user_tcp_discon_cb(void *arg)
 {
-		wifi_set_sleep_type(LIGHT_SLEEP_T);
+	wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
 
 
@@ -41,7 +41,7 @@ void ICACHE_FLASH_ATTR
 user_tcp_connect_cb(void *arg)
 {
 		struct espconn *pespconn = arg;
-		
+		/*
 		uint32_t keeplive; 
 
 		espconn_set_opt(pespconn, ESPCONN_KEEPALIVE); // enable TCP keep alive
@@ -52,7 +52,7 @@ user_tcp_connect_cb(void *arg)
 		espconn_set_keepalive(pespconn, ESPCONN_KEEPINTVL, &keeplive); 
 		keeplive = 3; //try times 
 		espconn_set_keepalive(pespconn, ESPCONN_KEEPCNT, &keeplive); 
-	
+		*/
 		//espconn_regist_recvcb(pespconn, user_tcp_recv_cb);
 		espconn_regist_sentcb(pespconn, user_tcp_sent_cb);
 		espconn_regist_disconcb(pespconn, user_tcp_discon_cb);
@@ -102,24 +102,24 @@ user_set_station_config(void)
 	   stationConf.bssid_set = 0; 
 		
 	   //Set ap settings 
-	   os_memcpy(&stationConf.ssid, "WIFI_TAG_TESTING", 32); 
-	   os_memcpy(&stationConf.password, "key4WIFI!", 64); 
+	   os_memcpy(&stationConf.ssid, "Lothlorien", 32); 
+	   os_memcpy(&stationConf.password, "JarJarBinks&R2D2", 64); 
 	   wifi_station_set_config(&stationConf); 
 
 		//NEW BEHAVIOR
 		wifi_set_event_handler_cb(wifi_event_cb);
 
-		os_timer_setfn(&test_timer, (os_timer_func_t *)user_check_ip, NULL);
+		//os_timer_setfn(&test_timer, (os_timer_func_t *)user_check_ip, NULL);
 	
 	//OLD BEHAVIOR
-    os_timer_arm(&test_timer, 500, 1); 
+		//os_timer_arm(&test_timer, 500, 1); 
 
 		user_tcp_conn.proto.tcp = &user_tcp;
       	user_tcp_conn.type = ESPCONN_TCP;
       	user_tcp_conn.state = ESPCONN_NONE;
 
  
-		const char esp_tcp_server_ip[4] = {192, 168, 200, 191}; 
+		const char esp_tcp_server_ip[4] = {192, 168, 0, 150}; 
  
 		os_memcpy(user_tcp_conn.proto.tcp->remote_ip, esp_tcp_server_ip, 4);
 		user_tcp_conn.proto.tcp->remote_port = 8080;
@@ -134,14 +134,12 @@ void sleep(void *arg) {
 }
  
 void user_init(void)
-{   
+{
 	wifi_set_opmode(STATION_MODE); 
 	wifi_get_macaddr(STATION_IF, mac);
-	 	
 	user_set_station_config();
-	   	
 	espconn_init();
 
 	os_timer_setfn(&sleep_timer, (os_timer_func_t *)sleep, NULL);
-  	os_timer_arm(&sleep_timer, 1200000, 0); //timer, milliseconds, repeating
+	//os_timer_arm(&sleep_timer, 1200000, 0); //timer, milliseconds, repeating
 }

@@ -33,9 +33,9 @@ void some_timerfunc(void *arg)
 
 void ICACHE_FLASH_ATTR user_init()
 {
-	//wifi_station_set_auto_connect(0);
+	wifi_station_set_auto_connect(0);
 	//gpio_init();
-	//wifi_set_channel(1);
+	wifi_set_channel(1);
 
 	/*PIN_FUNC_SELECT(PERIPHS_IO_MUX_GPIO0_U  , FUNC_GPIO0);
 	PIN_FUNC_SELECT(PERIPHS_IO_MUX_MTDO_U , FUNC_GPIO15);

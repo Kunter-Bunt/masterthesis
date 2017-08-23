@@ -40,8 +40,8 @@ void initDone() {
 	//wifi_set_opmode_current(STATION_MODE);
 	//if (!wifi_station_get_auto_connect()) wifi_station_set_auto_connect(1);
 	struct station_config stationConfig;
-	strncpy(stationConfig.ssid, "VCC-Mobile", 32);
-	strncpy(stationConfig.password, "VcM0b1L3n3T", 64);
+	strncpy(stationConfig.ssid, "Lothlorien", 32);
+	strncpy(stationConfig.password, "JarJarBinks&R2D2", 64);
 	wifi_station_set_config(&stationConfig);
 }
 
