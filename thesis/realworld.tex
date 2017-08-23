@@ -49,30 +49,71 @@ Es wurde für jedes Konzept jeweils die Implementierung gewählt, die bei den vo
 
 \subsection{WiFi-LLS}
 \label{ch:realworld:sec:wifills}
-Bei WiFi-LLS handelt es sich um mobile Einheiten, die eine Selbstlokalisierung mittels Scan durchführen und die Ergebnisse an einen zentralen Ortungsserver versenden.
-Die Implementierung wird in Abschnitt \ref{ch:phase1:sec:wifills} beschrieben.
+Abbildung \ref{fig:wifills} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von WiFi-LLS, wenn ein AP zur Verfügung steht. 
+Diese beginnt bei circa einer Sekunde mit dem Scan, nachdem sie diesen beendet hat beginnt sie bei 5 Sekunden mit dem Join Vorgang.\\
+Der ESP8266 empfängt während des Join die gesamte Zeit und verbraucht dabei circa 70 Milliamper, nachdem dieser jedoch abgeschlossen ist synchronisiert er sich mit dem AP und lauscht alle 100ms auf den Beacon des AP.
+Ist im Beacon eine Aufforderung zum Empfangen für den ESP8266 enhalten empfängt er länger um die Nachricht zu erhalten, ein solches Verhalten ist bei circa 19 Sekunden zu erkennen.\\
+Bei 12, 17 und 22 Sekunden werden weitere Scans ausgeführt, diese stehen im Zentrum der Implementierung, da sie implizit die Position bestimmen.
+Abbildung \ref{fig:wifillssend} zeigt diesen Vorgang genauer, ein Scan besteht für jeden gescannten Kanal aus dem Versenden eines Probe Request und anschließenden Empfangen der Probe Responses. 
+Abschließend wird ein Paket an den Ortungsserver versendet und der Chip wechselt wieder in einen Zustand, in dem er periodisch die Beacons des AP empfängt.\\
+Auffällig ist, dass der Chip circa 8,2 Milliamper verbraucht wenn er nicht empfängt, dagegen gibt das Datenblatt des ESP8266 nur einen Verbrauch von 0,9 Milliamper an.
+Das Experiment wurde deshalb mit einem ESP-12F Modul wiederholt, welches nicht auf einem ESP8266 Feather verbaut war, dabei zeigte sich, dass dieses in der selben Situation nur 1,2 Milliamper verbraucht.
+Daraus lässt sich schließen, dass die zusätzlichen Komponenten auf dem ESP8266 Feather 7 Milliamper Vebrauch erzeugen, dies ist im Zuge der Laufzeitoptimierung nicht tragbar.\\
+Zusätzlich wurde die Implementierung von WiFi-LLS mit nur einem gescannten Kanal geprüft.
+Abbildung \ref{fig:wifills1chsend} zeigt den verkürzten Ortungsvorgang.
+Da nur ein Kanal gescannt wird, wird nur ein Probe Request versendet.
+Nach Empfangen der Antworten wird ein Paket an den Ortungsserver gesendet und der ESP8266 wechselt wieder in den Zustand des periodischen Empfangens.\\
+Tabelle \ref{table:wifillsina} listet den durchschnittlichen Verbrauch der Einheiten über eine Stunde.
+Die Stromversorgung der Einheiten wurden circa eine Sekunde nach Beginn des Experiments angeschaltet, anschließend treten keine Veränderungen mehr auf.
+
 
 \subsection{Indirekte Bereichsortung}
 \label{ch:realworld:sec:indirekt}
-Wegen des hohen Energieverbrauchs der Scan Operation wurde in Abschnitt \ref{ch:phase1:sec:anpassungbereich} eine mobile Einheit beschrieben, die dem Ortungsserver stattdessen nur mitteilt, mit welchem AP sie gerade assoziiert ist. 
-Diese Implemetierung wurde optimiert, so dass sie nur sendet, wenn eine Assoziation beziehungsweise Reassoziation stattgefunden hat.
+Abbildung \ref{fig:tcphold} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung für Bereichsortung mit aufrecht erhaltener TCP-Verbindung, wenn ein AP zur Verfügung steht. 
+Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es werden ebenfalls Scan und Join durchgeführt.
+Da jedoch nur für das Event einer vollständigen (Re-)Assoziation gesendet wird bleibt der ESP8266 anschließend im Zustand des periodischen Empfangens vor Beacons.
+Diese wird nur von den Keep Alive Paketen unterbrochen, welche alle 30 Minuten versendet werden.\\
+Für die Implementierung mit anschließendem Abbau der TCP-Verbindung kommen zusätzliche Pakete direkt nach dem versenden der Assoziationsinformation an den Ortungsserver hinzu, dafür entfallen die Keep Alive Pakete.
+Abbildung \ref{fig:tcpdisco} zeigt dieses Verhalten.\\
+Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m,it einem einzelnen ESP-12F Modul getestet, die Ergebnisse sind in Tabelle \ref{table:associatonina} zu finden.
 
 \subsection{RADAR}
-Die RADAR Implementierung sendet nach dem Beitritt zum Netzwerk regelmäßig ein 6 Byte langes UDP Paket an den Ortungsserver versendet.
-Der Access Point protokolliert den Empfang des Paketes und teilt den Absender dem Ortungsserver mit, zusätzlich wird für eine mögliche Triangulation der Received Signal Strength Index (RSSI) angehängt.
-Die Implementierung von RADAR wird in Abschnitt \ref{ch:phase2:sec:radar} beschrieben.
+Abbildung \ref{fig:radar5s} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von RADAR, wenn ein AP zur Verfügung steht. 
+Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es werden ebenfalls Scan und Join durchgeführt.\\
+Abbildung \ref{fig:radar5ssend} zeigt den Sendevorgang der RADAR Implementierung.
+Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand des UDP Pakets nicht notwendig ist.\\
+In Tabelle \ref{table:radarina} ist der durchschnittliche Verbrauch der RADAR Implementierung über eine Stunde gelistet.
+Es wurde sowohl mit dem ESP8266 Feather, als auch mit dem einzelnen ESP-12F gemessen, die mobile Einheit wurde jeweils erst circa eine Sekunde nach Beginn mit Strom versorgt.
 
 \subsection{Probe Request Lokalisierung}
-Die mobile Einheit mit der Probe Request Implementierung sendet regelmäßig den namensgebenden Management Frame aus.
-Der Access Point protokolliert den Empfang des Probe Requests und teilt den Absender dem Ortungsserver mit, zusätzlich wird für eine mögliche Triangulation der Received Signal Strength Index (RSSI) angehängt.
-Die Implementierung wird in Abschnitt \ref{ch:phase2:sec:anpassungbereich} diskutiert.
+Abbildung \ref{fig:probeReq3ch} zeigt den Lastverlauf für einen Sendevorgang der Probe Request Implementierung.\\
+Nachdem der ESP8266 aus dem \texttt{deep\_sleep} erwacht beginnt eine circa 100ms andauerne Startphase, danach sendet er die drei Probe Requests.
+Anschließend soll der ESP8266 wieder in den \texttt{deep\_sleep} versetzt werden, vorher empfängt er jedoch noch 100ms.
+Die restliche Zeit befindet sich der ESP8266 im Tiefschlaf. 
+Bei dem ESP-12F Modul ist der INA219 nicht in der Lage einen Vebrauch zu messen, er liegt unter 0,1 Milliamper.\\
+Beim ESP8266 Feather misst er jodoch durchgehend einen Vebrauch von über 7 Milliamper, daraus ergeben sich die Unterschiede in den Messungen, die in Tabelle \ref{probereqina} dargestellt werden.
+Es wurde sowohl mit nur einem versendeten Probe Request, als auch mit drei Probe Requests getestet, die Unterschiede im Verbrauch liegen jedoch im Bereich der Messungenauigkeit.
 
 \subsection{Bluetooth Low Energy Advertising}
 \label{ch:realworld:sec:ble}
-Diese Implemnetierung nutzt das Advertising aus dem Bluetooth 4.0 Standard.
-Sie sendet in regelmäßigen Abständen ein Advertising Paket, in dem neben der physischen Adresse der mobilen Einheit ein Name angegeben werden kann.
-Die Basisstation protokolliert den Empfang des Advertising Pakets zusammen mit dem angegeben Namen und dem RSSI, diese Informationen werden dann an den zentralen Ortungsserver versendet.
-Die BLE Advertising Implementierung wird in Abschnitt \ref{ch:phase3:sec:advertising} beschrieben.
+Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth Low Energy Advertising.\\
+Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.
+Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, die Samplingrate von 333Hz reicht hier offenbar nicht aus um dem Sendevorgang vollständig zu erfassen.\\
+Hauptverbrauch liegt jedoch in den 7,2 bis 7,6 Milliamper im Ruhezustand, leider ist in diesem Fall kein einzelnes Modul vorhanden, es kann nur auf dem nRF52 Feather gemessen werden.
+Da jedoch die selben Komponenten wie beim ESP8266 Feather zum Einsatz kommen, kann angenommen werden, dass auch der Ruheverbrauch vergleichbar ist, dieser liegt zwischen 7 und 7,1 Milliamper.
+Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen projezierten Verbrauch, bei dem ein Ruheverbrauch von 7,05 Milliamper subtrahiert wurde.
+
+\subsection{Lokaliserung mit LoRa}
+Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft
+Abbildung \ref{fig:lora23} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRA bei 23dBm.\\
+Nach einer circa drei sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach zehn Sekunden Ruhezustand senden.
+Dieser jedoch vom Zeitgeber nicht ganz eingehalten, die mobile Einheit befindet sich zwischen den Sendevorgängen circa elf Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
+Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 2,5 bis 2,7 Milliamper, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.
+Die Abbildung \ref{fig:lora23send5} zeigt die Sendeverbäuche für eine Sendeleistung von 23dBm in Rot und für 5dBm in Grün.
+Die Ergebnisse der Messungen sind in Tabelle \ref{lora235ina} gelistet.\\
+Für den LoRa Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der CP2104, welcher zum Programmieren des ESP8266 beziehungsweise nRF52 dient, mindestens 4,5 Milliamper zu verbrauchen.
+
+
 
 \section{Bewertung}
 Die Implementierungen, die dem Netzwerk beitreten verbrauchen deutlich mehr Strom, wenn kein Access Point in Reichweite ist, dem sie beitreten können.
