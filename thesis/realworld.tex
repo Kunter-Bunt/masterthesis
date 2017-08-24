@@ -91,6 +91,19 @@ Nach Empfangen der Antworten wird ein Paket an den Ortungsserver gesendet und de
 Tabelle \ref{table:wifillsina} listet den durchschnittlichen Verbrauch der Einheiten über eine Stunde.
 Die Stromversorgung der Einheiten wurden circa eine Sekunde nach Beginn des Experiments angeschaltet, anschließend treten keine Veränderungen mehr auf.
 
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit WiFi-LLS Implementierung}
+	\label{table:wifillsina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		ESP8266 Feather & WiFi-LLS alle Kanäle & 42,2 \\
+		ESP-12F & WiFi-LLS alle Kanäle & 36,5 \\
+		ESP8266 Feather & WiFi-LLS ein Kanal & 18,7 \\
+		ESP-12F & WiFi-LLS ein Kanal & 11,4 \\
+	\end{tabular}
+\end{table}
 
 
 \subsection{Indirekte Bereichsortung}
@@ -119,6 +132,20 @@ Abbildung \ref{fig:tcpdisco} zeigt dieses Verhalten.\\
 
 Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m,it einem einzelnen ESP-12F Modul getestet, die Ergebnisse sind in Tabelle \ref{table:associatonina} zu finden.
 
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit Bereichsortung}
+	\label{table:associatonina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		ESP8266 Feather & Bereichsortung TCP Verbindung halten & 15,5 \\
+		ESP-12F & Bereichsortung TCP Verbindung halten & 8,8 \\
+		ESP8266 Feather & Bereichsortung TCP Verb. schließen & 15,4 \\
+		ESP-12F & Bereichsortung TCP Verb. schließen & 8,8 \\
+	\end{tabular}
+\end{table}
+
 \subsection{RADAR}
 Abbildung \ref{fig:radar5s} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von RADAR, wenn ein AP zur Verfügung steht. 
 Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es werden ebenfalls Scan und Join durchgeführt.\\
@@ -143,6 +170,18 @@ Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand
 In Tabelle \ref{table:radarina} ist der durchschnittliche Verbrauch der RADAR Implementierung über eine Stunde gelistet.
 Es wurde sowohl mit dem ESP8266 Feather, als auch mit dem einzelnen ESP-12F gemessen, die mobile Einheit wurde jeweils erst circa eine Sekunde nach Beginn mit Strom versorgt.
 
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit RADAR Implementierung}
+	\label{table:radarina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		ESP8266 Feather & RADAR & 16,7 \\
+		ESP-12F & RADAR & 10,1 \\
+	\end{tabular}
+\end{table}
+
 \subsection{Probe Request Lokalisierung}
 Abbildung \ref{fig:probereqv} zeigt den Lastverlauf für einen Sendevorgang der Probe Request Implementierung, der Verlauf für den ESP8266 Feather ist in Rot und der Verlauf für das ESP-12F Modul ist in Grün dargestellt.\\
 Nachdem der ESP8266 aus dem \texttt{deep\_sleep} erwacht beginnt eine circa 100ms andauerne Startphase, danach sendet er die drei Probe Requests.
@@ -160,6 +199,20 @@ Bei dem ESP-12F Modul ist der INA219 nicht in der Lage einen Vebrauch zu messen,
 Beim ESP8266 Feather misst er jodoch durchgehend einen Vebrauch von über 7 Milliamper, daraus ergeben sich die Unterschiede in den Messungen, die in Tabelle \ref{probereqina} dargestellt werden.
 Es wurde sowohl mit nur einem versendeten Probe Request, als auch mit drei Probe Requests getestet, die Unterschiede im Verbrauch liegen jedoch im Bereich der Messungenauigkeit.
 
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit Probe Request Ortung}
+	\label{table:probereqina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		ESP8266 Feather & Probe Request drei Kanäle & 9,72 \\
+		ESP-12F & Probe Request drei Kanäle & 1,8 \\
+		ESP8266 Feather & Probe Request ein Kanal & 9,74 \\
+		ESP-12F & Probe Request ein Kanal & 1,82 \\
+	\end{tabular}
+\end{table}
+
 \subsection{Bluetooth Low Energy Advertising}
 \label{ch:realworld:sec:ble}
 Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth Low Energy Advertising.\\
@@ -176,6 +229,18 @@ Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, 
 Hauptverbrauch liegt jedoch in den 7,2 bis 7,6 Milliamper im Ruhezustand, leider ist in diesem Fall kein einzelnes Modul vorhanden, es kann nur auf dem nRF52 Feather gemessen werden.
 Da jedoch die selben Komponenten wie beim ESP8266 Feather zum Einsatz kommen, kann angenommen werden, dass auch der Ruheverbrauch vergleichbar ist, dieser liegt zwischen 7 und 7,1 Milliamper.
 Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen projezierten Verbrauch, bei dem ein Ruheverbrauch von 7,05 Milliamper subtrahiert wurde.
+
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit Bluetooth Low Energy Advertising}
+	\label{table:blueina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		nRF52 Feather & Bluetooth Low Energy Advertising & 7,37 \\
+		nRF52 (projeziert) & Bluetooth Low Energy Advertising & 0,32 \\
+	\end{tabular}
+\end{table}
 
 \subsection{Lokaliserung mit LoRa}
 Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft
@@ -203,6 +268,18 @@ Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger a
 
 Die Ergebnisse der Messungen sind in Tabelle \ref{lora235ina} gelistet.\\
 Für den LoRa Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der CP2104, welcher zum Programmieren des ESP8266 beziehungsweise nRF52 dient, mindestens 4,5 Milliamper zu verbrauchen.
+
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit Bluetooth Low Energy Advertising}
+	\label{table:lora235ina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		LoRa Feather & LoRa mit 23dBm Sendeleistung & 3,16 \\
+		LoRa Feather & LoRa mit 5dBm Sendeleistung & 2,88 \\
+	\end{tabular}
+\end{table}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
