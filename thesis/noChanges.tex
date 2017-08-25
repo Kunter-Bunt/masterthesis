@@ -15,6 +15,12 @@ Somit scheidet die direkte Fernlokalisierung mangels Messgrößen aus, es wird s
   \label{fig:espblock}
 \end{figure}
 
+
+
+
+
+
+
 \section{ESP8266}
 Der ESP8266 soll als Hardware für das Tag eingesetzt werden, dabei handelt es sich um einen Microcontroller von Espressif.
 Der ESP8266 besitzt neben einer CPU eine 802.11b/g/n"-/e/i-fähige WLAN-Einheit und beherrscht diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abbildung \ref{fig:espblock}. \\
@@ -84,6 +90,12 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
   \label{fig:activescan}
 \end{figure}
 
+
+
+
+
+
+
 \section{WiFi-LLS Implementierung}
 \label{ch:phase1:sec:wifills}
 Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen Scan aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsserver \cite{chen2007design}.
@@ -142,6 +154,11 @@ Für diesen gilt ein Wirkungsgrad $\eta \approx \frac{U_{ein}}{U{aus}}$ mit der 
 Eine Milliamperstunde bei einer Eingangsspannung von 5 Volt kann also mit einer Milliamperstunde bei einer Eingangspannung bei 3,7 Volt gleichgesetzt werden.
 Die Laufzeit für einen beispielhaften 1400 mAh Lithium-Polymer Akku beträgt also 1400\ mAh/19\ mA $\approx$ 73,68\ h.
 Dies entpricht circa drei Tagen.
+
+
+
+
+
 
 
 \section{Anpassungen für Bereichsortung}
@@ -210,4 +227,196 @@ Da die zusätzlichen Reassoziationen jedoch auch die vorherigen Implementierunge
 
 
 
+
+
+
+\section{Untersuchung des Energieverbrauchs}
+Der Muker TM103 USB-Power-Meter bietet sowohl im Zeit- Als auch im Wertebereich nur eine sehr geringe Auflösung
+Der INA219 kann den Verbrauch mit bis zu 333Hz bestimmen und besitzt dabei eine Messgenauigkeit von 99,5\% \cite{texas2015ina}.
+Der Stromverbrauch wird über den Spannungsabfall über einen 0,1$\Omega$ Widerstand bestimmt, der verwendete Widerstand besitzt eine Fertigungstoleranz von 1\%.
+Die Messgenauigkeit sinkt deshalb auf $99,5\% * 99\% = 98,505\%$. 
+Das über $I²C$ auslesbare Register löst den aktuellen Verbrauch in 0,1 Milliamper Schritten auf, Verbräuche darunter können nicht bestimmt werden.\\
+Außerdem wird dieses mal durch den JST-Anschluss für den Akku gemessen, dadurch können eventuelle Ineffizienzen des Lithium-Polymer-Ladeschaltkreises aufgezeichnet werden. 
+Abbildung \ref{fig:ina219} zeigt den INA219 integriert auf einer Platine, diese wird für die Messungen verwendet.
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=0.5\textwidth]{images/ina219.jpg}
+  \caption{INA219, die mit R100 beschriftete Komponente über dem INA219 ist der Messwiderstand.}
+  \label{fig:ina219}
+\end{figure}
+
+\subsection{WiFi-LLS}
+\label{ch:realworld:sec:wifills}
+Abbildung \ref{fig:wifills} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von WiFi-LLS, wenn ein AP zur Verfügung steht. 
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{plots/wifills.png}
+  \caption{Lastkurve einer Implementierung von WiFi-LLS.}
+  \label{fig:wifills}
+\end{figure}
+
+Diese beginnt bei circa einer Sekunde mit dem Scan, nachdem sie diesen beendet hat beginnt sie bei 5 Sekunden mit dem Join Vorgang.\\
+Der ESP8266 empfängt während des Join die gesamte Zeit und verbraucht dabei circa 70 Milliamper, nachdem dieser jedoch abgeschlossen ist synchronisiert er sich mit dem AP und lauscht alle 100ms auf den Beacon des AP.
+Ist im Beacon eine Aufforderung zum Empfangen für den ESP8266 enhalten empfängt er länger um die Nachricht zu erhalten, ein solches Verhalten ist bei circa 19 Sekunden zu erkennen.\\
+Bei 12, 17 und 22 Sekunden werden weitere Scans ausgeführt, diese stehen im Zentrum der Implementierung, da sie implizit die Position bestimmen.
+Die rote Kurve in Abbildung \ref{fig:wifillssendv} zeigt diesen Vorgang genauer, ein Scan besteht für jeden gescannten Kanal aus dem Versenden eines Probe Request und anschließenden Empfangen der Probe Responses. 
+Abschließend wird ein Paket an den Ortungsserver versendet und der Chip wechselt wieder in einen Zustand, in dem er periodisch die Beacons des AP empfängt.\\
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{plots/wifillssendv.png}
+  \caption{Lastkurve eines Ortungsvorgangs mit WiFi-LLS.}
+  \label{fig:wifillssendv}
+\end{figure}
+
+Auffällig ist, dass der Chip circa 8,2 Milliamper verbraucht wenn er nicht empfängt, dagegen gibt das Datenblatt des ESP8266 nur einen Verbrauch von 0,9 Milliamper an.
+Das Experiment wurde deshalb mit einem ESP-12F Modul wiederholt, welches nicht auf einem ESP8266 Feather verbaut war, dabei zeigte sich, dass dieses in der selben Situation nur 1,2 Milliamper verbraucht.
+Die Lastkurve des einzelnen ESP-12F Modul ist in Abbildung \ref{fig:wifillssendv} grün dargestellt.
+Daraus lässt sich schließen, dass die zusätzlichen Komponenten auf dem ESP8266 Feather 7 Milliamper Vebrauch erzeugen, dies ist im Zuge der Laufzeitoptimierung nicht tragbar.\\
+Zusätzlich wurde die Implementierung von WiFi-LLS mit nur einem gescannten Kanal geprüft.
+Abbildung \ref{fig:wifills1chsend} zeigt den verkürzten Ortungsvorgang.
+Da nur ein Kanal gescannt wird, wird nur ein Probe Request versendet.
+Nach Empfangen der Antworten wird ein Paket an den Ortungsserver gesendet und der ESP8266 wechselt wieder in den Zustand des periodischen Empfangens.\\
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{plots/wifills1chsend.png}
+  \caption{Lastkurve des Ortungsvorgangs mit einem gescannten Kanal.}
+  \label{fig:wifills1chsend}
+\end{figure}
+
+Tabelle \ref{table:wifillsina} listet den durchschnittlichen Verbrauch der Einheiten über eine Stunde.
+Die Stromversorgung der Einheiten wurden circa eine Sekunde nach Beginn des Experiments angeschaltet, anschließend treten keine Veränderungen mehr auf.
+
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit WiFi-LLS Implementierung}
+	\label{table:wifillsina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		ESP8266 Feather & WiFi-LLS alle Kanäle & 42,2 \\
+		ESP-12F & WiFi-LLS alle Kanäle & 36,5 \\
+		ESP8266 Feather & WiFi-LLS ein Kanal & 18,7 \\
+		ESP-12F & WiFi-LLS ein Kanal & 11,4 \\
+	\end{tabular}
+\end{table}
+
+\subsection{Indirekte Bereichsortung}
+\label{ch:realworld:sec:indirekt}
+Abbildung \ref{fig:tcphold} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung für Bereichsortung mit aufrecht erhaltener TCP-Verbindung, wenn ein AP zur Verfügung steht. 
+Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es werden ebenfalls Scan und Join durchgeführt.
+Da jedoch nur für das Event einer vollständigen (Re-)Assoziation gesendet wird bleibt der ESP8266 anschließend im Zustand des periodischen Empfangens vor Beacons.
+Diese wird nur von den Keep Alive Paketen unterbrochen, welche alle 30 Minuten versendet werden.\\
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{plots/tcphold.png}
+  \caption{Lastkurve einer Implementierung indirekter Bereichsortung, welche eine TCP Verbindung offen hält.}
+  \label{fig:tcphold}
+\end{figure}
+
+Für die Implementierung mit anschließendem Abbau der TCP-Verbindung kommen zusätzliche Pakete direkt nach dem versenden der Assoziationsinformation an den Ortungsserver hinzu, dafür entfallen die Keep Alive Pakete.
+Abbildung \ref{fig:tcpdisco} zeigt dieses Verhalten.\\
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{plots/tcpdisco.png}
+  \caption{Lastkurve einer Implementierung indirekter Bereichsortung, welche eine TCP Verbindung nach dem Senden abbaut.}
+  \label{fig:tcpdisco}
+\end{figure}
+
+Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m,it einem einzelnen ESP-12F Modul getestet, die Ergebnisse sind in Tabelle \ref{table:associatonina} zu finden.
+
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit Bereichsortung}
+	\label{table:associatonina}
+	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+		\hline
+		ESP8266 Feather & Bereichsortung TCP Verbindung halten & 15,5 \\
+		ESP-12F & Bereichsortung TCP Verbindung halten & 8,8 \\
+		ESP8266 Feather & Bereichsortung TCP Verb. schließen & 15,4 \\
+		ESP-12F & Bereichsortung TCP Verb. schließen & 8,8 \\
+	\end{tabular}
+\end{table}
+
+
+
+
+
+\section{Reichweite von WLAN}
+Für die Tests wurde ein LN-862 Access Point von der Firma Lancom zur Verfügung gestellt.
+Dieser wurde am hinteren Ende einer Tunnelbohrmaschine montiert.\\
+Die Tunnelbohrmaschine befindet sich in der Tunnelbaustelle Rastatt. 
+Der Durchmesser des Bahntunnels beträgt 9 Meter, das Ende der Tunnelbohrmaschine befand zum Zeitpunkt der Messungen circa 2 Kilometer weit im Tunnel.\\
+Der AP konnte aufgrund des geringen Platzangebots und den wenigen zur Verfügung stehenden Steckdosen nicht frei platziert werden.
+Er wurde deshalb unter der ersten stählernen Treppe platziert, diese beeinträchtigt natürlich das Signal.
+Da es aber üblich ist IT-Gerätschaften, wie die derzeit verwendeten Bluetooth-Basisstationen, in Metallboxen zu verstauen um sie vor äußeren Einflüssen zu schützen, ist eine gewisse Abschirmung durchaus realitätsnah.
+Die Platzierung des AP ist auf Abbildung \ref{fig:tunnelmark} eingezeichnet.\\
+Abbildung \ref{fig:applacement} zeigt den LN-862 hinter der Treppe.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/tunnelmark.png}
+  \caption{Ende der Tunnelbohrmaschine, Pfeil markiert Platzierung des Access Point hinter der Treppe.}
+  \label{fig:tunnelmark}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/applacement.jpg}
+  \caption{LN-862 im Tunnel, darauf liegt der Pi Zero W.}
+  \label{fig:applacement}
+\end{figure}
+
+\subsection{Methodik}
+Die Reichweite in zwei Richtungen geprüft.
+Zum einen in Richtung des bereits fertig gebohrten Tunnels, hier blockiert nur wenig Stahl das Signal. 
+Lediglich die Treppe, unter der der AP montiert wurde, stellt ein Hindernis dar.
+Zum anderen wurde die Reichweite in Richtung des Vortriebs geprüft.
+Dabei stellen eine stählerne Zwischendecke und große Container Hindernisse dar.\\
+Außerdem wird die Abschrimung durch ein Gehäuse getestet.
+Dazu wurde eine stabile Plastikbox verwendet, leider konnte diese für den Versuch mit der Bleutooth-basierten mobilen Einheit nicht vollends geschlossen werden.\\
+Für die Messung wurde der Körper zwischen mobiler Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "außer Reichweite" angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
+In jedem Fall war es möglich durch das Entfernen des körperlichen Hindernisses wieder eine Verbindung herzustellen.\\
+Zur Bestimmung der Distanz wurden die Tübbinge verwendet, dies sind Schalungselemente im Tunnel.
+Im Tunnel Raststatt sind diese fortlaufend nummeriert und genau zwei Meter breit, die Messungen sind deshalb ebenfalls in zwei Meter Schritten angegeben.
+
+\subsection{Ergebnisse}
+Tabelle \ref{table:rangewifi} zeigt die Ergebnisse für die zwei verwendeten ESP8266 Module.
+Es wurde jeweils mit und ohne Gehäuse gemessen und in jede der beiden beschriebenen Richtungen.
+Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tunnels, viele Hindernisse die Richtung des Vortriebs.
+
+\begin{table}[h]
+	\centering
+	\caption{Sendereichweite WLAN-basierter mobiler Einheiten}
+	\label{table:rangewifi}
+	\begin{tabular}{p{3.5cm}|p{3cm}|p{3.5cm}|p{3cm}}
+		Verwendetes Modul & Aufbau & Strecke & Maximale Sendereichweite \\
+		\hline
+		ESP-12E & Offen & Wenige Hindernisse & 84m \\
+		ESP-12E & In Gehäuse & Wenige Hindernisse & 74m \\
+		ESP-12E & Offen & Viele Hindernisse & 26m \\
+		ESP-12E & In Gehäuse & Viele Hindernisse & 30m \\
+		\hline
+		ESP-12F & Offen & Wenige Hindernisse & 88m \\
+		ESP-12F & In Gehäuse & Wenige Hindernisse & 88m \\
+		ESP-12F & Offen & Viele Hindernisse & 32m \\
+		ESP-12F & In Gehäuse & Viele Hindernisse & 32m \\
+	\end{tabular}
+\end{table}
+
+
+\subsection{Bewertung}
+\label{ch:Reichweite:sec:bewertung}
+Das ESP-12F Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das ESP-12E, es ist daher im weiteren Verlauf zu bevorzugen.\\
+Die bisher angenommenen 50 Meter Reichweite sind für dieses Modul deutlich zu vorsichtig geschätzt. 
+Um die gemessenen 88 Meter bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 Sekunden, bei einem Sendeintervall von zehn Sekunden finden demnach zwei Sendevorgänge beim durchqueren des Einflussbereichs eines APs statt.
+Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall konservativer auf acht Sekunden gesetzt werden.\\
+Für die Teststrecke mit vielen Hindernissen wurden geringere Reichweiten gemessen, eine solche Teststecke findet sich aber nur auf der Tunnelbohrmaschine, welche nur zu Fuß begangen werden kann. 
+Geht man von einer maximalen Bewegungsgeschwindigkeit von zehn km/h für eine laufende Person aus durquerte diese in acht Sekunden 22 Meter, also deutlich weniger als die gemessenen 32 Meter.\\
 
