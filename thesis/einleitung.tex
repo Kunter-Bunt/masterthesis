@@ -14,7 +14,7 @@ Als mobile Einheiten kommen sowohl batteriebetriebene Tags als auch Smartphones 
 Das zentrale Sicherheitssystem fragt die gesehenen mobilen Einheiten bei den Basisstationen an und bereitet die Ergebnisse graphisch auf.\\
 Der Tunnel wird in Bereiche zu circa 500 Meter aufgeteilt, die Tunnelbohrmaschine (TBM) stellt dabei einen Sonderbereich dar, weil sie sich im Gegensatz zu den anderen Bereichen langsam bewegt. 
 Neue Bereiche werden hinter der TBM eingefügt und sind dann stationär.\\
-Die Bluetooth Basisstationen werden in Kästen verstaut, die weitere notwendge Technick, wie etwa ein Notfalltelefon, enthalten.
+Die Bluetooth Basisstationen werden in Kästen verstaut die weitere notwendige Technik, wie etwa ein Notfalltelefon, enthalten.
 Weil diese Kästen nur etwa alle 500 Meter montiert sind, existieren große Lücken in denen die mobilen Einheiten nicht geortet werden.
 Eine mobile Einheit bleibt im System so lange in einem Bereich bis sie wieder von einer Basisstation erkannt wird.\\
 Wird die mobile Einheit von der Erfassungseinheit vor dem Portal (Tunneleingang) erkannt gilt sie als außerhalb des Tunnels.
@@ -30,12 +30,13 @@ Abbildung \ref{fig:bisherige} zeigt die bisherige Situation mit Bluetooth Basiss
  
 \section{Umgebung für funkbasierte Ortung}
 Als Versuchsumgebung dient die Tunnelbaustelle Rastatt.
-Dort gelten die Positionen der Kästen für die Technik als  unveränderlich.
+Dort gelten die Positionen der Kästen für die Technik als unveränderlich.
 Nur sie bieten Strom, Netzwerkanbindung (LAN) und Schutz vor dem Baustellenumfeld.
 Für Funkprotokolle, die weniger als 250 Meter Reichweite haben muss daher mit Erfasssungslücken gerechnet werden.
 Auf der TBM und anderen technischen Fahrzeugen sind jedoch mehr Basisstationen möglich.\\
 Es existiert bereits ein WLAN Netzwerk, dessen Access Points als Basisstationen genutzt werden können.
-Es handelt sich um Access Points der Firma Lancom, diese stellt auch einen LN-862 für Versuche.
+Es handelt sich um APs der Firma Lancom, diese stellt auch einen LN-862 für Versuche.
+Für zukünftige Baustellen soll der Abstand der Versorgungskästen auf 250 Meter sinken, diese Situation ist in Abbildung \ref{fig:zukuenftige} skizziert.
 
 \begin{figure}[h]
   \centering
@@ -60,10 +61,10 @@ Für jeden dieser Schritte müssen die angrenzenden Komponenten (Ortungsserver u
 
 \section{Anforderungen an das Bereichsortungssystem}
 \label{ch:Einleitung:sec:Anforderungen}
-Da es sich um ein Bereichsortungssystem handeln soll, werden keine direkten Anforderungen an die Genauigkeit der Ortung gestellt, jedoch soll ein klarer Wechsel zwischen zwei Bereichen, und damit zwei Access Points, zuverlässig erkannt werden. 
-Bei den von den Zielpersonen getragenen Positionssendern, den sogenannten Tags, soll es sich in den ersten beiden Schritten um Geräte handeln, die auf WLAN Basis arbeiten und somit mit den Access Points kompatibel sind.
+Da es sich um ein Bereichsortungssystem handeln soll, werden keine direkten Anforderungen an die Genauigkeit der Ortung gestellt, jedoch soll ein klarer Wechsel zwischen zwei Bereichen, und damit zwei Basisstationen, zuverlässig erkannt werden. 
+Bei den von den Zielpersonen getragenen Positionssendern, den mobilen Einheiten, soll es sich in den ersten beiden Schritten um Geräte handeln, die auf WLAN Basis arbeiten und somit mit den APs kompatibel sind.
 Im dritten Schritt ist dies nicht erforderlich und die Kompatibilität wird durch technische Änderungen am AP wiederhergestellt.
-Die Tags sollen eine Laufzeit von bis zu drei Jahren erreichen, sie müssen jedoch mindestens eine Laufzeit von sechs Monaten aufweisen, um als verwendbar angesehen zu werden. 
+Die Tags sollen eine Laufzeit von bis zu drei Jahren erreichen, sie sollen jedoch mindestens eine Laufzeit von sechs Monaten aufweisen, um als verwendbar angesehen zu werden. 
 Dabei sind Größe und Gewicht der Lösung zu beachten, zwar kann die Laufzeit eines Tags jederzeit durch die Vergrößerung des Energiespeichers herbeigeführt werden, die Tags müssen jedoch mühelos von den Zielpersonen an einem Band um den Hals getragen werden können.
 Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der IT-Infrastruktur so gering wie möglich gehalten werden um ein stabiles und kostengünstiges System zu garantieren. 
 

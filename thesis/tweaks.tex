@@ -9,10 +9,10 @@ Dadurch wird sie nicht mehr senden, wenn sie nicht getragen wird.
 
 \section{LIS3DH}
 Der LIS3DH ist ein drei Achsen Beschleunigungssensor von ST Microelectronics \cite{st2015lis}.
-Er zeichnet sich durch einen ultra-low-power Modus und einen Pin für externe Unterbrechung (interrupt) aus.
+Er zeichnet sich durch einen ultra-low-power Modus und einen Pin für externe Unterbrechung (Interrupt) aus.
 Der Beschleunigungssensor bietet ein $I^2C$ und ein SPI Interface um ihn zu konfigurieren.
 Der LIS3DH benötigt bei einer Frequenz von einem Herz nur 2 Mikroamper (0,002 mA).\\
-Leider konnte bei Laufbewegungen bei einem Herz nicht sicher der interrupt ausgelöst werden, die Frequenz wurde deshalb auf zehn Herz erhöht.
+Leider konnte bei einem Herz der Interrupt durch Laufbewegungen nicht sicher ausgelöst werden, die Frequenz wurde deshalb auf zehn Herz erhöht.
 Für eine Frequenz von zehn Herz im ultra-low-power Modus listet das Datenblatt einen Verbrauch von 3 Mikroamper.
 Abbildung \ref{fig:lis3dh} zeigt eine Platine mit integriertem LIS3DH.
 
@@ -27,7 +27,7 @@ Abbildung \ref{fig:lis3dh} zeigt eine Platine mit integriertem LIS3DH.
 \label{ch:Beschleunigungssensor:sec:Abschaltautomatik}
 Der ESP8266 besitzt einen Enable Pin, ist dieser mit der Versorungsspannung verbunden werden die internen Spannungregler aktiviert und der ESP8266 mit Strom versorgt.
 Die eigentliche Stromversorgung bezieht er dabei jedoch aus dem Vcc Pin.
-Der ESP8266 soll durch den LIS3DH angeschaltet werden, dieser darf die Stromversorgung bei Bedarf trennen, sie kann danach wieder vom LIS3DH wieder aktiviert werden. \\
+Der ESP8266 soll durch den LIS3DH angeschaltet werden, der ESP8266 darf die Stromversorgung bei Bedarf trennen, sie kann danach wieder vom LIS3DH wieder aktiviert werden. \\
 Um dieses Verhalten zu erreichen wird ein Latch eingesetzt \cite{texas2003latch}.
 Es handelt sich dabei um einen digitalen Schalter mit einem SET Eingang (An), einem RESET Eingang (Aus) und einem Ausgang.
 Der Ausgang wird mit dem Enable Pin verbunden, ist er aktiv, wird der ESP8266 aktiv.

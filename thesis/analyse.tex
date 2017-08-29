@@ -33,6 +33,7 @@ Bezüglich des Energieverbrauchs gibt sich das Informationsblatt des B4 Badge Ta
 Das Informationsblatt zum Ekahau W4, welches statt um den Hals am Handgelenk getragen wird, gibt an, dass der verbaute $530\ mA/h$ Akku bei einem Ortungsintervall von 15 Sekunden 500 Stunden (ca. 21 Tage) hält \cite{ekahau2017w4}.\\
 AiRISTA Flow spricht auf ihrer Website zum Beispiel Krankenhäuser, Schulen und Regierungseinrichtungen an, hier sollen zusätzlich bewegliche Objekte, wie etwa Krankenhausbetten, geortet werden.
 Die dazu verwendeten Asset Tags werden über einen Beschleunigungssensor aktiviert und können, wenn die Objekte selten bewegt werden, deutlich längere Laufzeiten erreichen \cite{ekahau2017a4}. \\
+Im Umfeld des Tunnelbaus zeigte sich jedoch, dass die Tags keinesfalls wochenlange Laufzeiten aufwiesen, stattdessen entluden sie sich teilweise in unter zwölf Stunden.
 
 \subsubsection{AeroScout}
 Auch das AeroScout System von Stanley Healthcare richtet sich an den medizinischen Sektor und soll Objekte und Personen orten \cite{aeroscout2017asset}, \cite{aeroscout2017staff}.
@@ -146,9 +147,9 @@ Problematisch am RSSI ist, dass er relativ zur GRPR bestimmt wird.
 In der Untersuchung von Hossain et al. führte das dazu, dass der RSSI mit 0 gemessen wurde, wenn er innerhalb der GRPR lag. \\
 Transmission Power Level (TPL) ist die Sendeleistung eines Geräts. 
 TPL kann während einer bestehenden Verbindung durch Anfragen des Verbindungspartners verändert werden.
-Dazu muss diese Energiesparfunktion jedoch unterstützt werden, was bei dem von Hossain et al. vwrwendeten Gerät nicht der Fall war.
+Dazu muss diese Energiesparfunktion jedoch unterstützt werden, was bei dem von Hossain et al. verwendeten Gerät nicht der Fall war.
 Abbildung \ref{fig:bluetoothmess} zeigt deshalb für TPL eine waagerechte Linie.\\
-Für Inquirys wird die Stärke des eingehenden Signals ohne die Beactung des GRPR bestimmt.
+Für Inquirys wird die Stärke des eingehenden Signals ohne die Beachtung des GRPR bestimmt.
 Außerdem werden Inquirys immer mit voller Sendeleistung gesendet, da sie zur Entdeckung von Ressourcen verwendet werden.
 Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für eine Verbindung deutlich zu machen nennen Hossain et al. diesen Wert RX Power Level.
 
@@ -161,7 +162,7 @@ Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für e
 
 \subsubsection{Antwortbasierte Inquiry Lokalisierung}
 Bargh et al. stellen ein System zur Fernlokalisierung mittels Bluetooth Inquiry Scan vor \cite{bargh2008indoor}.
-Die mobilen Einheiten sind dabei im discoverable ("entdeckbar") Modus.
+Die mobilen Einheiten sind dabei im discoverable ("{}entdeckbar"{}) Modus.
 Die Basisstationen senden regelmäßig eine Inquiry Message aus, die dann von mobilen Einheiten in Reichweite mit einer Inquiry Response beantwortet werden. 
 Anschließend werden die Antworten auf einem zentralen Ortungsserver gesammelt und die Positionen der mobilen Einheiten bestimmt.
 Diese Information wird aus den beantworteten Inquiry Messages jeder mobilen Einheit gewonnen.

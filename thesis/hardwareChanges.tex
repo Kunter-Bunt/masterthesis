@@ -7,7 +7,7 @@ Da mehrere Topologien für das Stationsnetzwerk denkbar sind, werden die Begriff
 Eine Möglichkeit wäre, APs einzusetzen, die eine zweite Funkübetragungstechnik beherrschen, optional könnnte diese Fähigkeit etwa über einen USB-Port nachgerüstet werden.
 Stattdessen kann die neu eingesetzte Technik auch von der bestehenden Infrastruktur getrennt und eine neue Infrastruktur aus Basisstationen aufgebaut werden.
 Als Kompromiss der vorherigen Möglichkeiten können sich die neuen Basisstationen auch mittels LAN oder WLAN in die bestehende Infrastruktur einfügen. 
-Dieser Kompromiss ist grundsätzlich zu bevorzugen, da die Komplexität geringer als bei zwei eigenständigen Netzen ist.
+die Komplexität dieses Kompromisses ist geringer als bei zwei eigenständigen Netzen.
 
 \section{nRF52832}
 Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
@@ -38,7 +38,7 @@ Dazu muss dieser zunächst das Board Support Package hinzugefügt werden \cite{t
 In den Einstellungen wird unter \textit{Additional Boards Manager URLs} die URL \url{https://www.adafruit.com/package_adafruit_index.json} hinzugefügt.
 Nach einem Neustart der Arduino IDE kann im \textit{Boards Manager} das Paket Adafruit nRF52 installiert werden.
 Um das Board programmieren zu können wird zusätzlich das \textit{nrfutil} benötigt.
-Dieses liegt nach der Installation der Boards in \\\texttt{~/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/tools/nrfutil-0.5.2} und muss mit \texttt{sudo pip install -r requirements.txt} und \texttt{sudo python setup.py install} installiert werden.
+Dieses liegt nach der Installation der Boards in \\\texttt{/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/tools/nrfutil-0.5.2} und muss mit \texttt{sudo pip install -r requirements.txt} und \texttt{sudo python setup.py install} installiert werden.
 Nachdem das Board in der IDE ausgewählt und über USB mit dem Computer verbunden wurde, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit Bluefruit nRF52 Feather} mit STRG+U auf den nRF52 geladen werden.\\
 Es wird die Bluefruit nRF52 API Version 0.6.0 verwendet.
 
@@ -51,17 +51,16 @@ Da die Bluefruit nRF52 API keine Funktion zur Änderung dieses Wertes zur Verfü
 Die entsprechende BLEAdvertising Klasse ist in \\\texttt{\~/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
 In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Energieverbrauch zu senken.
 Beim nRF52 handelt es sich um ein Klasse 2 Bluetooth Gerät mit einer maximalen Sendeleistung bis 4 dBm.
-Der ESP8266 erreicht bis zu 17 dBm, die maximale Reichweite sollte dementsprechend für den nRF52 geringer geschätzt werden.
-Es wird eine Reichweite von 20 Metern angenommen und das Sendeintervall etsprechend der maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt. 
+Es wird daher eine Reichweite von 20 Metern angenommen und das Sendeintervall etsprechend der maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt. 
 In dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen, es werden also bei der Durchquerung des Einflussbereichs mindestens drei Advertising Pakete von der mobilen Einheit versendet.\\
-Der Verbrauch sollte erneut mit dem Muker TM103 USB-Power-Meter gemessen werden.
-Jedoch ist dieser nicht in der Lage den Stromverbrauch des nRF52 zu messen, da diese im niedrigen Mikroamper-Bereich liegen wenn nicht gesendet wird.
+Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker TM103 USB-Power-Meter vorgenommen werden.
+Diser ist aber nicht in der Lage den Stromverbrauch des nRF52 zu messen..
 Die Sendeabschnitte sind zu kurz um einen messbaren Stromverbrauch zu erzeugen.\\
-Deshalb soll zunächst Abbildung \ref{fig:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
+Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
 
 \subsection{Theoretische Energieverbrauchsabschätzung}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
-Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein Advertising Paket, welches zusätzlich den Gerätenamen "TestTag" versendet, werden 24 Bytes (192 Bit) gesendet.
+Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein Advertising Paket, welches zusätzlich den Gerätenamen "{}TestTag"{} versendet, werden 24 Bytes (192 Bit) gesendet.
 Um die Kollisionsvermeidung einzufügen werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, der die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. 
 Es müssen ebenfalls die weiteren Komponenten auf dem Feather bedacht werden. 
 Adafruit gibt für den Spannungswandler einen Verbrauch von 55 Mikroamper und für den Lithium-Polymer-Ladeschaltkreis einen Verbrauch von bis zu 100 Mikroamper an \cite{fried2016lora}. 
@@ -71,12 +70,8 @@ $y = (1s-\frac{Bits\_gesendet}{1000000 b/s} - \frac{Bits\_empfangen}{1000000 b/s
 $y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
 $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 
-Wird erneut der 1400 mAh Lithium Polymer Akku angenommen beträgt die Laufzeit $1400mAh / 0,170919mA \approx 8191h$.
-Dies entspräche circa 341 Tagen.\\
- 
+Eine Untersuchung des tatsächlichen Verbrauchs ist in Abschnitt \ref{ch:phase3:sec:powerble} zu finden.
 
-\subsection{Tatsächlicher Verbrauch}
-Messungen zum Verbrauch ist in Abschnitt \ref{ch:realworld:sec:ble} zu finden. 
 
 
 \section{RFM95}
@@ -87,14 +82,21 @@ Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 RFM95 LoRa Rad
 Dieses verwendet zusätzlich einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler zur einfachen Programmierung des Radios über USB.
 Zusätzlich ist eine Antenne notwendig, die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
 Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).\\
-Abbildung \ref{fig:loramodule} zeigt zwei Feather M0 RFM95 LoRa Radio. 
+Abbildung \ref{fig:lorafeather} zeigt zwei Feather M0 RFM95 LoRa Radio. 
 Das RFM95 mit Kabelantenne dient als mobile Einheit und das RFM95 mit fester Antenne dient als Basisstation.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/lorafeather.jpg}
+  \caption{Adafruit LoRa Feather mit RFM95}
+  \label{fig:lorafeather}
+\end{figure}
 
 \subsection{RadioHead RFM9x für Arduino}
 Der M0 Mikrocontroller ist Arduino kompatibel, wird zusätzlich die RadioHead RFM9x Bibliothek verwendet, kann er über ein SPI-Interface das Radio steuern.
 Dazu muss zunächst in den Optionen der Arduino IDE unter \textit{Additional Boards Manager URLs} die URL \url{https://adafruit.github.io/arduino-board-index/package_adafruit_index.json} hinzugefügt werden \cite{treece2016lora}.
 Nach einem Neustart der IDE können im \textit{Board Manager} die \texttt{Arduino SAMD Boards} installiert werden. 
-Der M0 kann nun programmiert werden, um das RFM95 verwenden zu können muss die RadioHead RFM9x Bibliothek von \url{https://cdn-learn.adafruit.com/assets/assets/000/035/106/original/RadioHead-1.62.zip} heruntergeladen und nach \\\texttt{\~/Arduino/libraries/} entpackt werden.
+Der M0 kann nun programmiert werden, um das RFM95 verwenden zu können muss die RadioHead RFM9x Bibliothek von \url{https://cdn-learn.adafruit.com/assets/assets/000/035/106/original/RadioHead-1.62.zip} heruntergeladen und nach \\\texttt{/Arduino/libraries/} entpackt werden.
 
 \section{LoRa Implementierung}
 Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
@@ -126,7 +128,7 @@ Die dort gelisteten Verbräuche sind in Tabelle \ref{table:m0power} und Tabelle 
 Da das Adadfruit Feather M0 RFM95 Lora Radio ansonsten baugleich zum Adafruit Feather nRF52 ist werden die 155 Mikroamper für die sonstigen Komponenten übernommen.\\
 Die Sendeleistung des RFM95 Radio ist zwischen 5dBm und 23dBm einstellbar. 
 Das Datenblatt listet jedoch nur Verbräuche zwischen 7dBm und 20dBm Sendeleistung, der Verbrauch wird für diese beiden Sendeleistungen berechnet.
-Für die Nachricht "TagTest" werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.\\[1cm]
+Für die Nachricht "{}TagTest"{} werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.\\[1cm]
 
 $y = \frac{1}{10} * [(10 - \frac{Bits\_gesendet}{21875 b/s} - \frac{Bits\_empfangen}{21875 b/s}) * (M0\_Deep\_sleep\_mode + RMF95\_IDDIDLE + 155 {\mu}A) + \frac{Bits\_gesendet}{21875 b/s} * RFM95\_XdBm + \frac{Bits\_empfangen}{21875 b/s} * RFM95\_IDDR]$\\[0.5cm]
 $y_{20dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 120mA + 0,0229s * 12,1mA]$\\[0.5cm]
@@ -135,14 +137,13 @@ $y_{20dBm} \approx \frac{1}{10} * (1,58mA + 0,876mA + 0,2771mA) = 0,2683mA$\\[1c
 $y_{7dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 20mA + 0,0229s * 12,1mA]$\\[0.5cm]
 $y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$\\[1cm]
 
-Wird erneut der 1400 mAh Lithium Polymer Akku angenommen beträgt die Laufzeit für eine Sendeleistung von 20dBm $1400mAh / 0,2683mA \approx 5218h$.
-Dies entspräche circa 217 Tagen.\\
-Für eine Sendeleistung von 7dBm ergeben sich $1400mAh / 0,1953mA \approx 7168h$, also circa 298 Tage.
-
+Eine Untersuchung des tatsächlichen Verbrauchs ist in Abschnitt \ref{ch:phase3:sec:powerlora} zu finden.
 
 \section{Untersuchung des Energieverbrauchs}
+Der Energieverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
+
 \subsection{Bluetooth Low Energy Advertising}
-\label{ch:realworld:sec:ble}
+\label{ch:phase3:sec:powerble}
 Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth Low Energy Advertising.\\
 Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.
 Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, die Samplingrate von 333Hz reicht hier offenbar nicht aus um dem Sendevorgang vollständig zu erfassen.\\
@@ -162,15 +163,16 @@ Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen p
 	\centering
 	\caption{Energieverbrauch mobiler Einheiten mit Bluetooth Low Energy Advertising}
 	\label{table:blueina}
-	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
-		nRF52 Feather & Bluetooth Low Energy Advertising & 7,37 \\
-		nRF52 (projeziert) & Bluetooth Low Energy Advertising & 0,32 \\
+		nRF52 Feather & Bluetooth Low Energy Advertising & 7,37 & 190\\
+		nRF52 (projeziert) & Bluetooth Low Energy Advertising & 0,32 & 4375\\
 	\end{tabular}
 \end{table}
 
 \subsection{Lokaliserung mit LoRa}
+\label{ch:phase3:sec:powerlora}
 Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft
 Abbildung \ref{fig:lora23} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRA bei 23dBm.\\
 Nach einer circa drei sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach zehn Sekunden Ruhezustand senden.
@@ -194,23 +196,23 @@ Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger a
   \label{fig:lora235send}
 \end{figure}
 
-Die Ergebnisse der Messungen sind in Tabelle \ref{lora235ina} gelistet.\\
+Die Ergebnisse der Messungen sind in Tabelle \ref{table:lora235ina} gelistet.\\
 Für den LoRa Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der CP2104, welcher zum Programmieren des ESP8266 beziehungsweise nRF52 dient, mindestens 4,5 Milliamper zu verbrauchen.
 
 \begin{table}[h!]
 	\centering
-	\caption{Energieverbrauch mobiler Einheiten mit Bluetooth Low Energy Advertising}
+	\caption{Energieverbrauch mobiler Einheiten mit LoRa}
 	\label{table:lora235ina}
-	\begin{tabular}{p{3.5cm}|p{7.5cm}|p{2.5cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA \\
+	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
-		LoRa Feather & LoRa mit 23dBm Sendeleistung & 3,16 \\
-		LoRa Feather & LoRa mit 5dBm Sendeleistung & 2,88 \\
+		LoRa Feather & LoRa mit 23dBm Sendeleistung & 3,16 & 443\\
+		LoRa Feather & LoRa mit 5dBm Sendeleistung & 2,88 & 486,1\\
 	\end{tabular}
 \end{table}
 
 \section{Reichweite von Bluetooth}
-Der Versuch mit Bluetooth wurde an der selben Stelle wie der mit WLAN durchgeführt.
+Der Versuch mit Bluetooth wurde an der selben Stelle wie der mit WLAN durchgeführt, siehe dazu Abschitt \ref{ch:phase1:sec:rangewlan}.
 Es wurde allerdings ein Raspberry Pi Zero W als Basisstation verwendet, dieser wurde auf dem LN-862 platziert, auf Abbildung \ref{fig:applacement} ist sein rotes Gehäuse zu erkennen.
 
 \subsection{Methodik}
@@ -234,13 +236,16 @@ Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
 		Verwendetes Modul & Aufbau & Strecke & Maximale Sendereichweite \\
 		\hline
 		nRF52 & Offen & Wenige Hindernisse & 32m \\
+		nRF52 & In Gehäuse & Wenige Hindernisse & 32m \\
 		nRF52 & Offen & Viele Hindernisse & 14m \\
+		nRF52 & In Gehäuse & Viele Hindernisse & 14m \\
 	\end{tabular}
 \end{table}
 
 \subsection{Bewertung}
 Auch die mobile Einheit auf Bluetooth Basis hat eine höhere Reichweite als zunächst angenommen. 
 Dennoch lohnt sich eine Anpassung des Sendeintervalls für die Lösung nicht, da der Großteil des Verbrauchs der mobilen Einheit passiv über die angrenzenden Komponenten wie Spannungswandler und Lithium-Akku-Ladeschaltkreis erfolgt.
+
 
 
 
@@ -257,28 +262,28 @@ Abbildung \ref{fig:schalungswagen} zeigt einen der Schalungswagen, der als Hinde
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/schalungswagen.jpg}
-  \caption{Schalungswagen für daa Betonieren im Tunnel Ulm.}
+  \caption{Schalungswagen für das Betonieren im Tunnel Ulm.}
   \label{fig:schalungswagen}
 \end{figure}
 
 \subsection{Methodik} 
-Die Reichweite wurde für 2 Situationen bestimmt.
+Die Reichweite wurde für zwei Situationen bestimmt.
 Zum einen durch einen Schalungswagen und dann durch den freien Tunnel, zum anderen durch alle drei Schalungswagen für eine Situation mit maximaler Abschirmung durch die Hindernisse.
 Die mobile Einheit wurde jeweils direkt an der Bewehrung platziert und es wurde auf der selben Seite gelaufen, damit die Abschirmung durch die Schalungswagen maximal ist.
 Danach wurde die Basisstation immer weiter entfernt, bis keine Pakete der mobilen Einheit mehr empfangen werden konnten.
 Abbildung \ref{fig:lorabasis} zeigt die Platzierung der mobilen Einheit an der Bewehrung.
 Erneut konnte die Plastikbox aufgrund des Versuchsaufbaus nicht geschlossen werden.
-Die mobile Einheit wurde als "außer Reichweite" angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
+Die mobile Einheit wurde als "{}außer Reichweite"{} angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.
 Es wurde sowohl mit einer Sendeleistung von 5dBm für einen geringen Sendeverbrauch als auch mit 23dBm Sendeleistung für maximale Reichweite gemessen.
 Die Messungen werden in 12,5 Meter Abständen angegeben, da in diesem Tunnel die Länge eines Schalungselements 12,5 Meter beträgt.
-Es werden, wie in Abschnitt \ref{ch:hardwarechanges:sec:rfm95} besprochen zwei unterscheidliche Typen von Antennen verwendet. 
+Es werden, wie in Abschnitt \ref{ch:hardwarechanges:sec:rfm95} besprochen, zwei unterscheidliche Typen von Antennen verwendet. 
 Während die Basisstation eine feste Antenne aufweist, verwendet die mobile Einheit eine Kabelantenne entsprechend der halben Wellenlänge. 
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/lorabasis.jpg}
-  \caption{Platzierung der mobilen Eiheit an der Bewehrung des Tunnels.}
+  \caption{Platzierung der mobilen Einheit an der Bewehrung des Tunnels.}
   \label{fig:lorabasis}
 \end{figure}
 
