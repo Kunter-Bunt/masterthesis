@@ -1,12 +1,10 @@
-\chapter{Indirekte Fernlokalisierung mit 802.11}
+\chapter{Indirekte Fernlokalisierung mit IEEE 802.11}
 \label{ch:phase1}
-In einem ersten Schritt sollten laut Aufgabenstellung keine Veränderungen an den Access Points vorgenommen werden können.
-Weil die Ortung deshalb auf WLAN basieren muss sind die Basisstationen im Folgenden immer APs. 
-%TODO Ein Tag ist eine mobile Einheit, umgekehrt gilt dies jedoch nicht, da auch alle anderen WLAN-fähigen Geräte, wie Smartphones und Laptops, eine mobile Einheit sein können. \\
-Die Unveränderlichkeit bedeutet insbesondere auch, dass keine Messwerte verwendet werden können, die direkt am AP gemessen werden und nicht als Teil der 802.11 Spezifikation in das dahinterliegende Netzwerk weitergeleitet werden.
-Da Time of arrival Synchronisation und präzise Timer bei den APs vorraussetzt und time difference of arrival nur von den APs gemessen werden kann, eignen sich diese Messgrößen nicht für diese Aufgabenstellung.
-Received signal strength und roundtrip time of flight können auf der mobilen Einheit gemessen werden, nicht jedoch an den APs, da die in der PHY- beziehungsweise MAC-Schicht gemessenen Werte nicht an weitere Empfänger im Netzwerk propagiert werden. 
-Somit scheidet die direkte Fernlokalisierung mangels Messgrößen aus, es wird stattdessen eine indirekte Fernlokalisierung durchgeführt bei der die mobile Einheit eine Selbstlokalisierung durchführt und das Ergebnis dem Ortungsserver über eine Datenverbindung mitteilt.
+Bei der indirekten Fernlokalisierung wird die Messgröße auf der mobilen Einheit gemessen.
+Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte oder explizit durch versenden der berechneten Position an den Ortungsserver übermittelt.
+Wird IEEE 802.11 verwendet muss die mobile Einheit mit einem Access Point assoziiert um Informationen an den Ortungsserver übermitteln zu können.
+Eine Lösung zur indirekten Fernlokalisierung muss deshalb mindestens auf Protokollebene vier des OSI-Modells arbeiten.
+Für die Übermittelung steht ein WLAN-Netzwerk zur Verfügung.
 
 \begin{figure}[h]
   \centering
@@ -14,12 +12,6 @@ Somit scheidet die direkte Fernlokalisierung mangels Messgrößen aus, es wird s
   \caption{Blockdiagramm des ESP8266, aus \cite{espressif2017esp8266}}
   \label{fig:espblock}
 \end{figure}
-
-
-
-
-
-
 
 \section{ESP8266}
 Der ESP8266 soll als Hardware für das Tag eingesetzt werden, dabei handelt es sich um einen Microcontroller von Espressif.
@@ -91,6 +83,80 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 \end{figure}
 
 
+\section{Reichweite von WLAN}
+\label{ch:phase1:sec:rangewlan}
+Zu Beginn dieses Kapitels wurde die Annahme getroffen, das WLAN eine Reichweite von mindestens 50 Metern hat.
+Da aufgrund dieser Annahme das Sendeintervall für vorherige Lösungen gesetzt wurde muss diese Annahme für den Tunnel überprüft werden.
+Für die Tests wurde ein LN-862 Access Point von der Firma Lancom zur Verfügung gestellt.
+Dieser wurde am hinteren Ende einer Tunnelbohrmaschine montiert.\\
+Die Tunnelbohrmaschine befindet sich in der Tunnelbaustelle Rastatt. 
+Der Durchmesser des Bahntunnels beträgt 9 Meter, das Ende der Tunnelbohrmaschine befand zum Zeitpunkt der Messungen circa 2 Kilometer weit im Tunnel.\\
+Der AP konnte aufgrund des geringen Platzangebots und den wenigen zur Verfügung stehenden Steckdosen nicht frei platziert werden.
+Er wurde deshalb unter der ersten stählernen Treppe platziert, diese beeinträchtigt natürlich das Signal.
+Da es aber üblich ist, IT-Gerätschaften, wie die derzeit verwendeten Bluetooth-Basisstationen, in Metallboxen zu verstauen um sie vor äußeren Einflüssen zu schützen, ist eine gewisse Abschirmung durchaus realitätsnah.
+Die Platzierung des AP ist auf Abbildung \ref{fig:tunnelmark} eingezeichnet.\\
+Abbildung \ref{fig:applacement} zeigt den LN-862 hinter der Treppe.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/tunnelmark.png}
+  \caption{Ende der Tunnelbohrmaschine, Pfeil markiert Platzierung des Access Point hinter der Treppe.}
+  \label{fig:tunnelmark}
+\end{figure}
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=\textwidth]{images/applacement.jpg}
+  \caption{LN-862 im Tunnel, darauf liegt der Pi Zero W.}
+  \label{fig:applacement}
+\end{figure}
+
+\subsection{Methodik}
+Die Reichweite wurde in zwei Richtungen geprüft.
+Zum einen in Richtung des bereits fertig gebohrten Tunnels, hier blockiert nur wenig Stahl das Signal. 
+Lediglich die Treppe, unter der der AP montiert wurde, stellt ein Hindernis dar.
+Zum anderen wurde die Reichweite in Richtung des Vortriebs geprüft.
+Dabei stellen eine stählerne Zwischendecke und große Container Hindernisse dar.\\
+Außerdem wird die Abschirmung durch ein Gehäuse getestet, dazu wurde eine stabile Plastikbox verwendet.\\
+Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "{}außer Reichweite"{} angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
+In jedem Fall war es möglich durch das Entfernen des körperlichen Hindernisses wieder eine Verbindung herzustellen.\\
+Zur Bestimmung der Distanz wurden die Tübbinge verwendet, dies sind Schalungselemente im Tunnel.
+Im Tunnel Raststatt sind diese fortlaufend nummeriert und genau zwei Meter breit, die Messungen sind deshalb ebenfalls in zwei Meter Schritten angegeben.
+
+\subsection{Ergebnisse}
+Tabelle \ref{table:rangewifi} zeigt die Ergebnisse für die zwei verwendeten ESP8266 Module.
+Es wurde jeweils mit und ohne Gehäuse gemessen und in jede der beiden beschriebenen Richtungen.
+Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tunnels, viele Hindernisse die Richtung des Vortriebs.
+
+\begin{table}[h]
+	\centering
+	\caption{Sendereichweite WLAN-basierter mobiler Einheiten}
+	\label{table:rangewifi}
+	\begin{tabular}{p{3.5cm}|p{3cm}|p{3.5cm}|p{3cm}}
+		Verwendetes Modul & Aufbau & Strecke & Maximale Sendereichweite \\
+		\hline
+		ESP-12S & Offen & Wenige Hindernisse & 84m \\
+		ESP-12S & In Gehäuse & Wenige Hindernisse & 74m \\
+		ESP-12S & Offen & Viele Hindernisse & 26m \\
+		ESP-12S & In Gehäuse & Viele Hindernisse & 30m \\
+		\hline
+		ESP-12F & Offen & Wenige Hindernisse & 88m \\
+		ESP-12F & In Gehäuse & Wenige Hindernisse & 88m \\
+		ESP-12F & Offen & Viele Hindernisse & 32m \\
+		ESP-12F & In Gehäuse & Viele Hindernisse & 32m \\
+	\end{tabular}
+\end{table}
+
+
+\subsection{Bewertung}
+\label{ch:Reichweite:sec:bewertung}
+Das ESP-12F Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das ESP-12S, es ist daher im weiteren Verlauf zu bevorzugen.\\
+Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ $km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
+Um die gemessenen 88 Meter bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 Sekunden, bei einem Sendeintervall von zehn Sekunden finden demnach zwei Sendevorgänge beim durchqueren des Einflussbereichs eines APs statt.
+Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden,eine Halbierung fünf Sekunden sind daher für eine zuverlässige Erkennung sinnvoll.
+\\
+Für die Teststrecke mit vielen Hindernissen wurden geringere Reichweiten gemessen, eine solche Teststecke findet sich aber nur auf der Tunnelbohrmaschine, welche nur zu Fuß begangen werden kann. 
+Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus durquerte diese in fünf Sekunden 14 Meter, also deutlich weniger als die gemessenen 32 Meter.\\
 
 
 
@@ -110,9 +176,7 @@ Er wird vom ESP automatisch aufgerufen, wenn er keine Aufgaben zu erledigen hat.
 Er kann aber auch manuell aufgerufen werden, beides wurde getestet.\\
 Einige Parameter können gewählt werden. 
 Die Intervallzeit bestimmt, wie oft der ESP aktiv ist und damit auch wie viel Energie er verbraucht.
-Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ $km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
-Die maximale Reichweite des ESP12-S beziehungsweise ESP12-F Moduls ist nicht bekannt und muss noch bestimmt werden, sie wird zwischen 50 und 100 Metern angenommen.
-Es wurde daher ein Intervall von 5 Sekunden gewählt, in dieser Zeit bewegt sich ein Mitarbeiter bei 30 km/h ca. 42 Meter.\\
+Die Intervallzeit wird entsprechend der Untersuchung der Reichweite auf fünf Sekunden gesetzt.
 Des Weiteren kann theoretisch die Zahl der gescannten Kanäle gewählt werden. 
 Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier überlappungsfreie Kanäle zu verteilen. 
 Eine Implementierung, die nur einen Kanal scannt tritt deshalb nur außer Konkurenz an.\\
@@ -345,78 +409,4 @@ Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m
 Ergänzen
 
 
-\section{Reichweite von WLAN}
-\label{ch:phase1:sec:rangewlan}
-Zu Beginn dieses Kapitels wurde die Annahme getroffen, das WLAN eine Reichweite von mindestens 50 Metern hat.
-Da aufgrund dieser Annahme das Sendeintervall für vorherige Lösungen gesetzt wurde muss diese Annahme für den Tunnel überprüft werden.
-Für die Tests wurde ein LN-862 Access Point von der Firma Lancom zur Verfügung gestellt.
-Dieser wurde am hinteren Ende einer Tunnelbohrmaschine montiert.\\
-Die Tunnelbohrmaschine befindet sich in der Tunnelbaustelle Rastatt. 
-Der Durchmesser des Bahntunnels beträgt 9 Meter, das Ende der Tunnelbohrmaschine befand zum Zeitpunkt der Messungen circa 2 Kilometer weit im Tunnel.\\
-Der AP konnte aufgrund des geringen Platzangebots und den wenigen zur Verfügung stehenden Steckdosen nicht frei platziert werden.
-Er wurde deshalb unter der ersten stählernen Treppe platziert, diese beeinträchtigt natürlich das Signal.
-Da es aber üblich ist, IT-Gerätschaften, wie die derzeit verwendeten Bluetooth-Basisstationen, in Metallboxen zu verstauen um sie vor äußeren Einflüssen zu schützen, ist eine gewisse Abschirmung durchaus realitätsnah.
-Die Platzierung des AP ist auf Abbildung \ref{fig:tunnelmark} eingezeichnet.\\
-Abbildung \ref{fig:applacement} zeigt den LN-862 hinter der Treppe.
-
-\begin{figure}[h]
-  \centering
-	\includegraphics[width=\textwidth]{images/tunnelmark.png}
-  \caption{Ende der Tunnelbohrmaschine, Pfeil markiert Platzierung des Access Point hinter der Treppe.}
-  \label{fig:tunnelmark}
-\end{figure}
-
-\begin{figure}[h]
-  \centering
-	\includegraphics[width=\textwidth]{images/applacement.jpg}
-  \caption{LN-862 im Tunnel, darauf liegt der Pi Zero W.}
-  \label{fig:applacement}
-\end{figure}
-
-\subsection{Methodik}
-Die Reichweite wurde in zwei Richtungen geprüft.
-Zum einen in Richtung des bereits fertig gebohrten Tunnels, hier blockiert nur wenig Stahl das Signal. 
-Lediglich die Treppe, unter der der AP montiert wurde, stellt ein Hindernis dar.
-Zum anderen wurde die Reichweite in Richtung des Vortriebs geprüft.
-Dabei stellen eine stählerne Zwischendecke und große Container Hindernisse dar.\\
-Außerdem wird die Abschirmung durch ein Gehäuse getestet, dazu wurde eine stabile Plastikbox verwendet.\\
-Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "{}außer Reichweite"{} angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
-In jedem Fall war es möglich durch das Entfernen des körperlichen Hindernisses wieder eine Verbindung herzustellen.\\
-Zur Bestimmung der Distanz wurden die Tübbinge verwendet, dies sind Schalungselemente im Tunnel.
-Im Tunnel Raststatt sind diese fortlaufend nummeriert und genau zwei Meter breit, die Messungen sind deshalb ebenfalls in zwei Meter Schritten angegeben.
-
-\subsection{Ergebnisse}
-Tabelle \ref{table:rangewifi} zeigt die Ergebnisse für die zwei verwendeten ESP8266 Module.
-Es wurde jeweils mit und ohne Gehäuse gemessen und in jede der beiden beschriebenen Richtungen.
-Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tunnels, viele Hindernisse die Richtung des Vortriebs.
-
-\begin{table}[h]
-	\centering
-	\caption{Sendereichweite WLAN-basierter mobiler Einheiten}
-	\label{table:rangewifi}
-	\begin{tabular}{p{3.5cm}|p{3cm}|p{3.5cm}|p{3cm}}
-		Verwendetes Modul & Aufbau & Strecke & Maximale Sendereichweite \\
-		\hline
-		ESP-12S & Offen & Wenige Hindernisse & 84m \\
-		ESP-12S & In Gehäuse & Wenige Hindernisse & 74m \\
-		ESP-12S & Offen & Viele Hindernisse & 26m \\
-		ESP-12S & In Gehäuse & Viele Hindernisse & 30m \\
-		\hline
-		ESP-12F & Offen & Wenige Hindernisse & 88m \\
-		ESP-12F & In Gehäuse & Wenige Hindernisse & 88m \\
-		ESP-12F & Offen & Viele Hindernisse & 32m \\
-		ESP-12F & In Gehäuse & Viele Hindernisse & 32m \\
-	\end{tabular}
-\end{table}
-
-
-\subsection{Bewertung}
-\label{ch:Reichweite:sec:bewertung}
-Das ESP-12F Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das ESP-12S, es ist daher im weiteren Verlauf zu bevorzugen.\\
-Die bisher angenommenen 50 Meter Reichweite sind für dieses Modul zu vorsichtig geschätzt. 
-Um die gemessenen 88 Meter bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 Sekunden, bei einem Sendeintervall von zehn Sekunden finden demnach zwei Sendevorgänge beim durchqueren des Einflussbereichs eines APs statt.
-Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden, die bisher verwendeten fünf Sekunden sind daher für eine zuverlässige Erkennung sinnvoll.
-\\
-Für die Teststrecke mit vielen Hindernissen wurden geringere Reichweiten gemessen, eine solche Teststecke findet sich aber nur auf der Tunnelbohrmaschine, welche nur zu Fuß begangen werden kann. 
-Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus durquerte diese in fünf Sekunden 14 Meter, also deutlich weniger als die gemessenen 32 Meter.\\
 

@@ -1,3 +1,10 @@
+\chapter{Direkte Fernlokalisierung mit LoRa}
+\label{ch:phase4}
+Für die direkte Fernlokalisierung mit LoRa werden dedizierte Basisstationen eingesetzt. 
+Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
+Die Basisstationen bestimmen des Received Signal Strength Index eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
+Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
+
 \section{RFM95}
 \label{ch:hardwarechanges:sec:rfm95}
 Bei dem RFM95 handelt es sich um ein LoRa (Long Range) fähiges Radio-Modul für den Frequenzbereich 868/915MHz \cite{hope2006rfm}. 
@@ -86,13 +93,15 @@ Voll nutzen lässt sich diese jedoch nicht, da die Varianz des RSSI den Zusammen
 Hingegen führt eine starke Reduktion der Sendeleistung zu einer mangelden Penetration von Hindernissen.
 Daher sollte ein Kompromiss der Sendeleistung geschlossen werden. 
 Eine Sendeleistung von 10dBm sollte eine ausreichende Reichweite im Szenario mit vielen Hindernissen bieten.
-Alternativ kann die mobile Einheit auch ein Send-Receive Schema umsetzen und von der Basisstation eine dynamisch angepasste Sendeleistung empfangen, die sich nach der Menge der Hindernisse richtet.
-
+Alternativ kann die mobile Einheit auch ein Send-Receive Schema umsetzen und von der Basisstation eine dynamisch angepasste Sendeleistung empfangen, die sich nach der Menge der Hindernisse richtet.\\
+Wird die Sendeleistung dynamisch so festgelegt, dass einer Reichweite von 250 Metern erreicht wird benötigt ein Mitarbeiter bei 30 km/h 30 Sekunden um sie zu durchqueren.
+Eine derart lange Intervallzeit würde jedoch dazu führen, dass eine volle Minute ohne Aktualisierung der Position vergeht, sollte ein Paket verloren gehen.
+Das Sendeintervall wird deshalb auf zehn Sekunden gesetzt.
 
 \section{LoRa Implementierung}
 Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
 Die mobile Einheit versendet regelmäßig ein Paket, welches einen Identifikator für die mobile Einheit enthält.
-Das Sendeintervall beträgt entsprechend der hohen erwarteten Reichweite 10 Sekunden.\\
+Das Sendeintervall beträgt entsprechend der hohen Reichweite zehn Sekunden.\\
 Die Basisstation empfängt durchgehend und bestimmt den RSSI für eingehende Pakete.
 Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem RSSI und einer Kennung für die Basisstation an den Ortungsserver weiter.\\
 Auf der mobilen Einheit müssen lediglich die Sendefrequenz, die Sendeleistung und der Identifikator gesetzt werden, dann kann immer nach Ablauf des Sendeintervalls gesendet werden.

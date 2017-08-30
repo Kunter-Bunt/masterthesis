@@ -1,17 +1,13 @@
-\chapter{Fernlokalisierung mit Bluetooth}
+\chapter{Direkte Fernlokalisierung mit Bluetooth}
 \label{ch:phase3}
-War die Infrastruktur von WLAN Access Points bisher gegeben und die Hardware somit unveränderlich, soll diese nun ausstauschbar beziehungsweise erweiterbar sein.
-Dies erlaubt die Implementierung eines Bereichsortungssystems, welches nicht an die 802.11 Spezifikation gebunden ist.
-Es soll eine Funkübetragungstechnik gewählt werden, die es den Tags erlaubt die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} maximal geforderten drei Jahre Akkulaufzeit zu erreichen.\\
-Da mehrere Topologien für das Stationsnetzwerk denkbar sind, werden die Begriffe Basisstation und AP im Folgenden nicht mehr gleichgesetzt.
-Eine Möglichkeit wäre, APs einzusetzen, die eine zweite Funkübetragungstechnik beherrschen, optional könnnte diese Fähigkeit etwa über einen USB-Port nachgerüstet werden.
-Stattdessen kann die neu eingesetzte Technik auch von der bestehenden Infrastruktur getrennt und eine neue Infrastruktur aus Basisstationen aufgebaut werden.
-Als Kompromiss der vorherigen Möglichkeiten können sich die neuen Basisstationen auch mittels LAN oder WLAN in die bestehende Infrastruktur einfügen. 
-die Komplexität dieses Kompromisses ist geringer als bei zwei eigenständigen Netzen.
+Für die direkte Fernlokalisierung mit Bluetooth werden dedizierte Basisstationen eingesetzt. 
+Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
+Die Basisstationen bestimmen des Received Signal Strength Index eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
+Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \section{nRF52832}
 Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
-Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4GHz Transceiver, der Bluetooth 5 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
+Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4GHz Transceiver, der Bluetooth 5.0 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
 Für diese Arbeit wird ein Adafruit Feather nRF52 verwendet, der nRF52832 wird deshalb im Folgenden auf nRF52 abgekürzt.
 Das Adafruit Feather nRF52 besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. Die verbaute CP2104 USB-to-Serial Schnittstelle erlaubt es, den Chip über USB zu programmieren.\\
 Abbildung \ref{fig:nrf52layout} zeigt das Adafruit Feather nRF52.
@@ -41,6 +37,8 @@ Um das Board programmieren zu können wird zusätzlich das \textit{nrfutil} ben�
 Dieses liegt nach der Installation der Boards in \\\texttt{/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/tools/nrfutil-0.5.2} und muss mit \texttt{sudo pip install -r requirements.txt} und \texttt{sudo python setup.py install} installiert werden.
 Nachdem das Board in der IDE ausgewählt und über USB mit dem Computer verbunden wurde, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit Bluefruit nRF52 Feather} mit STRG+U auf den nRF52 geladen werden.\\
 Es wird die Bluefruit nRF52 API Version 0.6.0 verwendet.
+
+
 
 \section{Reichweite von Bluetooth}
 Der Versuch mit Bluetooth wurde an der selben Stelle wie der mit WLAN durchgeführt, siehe dazu Abschitt \ref{ch:phase1:sec:rangewlan}.
@@ -74,8 +72,9 @@ Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
 \end{table}
 
 \subsection{Bewertung}
-Auch die mobile Einheit auf Bluetooth Basis hat eine höhere Reichweite als zunächst angenommen. 
-Dennoch lohnt sich eine Anpassung des Sendeintervalls für die Lösung nicht, da der Großteil des Verbrauchs der mobilen Einheit passiv über die angrenzenden Komponenten wie Spannungswandler und Lithium-Akku-Ladeschaltkreis erfolgt.
+Um mit 30km/h 32 Meter zu durchqueren benötigt man 3,8 Sekunden.
+Da jedoch eine hohe Erkennungssicherheit gefordert wurde, sollte das Sendeintervall niedriger gesetzt werden, es wird auf eine Sekunde gesetzt.
+Damit werden auch bei einer Reichweite von nur 14 Metern auf der Tunnelbohrmaschine ausreichend viele Pakete versenden um den Verlust einzelner zu kompensieren.
 
 \section{BLE Advertising Implementierung}
 \label{ch:phase3:sec:advertising}
@@ -86,12 +85,17 @@ Da die Bluefruit nRF52 API keine Funktion zur Änderung dieses Wertes zur Verfü
 Die entsprechende BLEAdvertising Klasse ist in \\\texttt{\~/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
 In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Energieverbrauch zu senken.
 Beim nRF52 handelt es sich um ein Klasse 2 Bluetooth Gerät mit einer maximalen Sendeleistung bis 4 dBm.
-Es wird daher eine Reichweite von 20 Metern angenommen und das Sendeintervall etsprechend der maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt. 
-In dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen, es werden also bei der Durchquerung des Einflussbereichs mindestens drei Advertising Pakete von der mobilen Einheit versendet.\\
+Das Sendeintervall wird etsprechend der Untersuchung der Reichweite und maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt, in dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen.\\
 Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker TM103 USB-Power-Meter vorgenommen werden.
 Diser ist aber nicht in der Lage den Stromverbrauch des nRF52 zu messen..
 Die Sendeabschnitte sind zu kurz um einen messbaren Stromverbrauch zu erzeugen.\\
 Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
+
+
+
+
+\section{Untersuchung des Energieverbrauchs}
+Der Energieverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
 
 \subsection{Theoretische Energieverbrauchsabschätzung}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
@@ -105,11 +109,7 @@ $y = (1s-\frac{Bits\_gesendet}{1000000 b/s} - \frac{Bits\_empfangen}{1000000 b/s
 $y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
 $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 
-
-\section{Untersuchung des Energieverbrauchs}
-Der Energieverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
-
-\subsection{Bluetooth Low Energy Advertising}
+\subsection{atsächlicher Energieverbrauch von BLE}
 \label{ch:phase3:sec:powerble}
 Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth Low Energy Advertising.\\
 Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.

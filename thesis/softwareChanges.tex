@@ -1,19 +1,17 @@
 \chapter{Direkte Fernlokalisierung mit 802.11}
 \label{ch:phase2}
-Alle bisher betrachteten Lösungen arbeiten mindestens auf Protokollebene vier des OSI-Modells.
-Die Lösungen benutzen TCP oder UDP, um ihre Position dem Ortungsserver mitzuteilen und müssen somit dem Netzwerk beitreten, da sie sonst nicht mit dem Ortungsserver kommunizieren können.\\
-Da nun die Software der Access Points veränderbar ist, ergeben sich neue Freiheiten bezüglich der Kommunikation.
-Weil die Zielsetzung in Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} jedoch die Einschränkung macht, dass ohne Authorisierung nicht mit dem Ortungsserver kommuniziert werden darf, können die in Kapitel \ref{ch:phase1} vorgestellten Verfahren der indirekten Fernlokalisierung nicht von diesen Freiheiten Gebrauch machen.\\
-Stattdessen werden in diesem Kapitel Verfahren der direkten Fernlokalisierung betrachtet.
-Die Veränderbarkeit der Software des AP wird dazu genutzt auf diesem Messgrößen zu ermitteln und dann über eine Datenverbindung an den Ortungsserver zu übermitteln.
-Da für die APs keine Beschränkungen bezüglich des Energieverbrauchs vorliegen, kann die Verbindung zum Ortungsserver regulär auf Schicht vier oder fünf aufgebaut werden.
-Für die Kommunikation zwischen mobiler Einheit und AP sollte jedoch auf niedrigere Protokollebenen ausgewichen werden, um den Energieverbrauch der mobilen Einheit zu senken. \\
+Bei der direkten Fernlokalisierung wird die Messgröße auf den Basisstationen gemessen.
+Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte an den Ortungsserver übermittelt.
+Dieser berechnet dann aus den gesammelten Werten die Position der mobilen Einheit.
+Eine Lösung zur direkten Fernlokalisierung muss deshalb nicht mit einem Access Point assoziiert sein.
+APs versenden die gemessenen Werte jedoch nicht automatisch an den Ortungsserver. 
+Sollen also die APs des WLAN-Netzwerks auch als Basisstationen verwendet werden, muss ihre Software es erlauben den in der Analyse als Messgröße ausgewählten Received Signal Strength Index bestimmter Pakete abzurufen.
 
 %TODO Tags weg
 \section{RADAR Implementierung}
 Eine mobile Einheit mit RADAR versendet alle 0,25 Sekunden ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.
 Das Sendeintervall wurde so kurz gewählt, um spontane Schwankungen im RSSI durch mehrfache Messung zu glätten und sich bewegende Personen möglichst genau zu erfassen.
-Für eine Bereichsortung reicht ein wesentlich längeres Sendeintervall, es wird erneut ein Intervall von 5 Sekunden gewählt, in dem sich ein Mitarbeiter maximal 42 Meter bewegt. 
+Für eine Bereichsortung reicht ein wesentlich längeres Sendeintervall, es wird erneut ein Intervall von fünf Sekunden gewählt, in dem sich ein Mitarbeiter maximal 42 Meter bewegt. 
 Tabelle \ref{table:radarconsumption} zeigt den mit dem TM103 gemessenen Verbrauch der Implementierung für mobile Einheiten mit RADAR jeweils in Arduino und C, mit unterschiedlich langen Sendeintervallen mit und ohne manuellen \texttt{light\_sleep}.
 
 \begin{table}[h]
