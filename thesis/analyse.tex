@@ -222,39 +222,46 @@ Sie erreichen, abhängig von der Anzahl der verwendeten Basisstationen eien Gena
   \label{fig:loraacc}
 \end{figure}
 
-
-\section{Auswahl der Topologie}
-Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
-Das Sicherheitssystem fungiert daher konzeptionell auch als zentraler Ortungsserver.
-Es muss deshalb eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. \\
-Weil laut IEEE 802.11 keine für die Lokalisierung geeigneten Messwerte vom AP in das angeschlossene Netzwerk propagiert werden, kommt keine der verwandten Arbeiten zur direkten Fernlokalisierung ohne Zugriff auf die Software des AP aus.
-In Abschnitt \ref{ch:Einleitung:sec:Zielsetzung} wurden sowohl Systeme ohne Änderungen der AP-Software als auch mit Änderungen dieser gefordert. \\
-Diese Forderung lässt sich also in ein System zur indirekten Fernlokalisierung ohne Änderungen am AP und in ein System zur direkten Fernlokalisierung übersetzen.
-Das System zur direkten Fernlokalisierung bedingt dabei Änderungen an der Software des AP, damit dieser den gewählten Messwert an den zentralen Ortungsserver übermittelt.\\
-Dürfen Veränderungen der Hardware vorgenommen werden, bietet sich ebenfalls eine direkte Fernlokalisierung an, da dort die mobilen Einheiten, abgesehen von der Kollisionsdetektion/-vermeidung, nicht empfangen müssen.\\
-Eine Topologie ohne Basisstationen kommt nicht in Frage, da diese Topologie Einzelpersonen insbesondere in Notsituationen nicht ausreichend gut erfasst.
-
 \section{Auswahl des Funkprotokolls}
 Soll das bestehende WLAN Netzwerk genutzt werden ist die Wahl auf die IEEE 802.11 Spezifikation beschränkt.\\
-Für den dritten Schritt, der eine Änderung der verwendeten Hardware für die Basisstationen erlaubt, kann das Protokoll jedoch frei gewählt werden.
+Kann man aber die Hardware für die Basisstationen frei wählen, kann auch das Protokoll frei gewählt werden.
+Es werden deshalb zusätzlich BLE und LoRa betrachtet.\\
 Bluetooth Low Energy wird gegenüber normalem Bluetooth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.\\
 LoRa bietet zwar theoretisch eine sehr hohe Reichweite, diese ist jedoch stark von verwendeten Antennen und den Hindernissen abhängig.
 Ob LoRa einen signifikanten Vorteil bei der Reichweite hat muss geprüft werden.
 Sollte dieser Vorteil bestehen, bietet LoRa durch seine bessere Abdeckung eine höhere Sicherheit bei der Erkennung von Abschnittswechseln. 
 Außerdem ist es dadurch potentiell möglich auf triangulierte Positionen zu wechseln ohne mehr Basisstationen aufbauen zu müssen.
 
+\section{Auswahl der Topologie}
+Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
+Das Sicherheitssystem fungiert daher konzeptionell auch als zentraler Ortungsserver.
+Es muss deshalb eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. \\
+Weil laut IEEE 802.11 keine für die Lokalisierung geeigneten Messwerte vom AP in das angeschlossene Netzwerk propagiert werden, kommt keine der verwandten Arbeiten zur direkten Fernlokalisierung mit IEEE 802.11 ohne Zugriff auf die Software des AP aus.
+Es werden deshalb sowohl die direkte, als auch die indirekte Fernlokalisierung mit IEEE 802.11 untersucht, obwohl eine Lösung mit indirekter Fernlokalisierung wegen des nötigen Empfangs von Signalen potentiell mehr Energie verbraucht.\\
+Dürfen Veränderungen der Hardware vorgenommen werden, bietet sich ebenfalls eine direkte Fernlokalisierung an, da dort die mobilen Einheiten, abgesehen von der Kollisionsdetektion/-vermeidung, nicht empfangen müssen.\\
+Eine Topologie ohne Basisstationen kommt nicht in Frage, da diese Topologie Einzelpersonen insbesondere in Notsituationen nicht ausreichend gut erfasst.
+
+
+
 
 \section{Auswahl der Messgrößen}
 Da nur eine Bereichsortung durchgeführt werden soll, sind die Anforderungen an die erzielte Genauigkeit gering.
 Stattdessen sollte darauf geachtet werden, dass die Anforderung für die Messung gering ist.
 Messgrößen, die Zeitsynchronität vorraussetzen sind daher nicht geeignet.\\
-Als Messgröße wird der Received Signal Strength Index sowohl für WLAN als auch für Bluetooth Low Energy gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.\\
-Auch bei LoRa wird der RSSI gewählt. 
-Da sich das Szenario im Gegensatz zu dem aus der Veröffentlichung von Kim et al. unter Tage abspielt kann keine Synchronisierung über GPS gewährleistet werden. 
+Als Messgröße wird der Received Signal Strength Index für alle drei Technologien gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.\\
+Auch bei LoRa wird der RSSI entgegen der Empfehlung von Kim et al. gewählt.
+Da sich das Szenario im Gegensatz zu dem aus ihrer  Veröffentlichung unter Tage abspielt kann keine Synchronisierung über GPS gewährleistet werden. 
 Außerdem müssen die Distanzen zwischen den Basisstationen geringer gewählt werden, da die Ungenauigkeiten aus dieser Veröffentlichung zu hoch für das Szenario sind.
 
 \section{Auswahl der Hardware}
-Ergänzen
+Die verwendeten Radios müssen die physische Schicht des jeweils verwendeten Protokolls beherrschen.
+Es werden deshalb Radios für 802.11, Bluetooth 4.0 oder höher und LoRaWan benötigt.\\
+Die Feather-Serie von Adafruit beinhaltet viele eigenständige Entwicklungs-Boards, darunter finden sich für jede der benötigten Funktechnologien ein Entwicklungs-Board.
+Das \textit{Adafruit Feather HUZZAH ESP8266} wird für mobile Einheiten mit IEEE 802.11 eingesetzt.
+Mobile Einheiten mit Bluetooth werden mit dem \textit{Adafruit Feather nRF52 Bluefruit} implementiert, es unterstützt Bluetooth 5.0 inklusive BLE.
+Unterstützung für LoRa bietet das \textit{Adafruit Feather M0 RFM95 LoRa Radio (900MHz)}, mit diesem werden mobile Einheiten mit LoRa implementiert.\\
 
 \section{Weiteres Vorgehen}
-Ergänzen
+Im Folgenden werden Prototypen für die drei ausgewählten Protokolle erstellt, IEEE 802.11 ist dabei in indirekte und direkte Fernlokalisierung geteilt, da die direkte Fernlokalisierung Zugriff auf die Software der Basisstationen erfordert.
+Zusätzlich wird die Reichweite jeder Funktechnologie im Tunnel überprüft, da diese für das Intervall der Ortungsvorgänge und die Ekennungssicherheit wichtig ist.
+Abschließend werden in jedem Kapitel die Charakteristika des Stromverbrauchs der jeweiligen mobilen Einheiten überprüft.

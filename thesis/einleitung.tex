@@ -47,33 +47,27 @@ Für zukünftige Baustellen soll der Abstand der Versorgungskästen auf 250 Mete
 
 \section{Zielsetzung der Arbeit}
 \label{ch:Einleitung:sec:Zielsetzung}
-Ziel der Arbeit soll der Entwurf und die Implementierung eines Bereichsortungssystems für Personen in Tunnelanlagen unter Verwendung eines bestehenden Netzwerks von WLAN Access Points (APs) sein. 
+Ziel der Arbeit soll der Entwurf und die Implementierung eines Bereichsortungssystems für Personen in Tunnelanlagen sein. 
 Bei einem Bereichsortungssystem handelt es sich um ein Ortungssystem, bei dem die Positionen nicht genau bestimmt werden. 
 Stattdessen wird das Areal, auf dem geortet werden soll, in einzelne Bereiche unterteilt und jede mobile Einheit beim Vorgang des Ortens einem dieser Bereiche zugeordnet.\\
 Diese Arbeit grenzt sich von vorherigen Arbeiten dadurch ab, dass die Laufzeit beziehungsweise der Energieverbrauch der mobilen Einheiten im Vordergrund steht. 
-Statt der nur wenige Tage umfassenden Laufzeiten anderer WLAN basierter Tags ist das Ziel dieser Arbeit eine Laufzeit von mehreren Monaten. \\
-Der Entwurfsraum umfasst in einem ersten Schritt keine Änderungen an den Access Points, ihre Anzahl, Position, Software und Hardware ist gegeben. \\ %TODO Dev findet Satz doofi
-Anschließend wird diese Beschränkung gelockert und die Software der APs kann verändert werden, bei diesen Veränderungen sollen aber die grundlegenden Mechanismen der 802.11 Spezifikation erhalten bleiben. 
-So soll es nicht assozierten Clients nicht möglich sein direkt mit Servern im Netzwerk zu kommunizieren, da dies die Sicherheit des gesamten Netzwerks gefährden könnte.\\
-In einer zweiten Lockerung der Beschränkungen soll auch die Hardware veränderbar sein, dies widerspricht zwar der Annahme der bestehenden Struktur von WLAN APs, da diese potenziell ausgetauscht werden müssten, erweitert den Handlungsspielraum jedoch enorm und erlaubt es die vorherigen Implementierungen mit einer energetisch effizienten und potenziell nicht WLAN-basierten Protokollen zu vergleichen. \\
-Für jeden dieser Schritte müssen die angrenzenden Komponenten (Ortungsserver und mobile Einheiten) implementiert und hinsichtlich des Energieverbrauchs und der Erkennungssicherheit evaluiert werden. Abschließend sollen die drei Systeme miteinander verglichen werden. \\
+Ziel dieser Arbeit eine mehrmonatige Laufzeit der mobilen Einheiten. \\
+Für diese Arbeit werden mehrere Prototypen für mobile Einheiten entwickelt und auf ihre Charakteristik bezüglich des Energieverbrauchs und der Erkennungssicherheit untersucht.
+Der Entwurfsraum umfasst dabei die Hardware und Software der mobilen Enheit sowie die Implementierung des Ortungsservers, die für die Funktechnologie benötigte Infrastruktur wird jeweils als gegeben angenommen.
 
 
 \section{Anforderungen an das Bereichsortungssystem}
 \label{ch:Einleitung:sec:Anforderungen}
-Da es sich um ein Bereichsortungssystem handeln soll, werden keine direkten Anforderungen an die Genauigkeit der Ortung gestellt, jedoch soll ein klarer Wechsel zwischen zwei Bereichen, und damit zwei Basisstationen, zuverlässig erkannt werden. 
-Bei den von den Zielpersonen getragenen Positionssendern, den mobilen Einheiten, soll es sich in den ersten beiden Schritten um Geräte handeln, die auf WLAN Basis arbeiten und somit mit den APs kompatibel sind.
-Im dritten Schritt ist dies nicht erforderlich und die Kompatibilität wird durch technische Änderungen am AP wiederhergestellt.
-Die Tags sollen eine Laufzeit von bis zu drei Jahren erreichen, sie sollen jedoch mindestens eine Laufzeit von sechs Monaten aufweisen, um als verwendbar angesehen zu werden. 
-Dabei sind Größe und Gewicht der Lösung zu beachten, zwar kann die Laufzeit eines Tags jederzeit durch die Vergrößerung des Energiespeichers herbeigeführt werden, die Tags müssen jedoch mühelos von den Zielpersonen an einem Band um den Hals getragen werden können.
-Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der IT-Infrastruktur so gering wie möglich gehalten werden um ein stabiles und kostengünstiges System zu garantieren. 
+Da es sich um ein Bereichsortungssystem handeln soll, werden keine direkten Anforderungen an die Genauigkeit der Ortung gestellt. 
+Jedoch soll ein klarer Wechsel zwischen zwei Bereichen, und damit zwei Basisstationen, zuverlässig erkannt werden. 
+Die mobilen Einheiten sollen von Personen um den Hals getragen werden können. 
+Dies bedingt ein geringes Gewicht des Akkus, gleichzeitig soll aber die Laufzeit der mobilen Einheit maximiert werden, sodass ein Akku mit möglichst großer Kapazität gewählt werden sollte.
+Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der benötigten IT-Infrastruktur so gering wie möglich gehalten werden um ein stabiles und kostengünstiges System zu garantieren. 
 
 
 \section{Gliederung der Arbeit}
 \label{ch:Einleitung:sec:Gliederung}
 Nachdem zunächst in Kapitel \ref{ch:Grundlagen} die Grundlagen der funkbasierten Ortung und der verwendeten Funkprotokolle behandelt werden, wird in Kapitel \ref{ch:Grundlagen} das Problem analysiert und verwandte Arbeiten aufgezeigt.
-Die Kapitel \ref{ch:phase1}, \ref{ch:phase2} und \ref{ch:phase3} beschäftigen sich mit der Implementierung. 
-Kapitel \ref{ch:phase1} behandelt die Ortung ohne Änderungen an den APs, Kapitel \ref{ch:phase2} erlaubt Änderungen der Software der APs und die Implementierung aus Kapitel \ref{ch:phase3} basiert nicht auf WLAN und erfordert daher zusätzliche Hardware.
+Die Kapitel \ref{ch:phase1}, \ref{ch:phase2} und \ref{ch:phase3} beschäftigen sich mit der Implementierung und Untersuchung der Prototypen. 
 In Kapitel \ref{ch:Beschleunigungssensor} wird die Integration eines Beschleunigungssensors zur Verlängerung der Laufzeit diskutiert.
-Kapitel \ref{ch:Reichweite} beeinhaltet die Versuche bezüglich der Reichweite von WLAN und Bluetooth im Tunnel, anschließend werden in Kapitel \ref{ch:Vergleich} die Lösungen bezüglich ihres Energieverbrauchs verglichen.
-Das Fazit in Kapitel \ref{ch:Fazit} fasst die Arbeit noch einmal zusammen, bewertet die Ergebnisse und beschließt die Arbeit.
+Das Fazit in Kapitel \ref{ch:Fazit} fasst die Arbeit noch einmal zusammen, vergleicht und bewertet die Ergebnisse.
