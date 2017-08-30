@@ -114,7 +114,7 @@ Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ $km/h 
 Die maximale Reichweite des ESP12-S beziehungsweise ESP12-F Moduls ist nicht bekannt und muss noch bestimmt werden, sie wird zwischen 50 und 100 Metern angenommen.
 Es wurde daher ein Intervall von 5 Sekunden gewählt, in dieser Zeit bewegt sich ein Mitarbeiter bei 30 km/h ca. 42 Meter.\\
 Des Weiteren kann theoretisch die Zahl der gescannten Kanäle gewählt werden. 
-Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier nichtüberlappenden Kanäle zu verteilen. 
+Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier überlappungsfreie Kanäle zu verteilen. 
 Eine Implementierung, die nur einen Kanal scannt tritt deshalb nur außer Konkurenz an.\\
 Im Folgenden findet eine Voruntersuchung des Energieverbrauchs statt.
 Tabelle \ref{table:llsconsumption} zeigt den gemessenen Energieverbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep} und eine Implementierung, die nur einen Channel scannt.
@@ -341,8 +341,8 @@ Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m
 	\end{tabular}
 \end{table}
 
-
-
+\subsection{Kein AP in Reichweite}
+Ergänzen
 
 
 \section{Reichweite von WLAN}
