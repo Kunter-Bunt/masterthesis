@@ -2,7 +2,7 @@
 \label{ch:phase3}
 Für die direkte Fernlokalisierung mit Bluetooth werden dedizierte Basisstationen eingesetzt. 
 Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
-Die Basisstationen bestimmen des Received Signal Strength Index eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
+Die Basisstationen bestimmen des Received Signal Strength Indicator eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
 Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \section{nRF52832}
@@ -15,8 +15,8 @@ Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-
 
 \begin{figure}[h]
   \centering
-	\includegraphics[width=\textwidth]{images/nrf52layout.jpg}
-  \caption{Adafruit nRF52 Feather}
+	\includegraphics[width=\textwidth]{images/nrf52ada.png}
+  \caption{Adafruit nRF52 Feather. Bild von Adafruit Industries.}
   \label{fig:nrf52layout}
 \end{figure}
 
@@ -47,7 +47,16 @@ Es wurde allerdings ein Raspberry Pi Zero W als Basisstation verwendet, dieser w
 \subsection{Methodik}
 Die Reichweite wurde erneut in zwei Richtungen geprüft. 
 Zum einen in Richtung der fertig gebohrten Tunnels mit wenigen Hindernissen, zum anderen in Richtung des Vortriebs durch mehrere Stahlhindernisse.
-Um die Abschirmung durch ein Gehäuse zu simulieren wurde eine stabile Plastikbox verwendet, leider konnte diese nicht vollends geschlossen werden.\\
+Die zwei Messtrecken werden in Abbildung {fig:rangeblue} skizziert.
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{images/rangeblue.eps}
+  \caption{Messtrecken zur Festellung der Reichweite von Bluetooth Low Energy.}
+  \label{fig:rangeblue}
+\end{figure}
+
+Um die Abschirmung durch ein Gehäuse zu simulieren wurde eine stabile Plastikbox verwendet, leider konnte diese nicht vollends geschlossen werden.
 Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "außer Reichweite" angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.\\
 Die bestimmten Reichweiten werden in zwei Meter Schritten angegeben, da sie mit Hilfe der zwei Meter breiten Tübbing Elemente bestimmt wurden.

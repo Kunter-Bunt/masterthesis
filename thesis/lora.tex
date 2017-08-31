@@ -2,7 +2,7 @@
 \label{ch:phase4}
 Für die direkte Fernlokalisierung mit LoRa werden dedizierte Basisstationen eingesetzt. 
 Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
-Die Basisstationen bestimmen des Received Signal Strength Index eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
+Die Basisstationen bestimmen des Received Signal Strength Indicator eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
 Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \section{RFM95}
@@ -13,13 +13,13 @@ Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 RFM95 LoRa Rad
 Dieses verwendet zusätzlich einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler zur einfachen Programmierung des Radios über USB.
 Zusätzlich ist eine Antenne notwendig, die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
 Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).\\
-Abbildung \ref{fig:lorafeather} zeigt zwei Feather M0 RFM95 LoRa Radio. 
-Das RFM95 mit Kabelantenne dient als mobile Einheit und das RFM95 mit fester Antenne dient als Basisstation.
+Abbildung \ref{fig:lorafeather} zeigt ein Adafruit Feather M0 RFM95 LoRa Radio. 
+Für die Basisstation wird ein Feather M0 RFM95 LoRa Radio mit fester Antenne verwendet.
 
 \begin{figure}[h]
   \centering
-	\includegraphics[width=\textwidth]{images/lorafeather.jpg}
-  \caption{Adafruit LoRa Feather mit RFM95}
+	\includegraphics[width=\textwidth]{images/loraada.png}
+  \caption{Adafruit Feather M0 RFM95 LoRa Radio. Bild von Adafruit Industries.}
   \label{fig:lorafeather}
 \end{figure}
 
@@ -47,6 +47,15 @@ Abbildung \ref{fig:schalungswagen} zeigt einen der Schalungswagen, der als Hinde
 \subsection{Methodik} 
 Die Reichweite wurde für zwei Situationen bestimmt.
 Zum einen durch einen Schalungswagen und dann durch den freien Tunnel, zum anderen durch alle drei Schalungswagen für eine Situation mit maximaler Abschirmung durch die Hindernisse.
+Die zwei Messtrecken werden in Abbildung {fig:rangelora} skizziert.
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{images/rangelora.eps}
+  \caption{Messtrecken zur Festellung der Reichweite von LoRa.}
+  \label{fig:rangelora}
+\end{figure}
+
 Die mobile Einheit wurde jeweils direkt an der Bewehrung platziert und es wurde auf der selben Seite gelaufen, damit die Abschirmung durch die Schalungswagen maximal ist.
 Danach wurde die Basisstation immer weiter entfernt, bis keine Pakete der mobilen Einheit mehr empfangen werden konnten.
 Abbildung \ref{fig:lorabasis} zeigt die Platzierung der mobilen Einheit an der Bewehrung.
@@ -129,7 +138,7 @@ Die dort gelisteten Verbräuche sind in Tabelle \ref{table:m0power} und Tabelle 
   \label{table:lorapower}
 \end{table}
 
-Da das Adadfruit Feather M0 RFM95 Lora Radio ansonsten baugleich zum Adafruit Feather nRF52 ist werden die 155 Mikroamper für die sonstigen Komponenten übernommen.\\
+Da das Adadfruit Feather M0 RFM95 Lora Radio sich nur durch die Ersetzung des CP2014 durch den Cortex-M0 zum Adafruit Feather nRF52 unterscheidet werden die 155 Mikroamper für die sonstigen Komponenten übernommen.\\
 Die Sendeleistung des RFM95 Radio ist zwischen 5dBm und 23dBm einstellbar. 
 Das Datenblatt listet jedoch nur Verbräuche zwischen 7dBm und 20dBm Sendeleistung, der Verbrauch wird für diese beiden Sendeleistungen berechnet.
 Für die Nachricht "{}TagTest"{} werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.\\[1cm]

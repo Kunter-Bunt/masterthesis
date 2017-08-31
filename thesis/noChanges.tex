@@ -83,13 +83,11 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 \end{figure}
 
 
-\section{Reichweite von WLAN}
+\section{Reichweite von 802.11}
 \label{ch:phase1:sec:rangewlan}
-Zu Beginn dieses Kapitels wurde die Annahme getroffen, das WLAN eine Reichweite von mindestens 50 Metern hat.
-Da aufgrund dieser Annahme das Sendeintervall für vorherige Lösungen gesetzt wurde muss diese Annahme für den Tunnel überprüft werden.
+Um die Intervallzeit für die Lokalisierung festzulegen, muss die Reichweite von 802.11 im Tunnel bestimmt werden.
 Für die Tests wurde ein LN-862 Access Point von der Firma Lancom zur Verfügung gestellt.
-Dieser wurde am hinteren Ende einer Tunnelbohrmaschine montiert.\\
-Die Tunnelbohrmaschine befindet sich in der Tunnelbaustelle Rastatt. 
+Dieser wurde am hinteren Ende einer Tunnelbohrmaschine in der Tunnelbaustelle Rastatt montiert.\\
 Der Durchmesser des Bahntunnels beträgt 9 Meter, das Ende der Tunnelbohrmaschine befand zum Zeitpunkt der Messungen circa 2 Kilometer weit im Tunnel.\\
 Der AP konnte aufgrund des geringen Platzangebots und den wenigen zur Verfügung stehenden Steckdosen nicht frei platziert werden.
 Er wurde deshalb unter der ersten stählernen Treppe platziert, diese beeinträchtigt natürlich das Signal.
@@ -116,7 +114,16 @@ Die Reichweite wurde in zwei Richtungen geprüft.
 Zum einen in Richtung des bereits fertig gebohrten Tunnels, hier blockiert nur wenig Stahl das Signal. 
 Lediglich die Treppe, unter der der AP montiert wurde, stellt ein Hindernis dar.
 Zum anderen wurde die Reichweite in Richtung des Vortriebs geprüft.
-Dabei stellen eine stählerne Zwischendecke und große Container Hindernisse dar.\\
+Dabei stellen eine stählerne Zwischendecke und große Container Hindernisse dar.
+Die zwei Messtrecken werden in Abbildung {fig:rangewlan} skizziert.
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{images/rangewlan.eps}
+  \caption{Messtrecken zur Festellung der Reichweite von 802.11.}
+  \label{fig:rangewlan}
+\end{figure}
+
 Außerdem wird die Abschirmung durch ein Gehäuse getestet, dazu wurde eine stabile Plastikbox verwendet.\\
 Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "{}außer Reichweite"{} angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
 In jedem Fall war es möglich durch das Entfernen des körperlichen Hindernisses wieder eine Verbindung herzustellen.\\
@@ -295,8 +302,8 @@ Abbildung \ref{fig:ina219} zeigt den INA219 integriert auf einer Platine, diese 
 
 \begin{figure}[h!]
   \centering
-	\includegraphics[width=0.5\textwidth]{images/ina219.jpg}
-  \caption{INA219, die mit R100 beschriftete Komponente über dem INA219 ist der Messwiderstand.}
+	\includegraphics[width=0.5\textwidth]{images/ina219ada.png}
+  \caption{INA219, die mit R100 beschriftete Komponente über dem INA219 ist der Messwiderstand. Bild von Adafruit Industries.}
   \label{fig:ina219}
 \end{figure}
 
