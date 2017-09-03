@@ -2,12 +2,12 @@
 \label{ch:phase4}
 Für die direkte Fernlokalisierung mit LoRa werden dedizierte Basisstationen eingesetzt. 
 Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
-Die Basisstationen bestimmen des Received Signal Strength Indicator eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
+Die Basisstationen bestimmen den \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
 Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \section{RFM95}
 \label{ch:hardwarechanges:sec:rfm95}
-Bei dem RFM95 handelt es sich um ein LoRa (Long Range) fähiges Radio-Modul für den Frequenzbereich 868/915MHz \cite{hope2006rfm}. 
+Bei dem RFM95 handelt es sich um ein \emph{Long Range} (LoRa)-fähiges Radio-Modul für den Frequenzbereich 868/915MHz \cite{hope2006rfm}. 
 915MHz sind jedoch nur in Amerika lizenzfrei, in Deutschland muss das Radio mit 868MHz betrieben werden.\\
 Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 RFM95 LoRa Radio verwendet.
 Dieses verwendet zusätzlich einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler zur einfachen Programmierung des Radios über USB.
@@ -107,7 +107,7 @@ Wird die Sendeleistung dynamisch so festgelegt, dass einer Reichweite von 250 Me
 Eine derart lange Intervallzeit würde jedoch dazu führen, dass eine volle Minute ohne Aktualisierung der Position vergeht, sollte ein Paket verloren gehen.
 Das Sendeintervall wird deshalb auf zehn Sekunden gesetzt.
 
-\section{LoRa Implementierung}
+\section{LoRa-Implementierung}
 Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
 Die mobile Einheit versendet regelmäßig ein Paket, welches einen Identifikator für die mobile Einheit enthält.
 Das Sendeintervall beträgt entsprechend der hohen Reichweite zehn Sekunden.\\
@@ -152,7 +152,7 @@ $y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$\\[1cm
 
 \subsection{Tatsächlicher Energieverbrauch von LoRa}
 \label{ch:phase3:sec:powerlora}
-Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft
+Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft.
 Abbildung \ref{fig:lora23} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRA bei 23dBm.\\
 Nach einer circa drei sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach zehn Sekunden Ruhezustand senden.
 Dieser jedoch vom Zeitgeber nicht ganz eingehalten, die mobile Einheit befindet sich zwischen den Sendevorgängen circa elf Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
