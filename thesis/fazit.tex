@@ -1,3 +1,95 @@
 \chapter{Zusammenfassung und Fazit}
 \label{ch:fazit}
+In den letzten vier Kapiteln wurden Lösungen für die funkbasierte Bereichsortung untersucht.
+Dabei wurde jeweils die Reichweite des verwendeten Protokolls geprüft, eine oder mehrere Implementierungen für die mobile Einheit erstellt und abschließend der Energieverbrauch der Lösungen bestimmt. \\
+
+\section{Erkennungssicherheit}
+Die Sicherheit bei der Erkennung von Bereichswechseln hängt maßgeblich von der Reichweite der Funktechnologie und der Länge des Sendeintervalls ab.
+Tabelle \ref{table:ranges} fasst die Ergebnisse der Versuche zur Reichweite zusammen. 
+Es wurden jeweils Ergebnisse ohne Gehäuse ausgewählt, da die Reichweite durch ein Gehäuse nur im Falle des ESP-12S zu einer Verringerung der Reichweite geführt hat, die Ergebnisse des ESP-12S sind jedoch zugunsten des ESP-12F nicht gelistet.
+
+\begin{table}[h]
+	\centering
+	\caption{Sendereichweite mobiler Einheiten}
+	\label{table:ranges}
+	\begin{tabular}{p{2cm}|p{3.5cm}|p{3.5cm}|p{3cm}}
+		Protokoll & Verwendetes Modul & Strecke & Maximale Sendereichweite \\
+		\hline
+		802.11b & ESP-12F & Wenige Hindernisse & 88m \\
+		BLE 5.0 & nRF52 & Wenige Hindernisse & 32m \\
+		LoRa & RFM95W 5dBm & Wenige Hindernisse & 250m \\
+		LoRa & RFM95W 23dBm & Wenige Hindernisse & 1250m \\
+		\hline
+		802.11b & ESP-12F  & Viele Hindernisse & 32m \\
+		BLE & nRF52  & Viele Hindernisse & 14m \\
+		LoRa & RFM95W 5dBm & Viele Hindernisse & 100m \\
+		LoRa & RFM95W 23dBm & Viele Hindernisse & >350m \\
+	\end{tabular}
+\end{table}
+
+Der Abstand der Basisstationen für die Bereichsortung ist mit 250 Metern gegeben. 
+Die einzige Funktechnologie, die über 125 Meter im Tunnel erreicht, ist LoRa.
+Sie ist deshalb die einzige getestete Funktechnologie, die eine lückenlose Ortung ermöglicht.
+Zu beachten ist, dass LoRa keine Kollisionvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet, es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
+Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, das Sendeintervall wurde in dieser Arbeit auf zehn Sekunden gesetzt.\\
+Bei Bluetooth und 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
+Sie werden dabei so gesetzt, dass beim Durchqueren des abgedeckten Bereichs mit 30 km/h mehrfach gesendet wird.
+In dieser Arbeit wurden die Sendeintervalle für 802.11 auf fünf Sekunden und für Bluetooth Low Energy auf eine Sekunde gesetzt.\\
+Kürzere Sendeintervalle führen dabei zu einer höheren Erkennungssicherheit, längere Sendeintervalle senken den Energieverbrauch.
+
+\section{Mobile Einheiten}
+Im Laufe dieser Arbeit wurden mehrere mobile Einheiten implementiert, diese sind in Tabelle \ref{table:consumptions} gelistet.
+
+\begin{table}[h]
+	\centering
+	\caption{Sendereichweite mobiler Einheiten}
+	\label{table:ranges}
+	\begin{tabular}{p{2cm}|p{2.5cm}|p{2.5cm}|p{5.8cm}}
+		Protokoll & Hardware & Art der Fernlokalisierung & Programm \\
+		\hline
+		802.11 & ESP8266 & Indirekt & Wifi-LLS \cite{chen2007design} \\
+		802.11 & ESP8266 & Indirekt & Bereichsortung mit Assoziation \\
+		\hline
+		802.11 & ESP8266 & Direkt & RADAR \cite{bahl2000radar} \\
+		802.11 & ESP8266 & Direkt & Ortung mit Probe Request \\
+		\hline
+		BLE & nRF52 & Direkt & Ortung mit Bluetooth Low Energy Advertising \cite{jianyong2014rssi} \\
+		\hline
+		LoRA & RFM95 & Direkt & Ortung mit LoRa RSSI \cite{kim2016poster} \\
+	\end{tabular}
+\end{table}
+
+Die Implementierungen \emph{Bereichsortung mit Assoziation} und \emph{Ortung mit Probe Request} sind dabei Verbesserungen gegenüber den in der Literatur vorgeschlagenen Implementierungen, um den Energieverbrauch der jeweiligen mobilen Einheit zu senken.
+Die Konzepte der anderen Implementierungen entspringen der Literatur.
+
+\section{Energieverbrauch}
 Ergänzen
+
+
+\begin{table}[h]
+	\centering
+	\caption{Sendereichweite mobiler Einheiten}
+	\label{table:ranges}
+	\begin{tabular}{p{1.8cm}|p{3.5cm}|p{6cm}|p{2.3cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch\\
+		\hline
+		802.11 & ESP8266 Feather & Wifi-LLS & 1 \\
+		802.11 & ESP-12F & Wifi-LLS & 1\\
+		802.11 & ESP8266 Feather & Bereichsortung mit Assoziation & 1 \\
+		802.11 & ESP-12F & Bereichsortung mit Assoziation & 1\\
+		\hline
+		802.11 & ESP-12F & Bereichsortung mit Assoziation (kein Access Point in Reichweite) & 1\\
+		\hline
+		802.11 & ESP8266 Feather & RADAR & 1\\
+		802.11 & ESP-12F & RADAR & 1\\
+		802.11 & ESP8266 Feather & Ortung mit Probe Request & 1\\
+		802.11 & ESP-12F & Ortung mit Probe Request & 1\\
+		\hline
+		BLE & nRF52 Feather & Ortung mit BLE Advertising & 1\\
+		BLE & nRF52 (projeziert) & Ortung mit BLE Advertising & 1\\
+		\hline
+		LoRa & RFM95W Feather 5dBM & Ortung mit LoRa RSSI & 1\\
+		LoRa & RFM95W Feather 23dBM & Ortung mit LoRa RSSI & 1\\
+	\end{tabular}
+\end{table}
+
