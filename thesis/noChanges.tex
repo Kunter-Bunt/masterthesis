@@ -28,7 +28,7 @@ Das Adafruit Feather Huzzah ESP8266 mit ESP-12S ist in Abbildung \ref{fig:espmod
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/espmodules.png}
-  \caption{Vergleich der Antennen, links: ESP12-S verbaut auf einem Adafruit Feather Huzzah, rechts: ESP12-F}
+  \caption{Vergleich der Antennen (im rot markierten Bereich), links: ESP12-S verbaut auf einem Adafruit Feather Huzzah, rechts: ESP12-F.}
   \label{fig:espmodules}
 \end{figure}
 
@@ -413,7 +413,36 @@ Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m
 \end{table}
 
 \subsection{Kein AP in Reichweite}
-Ergänzen
+Bisher wurden die besonderen Bedingungen des Tunnels nicht berücksichtigt.
+Für den ESP-12F wurde nur eine Reichweite von 88 Metern gemessen, aber auch für die zukünftige Situation mit einem Access Point alle 250 Meter wäre eine Reichweite von 125 Metern notwendig um eine durchgehende Abdeckung für den ESP-12F zu erreichen.
+Außerdem besteht vor dem Portal des Tunnels ein großer Arbeitsbereich ohne WLAN-Abdeckung.\\
+Es muss deshalb auch die Situation ohne erreichbaren AP geprüft werden.
+Die Untersuchung dazu zeigt unmittelbar, dass der ESP8266 sofort den nächsten \emph{Scan} startet, nachdem der vorherige nicht erfolgreich war.
+Ist also kein AP erreichbar \emph{scannt} der ESP8266 durchgehend, sein Verbrauch ist entsprechend hoch.\\
+Als Optimierung kann der nicht erfolgreiche \emph{Scan} als Event verarbeitet und der ESP8266 in den \texttt{deep\_sleep} versetzt werden.
+Abbildung \ref{fig:noap} zeigt das Profil des Energieverbrauchs eines einzelnen ESP-12F Moduls, wenn kein AP des angefragten Netzwerks verfügbar ist.
+Die rote Kurve zeigt dabei die Implementierung aus dem vorherigen Abschnitt, die Implementierung, die den fehlgeschlagenen \emph{Scan} abfängt ist in grün dargestellt.
 
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{plots/noap.png}
+  \caption{Lastkurve einer Implementierung indirekter Bereichsortung, wenn kein Access Point verfügbar ist.}
+  \label{fig:noap}
+\end{figure}
 
+Die Ergebnisse dere Messungen ohne verfügbaren AP sind in Tabelle \ref{table:noapina} gelistet.
+Auch mit der Optimierung liegt der Verbrauch der 
+Auch mit der Optimierung liegt der Energieverbrauch fast doppelt so hoch wie der Verbrauch wenn ein AP verfügbar ist.
+
+\begin{table}[h!]
+	\centering
+	\caption{Energieverbrauch mobiler Einheiten mit Bereichsortung (ohne verfügbaren AP)}
+	\label{table:noapina}
+	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
+		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
+		\hline
+		ESP-12F & Bereichsortung TCP Verbindung schließen & 69,37 & 20,2\\
+		ESP-12F & Bereichsortung TCP Verbindung schließen, mit \texttt{deep\_sleep} nach fehlgeschlagenem \emph{Scan} & 17,1 & 81,9\\
+	\end{tabular}
+\end{table}
 
