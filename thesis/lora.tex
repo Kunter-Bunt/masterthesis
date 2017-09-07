@@ -153,16 +153,16 @@ $y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$\\[1cm
 \subsection{Tatsächlicher Energieverbrauch von LoRa}
 \label{ch:phase3:sec:powerlora}
 Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft.
-Abbildung \ref{fig:lora23} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRA bei 23dBm.\\
+Abbildung \ref{fig:lora5} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRA bei 5dBm.\\
 Nach einer circa drei sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach zehn Sekunden Ruhezustand senden.
 Dieser jedoch vom Zeitgeber nicht ganz eingehalten, die mobile Einheit befindet sich zwischen den Sendevorgängen circa elf Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
 Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 2,5 bis 2,7 Milliamper, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.\\
 
 \begin{figure}[h!]
   \centering
-	\includegraphics[width=\textwidth]{plots/lora23.png}
+	\includegraphics[width=\textwidth]{plots/lora5.png}
   \caption{Lastkurve einer Implementierung mit LoRa.}
-  \label{fig:lora23}
+  \label{fig:lora5}
 \end{figure}
 
 Die Abbildung \ref{fig:lora235send} zeigt die Sendeverbäuche für eine Sendeleistung von 23dBm in Rot und für 5dBm in Grün.
@@ -176,7 +176,7 @@ Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger a
 \end{figure}
 
 Die Ergebnisse der Messungen sind in Tabelle \ref{table:lora235ina} gelistet.\\
-Für den LoRa Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der CP2104, welcher zum Programmieren des ESP8266 beziehungsweise nRF52 dient, mindestens 4,5 Milliamper zu verbrauchen.
+Für den RFM95 Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der CP2104, welcher zum Programmieren des ESP8266 beziehungsweise nRF52 dient, mindestens 6 Milliamper zu verbrauchen.
 
 \begin{table}[h!]
 	\centering
@@ -185,8 +185,8 @@ Für den LoRa Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die 
 	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
-		LoRa Feather & LoRa mit 23dBm Sendeleistung & 3,16 & 443\\
-		LoRa Feather & LoRa mit 5dBm Sendeleistung & 2,88 & 486,1\\
+		LoRa Feather & LoRa mit 23dBm Sendeleistung & 1,47 & 952,4\\
+		LoRa Feather & LoRa mit 5dBm Sendeleistung & 1,2 & 1166,7\\
 	\end{tabular}
 \end{table}
 
