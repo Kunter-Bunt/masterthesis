@@ -2,6 +2,8 @@
 \label{ch:fazit}
 In den letzten vier Kapiteln wurden Lösungen für die funkbasierte Bereichsortung untersucht.
 Dabei wurde jeweils die Reichweite des verwendeten Protokolls geprüft, eine oder mehrere Implementierungen für die mobile Einheit erstellt und abschließend der Energieverbrauch der Lösungen bestimmt. \\
+Es wurden Implementierungen mit 802.11, Bluetooth Low Energy und LoRa untersucht. 
+802.11 erlaubte dabei die Nutzung einer vorhandenen IT-Infrastruktur, BLE hat einen sehr geringen Energieverbrauch und LoRa zeichnet sich durch eine sehr hohe Reichweite aus.
 
 \section{Erkennungssicherheit}
 Die Sicherheit bei der Erkennung von Bereichswechseln hängt maßgeblich von der Reichweite der Funktechnologie und der Länge des Sendeintervalls ab.
@@ -32,9 +34,9 @@ Die einzige Funktechnologie, die über 125 Meter im Tunnel erreicht, ist LoRa.
 Sie ist deshalb die einzige getestete Funktechnologie, die eine lückenlose Ortung ermöglicht.
 Zu beachten ist, dass LoRa keine Kollisionvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet, es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
 Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, das Sendeintervall wurde in dieser Arbeit auf zehn Sekunden gesetzt.\\
-Bei Bluetooth und 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
+Bei BLE und 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
 Sie werden dabei so gesetzt, dass beim Durchqueren des abgedeckten Bereichs mit 30 km/h mehrfach gesendet wird.
-In dieser Arbeit wurden die Sendeintervalle für 802.11 auf fünf Sekunden und für Bluetooth Low Energy auf eine Sekunde gesetzt.\\
+In dieser Arbeit wurden die Sendeintervalle für 802.11 auf fünf Sekunden und für BLE auf eine Sekunde gesetzt.\\
 Kürzere Sendeintervalle führen dabei zu einer höheren Erkennungssicherheit, längere Sendeintervalle senken den Energieverbrauch.
 
 \section{Mobile Einheiten}
@@ -42,12 +44,12 @@ Im Laufe dieser Arbeit wurden mehrere mobile Einheiten implementiert, diese sind
 
 \begin{table}[h]
 	\centering
-	\caption{Sendereichweite mobiler Einheiten}
+	\caption{Implementierungen}
 	\label{table:ranges}
 	\begin{tabular}{p{2cm}|p{2.5cm}|p{2.5cm}|p{5.8cm}}
 		Protokoll & Hardware & Art der Fernlokalisierung & Programm \\
 		\hline
-		802.11 & ESP8266 & Indirekt & Wifi-LLS \cite{chen2007design} \\
+		802.11 & ESP8266 & Indirekt & WiFi-LLS \cite{chen2007design} \\
 		802.11 & ESP8266 & Indirekt & Bereichsortung mit Assoziation \\
 		\hline
 		802.11 & ESP8266 & Direkt & RADAR \cite{bahl2000radar} \\
@@ -63,33 +65,66 @@ Die Implementierungen \emph{Bereichsortung mit Assoziation} und \emph{Ortung mit
 Die Konzepte der anderen Implementierungen entspringen der Literatur.
 
 \section{Energieverbrauch}
-Ergänzen
+Die Implementierungen wurden anschließend auf ihren Energieverbrauch untersucht.
+Ausgewählte Ergebnisse sind in Tabelle \ref{table:consumptions} aufgelistet.
 
 
 \begin{table}[h]
 	\centering
-	\caption{Sendereichweite mobiler Einheiten}
-	\label{table:ranges}
+	\caption{Energieverbrauch mobiler Einheiten}
+	\label{table:consumptions}
 	\begin{tabular}{p{1.8cm}|p{3.5cm}|p{6cm}|p{2.3cm}}
 		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch\\
 		\hline
-		802.11 & ESP8266 Feather & Wifi-LLS & 1 \\
-		802.11 & ESP-12F & Wifi-LLS & 1\\
-		802.11 & ESP8266 Feather & Bereichsortung mit Assoziation & 1 \\
-		802.11 & ESP-12F & Bereichsortung mit Assoziation & 1\\
+		802.11 & ESP8266 Feather & WiFi-LLS & 42,2 \\
+		802.11 & ESP-12F & WiFi-LLS & 36,5\\
+		802.11 & ESP8266 Feather & Bereichsortung mit Assoziation & 15,4 \\
+		802.11 & ESP-12F & Bereichsortung mit Assoziation & 8,8\\
+		802.11 & ESP-12F & Bereichsortung mit Assoziation (kein Access Point in Reichweite) & 17,1\\
 		\hline
-		802.11 & ESP-12F & Bereichsortung mit Assoziation (kein Access Point in Reichweite) & 1\\
+		802.11 & ESP8266 Feather & RADAR & 16,7\\
+		802.11 & ESP-12F & RADAR & 10,1\\
+		802.11 & ESP8266 Feather & Ortung mit Probe Request & 9,72\\
+		802.11 & ESP-12F & Ortung mit Probe Request & 1,8\\
 		\hline
-		802.11 & ESP8266 Feather & RADAR & 1\\
-		802.11 & ESP-12F & RADAR & 1\\
-		802.11 & ESP8266 Feather & Ortung mit Probe Request & 1\\
-		802.11 & ESP-12F & Ortung mit Probe Request & 1\\
+		BLE & nRF52 Feather & Ortung mit BLE Advertising & 7,37\\
+		BLE & nRF52 (projeziert) & Ortung mit BLE Advertising & 0,32\\
 		\hline
-		BLE & nRF52 Feather & Ortung mit BLE Advertising & 1\\
-		BLE & nRF52 (projeziert) & Ortung mit BLE Advertising & 1\\
-		\hline
-		LoRa & RFM95W Feather 5dBM & Ortung mit LoRa RSSI & 1\\
-		LoRa & RFM95W Feather 23dBM & Ortung mit LoRa RSSI & 1\\
+		LoRa & RFM95W Feather 5dBM & Ortung mit LoRa RSSI & 2,88\\
+		LoRa & RFM95W Feather 23dBM & Ortung mit LoRa RSSI & 3,16\\
 	\end{tabular}
 \end{table}
+
+Zu erkennen ist, dass die umliegenden Komponenten der verwendeten Adafruit Feather einen hohen passiven Energieverbrauch verursachen.
+Direkt gezeigt werden konnte dieser Effekt jedoch im Zuge dieser Arbeit nur für das ESP8266 Feather gezeigt werden, da nur dort ein einzelnes Modul vorhanden war.\\
+Außerdem wurde gezeigt, dass 802.11-basierte Lösungen, die sich in ein Netzwerk einloggen mehr Energie verbrauchen als solche, die darauf verzichten.
+Die Einsparungen der \emph{Ortung mit Probe Request} resultieren aus tieferen Schlafzuständen und dem Verzicht auf das empfangen von \emph{Beacons}.
+Zusätzlich leiden 802.11-basierte Lösungen, die sich in ein Netzwerk einloggen an den besonderen Bedingungen im Tunnelbau.
+Da in Arbeitsbereichen vor dem Tunnel keine Abdeckung durch ein WLAN-Netzwerk herrscht, sucht die mobile Einheit nach dem WLAN-Netzwerk.
+Dieser Vorgang ist energetisch deutlich teurer wie das halten einer Verbindung zu einem Netzwerk.\\
+Mittelt man den zusätzlichen Verbrauch der Komponenten des ESP8266 Feather und überträgt diese auf das nRF52 Feather, ist BLE beim Energieverbrauch den anderen Protokollen weit überlegen.
+Die Sendevorgänge von BLE sind sehr kurz und verbrauchen vergleichsweise wenig Energie.\\
+LoRa ergänzen
+
+\section{Auswertung}
+Es wurden mobile Einheiten mit 802.11, Bluetooth Low Energy und LoRa implementiert und bezüglich ihrer Reichweite und ihres Energieverbrauchs untersucht.\\
+802.11 ist den anderen Protokollen weder bei der Reichweite, noch beim Energieverbrauch überlegen. 
+Sein Vorteil liegt in der Verfügbarkeit von WLAN Access Points, welche als Basisstationen verwendet werden können.
+802.11 hat jedoch im gegebenen Szenario für den Tunnelbau Probleme mit Bereichen, die durch das WLAN-Netzwerk nicht abgedeckt sind. 
+Diese können vermieden werden, wenn spezielle Funktionen beim AP vorraussgesetzt werden können.\\
+BLE zeichnet sich durch einen niedrigen Energieverbrauch pro Sendevorgang aus, allerdings zeigte sich bei der Prüfung der Reichweite von BLE auch, dass diese mit 14 bis 32 Meter nicht sehr groß ist.
+Dies wirkt sich negativ auf die Erkennungssicherheit bei Bereichswechseln aus, außerdem gibt es dadurch große Bereiche, in denen die mobilen Einheiten nicht geortet werden können.\\
+Dieses Problem hat LoRa nicht. 
+Seine enorme Reichweite von bis zu 1250 Meter erlaubt es, dass eine mobile Einheit an jedem Punkt im Tunnel von mehreren Basisstationen geortet werden kann.
+Diese Eigenschaft macht die mobile Einheit mit LoRa zu einer sehr zuverlässigen Einheit für die Ortung.
+Beachtet werden muss jedoch, dass LoRa Kollisionen nur durch die zufällige Wahl des Kanals zu verhindern versucht, es muss daher mit gelegentlichen Kollisionen gerechnet werden.
+Daher sollte das Sendeintervall auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, um eine zuverlässige Ortung im Ortungsintervall zu erreichen.\\
+Aufgrund seiner hohen Reichweite und daraus resultierenden lückenlosen Ortung der mobilen Einheiten schlägt diese Arbeit LoRa für \emph{zuverlässige funkbasierte Bereichsortung im Tunnelbau} vor.
+
+\section{Ausblick}
+Neben den drei Protokollen, die in dieser Arbeit untersucht wurden, eignen sich viele weitere grundsätzlich für die Bereichsortung.
+Für zukünftige Arbeiten könnten daher noch viele weitere Protokolle untersucht werden. \\
+Außerdem kann, gegeben der hohen Reichweiten von LoRa der Umstieg von Bereichsortung auf genaue Ortung für den Tunnelbau diskutiert werden. 
+Das Erreichen mehrerer Basisstationen erlaubt nun eine Triangulation der Position der mobilen Einheit.
+Dazu müssten die Messgrößen von LoRa (oder einem anderen Protokoll mit sehr hoher Reichweite) auf ihre Eignung für die Lokalisierung geprüft werden und geeignete Modelle für die Signalausbreitung im Tunnel sowie der Einfluss von dynamischen Hindernissen erstellt werden.
 
