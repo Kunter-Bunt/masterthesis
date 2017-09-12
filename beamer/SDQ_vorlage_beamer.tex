@@ -19,7 +19,7 @@
 
 \usepackage{templates/beamerthemekit}
 %\usepackage{templates/beamerthemekitwide}
-
+\usepackage{multirow}
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -74,36 +74,38 @@ Bereichsortung im Tunnelbau}
 
 %table of contents
 \begin{frame}{Gliederung}
-\tableofcontents
+	\tableofcontents
 \end{frame}
 
 \section{Motivation}
 \begin{frame}{Bisherige Situation}
-\includegraphics[width=\textwidth]{images/bisherige.png}\\
-\cite{maurer2016unterstuetzung}
+	\includegraphics[width=\textwidth]{images/bisherige.png}\\
+	\cite{maurer2016unterstuetzung}
 \end{frame}
 
 \begin{frame}{Zukünftige Situation}
-\includegraphics[width=\textwidth]{images/zukuenftige.png}
+	\includegraphics[width=\textwidth]{images/zukuenftige.png}
 \end{frame}
 
 \begin{frame}{Aufgabe}
-\begin{block}{Zielsetzung}
-\begin{itemize}
-\item Funkbasiertes Ortungssystem
-\item Bereichsortung (250m Abschnitte)
-\end{itemize}
-\end{block}
+	\begin{block}{Zielsetzung}
+		\begin{itemize}
+			\item Funkbasiertes Ortungssystem
+			\item Bereichsortung (250m Abschnitte)
+		\end{itemize}
+	\end{block}
 
-\begin{block}{Anforderungen}
-\begin{itemize}
-\item Nichtintrusiv 
-\item Zuverlässige Erkennung von Abschnittswechseln
-\item Wenig Interaktion mit mobiler Einheit
-\end{itemize}
-\end{block}
+
+	\begin{block}{Anforderungen}
+		\begin{itemize}
+			\item Nichtintrusiv 
+			\item Zuverlässige Erkennung von Abschnittswechseln
+			\item Wenig Interaktion mit mobiler Einheit
+		\end{itemize}
+	\end{block}
 \end{frame}
 
+\section{Analyse}
 \begin{frame}{Topologien}
 	\begin{tabular}{c|c|c}
 		\includegraphics[width=0.3\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.3\textwidth]{images/direktefern.eps} & \includegraphics[width=0.2\textwidth]{images/ohnebasis.eps}\\
@@ -113,24 +115,99 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \begin{frame}
-\begin{block}{Messgrößen}
-\begin{itemize}
-\item Time of Arrival
-\item Time Difference of Arrival
-\item Roundtrip Time of Flight
-\item Received Signal Strength (Indicator)
-\end{itemize}
-\end{block}  
-\includegraphics[width=0.3\textwidth]{images/tdoa.png} \\
+	\begin{block}{Messgrößen}
+		\begin{itemize}
+			\item Time of Arrival
+			\item Time Difference of Arrival
+			\item Roundtrip Time of Flight
+			\item Received Signal Strength (Indicator)
+		\end{itemize}
+	\end{block}  
+	\includegraphics[width=0.3\textwidth]{images/tdoa.png} \\
 
 
-\begin{block}{Protokolle}
-\begin{itemize}
-\item 802.11
-\item Zuverlässige Erkennung von Abschnittswechseln
-\item Wenig Interaktion mit mobiler Einheit
-\end{itemize}
-\end{block} 
+	\begin{block}{Protokolle}
+		\begin{itemize}
+			\item 802.11
+			\item Zuverlässige Erkennung von Abschnittswechseln
+			\item Wenig Interaktion mit mobiler Einheit
+		\end{itemize}
+	\end{block} 
+\end{frame}
+
+\begin{frame}{Hardware}
+	\begin{tabular}{cc}
+		\multicolumn{2}{c}{\includegraphics[width=0.9\textwidth]{images/espmodules.png}}\\
+		\includegraphics[width=0.45\textwidth]{images/loraada.png} & \includegraphics[width=0.45\textwidth]{images/nrf52ada.png}\\
+	\end{tabular}
+\end{frame}
+
+\section{Reichweiten}
+\begin{frame}{Reichweiten}
+	\begin{tabular}{cc}
+		\includegraphics[width=0.45\textwidth]{images/tunnel.jpg} & \includegraphics[width=0.45\textwidth]{images/schalungswagen.jpg}\\
+		\includegraphics[width=0.45\textwidth]{images/rangewlan.eps} & \includegraphics[width=0.45\textwidth]{images/rangeblue.eps} \\
+		\multicolumn{2}{c}{\includegraphics[width=0.9\textwidth]{images/rangelora.eps}}\\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}{Reichweiten}
+	\centering
+	\begin{tabular}{l|l|l}
+		Protokoll & Strecke & Reichweite \\
+		\hline
+		BLE & Wenige Hindernisse & 32m \\
+		802.11b & Wenige Hindernisse & 88m \\
+		LoRa & Wenige Hindernisse & 250m \\
+		LoRa & Wenige Hindernisse & 1250m \\
+		\hline
+		BLE & Viele Hindernisse & 14m \\
+		802.11b & Viele Hindernisse & 32m \\
+		LoRa & Viele Hindernisse & 100m \\
+		LoRa & Viele Hindernisse & $>$350m \\
+	\end{tabular}\\
+\end{frame}
+
+\section{Implementierungen}
+\subsection{RADAR}
+\begin{frame}{RADAR}
+	\begin{tabular}{cc}
+		\includegraphics[height=0.5\textheight]{images/reupper.png} & \includegraphics[height=0.5\textheight]{images/relower.png}\\
+	\end{tabular}
+\end{frame}
+
+\begin{frame}
+	\begin{minipage}[c][\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[height=0.95\textheight]{plots/radar5s.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\begin{minipage}[c][\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[height=0.95\textheight]{plots/radar5ssend.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{WiFi-LLS}
+
+\end{frame}
+
+\begin{frame}{Assoziationslokalisierung}
+
+\end{frame}
+
+\begin{frame}{Probe-Request-Lokalisierung}
+
+\end{frame}
+
+\begin{frame}{BLE-Advertising}
+
+\end{frame}
+
+\begin{frame}{LoRa}
+
 \end{frame}
 
 \appendix
