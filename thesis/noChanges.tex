@@ -1,8 +1,8 @@
 \chapter{Indirekte Fernlokalisierung mit IEEE 802.11}
 \label{ch:phase1}
 Bei der indirekten Fernlokalisierung wird die Messgröße auf der mobilen Einheit gemessen.
-Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte oder explizit durch versenden der berechneten Position an den Ortungsserver übermittelt.
-Wird IEEE 802.11 verwendet muss die mobile Einheit mit einem Access Point assoziiert um Informationen an den Ortungsserver übermitteln zu können.
+Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte oder explizit durch versenden der berechneten Position an den Ortungsdienst übermittelt.
+Wird IEEE 802.11 verwendet muss die mobile Einheit mit einem Access Point assoziiert um Informationen an den Ortungsdienst übermitteln zu können.
 Eine Lösung zur indirekten Fernlokalisierung muss deshalb mindestens auf Protokollebene vier des OSI-Modells arbeiten.
 Für die Übermittelung steht ein WLAN-Netzwerk zur Verfügung.
 
@@ -171,8 +171,8 @@ Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine lauf
 
 \section{WiFi-LLS-Implementierung}
 \label{ch:phase1:sec:wifills}
-Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsserver \cite{chen2007design}.
-Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung einer mobilen WiFi-LLS-Einheit die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsserver übermittelt. 
+Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsdienst \cite{chen2007design}.
+Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung einer mobilen WiFi-LLS-Einheit die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsdienst übermittelt. 
 Damit wird der Overhead einer TCP-Verbindung vermieden.\\
 Zunächst muss das Tag dem Netzwerk beitreten (\emph{Join}), einen \emph{Scan} ausführen und ein UDP-Paket versenden.
 Der Ablauf eines \emph{Scans} wird in Abbildung \ref{fig:activescan} gezeigt, dieser Vorgang muss für jeden nicht überlappenden Kanal durchgeführt werden.\\
@@ -228,7 +228,7 @@ Die Implementierung in C mit manuellem \texttt{light\_sleep} werden in Abschnitt
 
 \section{Anpassungen für Bereichsortung}
 \label{ch:phase1:sec:anpassungbereich}
-Bei WiFi-LLS wird der \emph{Scan} durchgeführt, um den RSSI zu nahen Access Points zu erhalten und dann auf dem Ortungsserver die Position der mobilen Einheit mit einer Trilateration zu berechnen.
+Bei WiFi-LLS wird der \emph{Scan} durchgeführt, um den RSSI zu nahen Access Points zu erhalten und dann beim Ortungsdienst die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP, um die mobile Einheit einem Bereich zuzuordnen.
 Da der mobilen Einheit die MAC-Adresse seines Netzzugangs bekannt sein muss, kann dies als Ortungsinformation verwendet werden.
@@ -241,7 +241,7 @@ Der Wechsel zwischen zwei Access Points wird exemplarisch in Abbildung \ref{fig:
   \label{fig:reassociation}
 \end{figure}
 
-Die MAC-Adresse des Access Points wird nun zusammen mit der eigenen MAC-Adresse als Identifikator als String kodiert und per UDP an den Ortungsserver versendet.\\
+Die MAC-Adresse des Access Points wird nun zusammen mit der eigenen MAC-Adresse als Identifikator als String kodiert und per UDP an den Ortungsdienst versendet.\\
 Tabelle \ref{table:naiveconsumption} zeigt den gemessen Verbrauch der Implementierungen in Arduino und C, jeweils mit und ohne manuell aufgerufenen \texttt{light\_sleep}.
 
 \begin{table}[h]
@@ -323,7 +323,7 @@ Der ESP8266 empfängt während des \emph{Join} die gesamte Zeit und verbraucht d
 Ist im \emph{Beacon} eine Aufforderung zum Empfangen für den ESP8266 enhalten empfängt er länger um die Nachricht zu erhalten, ein solches Verhalten ist bei circa 19 Sekunden zu erkennen.\\
 Bei 12, 17 und 22 Sekunden werden weitere \emph{Scans} ausgeführt, diese stehen im Zentrum der Implementierung, da sie implizit die Position bestimmen.
 Die rote Kurve in Abbildung \ref{fig:wifillssendv} zeigt diesen Vorgang genauer, ein \emph{Scan} besteht für jeden gescannten Kanal aus dem Versenden eines \emph{Probe Request} und anschließenden Empfangen der \emph{Probe Responses}. 
-Abschließend wird ein Paket an den Ortungsserver versendet und der Chip wechselt wieder in einen Zustand, in dem er periodisch die \emph{Beacons} des AP empfängt.\\
+Abschließend wird ein Paket an den Ortungsdienst versendet und der Chip wechselt wieder in einen Zustand, in dem er periodisch die \emph{Beacons} des AP empfängt.\\
 
 \begin{figure}[h!]
   \centering
@@ -340,7 +340,7 @@ Daraus lässt sich schließen, dass die zusätzlichen Komponenten auf dem ESP826
 Zusätzlich wurde die Implementierung von WiFi-LLS mit nur einem \emph{gescannten} Kanal geprüft.
 Abbildung \ref{fig:wifills1chsend} zeigt den verkürzten Ortungsvorgang.
 Da nur ein Kanal \emph{gescannt} wird, wird nur ein \emph{Probe Request} versendet.
-Nach Empfangen der Antworten wird ein Paket an den Ortungsserver gesendet und der ESP8266 wechselt wieder in den Zustand des periodischen Empfangens.\\
+Nach Empfangen der Antworten wird ein Paket an den Ortungsdienst gesendet und der ESP8266 wechselt wieder in den Zustand des periodischen Empfangens.\\
 
 \begin{figure}[h!]
   \centering
@@ -386,7 +386,7 @@ Diese wird nur von den \emph{Keep-Alive-Paketen} unterbrochen, welche alle 30 Mi
   \label{fig:tcphold}
 \end{figure}
 
-Für die Implementierung mit anschließendem Abbau der TCP-Verbindung kommen zusätzliche Pakete direkt nach dem Versenden der Assoziationsinformation an den Ortungsserver hinzu, dafür entfallen die \emph{Keep-Alive-Pakete}.
+Für die Implementierung mit anschließendem Abbau der TCP-Verbindung kommen zusätzliche Pakete direkt nach dem Versenden der Assoziationsinformation an den Ortungsdienst hinzu, dafür entfallen die \emph{Keep-Alive-Pakete}.
 Abbildung \ref{fig:tcpdisco} zeigt dieses Verhalten.\\
 
 \begin{figure}[h!]

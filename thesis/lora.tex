@@ -1,16 +1,16 @@
 \chapter{Direkte Fernlokalisierung mit LoRa}
 \label{ch:phase4}
 Für die direkte Fernlokalisierung mit LoRa werden dedizierte Basisstationen eingesetzt. 
-Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
-Die Basisstationen bestimmen den \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
-Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
+Die Kommunikation zwischen Basisstation und Ortungsdienst kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
+Die Basisstationen bestimmen den \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsdienst.
+Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \section{RFM95}
 \label{ch:hardwarechanges:sec:rfm95}
 Bei dem RFM95 handelt es sich um ein \emph{Long Range} (LoRa)-fähiges Radio-Modul für den Frequenzbereich 868/915MHz \cite{hope2006rfm}. 
 915MHz sind jedoch nur in Amerika lizenzfrei, in Deutschland muss das Radio mit 868MHz betrieben werden.\\
 Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 RFM95 LoRa Radio verwendet.
-Dieses verwendet zusätzlich einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler zur einfachen Programmierung des Radios über USB.
+Dieses verwendet einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler.
 Zusätzlich ist eine Antenne notwendig, die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
 Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).\\
 Abbildung \ref{fig:lorafeather} zeigt ein Adafruit Feather M0 RFM95 LoRa Radio. 
@@ -31,7 +31,7 @@ Der M0 kann nun programmiert werden, um das RFM95 verwenden zu können muss die 
 
 \section{Reichweite von LoRa}
 Die Versuche mit LoRa wurden an einer anderen Tunnelbaustelle durchgeführt.
-An der Tunnelbohrstelle Ulm wird mit Sprengungen vorgetrieben.
+An der Tunnelbaustelle Ulm wird mit Sprengungen vorgetrieben.
 Nach der Sprengung wird der Tunnel mit Spritzbeton ausgekleidet und danach wird in drei Schritten geschalt. 
 Im ersten Schritt wird ein Filz und eine Folie gegen das Eindringen von Wasser eingebracht, danach folgt die Bewehrung und abschließend wird die Bewehrung einbetoniert.
 Für jeden Schritt wird ein stählerner Schalungswagen verwendet, folglich sind drei stählerne Hindernisse im Tunnel, die Signale absorbieren.
@@ -47,7 +47,7 @@ Abbildung \ref{fig:schalungswagen} zeigt einen der Schalungswagen, der als Hinde
 \subsection{Methodik} 
 Die Reichweite wurde für zwei Situationen bestimmt.
 Zum einen durch einen Schalungswagen und dann durch den freien Tunnel, zum anderen durch alle drei Schalungswagen für eine Situation mit maximaler Abschirmung durch die Hindernisse.
-Die zwei Messtrecken werden in Abbildung {fig:rangelora} skizziert.
+Die zwei Messtrecken werden in Abbildung \ref{fig:rangelora} skizziert.
 
 \begin{figure}[h!]
   \centering
@@ -98,12 +98,12 @@ Für eine sichere Erkennung des 250-Meter-Abschnitts müsste daher alle 500 Mete
 
 \subsection{Bewertung}
 LoRa entfaltet im Tunnel eine sehr hohe Reichweite und es kann eine lückenlose Überwachung von Personen durchgeführt werden.
-Voll nutzen lässt sich diese jedoch nicht, da die Varianz des RSSI den Zusammenhang zwischen Distanz und RSSI schon nach circa 250 Metern überwiegt. 
-Hingegen führt eine starke Reduktion der Sendeleistung zu einer mangelden Penetration von Hindernissen.
+Voll nutzen lässt sich die Reichweite jedoch nicht, da die Varianz des RSSI den Zusammenhang zwischen Distanz und RSSI schon nach circa 250 Metern überwiegt. 
+Hingegen führt eine starke Reduktion der Sendeleistung zu einer mangelnder Penetration von Hindernissen.
 Daher sollte ein Kompromiss der Sendeleistung geschlossen werden. 
 Eine Sendeleistung von 10dBm sollte eine ausreichende Reichweite im Szenario mit vielen Hindernissen bieten.
 Alternativ kann die mobile Einheit auch ein Send-Receive Schema umsetzen und von der Basisstation eine dynamisch angepasste Sendeleistung empfangen, die sich nach der Menge der Hindernisse richtet.\\
-Wird die Sendeleistung dynamisch so festgelegt, dass einer Reichweite von 250 Metern erreicht wird benötigt ein Mitarbeiter bei 30 km/h 30 Sekunden um sie zu durchqueren.
+Wird die Sendeleistung dynamisch so festgelegt, dass eine Reichweite von 250 Metern erreicht wird, benötigt ein Mitarbeiter bei 30 km/h 30 Sekunden um sie zu durchqueren.
 Eine derart lange Intervallzeit würde jedoch dazu führen, dass eine volle Minute ohne Aktualisierung der Position vergeht, sollte ein Paket verloren gehen.
 Das Sendeintervall wird deshalb auf zehn Sekunden gesetzt.
 
@@ -112,7 +112,7 @@ Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
 Die mobile Einheit versendet regelmäßig ein Paket, welches einen Identifikator für die mobile Einheit enthält.
 Das Sendeintervall beträgt entsprechend der hohen Reichweite zehn Sekunden.\\
 Die Basisstation empfängt durchgehend und bestimmt den RSSI für eingehende Pakete.
-Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem RSSI und einer Kennung für die Basisstation an den Ortungsserver weiter.\\
+Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem RSSI und einer Kennung für die Basisstation an den Ortungsdienst weiter.\\
 Auf der mobilen Einheit müssen lediglich die Sendefrequenz, die Sendeleistung und der Identifikator gesetzt werden, dann kann immer nach Ablauf des Sendeintervalls gesendet werden.
 Die Basisstation muss dabei auf der selben Frequenz aktiv sein und empfangen.
 
@@ -153,10 +153,10 @@ $y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$\\[1cm
 \subsection{Tatsächlicher Energieverbrauch von LoRa}
 \label{ch:phase3:sec:powerlora}
 Der Stromverbrauch der Implementierung mit LoRa wurde mit 5dBm und 23dBm Sendeleistung überprüft.
-Abbildung \ref{fig:lora5} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRA bei 5dBm.\\
+Abbildung \ref{fig:lora5} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRa bei 5dBm.\\
 Nach einer circa drei sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach zehn Sekunden Ruhezustand senden.
 Dieser jedoch vom Zeitgeber nicht ganz eingehalten, die mobile Einheit befindet sich zwischen den Sendevorgängen circa elf Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
-Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 2,5 bis 2,7 Milliamper, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.\\
+Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 0,9 bis 1,0 Milliamper, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.\\
 
 \begin{figure}[h!]
   \centering
@@ -165,7 +165,7 @@ Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 2,5 bis 2,7 Milliamper, 
   \label{fig:lora5}
 \end{figure}
 
-Die Abbildung \ref{fig:lora235send} zeigt die Sendeverbäuche für eine Sendeleistung von 23dBm in Rot und für 5dBm in Grün.
+Die Abbildung \ref{fig:lora235send} zeigt die Sendeverbräuche für eine Sendeleistung von 23dBm in Rot und für 5dBm in Grün.
 Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger als bei Bluetooth Low Energy dauert, obwohl vergleichbar viele Bits übertragen werden.
 
 \begin{figure}[h!]

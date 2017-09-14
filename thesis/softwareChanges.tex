@@ -1,10 +1,10 @@
 \chapter{Direkte Fernlokalisierung mit 802.11}
 \label{ch:phase2}
 Bei der direkten Fernlokalisierung wird die Messgröße auf den Basisstationen gemessen.
-Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte an den Ortungsserver übermittelt.
+Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte an den Ortungsdienst übermittelt.
 Dieser berechnet dann aus den gesammelten Werten die Position der mobilen Einheit.
 Eine Lösung zur direkten Fernlokalisierung muss deshalb nicht mit einem Access Point assoziiert sein.
-APs versenden die gemessenen Werte jedoch nicht automatisch an den Ortungsserver. 
+APs versenden die gemessenen Werte jedoch nicht automatisch an den Ortungsdienst. 
 Sollen also die APs des WLAN-Netzwerks auch als Basisstationen verwendet werden, muss ihre Software es erlauben den in der Analyse als Messgröße ausgewählten \emph{Received Signal Strength Indicator} (RSSI) bestimmter Pakete abzurufen.
 
 %TODO Tags weg
@@ -53,7 +53,7 @@ Um die Änderungen an der Software des AP gering zu halten wurde der \emph{Probe
 Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management}) der für den, in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen, \emph{Scan}-Vorgang verwendet wird.
 Der \emph{Probe Request} hat dabei den Vorteil, dass er bereits vom AP verarbeitet und mit einer \emph{Probe Response} beantwortet wird. \\
 Es wird also lediglich gefordert, dass der AP den Empfang des \emph{Probe Request} im Zuge der Verarbeitung protokolliert. 
-Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsserver abrufbar gemacht werden. 
+Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsdienst abrufbar gemacht werden. 
 Manche kommerzielle APs bieten ein solches Protokoll für \emph{Probe Requests} und \emph{Beacons} im Zuge einer \textit{Rogue Client/AP Detection} an \cite{lancom2017rouge}.
 Abbildung \ref{fig:probeReq} zeigt den Vorgang schematisch.\\
 

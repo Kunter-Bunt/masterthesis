@@ -97,14 +97,15 @@ Ausgewählte Ergebnisse sind in Tabelle \ref{table:consumptions} aufgelistet.
 
 Zu erkennen ist, dass die umliegenden Komponenten der verwendeten Adafruit Feather einen hohen passiven Energieverbrauch verursachen.
 Direkt gezeigt werden konnte dieser Effekt jedoch im Zuge dieser Arbeit nur für das ESP8266 Feather gezeigt werden, da nur dort ein einzelnes Modul vorhanden war.\\
-Außerdem wurde gezeigt, dass 802.11-basierte Lösungen, die sich in ein Netzwerk einloggen mehr Energie verbrauchen als solche, die darauf verzichten.
+Außerdem wurde gezeigt, dass 802.11-basierte Lösungen, die einem Netzwerk einloggen beitreten Energie verbrauchen als solche, die darauf verzichten.
 Die Einsparungen der \emph{Ortung mit Probe Request} resultieren aus tieferen Schlafzuständen und dem Verzicht auf das empfangen von \emph{Beacons}.
-Zusätzlich leiden 802.11-basierte Lösungen, die sich in ein Netzwerk einloggen an den besonderen Bedingungen im Tunnelbau.
+Zusätzlich leiden 802.11-basierte Lösungen, die einem Netzwerk beitreten an den besonderen Bedingungen im Tunnelbau.
 Da in Arbeitsbereichen vor dem Tunnel keine Abdeckung durch ein WLAN-Netzwerk herrscht, sucht die mobile Einheit nach dem WLAN-Netzwerk.
 Dieser Vorgang ist energetisch deutlich teurer wie das halten einer Verbindung zu einem Netzwerk.\\
 Mittelt man den zusätzlichen Verbrauch der Komponenten des ESP8266 Feather und überträgt diese auf das nRF52 Feather, ist BLE beim Energieverbrauch den anderen Protokollen weit überlegen.
 Die Sendevorgänge von BLE sind sehr kurz und verbrauchen vergleichsweise wenig Energie.\\
-LoRa ergänzen
+LoRa verbraucht mehr Energie als BLE, hat aber auch eine deutlich höhere Reichweite.
+Es ordnet sich beim Verbrauch zwischen BLE und 802.11 ein, wobei der Ruheverbrauch von knapp einem Milliamper den Sendeverbrauch überwiegt, die mobilen Einheiten mit 5dBm und 23dBm Sendeleistung liegen deshalb beim Verbrauch über eine Stunde recht nah beieinander.
 
 \section{Auswertung}
 Es wurden mobile Einheiten mit 802.11, Bluetooth Low Energy und LoRa implementiert und bezüglich ihrer Reichweite und ihres Energieverbrauchs untersucht.\\
@@ -124,7 +125,7 @@ Aufgrund seiner hohen Reichweite und daraus resultierenden lückenlosen Ortung d
 \section{Ausblick}
 Neben den drei Protokollen, die in dieser Arbeit untersucht wurden, eignen sich viele weitere grundsätzlich für die Bereichsortung.
 Für zukünftige Arbeiten könnten daher noch viele weitere Protokolle untersucht werden. \\
-Außerdem kann, gegeben der hohen Reichweiten von LoRa der Umstieg von Bereichsortung auf genaue Ortung für den Tunnelbau diskutiert werden. 
+Außerdem kann, gegeben der hohen Reichweiten von LoRa, der Umstieg von Bereichsortung auf geometrische Ortung für den Tunnelbau diskutiert werden. 
 Das Erreichen mehrerer Basisstationen erlaubt nun eine Triangulation der Position der mobilen Einheit.
 Dazu müssten die Messgrößen von LoRa (oder einem anderen Protokoll mit sehr hoher Reichweite) auf ihre Eignung für die Lokalisierung geprüft werden und geeignete Modelle für die Signalausbreitung im Tunnel sowie der Einfluss von dynamischen Hindernissen erstellt werden.
 

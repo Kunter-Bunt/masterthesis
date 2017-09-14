@@ -1,9 +1,9 @@
-\chapter{Direkte Fernlokalisierung mit Bluetooth}
+\chapter{Direkte Fernlokalisierung mit Bluetooth Low Energy}
 \label{ch:phase3}
 Für die direkte Fernlokalisierung mit Bluetooth werden dedizierte Basisstationen eingesetzt. 
-Die Kommunikation zwischen Basisstation und Ortungsserver kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
-Die Basisstationen bestimmen des \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsserver.
-Der Ortungsserver kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
+Die Kommunikation zwischen Basisstation und Ortungsdienst kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
+Die Basisstationen bestimmen des \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsdienst.
+Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \section{nRF52832}
 Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
@@ -41,14 +41,14 @@ Es wird die Bluefruit nRF52 API Version 0.6.0 verwendet.
 
 
 
-\section{Reichweite von Bluetooth}
-Der Versuch mit Bluetooth wurde an der selben Stelle wie der mit WLAN durchgeführt, siehe dazu Abschitt \ref{ch:phase1:sec:rangewlan}.
+\section{Reichweite von Bluetooth Low Energy}
+Der Versuch mit BLE wurde an der selben Stelle wie der mit WLAN durchgeführt, siehe dazu Abschitt \ref{ch:phase1:sec:rangewlan}.
 Es wurde allerdings ein \emph{Raspberry Pi Zero W} als Basisstation verwendet, dieser wurde auf dem \emph{LN-862} platziert, auf Abbildung \ref{fig:applacement} ist sein rotes Gehäuse zu erkennen.
 
 \subsection{Methodik}
 Die Reichweite wurde erneut in zwei Richtungen geprüft. 
 Zum einen in Richtung der fertig gebohrten Tunnels mit wenigen Hindernissen, zum anderen in Richtung des Vortriebs durch mehrere Stahlhindernisse.
-Die zwei Messtrecken werden in Abbildung {fig:rangeblue} skizziert.
+Die zwei Messtrecken werden in Abbildung \ref{fig:rangeblue} skizziert.
 
 \begin{figure}[h!]
   \centering
@@ -92,12 +92,12 @@ Die Bluetooth-Low-Energy-Implementierung ist an die Arbeit von Jianyong et al. a
 Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising} Paket gesendet.\\
 In der Praxis wird dazu das \emph{Advertising}-Intervall entsprechend gesetzt, dabei handelt es sich um einen in Bluetooth 4.0 spezifizierten Parameter für die Häufigkeit des \emph{Advertisings}.
 Da die Bluefruit nRF52 API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
-Die entsprechende \emph{BLEAdvertising}-Klasse ist in \\\texttt{\~/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
+Die entsprechende \emph{BLEAdvertising}-Klasse ist in \\\texttt{/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
 In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Energieverbrauch zu senken.
 Beim nRF52 handelt es sich um ein Klasse 2 Bluetooth Gerät mit einer maximalen Sendeleistung bis 4 dBm.
 Das Sendeintervall wird etsprechend der Untersuchung der Reichweite und maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt, in dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen.\\
 Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker TM103 USB-Power-Meter vorgenommen werden.
-Diser ist aber nicht in der Lage den Stromverbrauch des nRF52 zu messen..
+Diser ist aber nicht in der Lage den Stromverbrauch des nRF52 zu messen.
 Die Sendeabschnitte sind zu kurz um einen messbaren Stromverbrauch zu erzeugen.\\
 Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
 
