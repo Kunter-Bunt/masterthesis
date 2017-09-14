@@ -1,4 +1,6 @@
-\chapter{Indirekte Fernlokalisierung mit IEEE 802.11}
+\chapter{Implementierung}
+
+\section{Indirekte Fernlokalisierung mit IEEE 802.11}
 \label{ch:phase1}
 Bei der indirekten Fernlokalisierung wird die Messgröße auf der mobilen Einheit gemessen.
 Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte oder explizit durch versenden der berechneten Position an den Ortungsdienst übermittelt.
@@ -13,7 +15,7 @@ Für die Übermittelung steht ein WLAN-Netzwerk zur Verfügung.
   \label{fig:espblock}
 \end{figure}
 
-\section{ESP8266}
+\subsection{ESP8266}
 Der ESP8266 soll als Hardware für das Tag eingesetzt werden, dabei handelt es sich um einen Microcontroller von Espressif.
 Der ESP8266 besitzt neben einer CPU eine 802.11b/g/n"-/e/i-fähige WLAN-Einheit und beherrscht diverse andere, kabelgebundene Kommunikationsstandards wie zum Beispiel GPIO, I2C und SPI, siehe Abbildung \ref{fig:espblock}. \\
 Da der ESP8266 selbst weder über Flashspeicher, noch über eine Antenne verfügt wird er auf einem Modul mit diesen Komponenten verbaut. 
@@ -41,7 +43,7 @@ Das Adafruit Feather Huzzah ESP8266 mit ESP-12S ist in Abbildung \ref{fig:espmod
 \end{table}
 
 
-\subsection{ESP8266 Arduino Core}
+\subsubsection{ESP8266 Arduino Core}
 Eine einfache Möglichkeit den ESP8266 zu programmieren stellt die bekannte Arduino IDE dar \cite{banzi2017arduino}.\\
 Unter Windows muss zunächst der Treiber für den \textit{CP2104 USB-to-Serial Chip} installiert werden, auf Linux und Mac entfällt dieser Schritt \cite{fried2017feather}.
 Nach der Installation der Arduino IDE muss dort in den Einstellungen unter \textit{Additional Boards Manager URLs} die URL \url{http://arduino.esp8266.com/stable/package_esp8266com_index.json} hinzugefügt werden.  
@@ -62,7 +64,7 @@ extern "C" {#include "user_interface.h"}
 
 Der ESP8266 Arduino Core wurde in der Version 2.3.0 verwendet.
 
-\subsection{ESP Open SDK}
+\subsubsection{ESP Open SDK}
 Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden \cite{esp2017open}. \\
 Dazu muss zunächst das Github Projekt geklont werden: \texttt{git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git} und anschließend mit \texttt{make} kompiliert werden.
 Wurde die Kompilierung erfolgreich abgeschlossen, sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden. \\
@@ -83,7 +85,7 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 \end{figure}
 
 
-\section{Reichweite von 802.11}
+\subsection{Reichweite von 802.11}
 \label{ch:phase1:sec:rangewlan}
 Um die Intervallzeit für die Lokalisierung festzulegen, muss die Reichweite von 802.11 im Tunnel bestimmt werden.
 Für die Tests wurde ein \emph{LN-862} Access Point von der Firma Lancom zur Verfügung gestellt.
@@ -109,7 +111,7 @@ Abbildung \ref{fig:applacement} zeigt den \emph{LN-862} hinter der Treppe.
   \label{fig:applacement}
 \end{figure}
 
-\subsection{Methodik}
+\subsubsection{Methodik}
 Die Reichweite wurde in zwei Richtungen geprüft.
 Zum einen in Richtung des bereits fertig gebohrten Tunnels, hier blockiert nur wenig Stahl das Signal. 
 Lediglich die Treppe, unter der der AP montiert wurde, stellt ein Hindernis dar.
@@ -130,7 +132,7 @@ In jedem Fall war es möglich durch das Entfernen des körperlichen Hindernisses
 Zur Bestimmung der Distanz wurden die \emph{Tübbinge} verwendet, dies sind Schalungselemente im Tunnel.
 Im Tunnel Raststatt sind diese fortlaufend nummeriert und genau zwei Meter breit, die Messungen sind deshalb ebenfalls in zwei Meter Schritten angegeben.
 
-\subsection{Ergebnisse}
+\subsubsection{Ergebnisse}
 Tabelle \ref{table:rangewifi} zeigt die Ergebnisse für die zwei verwendeten ESP8266 Module.
 Es wurde jeweils mit und ohne Gehäuse gemessen und in jede der beiden beschriebenen Richtungen.
 Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tunnels, viele Hindernisse die Richtung des Vortriebs.
@@ -155,7 +157,7 @@ Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tu
 \end{table}
 
 
-\subsection{Bewertung}
+\subsubsection{Bewertung}
 \label{ch:Reichweite:sec:bewertung}
 Das ESP-12F Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das ESP-12S, es ist daher im weiteren Verlauf zu bevorzugen.\\
 Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ $km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
@@ -169,7 +171,7 @@ Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine lauf
 
 
 
-\section{WiFi-LLS-Implementierung}
+\subsection{WiFi-LLS-Implementierung}
 \label{ch:phase1:sec:wifills}
 Die mobile Einheit des WiFi-LLS Systems führt alle 5 Sekunden einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsdienst \cite{chen2007design}.
 Da der Fokus dieser Arbeit auf dem Energieverbrauch liegt, werden für die Referenzimplementierung einer mobilen WiFi-LLS-Einheit die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsdienst übermittelt. 
@@ -226,7 +228,7 @@ Die Implementierung in C mit manuellem \texttt{light\_sleep} werden in Abschnitt
 
 
 
-\section{Anpassungen für Bereichsortung}
+\subsection{Anpassungen für Bereichsortung}
 \label{ch:phase1:sec:anpassungbereich}
 Bei WiFi-LLS wird der \emph{Scan} durchgeführt, um den RSSI zu nahen Access Points zu erhalten und dann beim Ortungsdienst die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. \\
@@ -288,7 +290,7 @@ In Abschnitt \ref{ch:phase1:sec:powerindirekt} werden die Implementierungen, die
 Diese bieten eine gute Übertragungssicherheit bei geringem Verbrauch.
 
 
-\section{Untersuchung des Energieverbrauchs}
+\subsection{Untersuchung des Energieverbrauchs}
 \label{ch:phase1:sec:energie}
 Der Muker TM103 USB-Power-Meter bietet sowohl im Zeit- als auch im Wertebereich nur eine sehr geringe Auflösung.
 Stattdessem soll der Verbrauch mit einem INA219 Chip genauer untersucht werden.
@@ -307,7 +309,7 @@ Abbildung \ref{fig:ina219} zeigt den INA219 integriert auf einer Platine, diese 
   \label{fig:ina219}
 \end{figure}
 
-\subsection{WiFi-LLS}
+\subsubsection{WiFi-LLS}
 \label{ch:phase1:sec:powerwifills}
 Abbildung \ref{fig:wifills} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von WiFi-LLS, wenn ein AP zur Verfügung steht. 
 
@@ -372,7 +374,7 @@ Die Laufzeiten in Tabelle \ref{table:wifillsina} wurden für diesen 1400mAh Akku
 
 
 
-\subsection{Indirekte Bereichsortung}
+\subsubsection{Indirekte Bereichsortung}
 \label{ch:phase1:sec:powerindirekt}
 Abbildung \ref{fig:tcphold} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung für Bereichsortung mit aufrecht erhaltener TCP-Verbindung, wenn ein AP zur Verfügung steht. 
 Der Beginn des Lastverlaufs ist dem der WiFi-LLS-Implementierung ähnlich, es werden ebenfalls \emph{Scan} und \emph{Join} durchgeführt.
@@ -412,7 +414,7 @@ Auch diese Implementierungen wurden sowohl mit einem ESP8266 Feather, als auch m
 	\end{tabular}
 \end{table}
 
-\subsection{Kein AP in Reichweite}
+\subsubsection{Kein AP in Reichweite}
 Bisher wurden die besonderen Bedingungen des Tunnels nicht berücksichtigt.
 Für den ESP-12F wurde nur eine Reichweite von 88 Metern gemessen, aber auch für die zukünftige Situation mit einem Access Point alle 250 Meter wäre eine Reichweite von 125 Metern notwendig um eine durchgehende Abdeckung für den ESP-12F zu erreichen.
 Außerdem besteht vor dem Portal des Tunnels ein großer Arbeitsbereich ohne WLAN-Abdeckung.\\

@@ -1,11 +1,11 @@
-\chapter{Direkte Fernlokalisierung mit Bluetooth Low Energy}
+\section{Direkte Fernlokalisierung mit Bluetooth Low Energy}
 \label{ch:phase3}
 Für die direkte Fernlokalisierung mit Bluetooth werden dedizierte Basisstationen eingesetzt. 
 Die Kommunikation zwischen Basisstation und Ortungsdienst kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
 Die Basisstationen bestimmen des \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsdienst.
 Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
-\section{nRF52832}
+\subsection{nRF52832}
 Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
 Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4GHz Transceiver, der Bluetooth 5.0 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
 Für diese Arbeit wird ein Adafruit Feather nRF52 verwendet, der nRF52832 wird deshalb im Folgenden auf nRF52 abgekürzt.
@@ -29,7 +29,7 @@ Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-
 \end{table}
 
 
-\subsection{Arduino Bluefruit nRF52 API}
+\subsubsection{Arduino Bluefruit nRF52 API}
 Der nRF52 kann ebenfalls mit der Arduino IDE programmiert werden.\\
 Dazu muss dieser zunächst das \emph{Board Support Package} hinzugefügt werden \cite{townsend2017nrf}.
 In den Einstellungen wird unter \textit{Additional Boards Manager URLs} die URL \url{https://www.adafruit.com/package_adafruit_index.json} hinzugefügt.
@@ -41,11 +41,11 @@ Es wird die Bluefruit nRF52 API Version 0.6.0 verwendet.
 
 
 
-\section{Reichweite von Bluetooth Low Energy}
+\subsection{Reichweite von Bluetooth Low Energy}
 Der Versuch mit BLE wurde an der selben Stelle wie der mit WLAN durchgeführt, siehe dazu Abschitt \ref{ch:phase1:sec:rangewlan}.
 Es wurde allerdings ein \emph{Raspberry Pi Zero W} als Basisstation verwendet, dieser wurde auf dem \emph{LN-862} platziert, auf Abbildung \ref{fig:applacement} ist sein rotes Gehäuse zu erkennen.
 
-\subsection{Methodik}
+\subsubsection{Methodik}
 Die Reichweite wurde erneut in zwei Richtungen geprüft. 
 Zum einen in Richtung der fertig gebohrten Tunnels mit wenigen Hindernissen, zum anderen in Richtung des Vortriebs durch mehrere Stahlhindernisse.
 Die zwei Messtrecken werden in Abbildung \ref{fig:rangeblue} skizziert.
@@ -62,7 +62,7 @@ Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebr
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.\\
 Die bestimmten Reichweiten werden in zwei Meter Schritten angegeben, da sie mit Hilfe der zwei Meter breiten \emph{Tübbinge} bestimmt wurden.
 
-\subsection{Ergebnisse}
+\subsubsection{Ergebnisse}
 Tabelle \ref{table:rangeblue} zeigt die Ergebnisse für den nRF52.
 Für diesen sind keine Ergebnisse mit geschlossenem Gehäuse aufgeführt, denn das Gehäuse ließ sich für diesen Prototyp nicht schließen.
 Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
@@ -81,12 +81,12 @@ Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
 	\end{tabular}
 \end{table}
 
-\subsection{Bewertung}
+\subsubsection{Bewertung}
 Um mit 30km/h 32 Meter zu durchqueren benötigt man 3,8 Sekunden.
 Da jedoch eine hohe Erkennungssicherheit gefordert wurde, sollte das Sendeintervall niedriger gesetzt werden, es wird auf eine Sekunde gesetzt.
 Damit werden auch bei einer Reichweite von nur 14 Metern auf der Tunnelbohrmaschine ausreichend viele Pakete versenden um den Verlust einzelner zu kompensieren.
 
-\section{BLE-Advertising-Implementierung}
+\subsection{BLE-Advertising-Implementierung}
 \label{ch:phase3:sec:advertising}
 Die Bluetooth-Low-Energy-Implementierung ist an die Arbeit von Jianyong et al. angelehnt.
 Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising} Paket gesendet.\\
@@ -104,10 +104,10 @@ Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoreti
 
 
 
-\section{Untersuchung des Energieverbrauchs}
+\subsection{Untersuchung des Energieverbrauchs}
 Der Energieverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
 
-\subsection{Theoretische Energieverbrauchsabschätzung}
+\subsubsection{Theoretische Energieverbrauchsabschätzung}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
 Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein \emph{Advertising}-Paket, welches zusätzlich den Gerätenamen "{}TestTag"{} versendet, werden 24 Bytes (192 Bit) gesendet.
 Um die Kollisionsvermeidung einzufügen werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, der die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. 
@@ -119,7 +119,7 @@ $y = (1s-\frac{Bits\_gesendet}{1000000 b/s} - \frac{Bits\_empfangen}{1000000 b/s
 $y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
 $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 
-\subsection{Tatsächlicher Energieverbrauch von BLE}
+\subsubsection{Tatsächlicher Energieverbrauch von BLE}
 \label{ch:phase3:sec:powerble}
 Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth-Low-Energy-Advertising.\\
 Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.
