@@ -6,8 +6,8 @@ Die Basisstationen bestimmen des \emph{Received Signal Strength Indicator} (RSSI
 Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \subsection{nRF52832}
-Der nRF52832 ist eine System-on-Chip Lösung von Nordic Semiconductor.
-Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4GHz Transceiver, der Bluetooth 5.0 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
+Der nRF52832 ist eine \emph{System-on-Chip}-Lösung von Nordic Semiconductor.
+Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4 GHz Transceiver, der Bluetooth 5.0 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
 Für diese Arbeit wird ein Adafruit Feather nRF52 verwendet, der nRF52832 wird deshalb im Folgenden auf nRF52 abgekürzt.
 Das Adafruit Feather nRF52 besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. 
 Die verbaute CP2104 USB-to-Serial Schnittstelle erlaubt es, den Chip über USB zu programmieren.\\
@@ -23,7 +23,7 @@ Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-
 
 \begin{table}[h]
   \centering
-  \caption{Energieverbrauch des nRF52832 in verschiedenen Zuständen, aus \cite{nordic2017nrf}}
+  \caption{Stromverbrauch des nRF52832 in verschiedenen Zuständen, aus \cite{nordic2017nrf}}
 	\includegraphics[width=\textwidth]{images/nrf52consumption.png}
   \label{table:nrf52consumption}
 \end{table}
@@ -71,19 +71,19 @@ Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
 	\centering
 	\caption{Sendereichweite Bluetooth-basierter mobiler Einheiten}
 	\label{table:rangeblue}
-	\begin{tabular}{p{3.5cm}|p{3cm}|p{3.5cm}|p{3cm}}
-		Verwendetes Modul & Aufbau & Strecke & Maximale Sendereichweite \\
+	\begin{tabular}{p{2.5cm}|l|l|p{3cm}}
+		Hardware & Aufbau & Strecke & Maximale Sendereichweite \\
 		\hline
-		nRF52 & Offen & Wenige Hindernisse & 32m \\
-		nRF52 & In Gehäuse & Wenige Hindernisse & 32m \\
-		nRF52 & Offen & Viele Hindernisse & 14m \\
-		nRF52 & In Gehäuse & Viele Hindernisse & 14m \\
+		nRF52 Feather & Offen & Wenige Hindernisse & 32 m \\
+		nRF52 Feather & In Gehäuse & Wenige Hindernisse & 32 m \\
+		nRF52 Feather & Offen & Viele Hindernisse & 14 m \\
+		nRF52 Feather & In Gehäuse & Viele Hindernisse & 14 m \\
 	\end{tabular}
 \end{table}
 
 \subsubsection{Bewertung}
-Um mit 30km/h 32 Meter zu durchqueren benötigt man 3,8 Sekunden.
-Da jedoch eine hohe Erkennungssicherheit gefordert wurde, sollte das Sendeintervall niedriger gesetzt werden, es wird auf eine Sekunde gesetzt.
+Um mit 30 km/h 32 Meter zu durchqueren benötigt man 3,8 Sekunden.
+Da jedoch eine hohe Erkennungszuverlässigkeit gefordert wurde, sollte das Sendeintervall niedriger gesetzt werden, es wird auf eine Sekunde gesetzt.
 Damit werden auch bei einer Reichweite von nur 14 Metern auf der Tunnelbohrmaschine ausreichend viele Pakete versenden um den Verlust einzelner zu kompensieren.
 
 \subsection{BLE-Advertising-Implementierung}
@@ -93,7 +93,7 @@ Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising} Paket gesen
 In der Praxis wird dazu das \emph{Advertising}-Intervall entsprechend gesetzt, dabei handelt es sich um einen in Bluetooth 4.0 spezifizierten Parameter für die Häufigkeit des \emph{Advertisings}.
 Da die Bluefruit nRF52 API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
 Die entsprechende \emph{BLEAdvertising}-Klasse ist in \\\texttt{/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
-In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Energieverbrauch zu senken.
+In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Stromverbrauch zu senken.
 Beim nRF52 handelt es sich um ein Klasse 2 Bluetooth Gerät mit einer maximalen Sendeleistung bis 4 dBm.
 Das Sendeintervall wird etsprechend der Untersuchung der Reichweite und maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt, in dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen.\\
 Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker TM103 USB-Power-Meter vorgenommen werden.
@@ -104,10 +104,10 @@ Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoreti
 
 
 
-\subsection{Untersuchung des Energieverbrauchs}
-Der Energieverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
+\subsection{Untersuchung des Stromverbrauchs}
+Der Stromverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
 
-\subsubsection{Theoretische Energieverbrauchsabschätzung}
+\subsubsection{Theoretische Stromverbrauchsabschätzung}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
 Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein \emph{Advertising}-Paket, welches zusätzlich den Gerätenamen "{}TestTag"{} versendet, werden 24 Bytes (192 Bit) gesendet.
 Um die Kollisionsvermeidung einzufügen werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, der die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. 
@@ -119,7 +119,7 @@ $y = (1s-\frac{Bits\_gesendet}{1000000 b/s} - \frac{Bits\_empfangen}{1000000 b/s
 $y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$\\[0.5cm]
 $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 
-\subsubsection{Tatsächlicher Energieverbrauch von BLE}
+\subsubsection{Tatsächlicher Stromverbrauch von BLE}
 \label{ch:phase3:sec:powerble}
 Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth-Low-Energy-Advertising.\\
 Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.
@@ -128,7 +128,7 @@ Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, 
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/blue.png}
-  \caption{Lastkurve einer Implementierung von Bluetooth-Low-Energy-Advertising.}
+  \caption{Stromverbrauchskurve einer Implementierung von Bluetooth-Low-Energy-Advertising.}
   \label{fig:blue}
 \end{figure}
 
@@ -138,7 +138,7 @@ Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen p
 
 \begin{table}[h!]
 	\centering
-	\caption{Energieverbrauch mobiler Einheiten mit Bluetooth-Low-Energy-Advertising}
+	\caption{Stromverbrauch mobiler Einheiten mit Bluetooth-Low-Energy-Advertising}
 	\label{table:blueina}
 	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
@@ -147,9 +147,4 @@ Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen p
 		nRF52 (projeziert) & Bluetooth Low Energy Advertising & 0,32 & 4375\\
 	\end{tabular}
 \end{table}
-
-
-
-
-
 

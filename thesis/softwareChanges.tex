@@ -16,9 +16,9 @@ Tabelle \ref{table:radarconsumption} zeigt den mit dem TM103 gemessenen Verbrauc
 
 \begin{table}[h]
 	\centering
-	\caption{Energieverbrauch RADAR-artiger mobiler Einheiten}
+	\caption{Stromverbrauch RADAR-artiger mobiler Einheiten}
 	\label{table:radarconsumption}
-	\begin{tabular}{p{3cm}|p{2.2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}}
+	\begin{tabular}{l|p{2.2cm}|p{1.5cm}|p{2cm}|p{2cm}|p{2cm}}
 		SDK & manueller \texttt{light\_sleep} & Sende"-intervall in s & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
 		\hline
 		Arduino Core & Nein & 0,25 & 2 & 80 & 40 \\
@@ -32,23 +32,23 @@ Tabelle \ref{table:radarconsumption} zeigt den mit dem TM103 gemessenen Verbrauc
 	\end{tabular}
 \end{table}
 
-Der Energieverbrauch einer Lösung die vier Pakete pro Sekunde sendet ist wie erwartet hoch.
-Die Implementierungen mit der ESP Open SDK und manuellem \texttt{light\_sleep} unterscheiden sich ausschließlich im Sendeintervall, dies verändert den Energieverbrauch jedoch stark.
+Der Stromverbrauch einer Lösung die vier Pakete pro Sekunde sendet ist wie erwartet hoch.
+Die Implementierungen mit der ESP Open SDK und manuellem \texttt{light\_sleep} unterscheiden sich ausschließlich im Sendeintervall, dies verändert den Stromverbrauch jedoch stark.
 Die in Abschnitt \ref{ch:phase1:sec:anpassungbereich} besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die \emph{RADAR}-Implementierung verwendet werden, das \emph{RADAR}-artige mobile Einheit ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem der mobilen Einheiten für Bereichsortung.
-Der Energieverbrauch sollte sich somit kaum unterscheiden und ein System mit \emph{RADAR}-artigen mobilen Einheiten benötigt Veränderungen der Software der APs, ein System mit mobilen Einheiten für Bereichsortung ist deshalb vorzuziehen. 
+Der Stromverbrauch sollte sich somit kaum unterscheiden und ein System mit \emph{RADAR}-artigen mobilen Einheiten benötigt Veränderungen der Software der APs, ein System mit mobilen Einheiten für Bereichsortung ist deshalb vorzuziehen. 
 Die Implementierung in C mit einem Sendeintervall von fünf Sekunden wird in Abschnitt \ref{ch:phase2:sec:powerradar} genauer untersucht.
 
-\subsection{Anpassungen für Bereichsortung}
+\subsection{Probe-Request-Lokalisierung}
 \label{ch:phase2:sec:anpassungbereich}
 \emph{RADAR} versendet immer noch UDP-Pakete und arbeitet damit auf Schicht vier (Transport) des OSI-Modells und muss im Netzwerk authentifiziert und mit einem Access Point assoziiert sein.
 Das ist für eine direkte Fernlokalisierung aber nicht notwendig, der RSSI wird auf Schicht eins (PHY) gemessen.
 Grundsätzlich kann aufgrund der möglichen Änderungen am AP ein beliebiges Paket mit einer speziellen Kennung versendet und vom AP als Positionsmitteilung der mobilen Einheit erkannt werden. \\
-Ein Sendevorgang, der nur Schicht eins nutzt hat einen geringeren Energieverbrauch, da er nur senden und nie empfangen muss.
+Ein Sendevorgang, der nur Schicht eins nutzt hat einen geringeren Stromverbrauch, da er nur senden und nie empfangen muss.
 Ein solcher Sendevorgang könnte aber die Funktion des Netzwerks beeinträchtigen und stellt nicht sicher, dass die eigene Übertragung nicht durch andere Übertragungen gestört wurde.
 Außerdem ist Schicht eins oft nicht vom Entwickler zugreifbar, es sollte deshalb nicht auf Schicht eins gearbeitet werden.\\
 Stattdessen sollte Schicht zwei (MAC) des OSI-Modells verwendet werden. 
 Da 802.11 für den Mediumszugriff eine Kollisionsvermeidung (CSMA/CA) verwendet wird, muss die mobile Einheit vor dem Senden das Medium belauschen, um zu bestimmen ob es belegt ist.
-Der Energieverbrauch ist somit pro Sendevorgang höher als bei einer Lösung auf Schicht eins, stellt dafür aber die Verfügbarkeit des Mediums (der Frequenz) für die übrigen Teilnehmer sicher. \\
+Der Stromverbrauch ist somit pro Sendevorgang höher als bei einer Lösung auf Schicht eins, stellt dafür aber die Verfügbarkeit des Mediums (der Frequenz) für die übrigen Teilnehmer sicher. \\
 Um die Änderungen an der Software des AP gering zu halten wurde der \emph{Probe Request} als zu sendender Frame gewählt.
 Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management}) der für den, in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen, \emph{Scan}-Vorgang verwendet wird.
 Der \emph{Probe Request} hat dabei den Vorteil, dass er bereits vom AP verarbeitet und mit einer \emph{Probe Response} beantwortet wird. \\
@@ -90,12 +90,12 @@ Dieser schaltet den ESP8266 und seinen Speicher fast vollständig ab, nach Ablau
 Damit der ESP wieder aufwacht muss \emph{Pin 16} mit dem \emph{Reset Pin} (RST) verbunden werden, bei einem Reset initialisiert der ESP8266 neu.
 Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass die mobile Einheit versucht dem Netztwerk erneut beizutreten. 
 Hingegen kann bei einer Lösung auf Schicht zwei sofort gesendet und danach wieder geschlafen werden.\\
-Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementierungen jeweils mit manuell herbeigeführtem Schlafzustand, das Sendeintervall liegt bei konstant fünf Sekunden.
+Tabelle \ref{table:probeconsumption} zeigt den Stromverbrauch der Implementierungen jeweils mit manuell herbeigeführtem Schlafzustand, das Sendeintervall liegt bei konstant fünf Sekunden.
 \begin{table}[h]
 	\centering
-	\caption{Energieverbrauch mobilen Einheiten mit Probe Request}
+	\caption{Stromverbrauch mobilen Einheiten mit Probe Request}
 	\label{table:probeconsumption}
-	\begin{tabular}{p{3cm}|p{2.4cm}|p{2cm}|p{2cm}|p{2cm}}
+	\begin{tabular}{l|p{2.5cm}|p{2cm}|p{2cm}|p{2.5cm}}
 		SDK & manueller Schlafzustand  & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
 		\hline
 		Arduino Core & Ohne & 2 & 81 & 40,5 \\
@@ -111,7 +111,7 @@ Tabelle \ref{table:probeconsumption} zeigt den Energieverbrauch der Implementier
 
 Zu erkennen ist, dass die Verwendung des \texttt{deep\_sleep} zu einem geringeren Verbrauch führt. 
 Allerdings benötigt die mit dem Arduino Core programmierte mobile Einheit im Vergleich zu der mit der ESP Open SDK programmierten Einheit deutlich länger zum Starten.
-Sie verbraucht deshalb sogar mehr Energie als die mobilen Einheiten für Bereichsortung aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Energie als diese.
+Sie verbraucht deshalb sogar mehr Strom als die mobilen Einheiten für Bereichsortung aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Strom als diese.
 Hinzu kommt, dass sich der Verbrauch dieser mobilen Einheiten nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
 Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten Laufzeiten zu erreichen, werden in Abschnitt \ref{ch:Beschleunigungssensor:sec:Abschaltautomatik} weitere Verbesserungen besprochen.
 Die Implementierung in C mit \texttt{deep\_sleep} wird in Abschnitt \ref{ch:phase2:sec:powerprobereq} genauer untersucht.
@@ -119,16 +119,16 @@ Die Implementierung in C mit \texttt{deep\_sleep} wird in Abschnitt \ref{ch:phas
 \subsubsection{Anzahl der verwendeten Kanäle}
 Eine Lösung die nicht vor dem Versenden das Spektrum nach den Access Points durchsucht muss entweder auf der Annahme beruhen, dass alle Access Points auf einem Kanal agieren oder in allen in Frage kommenden Kanälen senden.\\
 Je nach Erweiterung der 802.11 Spezifiktion ergeben sich unterschiedlich viele solcher Kanäle.
-802.11b verwendet eine Kanalbreite von 22MHz, es stehen daher effektiv nur drei Kanäle zur Verfügung: 1, 7 und 13 in Europa beziehungsweise 1, 6 und 11 in Nordamerika.
-Für 802.11g/n mit 20MHz Kanalbreite sind zwar in Europa theoretisch vier Kanäle verfügbar (1,5,9,13), es werden aber in der Paxis meist dieselben Kanäle wie bei 802.11b verwendet um die Kompatibilität zu 802.11b zu gewährleisten.
+802.11b verwendet eine Kanalbreite von 22 MHz, es stehen daher effektiv nur drei Kanäle zur Verfügung: 1, 7 und 13 in Europa beziehungsweise 1, 6 und 11 in Nordamerika.
+Für 802.11g/n mit 20 MHz Kanalbreite sind zwar in Europa theoretisch vier Kanäle verfügbar (1,5,9,13), es werden aber in der Paxis meist dieselben Kanäle wie bei 802.11b verwendet um die Kompatibilität zu 802.11b zu gewährleisten.
 802.11n ist auch für eine Kanalbreite von 40 MHz spezifiziert, hier stehen effektiv nur noch 2 Kanäle zur Verfügung üblicherweise werden Kanal 3 und 11 gewählt.\\
 Die Implementierung in C mit \texttt{deep\_sleep} wurde sowohl auf einem, als auch auf drei Kanälen getestet.
 Dabei ergab sich in 24 Stunden kein messbarer Unterschied.
-Es sollte daher auf eine Festlegung des Kanals verzichtet werden, weil diese die reguläre Funktionsweise des WLAN Netzwerks beeinträchtigen könnte.
+Es sollte daher auf eine Festlegung des Kanals verzichtet werden, weil diese die reguläre Funktionsweise des WLAN-Netzwerks beeinträchtigen könnte.
 
 
-\subsection{Untersuchung des Energieverbrauchs}
-Erneut soll der Energieverbrauch mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
+\subsection{Untersuchung des Stromverbrauchs}
+Erneut soll der Stromverbrauch mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
 
 
 \subsubsection{RADAR}
@@ -139,7 +139,7 @@ Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es we
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/radar5s.png}
-  \caption{Lastkurve einer Implementierung von \emph{RADAR}.}
+  \caption{Stromverbrauchskurve einer Implementierung von \emph{RADAR}.}
   \label{fig:radar5s}
 \end{figure}
 
@@ -149,7 +149,7 @@ Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/radar5ssend.png}
-  \caption{Lastkurve eines Ortungsvorgangs mit RADAR.}
+  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit RADAR.}
   \label{fig:radar5ssend}
 \end{figure}
 
@@ -158,9 +158,9 @@ Es wurde sowohl mit dem ESP8266 Feather, als auch mit dem einzelnen ESP-12F geme
 
 \begin{table}[h!]
 	\centering
-	\caption{Energieverbrauch mobiler Einheiten mit \emph{RADAR}-Implementierung}
+	\caption{Stromverbrauch mobiler Einheiten mit \emph{RADAR}-Implementierung}
 	\label{table:radarina}
-	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
+	\begin{tabular}{l|l|p{2.5cm}|p{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
 		ESP8266 Feather & RADAR & 16,7 & 83,8\\
@@ -179,14 +179,14 @@ Bei dem ESP-12F Modul ist der INA219 nicht in der Lage einen Vebrauch zu messen,
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/probereqfull.png}
-  \caption{Lastkurve einer Implementierung mit Probe Requests.}
+  \caption{Stromverbrauchskurve einer Implementierung mit Probe Requests.}
   \label{fig:probereqfull}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/probereqv.png}
-  \caption{Lastkurve eines Ortungsvorgangs mit Probe Requests.}
+  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit Probe Requests.}
   \label{fig:probereqv}
 \end{figure}
 
@@ -195,9 +195,9 @@ Es wurde sowohl mit nur einem versendeten Probe Request, als auch mit drei Probe
 
 \begin{table}[h!]
 	\centering
-	\caption{Energieverbrauch mobiler Einheiten mit Probe Request Ortung}
+	\caption{Stromverbrauch mobiler Einheiten mit Probe Request Ortung}
 	\label{table:probereqina}
-	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
+	\begin{tabular}{l|l|p{2.5cm}|p{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
 		ESP8266 Feather & Probe Request drei Kanäle & 9,72 & 144\\
@@ -209,7 +209,7 @@ Es wurde sowohl mit nur einem versendeten Probe Request, als auch mit drei Probe
 
 \subsection{Beschleunigungssensor}
 \label{ch:Beschleunigungssensor}
-Um den Energieverbrauch der \emph{Probe-Request}-basierten Lösung weiter zu senken wird in diesem Abschnitt die Einbindung eines Beschleunigungssensors, in Anlehnung an die kommerzielle Lösung von Ekahau, diskutiert. \\
+Um den Stromverbrauch der \emph{Probe-Request}-basierten Lösung weiter zu senken wird in diesem Abschnitt die Einbindung eines Beschleunigungssensors, in Anlehnung an die kommerzielle Lösung von Ekahau, diskutiert. \\
 Im Tunnel Rastatt, in dem auch die Versuche stattfanden, arbeiten die Bauarbeiter in zwei Schichten zu je zwölf Stunden. 
 Nach zehn Tagen Schicht hat ein Arbeiter fünf Tage frei, jeder Arbeiter arbeitet also genau ein Drittel der Gesamtzeit. \\
 Die mobile Einheit behält jedoch derzeit seinen Senderythmus bei, angesichts des hohen Stromverbrauchs beim Senden ist dies ineffizient.

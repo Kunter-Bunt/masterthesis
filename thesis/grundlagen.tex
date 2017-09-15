@@ -9,7 +9,7 @@ Außerdem wird zwischen zweidimensionaler und dreidimensionaler Lokalisierung un
 
 \subsection{Funkprotokoll-Standards}
 Prinzipiell lassen sich verwendete Frequenzen, Modulationsverfahren und Sendeleistung frei wählen, solange die gesetzlichen Vorgaben für die Sender eingehalten werden. Wenn ein eigenes Protokoll verwendet wird, kann die Kodierung der Informationen frei gewählt werden. 
-Ein Beispiel für ein solches Protokoll ist die Ortung mit Ultra-Breitband Signalen (UWB), mit dem Genauigkeiten im Zentimeterbereich erreicht werden können. Bestehende Protokolle zu verwenden hat dagegen den Vorteil, dass üblicherweise \emph{commodity-of-the-shelf} Komponenten verwendet werden können, was die Kosten des Systems senkt. Im Gegenzug können für die Genauigkeit wichtige Parameter nicht mehr frei gewählt werden und der \emph{Overhead} des Protokolls muss übernommen werden. Beispiele für solche Protokolle sind IEEE 802.11 (WLAN), Bluetooth und Radio Frequency Identification (RFID).
+Ein Beispiel für ein solches Protokoll ist die Ortung mit Ultra-Breitband-Signalen (UWB), mit dem Genauigkeiten im Zentimeterbereich erreicht werden können. Bestehende Protokolle zu verwenden hat dagegen den Vorteil, dass üblicherweise \emph{commodity-of-the-shelf}-Komponenten verwendet werden können, was die Kosten des Systems senkt. Im Gegenzug können für die Genauigkeit wichtige Parameter nicht mehr frei gewählt werden und der \emph{Overhead} des Protokolls muss in Kauf genommen werden. Beispiele für solche Protokolle sind IEEE 802.11 (WLAN), Bluetooth und Radio Frequency Identification (RFID).
 
 \subsection{Topologie}
 Die Topologie hat zwei Dimensionen, Fernlokalisierung versus Selbstlokalisierung und direkt versus indirekt und beschreibt wie Basisstationen und mobile Einheiten zusammenwirken. 
@@ -19,10 +19,13 @@ Alle besprochenen Topologien sind in Abbildung \ref{fig:topo} veranschaulicht, g
 Bei der direkten Fernlokalisierung werden von mobilen Einheiten gesendete Signale an Basisstationen gemessen und die Ergebnisse an einen zentralen Ortungsdienst weitergegeben, dieser führt dann die Lokalisierung durch. Das Ergebnis der Lokalisierung ist nur zentral verfügbar. \\
 
 \subsubsection{Direkte Selbstlokalisierung} 
-Bei der direkten Selbstlokalisierung senden hingegen die Basisstationen und die mobilen Einheiten messen die eingehenden Signale. Anhand der Messergebnisse bestimmt jede mobile Einheit seine Position, die Ergebnisse der Lokalisierung sind anschließend nur auf der mobilen Einheit verfügbar. \\
+Bei der direkten Selbstlokalisierung senden hingegen die Basisstationen und die mobilen Einheiten messen die eingehenden Signale. Anhand der Messergebnisse bestimmt jede mobile Einheit seine Position. 
+Die Ergebnisse der Lokalisierung sind anschließend nur auf der mobilen Einheit verfügbar. \\
 
 \subsubsection{Indirekte Fernlokalisierung} 
-Die indirekte Fernlokalisierung gleicht der direkten Selbstlokalisierung, allerdings besteht zusätzlich eine Datenverbindung zu einem zentralen Ortungsdienstes, dem die berechnete Position mitgeteilt wird. Das Ergebnis steht nach kurzer Verzögerung sowohl auf der mobilen Einheit als auch zentral zur Verfügung, optional können dort die Daten von anderen mobilen Einheiten abgerufen werden um sich über deren Positionen zu informieren. \\
+Die indirekte Fernlokalisierung gleicht der direkten Selbstlokalisierung, allerdings besteht zusätzlich eine Datenverbindung zu einem zentralen Ortungsdienstes, dem die berechnete Position mitgeteilt wird. 
+Das Ergebnis steht nach kurzer Verzögerung sowohl auf der mobilen Einheit als auch zentral zur Verfügung.
+Optional können dort die Daten von anderen mobilen Einheiten abgerufen werden um sich über deren Positionen zu informieren. \\
 
 \subsubsection{Indirekte Selbstlokalisierung} 
 Auch die indirekte Selbstlokalisierung erweitert die direkte Fernlokalisierung um eine Datenverbindung zwischen mobiler Einheit und zentralem Ortungsdienst. 
@@ -32,11 +35,11 @@ Dies kann insbesondere bei der Verwendung von Mischtechnologien notwendig sein, 
 \subsubsection{Lokalisierung ohne Basisstationen} 
 Die mobilen Einheiten können sich auch gegenseitig lokalisieren, dazu messen sie die Distanz zu anderen mobilen Einheiten.
 Sie können diese Ergebnisse dann wiederum anderen mobilen Stationen mitteilen um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
-Dadurch ensteht eine maßstabslose Karte, die die realtive Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
+Dadurch ensteht eine maßstabslose Karte, die die relative Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
 Diese kann zusätzlich an einen zentralen Ortungsdienst versendet werden um sie dort verfügbar zu machen.
 
-\subsubsection{Hybride Topoligie}
-In einer hybriden Toplogie orten sich die mobilen Einheiten gegenseitig, werden dabei aber von wenigen Basisstationen unterstützt.
+\subsubsection{Hybride Topologie}
+In einer hybriden Topologie orten sich die mobilen Einheiten gegenseitig, werden dabei aber von wenigen Basisstationen unterstützt.
 Diese Basisstationen geben ihre feste Position bekannt, dadurch ist es möglich der enstehenden Karte Punkte für die Ausrichtung und Skalierung hinzuzufügen.
 Außerdem können sie mit dem zentralen Ortungsdienst kommunizieren um eine indirekte Fernlokalisierung mittels der durch die mobilen Einheiten propagierten Karten eine indirekte Fernlokaliserung durchzuführen.
 
@@ -56,23 +59,26 @@ Außerdem können sie mit dem zentralen Ortungsdienst kommunizieren um eine indi
 \end{figure}
 
 \subsection{Lokalisierungsprinzip}
-Das einfachste Lokalisierungsprinzip ist das Umgebungsprinzip, hier wird eine mobile Einheit der Basisstation mit dem stärksten Signal zugeordnet, die Basisstation kann sowohl als Sender als auch als Empfänger auftreten. Die gewonnene Position ist dabei nur symbolisch und ihre Genauigkeit ist abhängig von der Dichte des Netzes. Für eine erfolgreiche Lokalisierung muss nur eine Basisstation in Reichweite der mobilen Einheit sein, was diese Möglichkeit auch in komplexeren Lokalisierungsprinzipien zu einer sinnvollen Ausweichmöglichkeit macht, falls nicht genügend Basisstationen in Reichweite sind. \\
+Das einfachste Lokalisierungsprinzip ist das Umgebungsprinzip, hier wird eine mobile Einheit der Basisstation mit dem stärksten Signal zugeordnet. 
+Die Basisstation kann sowohl als Sender als auch als Empfänger auftreten. 
+Die gewonnene Position ist dabei nur symbolisch und ihre Genauigkeit ist abhängig von der Dichte des Netzes. 
+Für eine erfolgreiche Lokalisierung muss nur eine Basisstation in Reichweite der mobilen Einheit sein, was diese Möglichkeit auch in komplexeren Lokalisierungsprinzipien zu einer sinnvollen Ausweichmöglichkeit macht, falls nicht genügend Basisstationen in Reichweite sind. \\
 Die geometrische Bestimmung der Position einer mobilen Einheit mit drei oder mehr Basisstationen nennt man Trilateration. Dabei wird üblicherweise für jede Basisstation die Distanz zur mobilen Einheit bestimmt, anschließend wird ein Kreis mit der gemessenen Distanz um jede Basisstation gebildet und der Schnittpunkt der drei Kreise bestimmt die Position der mobilen Einheit. Da die Distanzen aus den gemessenen Signalparametern geschätzt werden müssen sind sie fehlerbehaftet und es ergibt sich oft kein eindeutiger Schnittpunkt, dann wird zum Beispiel die Mitte der Schnittpunkte gewählt. \\
 Die geometrische Bestimmung ist ebenfalls über die Berechnung der Winkel zu den Basisstationen möglich, dies nennt man Triangulation. Der Winkel kann zum Beispiel über die zeitliche Differenz der ankommenden Signale an den synchronisierten Basisstationen bestimmt werden, dann wird von jeder Basisstation aus eine Halbgerade in diesem Winkel gefällt und der Schnittpunkt bestimmt die Position der mobilen Einheit. %TODO fällen?
 Wenn mit gerichteten Antennen gearbeitet wird, kann der Winkel des eingehenden Signals direkt bestimmt werden, dann müssen nur zwei Basisstationen in Reichweite sein um die mobile Einheit zu lokalisieren. \\
-Das aufwendigste Lokalisierungsprinzip ist die Szenenanalyse. Hier werden zunächst in einer \emph{Offline-Phase} Vektoren $(m_1,m_2,...,m_n,p_x,p_y,p_z)^T$ aus Messgrößen und Positionsmarken gesammelt, anhand dieser Fingerabdrücke werden dann in der Online-Phase die Positionen neuer Messergebnisse bestimmt. Üblicherweise kommen dabei Verfahren des maschinellen Lernens wie \emph{k-nearest-neighbour}, \emph{neuronale Netze} oder \emph{Support Vektor Machines} (SVM) zum Einsatz um die Muster der Fingerabdrücke aus der \emph{Offline-Phase} zu erkennen und die Positionen $(p_x,p_y,p_z)^T$ in der \emph{Online-Phase} aus den gemessenen Größen $(m_1,m_2,...,m_n)^T$ zu schätzen. Im zweidimensionalen Fall wird dabei $p_z = 0$ angenommen.
+Das aufwendigste Lokalisierungsprinzip ist die Szenenanalyse. Hier werden zunächst in einer \emph{Offline-Phase} Vektoren $(m_1,m_2,...,m_n,p_x,p_y,p_z)^T$ aus Messgrößen und Positionsmarken gesammelt, anhand dieser Fingerabdrücke werden dann in der Online-Phase die Positionen neuer Messergebnisse bestimmt. Üblicherweise kommen dabei Verfahren des maschinellen Lernens wie \emph{k-Nearest-Neighbour}, \emph{Neuronale Netze} oder \emph{Support Vektor Machines} (SVM) zum Einsatz um die Muster der Fingerabdrücke aus der \emph{Offline-Phase} zu erkennen und die Positionen $(p_x,p_y,p_z)^T$ in der \emph{Online-Phase} aus den gemessenen Größen $(m_1,m_2,...,m_n)^T$ zu schätzen. Im zweidimensionalen Fall wird dabei $p_z = 0$ angenommen.
 
 \subsection{Messgrößen}
 Beliebte Messgrößen für die Positionsbestimmung sind Ankunftszeit des Signals (\emph{Time of Arrival}, TOA), die Differenz der Ankuftszeiten (\emph{Time Difference of Arrival}, TDOA), die Paketumlaufzeit (\emph{Roundtrip Time of Flight}, RTOF) und die Stärke des empfangenen Signals (\emph{Received Signal Strength}, RSS). Es existieren aber noch mehr messbare Größen, wie etwa die Messung der empfangenen Phase des Signals (\emph{Received Signal Phase}, RSP) und die Messung des Einfallsswinkel des Signals mit mehreren gerichteten Antennen (\emph{Angle of Arrival}, AOA). \\
 
 \subsubsection{Time of Arrival}
-TOA beruht auf der begrenzten Ausbreitungsgeschwindigkeit des Signals, hochfrequente Signale breiten sich mit Lichtgeschwindigkeit $c = 299.792.458\ m/s$, Ultraschall mit Schallgeschwindigkeit $c \approx 343\ m/s$ bei $20^{\ \circ}C$ aus, damit ergibt sich die Distanz $d_i = c\ *\ (t_{empfangen,i} - t_{gesendet})$ mit $i$ sei die empfangende Basisstation. Die Position der mobilen Einheit kann dann mit der Methode der kleinsten Quadrate bestimmt werden, dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i f^2_i(x,y,t_{gesendet})$ mit $f_i(x,y,t_{gesendet}) = d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2}$ und ${\alpha}_i$ sei die Konfidenz von Basisstation $i$, minimiert. Dies erfordert, dass die Basisstationen zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird um Varianzen zu vermeiden. Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss, da $t_{gesendet}$ dann entsprechend der Synchronisation und dem Sendeintervall als gegeben angenommen werden kann. Die Forderung nach Synchronität ist jedoch für $c = 299.792.458\ m/s$ sehr stark, da das Signal nur $3.36\ ns/m$ benötigt und somit bereits kleine zeitliche Ungenauigkeiten große Fehler verursachen und erst durch zusätzliche Messungen oder Glättungstechniken hohe Genauigkeiten erreicht werden können. Skibniewski et al. konnten hohe Genauigkeit durch die Verwendung von Ultraschall erzielen, da sich durch die geringere Ausbreitungsgeschwindigkeit Imperfektionen in der Synchronisierung weniger stark auswirken \cite{skibniewski2009simulation}. 
+TOA beruht auf der begrenzten Ausbreitungsgeschwindigkeit des Signals, hochfrequente Signale breiten sich mit Lichtgeschwindigkeit $c = 299.792.458\ m/s$, Ultraschall mit Schallgeschwindigkeit $c \approx 343\ m/s$ bei $20^{\ \circ}C$ aus, damit ergibt sich die Distanz $d_i = c\ *\ (t_{empfangen,i} - t_{gesendet})$ mit $i$ sei die empfangende Basisstation. Die Position der mobilen Einheit kann dann mit der Methode der kleinsten Quadrate bestimmt werden, dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i f^2_i(x,y,t_{gesendet})$ mit $f_i(x,y,t_{gesendet}) = d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2}$ und ${\alpha}_i$ sei die Konfidenz von Basisstation $i$, minimiert. Dies erfordert, dass die Basisstationen zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird, um Varianzen zu vermeiden. Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss, $t_{gesendet}$ kann dann entsprechend der Synchronisation und dem Sendeintervall als gegeben angenommen werden. Die Forderung nach Synchronität ist jedoch für $c = 299.792.458\ m/s$ sehr stark, da das Signal nur $3.36\ ns/m$ benötigt und somit bereits kleine zeitliche Ungenauigkeiten große Fehler verursachen und erst durch zusätzliche Messungen oder Glättungstechniken hohe Genauigkeiten erreicht werden können. Skibniewski et al. konnten hohe Genauigkeit durch die Verwendung von Ultraschall erzielen, da sich durch die geringere Ausbreitungsgeschwindigkeit Imperfektionen in der Synchronisierung weniger stark auswirken \cite{skibniewski2009simulation}. 
 Bei einer Selbstlokalisierung ist zu beachten, dass $t_{gesendet}$ den Sendezeitpunkt der Basisstationen darstellt, sie müssen also entweder alle gleichzeitig auf verschiedenen Frequenzen oder in einem vordefinierten Muster nacheinander senden, die Zeitdifferenz des tatsächlichen Sendezeitpunkts zu $t_{gesendet}$ muss dann vom Empfangszeitpunkt $t_{empfangen,i}$ abgezogen werden. \\
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=0.5\textwidth]{images/tdoa.png}
-  \caption{Positionsbestimmung mit der Differenz der Ankunftszeiten (TDOA), aus \cite{liu2007survey}.}
+  \caption{Positionsbestimmung mit der Differenz der Ankunftszeiten (TDOA), aus \cite{liu2007survey}. A, B und C sind die Basisstationen, die Distanzen $R_x$ werden für die Bestimmung der Position P der mobilen Einheit berechnet.}
   \label{fig:tdoa}
 \end{figure}
 
@@ -87,10 +93,10 @@ Dabei wird ein Datenpaket an die mobile Station gesendet und von dieser mit eine
 
 
 \subsubsection{Roundtrip Time of Flight}
-Wird RTOF gemessen muss die mobile Einheit sowohl senden als auch empfangen können. Dabei wird die Zeit vom Aussenden eines Paketes bis zur Ankunft der Antwort gemessen, wichtig sind hier zum einen möglichst spät/früh gesetzten Zeitstempel beim Senden/Empfangen des Signals und eine sehr konstante Verarbeitungszeit des Kommunikationspartners. Zunächst muss dabei die Verarbeitungszeit gemessen werden, indem Basisstation und mobile Einheit auf einen Abstand von 0 Metern gebracht werden, anschließend kann die Entfernung $d = c\ *\ (t_{empfangen} - t_{gesendet} - t_{Verarbeitung})$ bestimmt werden. Die Position wird dann analog zu TOA bestimmt. Diese Messgröße kann sowohl für die Fern- als auch für die Selbstlokalisierung verwendet werden, ist aber sehr anfällig gegenüber Schwankungen in der Verarbeitungszeit, die bei Protokollen wie IEEE 802.11 häufig auftreten. \\
+Wird RTOF gemessen muss die mobile Einheit sowohl senden als auch empfangen können. Dabei wird die Zeit vom Aussenden eines Paketes bis zur Ankunft der Antwort gemessen, wichtig sind hier zum einen möglichst spät/früh gesetzten Zeitstempel beim Senden/Empfangen des Signals und eine konstante Verarbeitungszeit des Kommunikationspartners. Zunächst muss dabei die Verarbeitungszeit gemessen werden, indem Basisstation und mobile Einheit auf einen Abstand von 0 Metern gebracht werden, anschließend kann die Entfernung $d = c\ *\ (t_{empfangen} - t_{gesendet} - t_{Verarbeitung})$ bestimmt werden. Die Position wird dann analog zu TOA bestimmt. Diese Messgröße kann sowohl für die Fern- als auch für die Selbstlokalisierung verwendet werden, ist aber sehr anfällig gegenüber Schwankungen in der Verarbeitungszeit, die bei Protokollen wie IEEE 802.11 häufig auftreten. \\
 
 \subsubsection{Received Signal Strength}
-RSS überprüft wie stark das empfangene Signal aus dem allgemeinen Rauschen auf der verwendeten Frequenz hervor sticht. Dafür ist es wichtig, dass immer mit der selben Leistung gesendet wird, dann kann mit einem theoretisch oder empirisch ermittelten Ausbreitungsmodell die Entfernung zwischen mobiler Einheit und Basisstation anhand des Pfadverlustes bestimmt werden. Dann ist $d = F(S_{gesendet},S_{empfangen})$ mit $F$ sei das Ausbreitungsmodell. Um gute Ergebnisse zu erzielen sollten jeweils möglichst gleichförmige mobile Einheiten und Basisstationen verwendet werden, denn Lui et al. konnte für WLAN zeigen, dass unterschiedliche Hardware bei Basisstationen und mobiler Einheit erhebliche Varianz in den gemessenen RSS Werten erzeugt \cite{lui2011differences}. Zusätzliche Probleme entstehen, wenn Spezifikationen wie Bluetooth eine Anpassung der Sendeleistung vorsehen \cite{hossain2007comprehensive}, dann muss eine solche Anpassung eliminiert werden. 
+RSS überprüft wie stark das empfangene Signal aus dem allgemeinen Rauschen auf der verwendeten Frequenz hervor sticht. Dafür ist es wichtig, dass immer mit der selben Leistung gesendet wird, dann kann mit einem theoretisch oder empirisch ermittelten Ausbreitungsmodell die Entfernung zwischen mobiler Einheit und Basisstation anhand des Pfadverlustes bestimmt werden. Dann ist $d = F(S_{gesendet},S_{empfangen})$ mit $F$ als Ausbreitungsmodell. Um gute Ergebnisse zu erzielen sollten jeweils möglichst gleichförmige mobile Einheiten und Basisstationen verwendet werden, denn Lui et al. konnte für WLAN zeigen, dass unterschiedliche Hardware bei Basisstationen und mobiler Einheit erhebliche Varianz in den gemessenen RSS Werten erzeugt \cite{lui2011differences}. Zusätzliche Probleme entstehen, wenn Spezifikationen wie Bluetooth eine Anpassung der Sendeleistung vorsehen \cite{hossain2007comprehensive}, dann muss eine solche Anpassung umgangen werden. 
 Bei Bluetooth geschieht das durch die Verwendung von \emph{Inquiry Paketen}, diese dienen zur Entdeckung anderer Bluetooth-fähiger Geräte und werden immer mit voller Sendeleistung gesendet um möglichst alle Geräte in Reichweite zu erreichen.
 Ein weiteres Problem von RSS ist der starke Einfluss von Hindernissen und anderen  Signalen auf dem selben Frequenzband. Gerade bei der Ortung in Innenräumen wirken diese Einflüsse begrenzend auf die Genauigkeit und oft muss eine Kalibrierung durchgeführt werden um die Einflüsse von Wänden und anderen Hindernissen zu eliminieren.
 
@@ -111,13 +117,13 @@ IEEE 802.11 spezifiziert ebenfalls mehrere Operationen, die beispielsweise zur E
 
 \subsection{Scan}
 \label{ch:phase1:sec:scan}
-\emph{Scan} ist eine Operation zur Entdeckung von Access Points, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) passiv oder aktiv ausgeführt werden \cite{ieee2012scan}.
-Bei einem passiven \emph{Scan} empfängt die \emph{Station} und filtert die von Access Points regelmäßig gesendeten \emph{Beacons} heraus, diese gelten dann als entdeckt.
+\emph{Scan} ist eine Operation zur Entdeckung von APs, sie kann von einer Station (Endverbraucher, zum Beispiel Smartphone oder Laptop) passiv oder aktiv ausgeführt werden \cite{ieee2012scan}.
+Bei einem passiven \emph{Scan} empfängt die \emph{Station} und filtert die von APs regelmäßig gesendeten \emph{Beacons} heraus, diese gelten dann als entdeckt.
 Ein \emph{Beacon} ist ein \emph{Management Frame}, der dazu gedacht ist, technische Möglichkeiten des APs zu bewerben, zum Beispiel die möglichen Datenraten und Zeitstempel zur Synchronisierung.
 Versteckte APs senden keine \emph{Beacons}. \\
 Bei einem aktiven \emph{Scan} sendet die Station einen \emph{Probe Request} aus, dieser kann sowohl an alle APs (\emph{Broadcast}) als auch an einen speziellen AP adressiert sein.
 Ein \emph{Probe Request} bewirbt, ähnlich wie ein \emph{Beacon}, die technischen Möglichkeiten der Station.
-Der addressierte AP, beziehungsweise im Falle eines \emph{Broadcasts} alle APs, beantwortet den \emph{Probe Request} mit einer \emph{Probe Response}, in der er mitteilt welche der beworbenen Funktionen er ebenfalls unterstützt. 
+Der addressierte AP, beziehungsweise im Falle eines \emph{Broadcasts} alle APs, beantwortet den \emph{Probe Request} mit einer \emph{Probe Response}, in der er mitteilt, welche der beworbenen Funktionen er ebenfalls unterstützt. 
 Die Station schließt den Vorgang mit einem \emph{Acknowlegement} ab. \\
 Das 2,4 GHz ISM-Band wird in Europa in 13 je 10 MHz breite Kanäle aufgeteilt, da ein AP immer nur auf einem Kanal aktiv ist, müsste jeder Kanal gescannt werden.
 Praktisch werden jedoch breitere Kanäle verwendet. 
@@ -137,7 +143,7 @@ Aus den entdeckten APs kann nun einer ausgewählt werden, um seinem Netzwerk (BS
 Es kann zwar geschehen, dass mehrere APs eines Netzwerks entdeckt wurden, eine Station kann jedoch zu jedem Zeitpunkt nur mit einem AP assoziert sein. \\
 Um einem Netzwerk beizutreten muss sich die Station zunächst authentifizieren. 
 Dieser Vorgang wird über einen \emph{Authentication Frame} (siehe Tabelle \ref{table:management}) initiiert \cite{ieee2012auth}. 
-Das weitere Vorgehen hängt vom Authentifizierungsverfahren ab, zum Beispiel kann der AP einen verschlüsselten \emph{Challenge Text} an die Station senden, der mit einem aus dem Passwort erzeugten Schlüssel entschlüsselt wird und an den AP zurück gesendet werden kann. 
+Das weitere Vorgehen hängt vom Authentifizierungsverfahren ab, zum Beispiel kann der AP einen verschlüsselten \emph{Challenge Text} an die Station senden, der mit einem aus dem Passwort erzeugten Schlüssel verschlüsselt wird und an den AP zurück gesendet werden kann. 
 Ist die Antwort korrekt, bestätigt der AP den Vorgang mit einem \emph{Acknowledgement} und eventuell zusätzlichen Informationen für eine Stromchiffre. \\
 Anschließend kann die Station mit dem AP assoziiert werden \cite{ieee2012associate}. 
 Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die Station zuständig ist. 
@@ -145,7 +151,7 @@ Dies geschieht üblicherweise über das \emph{Address Resolution Protokoll} (ARP
 Ist eine Station assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen, um eine Webseite anzufordern.
 
 \subsection{Reassociation}
-Eine Reassoziation wird durchgeführt, wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
+Eine \emph{Reassoziation} wird durchgeführt, wenn die Station keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
 Um diesen neuen AP zu entdecken muss zunächst ein \emph{Scan} durchgeführt werden. \\
 Anschließend sendet die Station einen \emph{Reassociation Request} an den neuen AP. 
 Im \emph{Reassociation Request} wird der alte AP benannt, sodass der neue AP überprüfen kann, ob die Station tatsächlich mit ihm assoziert ist, gepufferte Pakete von ihm entgegennehmen und die Assoziation mit ihm auflösen kann.
@@ -156,7 +162,7 @@ Abschließend wird dem Netzwerk die neue Assoziation mittels ARP mitgeteilt.
 
 \section{Grundlagen der Bluetooth Spezifikation}
 Bluetooth beschreibt eine Form der Funkkommunikation über kurze Distanzen, die zunächst für Mobiltelefone entwickelt und dann auf weitere Geräteklassen übertragen wurde.
-Ursprünglich wurde die physische Schicht (PHY) und der Mediumszugriff (MAC) in der Spezifikation 802.15.1 definiert \cite{ieee2002blue}. 
+Ursprünglich wurde die physische Schicht (PHY) und der Mediumszugriff (MAC) in der Spezifikation IEEE 802.15.1 definiert \cite{ieee2002blue}. 
 Diese wird allerdings nicht mehr vom \emph{Institute of Electrical and Electronics Engineers} (IEEE) gepflegt. \\
 Bluetooth ist bereits in der Version 5.0 erschienen, da jedoch zum Zeitpunkt der Recherche für diese Arbeit kaum kompatible Geräte wird im Folgenden auf Bluetooth 4.0 Bezug genommen \cite{blue2010spec}.
 Bluetooth erlaubt es nach der Entdeckung eines Kommunikationspartners und anschließendem Aufbau einer Verbindung mit ihm im 2,4 GHz ISM-Band.
@@ -172,13 +178,13 @@ Bluetooth Geräte werden dazu in drei Klassen eingeteilt, siehe Tabelle \ref{tab
 
 Mit Bluetooth 4.0 wurde erstmals \emph{Bluetooth Low Energie} (BLE, auch Bluetooth Smart) vorgestellt.
 BLE wurde für niedrigen Energieverbrauch optimiert, es verzichtet auf den Verbindungsaufbau, um den Zeitabschnitt in dem das Gerät aktiv ist zu reduzieren.
-Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als Header um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate gegenüber Bluetooth deutlich \cite{rigado2016practical}. 
+Da aber Informationen, die üblicherweise während des Verbindungsaufbaus übertragen werden, nun als \emph{Header} um das Datenpaket gepackt werden müssen, sinkt die Bruttodatenrate gegenüber Bluetooth deutlich \cite{rigado2016practical}. 
 BLE eignet sich somit vor allem dann, wenn wenige oder selten Informationen ausgetauscht werden müssen.
 Im Folgenden werden die, für die Lokalisation wichtigen Operationen vorgestellt.
 Es handelt sich dabei jeweils um die Funktion des Entdeckens von Ressourcen mittels \emph{Inquiry Scan} für Bluetooth beziehungsweise mittels \emph{Advertising} für BLE.
 
 \subsection{Inquiry Scan}
-Eine Bluetooth Verbindung besitzt immer einen \emph{Master} und einen \emph{Slave} \cite{blue2010inquiry}.
+Eine Bluetooth-Verbindung besitzt immer einen \emph{Master} und einen \emph{Slave} \cite{blue2010inquiry}.
 Da es sich beim \emph{Inquiry Scan} um eine Operation zum Entdecken von Ressourcen handelt ist, sind die Rollen noch nicht festgelegt. 
 Die Spezifikation geht aber davon aus, dass der Sender der \emph{Inquiry Message} der \emph{Master} ist.
 Nachdem der \emph{Master} die \emph{Inquiry Message} versendet hat antwortet der \emph{Slave} nach 625 $\mu$s mit einer \emph{Inquiry Response}. 
@@ -196,31 +202,21 @@ Die Pakete sind entsprechend ihrer Inhaltsspezifikation benannt, \emph{ID} entsp
 
 \subsection{Advertising}
 Für das \emph{Advertising} stellt die Bluetooth Spezifikation drei über das Frequenzband verteilte Kanäle bereit \cite{blue2010channel}.
-Auf diesen können BLE Geräte \emph{Advertising Pakete} in einem unidrektionalen \emph{Broadcast} versenden.
-\emph{Advertising} Pakete dürfen auch Nutzdaten enthalten, diese können dann von anderen, scannenden BLE Geräten empfangen werden \cite{blue2010advertising}.
+Auf diesen können BLE-Geräte \emph{Advertising Pakete} in einem unidirektionalen \emph{Broadcast} versenden.
+\emph{Advertising} Pakete dürfen auch Nutzdaten enthalten, diese können dann von anderen, scannenden BLE-Geräten empfangen werden \cite{blue2010advertising}.
 Allerdings dürfen die Nutzdaten maximal eine Länge von 31 Byte aufweisen \cite{blue2010pdu}.
 Wurde zusätzlich im \emph{Advertising} Paket markiert, dass das Gerät verbindungsfähig ist, kann ein scannendes Gerät nach empfangen des \emph{Advertising} Paketes einen \emph{Scan Request} an das verbindungsfähige Gerät richten, um die Parameter für eine Verbindung auszuhandeln \cite{blue2010scanning}.
 
-\section{Grundlagen von LoRaWAN}
-Bei \emph{Long Range Wide Area Network} (LoRaWAN) handelt es sich um ein Netzwerkprotokoll, welches die proprietäre Modulationstechnick LoRa verwendet.
-Es ist für batteriebetriebene Endgeräte optimiert und wird von der LoRa Alliance spezifiziert \cite{lora2015spec}.
+\section{Grundlagen von LoRa}
+LoRa ist eine proprietäre Modulationstchnik und beschreibt somit eine physische Schicht.
+LoRa ist für hohe Reichweite optimiert, bietet aber auch eine variable Sendeleistung, um den Energieverbrauch zu reduzieren.
 LoRa beherrscht neben unterschiedlichen Frequenzen des ISM Bands, in Europa beispielsweise 433 und 868 MHz, auch eine adaptive Datenrate zwischen 0,3 und 50kbps.\\
+Um den Mediumszugriff zu regeln wird die MAC-Schicht von LoRaWAN verwendet \cite{lora2015spec}.
 LoRaWAN verwendet keine Kollisionsvermeidung, stattdessen dürfen Endgeräte zu jedem Zeitpunkt senden, solange sie dabei den Kanal zufällig wählen und die maximale Sendezeit beziehungsweise relative Frequenzbelegungsdauer nicht überschreiten.
 Maximale Sendezeit und relative Frequenzbelegungsdauer werden dabei durch die länderspezifischen Regulierungsbehörden festgelegt.\\
-LoRaWAN unterscheidet drei Geräteklassen.
-Klasse A Geräte halten nach dem Senden zwei kurze Empfangsfenster offen um eine Antwort des Kommunikationspartners zu empfangen, siehe dazu Abbildung \ref{fig:sendrecv}.
-Klasse B Geräte öffnen zusätzliche Empfangsfenster zu festgelegten Zeiten, diese werden durch \emph{Beacons} der \emph{Gateways} festgelegt.
-Klasse C Geräte empfangen immer wenn sie nicht senden. 
-Klasse C Geräte verbrauchen deshalb deutlich mehr Energie als Klasse A beziehungsweise B Geräte, haben dafür aber eine geringere Latenz bei Anfragen durch den Kommunikationspartner.\\
-Soll eine Verbindung nicht direkt zwischen zwei Kommunikationspartnern, sondern über ein \emph{Gateway} zustande kommen, muss diesem \emph{Gateway} zunächst beigetreten werden, danach können bestätige und unbestätigte Datenpakete über das \emph{Gateway} und ein dahinterliegendes Netzwerk ausgetauscht werden.
+LoRaWAN kann außerdem verwendet werden, wenn eine Verbindung nicht direkt zwischen zwei Kommunikationspartnern, sondern über ein \emph{Gateway} zustande kommen soll.
+Dann muss diesem \emph{Gateway} zunächst beigetreten werden, danach können bestätige und unbestätigte Datenpakete über das \emph{Gateway} und ein dahinterliegendes Netzwerk ausgetauscht werden.
 Tabelle \ref{table:mtype} zeigt die Nachrichtentypen von LoRaWAN.
-
-\begin{figure}[h]
-  \centering
-	\includegraphics[width=0.7\textwidth]{images/sendrecv.png}
-  \caption{Senden/Empfangen-Schema von Klasse A Geräten, aus \cite{lora2015spec}.}
-  \label{fig:sendrecv}
-\end{figure}
 
 \begin{table}[h]
   \centering
