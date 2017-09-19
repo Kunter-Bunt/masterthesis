@@ -8,16 +8,16 @@ Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einhe
 \subsection{nRF52832}
 Der nRF52832 ist eine \emph{System-on-Chip}-Lösung von Nordic Semiconductor.
 Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4 GHz Transceiver, der Bluetooth 5.0 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.\\
-Für diese Arbeit wird ein Adafruit Feather nRF52 verwendet, der nRF52832 wird deshalb im Folgenden auf nRF52 abgekürzt.
-Das Adafruit Feather nRF52 besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. 
+Für diese Arbeit wird ein Adafruit Feather \emph{nRF52} verwendet, der nRF52832 wird deshalb im Folgenden auf \emph{nRF52} abgekürzt.
+Das Adafruit Feather \emph{nRF52} besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. 
 Die verbaute CP2104 USB-to-Serial Schnittstelle erlaubt es, den Chip über USB zu programmieren.\\
 Abbildung \ref{fig:nrf52layout} zeigt das Adafruit Feather nRF52.
-Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-on-Chip an, diese sind in Tabelle \ref{table:nrf52consumption} aufgeführt.
+Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr \emph{System-on-Chip} an, diese sind in Tabelle \ref{table:nrf52consumption} aufgeführt.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/nrf52ada.png}
-  \caption{Adafruit nRF52 Feather. Bild von Adafruit Industries\protect \footnotemark.}
+  \caption{Adafruit \emph{nRF52} Feather. Bild von Adafruit Industries\protect \footnotemark.}
   \label{fig:nrf52layout}
 \end{figure}
 \footnotetext{\url{https://www.adafruit.com/product/3406}}
@@ -31,14 +31,14 @@ Auch Nordic Semiconductor gibt einige typische Stromverbräuche für ihr System-
 
 
 \subsubsection{Arduino Bluefruit nRF52 API}
-Der nRF52 kann ebenfalls mit der Arduino IDE programmiert werden.\\
+Der \emph{nRF52} kann ebenfalls mit der Arduino IDE programmiert werden.\\
 Dazu muss dieser zunächst das \emph{Board Support Package} hinzugefügt werden \cite{townsend2017nrf}.
 In den Einstellungen wird unter \textit{Additional Boards Manager URLs} die URL \url{https://www.adafruit.com/package_adafruit_index.json} hinzugefügt.
-Nach einem Neustart der Arduino IDE kann im \textit{Boards Manager} das Paket Adafruit nRF52 installiert werden.
+Nach einem Neustart der Arduino IDE kann im \textit{Boards Manager} das Paket Adafruit \emph{nRF52} installiert werden.
 Um das Board programmieren zu können wird zusätzlich das \textit{nrfutil} benötigt.
 Dieses liegt nach der Installation der Boards in \\\texttt{/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/tools/nrfutil-0.5.2} und muss mit \texttt{sudo pip install -r requirements.txt} und \texttt{sudo python setup.py install} installiert werden.
-Nachdem das Board in der IDE ausgewählt und über USB mit dem Computer verbunden wurde, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit Bluefruit nRF52 Feather} mit STRG+U auf den nRF52 geladen werden.\\
-Es wird die Bluefruit nRF52 API Version 0.6.0 verwendet.
+Nachdem das Board in der IDE ausgewählt und über USB mit dem Computer verbunden wurde, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit Bluefruit \emph{nRF52} Feather} mit STRG+U auf den \emph{nRF52} geladen werden.\\
+Es wird die Bluefruit \emph{nRF52} API Version 0.6.0 verwendet.
 
 
 
@@ -59,14 +59,13 @@ Die zwei Messtrecken werden in Abbildung \ref{fig:rangeblue} skizziert.
 \end{figure}
 
 Um die Abschirmung durch ein Gehäuse zu simulieren wurde eine stabile Plastikbox verwendet, leider konnte diese nicht vollends geschlossen werden.
-Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "außer Reichweite" angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
+Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "{}außer Reichweite"{} angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.\\
 Die bestimmten Reichweiten werden in zwei Meter Schritten angegeben, da sie mit Hilfe der zwei Meter breiten \emph{Tübbinge} bestimmt wurden.
 
 \subsubsection{Ergebnisse}
 Tabelle \ref{table:rangeblue} zeigt die Ergebnisse für den nRF52.
-Für diesen sind keine Ergebnisse mit geschlossenem Gehäuse aufgeführt, denn das Gehäuse ließ sich für diesen Prototyp nicht schließen.
-Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
+Das lose Auflegen des Gehäusedeckels führte zu keiner Veränderung bei der Reichweite.
 
 \begin{table}[h]
 	\centering
@@ -75,10 +74,10 @@ Das lose Auflegen des Deckels führte zu keiner Veränderung bei der Reichweite.
 	\begin{tabular}{l|l|l|p{3cm}}
 		Hardware & Aufbau & Strecke & Maximale Sendereichweite \\
 		\hline
-		nRF52 Feather & Offen & Wenige Hindernisse & 32 m \\
-		nRF52 Feather & In Gehäuse & Wenige Hindernisse & 32 m \\
-		nRF52 Feather & Offen & Viele Hindernisse & 14 m \\
-		nRF52 Feather & In Gehäuse & Viele Hindernisse & 14 m \\
+		\emph{nRF52} Feather & Offen & Wenige Hindernisse & 32 m \\
+		\emph{nRF52} Feather & In Gehäuse & Wenige Hindernisse & 32 m \\
+		\emph{nRF52} Feather & Offen & Viele Hindernisse & 14 m \\
+		\emph{nRF52} Feather & In Gehäuse & Viele Hindernisse & 14 m \\
 	\end{tabular}
 \end{table}
 
@@ -89,16 +88,16 @@ Damit werden auch bei einer Reichweite von nur 14 Metern auf der Tunnelbohrmasch
 
 \subsection{BLE-Advertising-Implementierung}
 \label{ch:phase3:sec:advertising}
-Die Bluetooth-Low-Energy-Implementierung ist an die Arbeit von Jianyong et al. angelehnt.
+Die \emph{Bluetooth-Low-Energy-Implementierung} ist an die Arbeit von Jianyong et al. angelehnt.
 Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising} Paket gesendet.\\
 In der Praxis wird dazu das \emph{Advertising}-Intervall entsprechend gesetzt, dabei handelt es sich um einen in Bluetooth 4.0 spezifizierten Parameter für die Häufigkeit des \emph{Advertisings}.
-Da die Bluefruit nRF52 API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
+Da die \emph{Bluefruit} \emph{nRF52} API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
 Die entsprechende \emph{BLEAdvertising}-Klasse ist in \\\texttt{/.arduino15/packages/adafruit/hardware/nrf52/0.6.0/libraries/}\\\texttt{Bluefruit52Lib/src} zu finden. \\
 In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Stromverbrauch zu senken.
-Beim nRF52 handelt es sich um ein Klasse 2 Bluetooth Gerät mit einer maximalen Sendeleistung bis 4 dBm.
+Beim \emph{nRF52} handelt es sich um ein Klasse 2 Bluetooth-Gerät mit einer maximalen Sendeleistung bis 4 dBm.
 Das Sendeintervall wird etsprechend der Untersuchung der Reichweite und maximalen Bewegungsgeschwindigkeit von 30 km/h auf eine Sekunde gesetzt, in dieser Zeit kann sich ein Mitarbeiter maximal 9 Meter bewegen.\\
-Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker TM103 USB-Power-Meter vorgenommen werden.
-Diser ist aber nicht in der Lage den Stromverbrauch des nRF52 zu messen.
+Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker \emph{TM103} USB-Power-Meter vorgenommen werden.
+Diser ist aber nicht in der Lage den Stromverbrauch des \emph{nRF52} zu messen.
 Die Sendeabschnitte sind zu kurz um einen messbaren Stromverbrauch zu erzeugen.\\
 Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
 
@@ -124,7 +123,7 @@ $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ \\[1cm]
 \label{ch:phase3:sec:powerble}
 Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth-Low-Energy-Advertising.\\
 Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.
-Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, die Samplingrate von 333Hz reicht hier offenbar nicht aus um dem Sendevorgang vollständig zu erfassen.\\
+Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, die Samplingrate von 333 Hz reicht hier offenbar nicht aus um dem Sendevorgang vollständig zu erfassen.\\
 
 \begin{figure}[h!]
   \centering
@@ -133,7 +132,7 @@ Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, 
   \label{fig:blue}
 \end{figure}
 
-Hauptverbrauch liegt jedoch in den 7,2 bis 7,6 Milliamper im Ruhezustand, leider ist in diesem Fall kein einzelnes Modul vorhanden, es kann nur auf dem nRF52 Feather gemessen werden.
+Hauptverbrauch liegt jedoch in den 7,2 bis 7,6 Milliamper im Ruhezustand, leider ist in diesem Fall kein einzelnes Modul vorhanden, es kann nur auf dem \emph{nRF52} Feather gemessen werden.
 Da jedoch die selben Komponenten wie beim ESP8266 Feather zum Einsatz kommen, kann angenommen werden, dass auch der Ruheverbrauch vergleichbar ist, dieser liegt zwischen 7 und 7,1 Milliamper.
 Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen projezierten Verbrauch, bei dem ein Ruheverbrauch von 7,05 Milliamper subtrahiert wurde.
 
@@ -144,8 +143,8 @@ Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen p
 	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
-		nRF52 Feather & Bluetooth Low Energy Advertising & 7,37 & 190\\
-		nRF52 (projeziert) & Bluetooth Low Energy Advertising & 0,32 & 4375\\
+		\emph{nRF52} Feather & Bluetooth-Low-Energy-Advertising & 7,37 & 190\\
+		\emph{nRF52} (projeziert) & Bluetooth-Low-Energy-Advertising & 0,32 & 4375\\
 	\end{tabular}
 \end{table}
 

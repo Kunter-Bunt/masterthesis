@@ -1,9 +1,9 @@
-\section{Direkte Fernlokalisierung mit 802.11}
+\section{Direkte Fernlokalisierung mit IEEE 802.11}
 \label{ch:phase2}
 Bei der direkten Fernlokalisierung wird die Messgröße auf den Basisstationen gemessen.
 Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte an den Ortungsdienst übermittelt.
 Dieser berechnet dann aus den gesammelten Werten die Position der mobilen Einheit.
-Eine Lösung zur direkten Fernlokalisierung muss deshalb nicht mit einem Access Point assoziiert sein.
+Eine Lösung zur direkten Fernlokalisierung muss deshalb nicht mit einem \emph{Access Point} assoziiert sein.
 APs versenden die gemessenen Werte jedoch nicht automatisch an den Ortungsdienst. 
 Sollen also die APs des WLAN-Netzwerks auch als Basisstationen verwendet werden, muss ihre Software es erlauben den in der Analyse als Messgröße ausgewählten \emph{Received Signal Strength Indicator} (RSSI) bestimmter Pakete abzurufen.
 
@@ -12,7 +12,7 @@ Sollen also die APs des WLAN-Netzwerks auch als Basisstationen verwendet werden,
 Eine mobile Einheit mit \emph{RADAR} versendet alle 0,25 Sekunden ein 6 Byte langes UDP-Paket, der RSSI der Übertragung wird dann auf dem AP gemessen.
 Das Sendeintervall wurde so kurz gewählt, um spontane Schwankungen im RSSI durch mehrfache Messung zu glätten und sich bewegende Personen möglichst genau zu erfassen.
 Für eine Bereichsortung reicht ein wesentlich längeres Sendeintervall, es wird erneut ein Intervall von fünf Sekunden gewählt, in dem sich ein Mitarbeiter maximal 42 Meter bewegt. 
-Tabelle \ref{table:radarconsumption} zeigt den mit dem TM103 gemessenen Verbrauch der Implementierung für mobile Einheiten mit RADAR jeweils in Arduino und C, mit unterschiedlich langen Sendeintervallen mit und ohne manuellen \texttt{light\_sleep}.
+Tabelle \ref{table:radarconsumption} zeigt den mit dem \emph{TM103} gemessenen Verbrauch der Implementierung für mobile Einheiten mit \emph{RADAR} jeweils in Arduino und C, mit unterschiedlich langen Sendeintervallen mit und ohne manuellen \texttt{light\_sleep}.
 
 \begin{table}[h]
 	\centering
@@ -34,23 +34,23 @@ Tabelle \ref{table:radarconsumption} zeigt den mit dem TM103 gemessenen Verbrauc
 
 Der Stromverbrauch einer Lösung die vier Pakete pro Sekunde sendet ist wie erwartet hoch.
 Die Implementierungen mit der ESP Open SDK und manuellem \texttt{light\_sleep} unterscheiden sich ausschließlich im Sendeintervall, dies verändert den Stromverbrauch jedoch stark.
-Die in Abschnitt \ref{ch:phase1:sec:anpassungbereich} besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die \emph{RADAR}-Implementierung verwendet werden, das \emph{RADAR}-artige mobile Einheit ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem der mobilen Einheiten für Bereichsortung.
-Der Stromverbrauch sollte sich somit kaum unterscheiden und ein System mit \emph{RADAR}-artigen mobilen Einheiten benötigt Veränderungen der Software der APs, ein System mit mobilen Einheiten für Bereichsortung ist deshalb vorzuziehen. 
+Die in Abschnitt \ref{ch:phase1:sec:anpassungbereich} besprochenen Optimierungen (nur bei AP-Wechsel senden) können auch für die \emph{RADAR-Implementierung} verwendet werden, das \emph{RADAR}-artige mobile Einheit ist dann aber in seiner Implementierung bis auf den Inhalt des UDP-Pakets identisch mit dem der mobilen Einheiten für Bereichsortung.
+Der Stromverbrauch sollte sich somit kaum unterscheiden und ein System mit \emph{RADAR}-artigen mobilen Einheiten benötigt Veränderungen der Software der APs, die \emph{Assoziations-Lokalisierung} ist deshalb vorzuziehen. 
 Die Implementierung in C mit einem Sendeintervall von fünf Sekunden wird in Abschnitt \ref{ch:phase2:sec:powerradar} genauer untersucht.
 
 \subsection{Probe-Request-Lokalisierung}
 \label{ch:phase2:sec:anpassungbereich}
-\emph{RADAR} versendet immer noch UDP-Pakete und arbeitet damit auf Schicht vier (Transport) des OSI-Modells und muss im Netzwerk authentifiziert und mit einem Access Point assoziiert sein.
+\emph{RADAR} versendet immer noch UDP-Pakete und arbeitet damit auf Schicht vier (Transport) des OSI-Modells und muss im Netzwerk authentifiziert und mit einem \emph{Access Point} assoziiert sein.
 Das ist für eine direkte Fernlokalisierung aber nicht notwendig, der RSSI wird auf Schicht eins (PHY) gemessen.
 Grundsätzlich kann aufgrund der möglichen Änderungen am AP ein beliebiges Paket mit einer speziellen Kennung versendet und vom AP als Positionsmitteilung der mobilen Einheit erkannt werden. \\
 Ein Sendevorgang, der nur Schicht eins nutzt hat einen geringeren Stromverbrauch, da er nur senden und nie empfangen muss.
 Ein solcher Sendevorgang könnte aber die Funktion des Netzwerks beeinträchtigen und stellt nicht sicher, dass die eigene Übertragung nicht durch andere Übertragungen gestört wurde.
 Außerdem ist Schicht eins oft nicht vom Entwickler zugreifbar, es sollte deshalb nicht auf Schicht eins gearbeitet werden.\\
 Stattdessen sollte Schicht zwei (MAC) des OSI-Modells verwendet werden. 
-Da 802.11 für den Mediumszugriff eine Kollisionsvermeidung (CSMA/CA) verwendet wird, muss die mobile Einheit vor dem Senden das Medium belauschen, um zu bestimmen ob es belegt ist.
+Da IEEE 802.11 für den Mediumszugriff eine Kollisionsvermeidung (CSMA/CA) verwendet wird, muss die mobile Einheit vor dem Senden das Medium belauschen, um zu bestimmen ob es belegt ist.
 Der Stromverbrauch ist somit pro Sendevorgang höher als bei einer Lösung auf Schicht eins, stellt dafür aber die Verfügbarkeit des Mediums (der Frequenz) für die übrigen Teilnehmer sicher. \\
-Um die Änderungen an der Software des AP gering zu halten wurde der \emph{Probe Request} als zu sendender Frame gewählt.
-Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management}) der für den, in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen, \emph{Scan}-Vorgang verwendet wird.
+Um die Änderungen an der Software des AP gering zu halten, wurde der \emph{Probe Request} als zu sendender Frame gewählt.
+Es handelt sich dabei um einen Management Frame (siehe Tabelle \ref{table:management}), der für den, in Abschnitt \ref{ch:phase1:sec:scan} beschriebenen, \emph{Scan}-Vorgang verwendet wird.
 Der \emph{Probe Request} hat dabei den Vorteil, dass er bereits vom AP verarbeitet und mit einer \emph{Probe Response} beantwortet wird. \\
 Es wird also lediglich gefordert, dass der AP den Empfang des \emph{Probe Request} im Zuge der Verarbeitung protokolliert. 
 Im Einzelnen müssen die Empfangszeit, der RSSI und die MAC-Adresse des Absenders protokolliert und für den Ortungsdienst abrufbar gemacht werden. 
@@ -66,7 +66,7 @@ Abbildung \ref{fig:probeReq} zeigt den Vorgang schematisch.\\
 
 
 Die ESP Open SDK bietet über die Operationen wie \emph{Scan} und \emph{Join} hinaus mit \texttt{wifi\_send\_pkt\_freedom} eine Funktion zum Senden von Paketen auf Schicht zwei an.
-Der ESP8266 Arduino Core implementiert diese Funktion nicht, stattdessen muss sie mit \texttt{extern \dq C\dq $\lbrace$\#include \dq user\_interface.h\dq $\rbrace$} importiert werden. \\
+Der \emph{ESP8266} Arduino Core implementiert diese Funktion nicht, stattdessen muss sie mit \texttt{extern \dq C\dq $\lbrace$\#include \dq user\_interface.h\dq $\rbrace$} importiert werden. \\
 \texttt{wifi\_send\_pkt\_freedom} setzt den PHY-Header selbst, der MAC-Header und Inhalt des Paketes müssen über einen Puffer übergeben werden.
 \begin{verbatim}
 uint8_t packet[26] = { 
@@ -86,8 +86,8 @@ Ein gewöhnlicher \emph{Probe Request} beinhaltet noch zusätzliche Informatione
 Da die mobile Einheit aber nicht tatsächlich beitreten will, kann darauf verzichtet werden. \\
 Da keine Verbindung mehr aufrecht erhalten werden muss, können tiefere Schlafzustände eingenommen werden. 
 Statt des \texttt{light\_sleep} kann der \texttt{deep\_sleep} verwendet werden.
-Dieser schaltet den ESP8266 und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird \emph{Pin 16} mit der Masse verbunden.
-Damit der ESP wieder aufwacht muss \emph{Pin 16} mit dem \emph{Reset Pin} (RST) verbunden werden, bei einem Reset initialisiert der ESP8266 neu.
+Dieser schaltet den \emph{ESP8266} und seinen Speicher fast vollständig ab, nach Ablauf der angegebenen Schlafzeit wird \emph{Pin 16} mit der Masse verbunden.
+Damit der ESP wieder aufwacht muss \emph{Pin 16} mit dem \emph{Reset Pin} (RST) verbunden werden, bei einem Reset initialisiert der \emph{ESP8266} neu.
 Bei einer Lösung auf einer höheren Schicht würde dies dazu führen, dass die mobile Einheit versucht dem Netztwerk erneut beizutreten. 
 Hingegen kann bei einer Lösung auf Schicht zwei sofort gesendet und danach wieder geschlafen werden.\\
 Tabelle \ref{table:probeconsumption} zeigt den Stromverbrauch der Implementierungen jeweils mit manuell herbeigeführtem Schlafzustand, das Sendeintervall liegt bei konstant fünf Sekunden.
@@ -111,13 +111,13 @@ Tabelle \ref{table:probeconsumption} zeigt den Stromverbrauch der Implementierun
 
 Zu erkennen ist, dass die Verwendung des \texttt{deep\_sleep} zu einem geringeren Verbrauch führt. 
 Allerdings benötigt die mit dem Arduino Core programmierte mobile Einheit im Vergleich zu der mit der ESP Open SDK programmierten Einheit deutlich länger zum Starten.
-Sie verbraucht deshalb sogar mehr Strom als die mobilen Einheiten für Bereichsortung aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Strom als diese.
-Hinzu kommt, dass sich der Verbrauch dieser mobilen Einheiten nicht durch die Bewegung des Trägers erhöht, da keine Reassoziationen stattfinden.
+Sie verbraucht deshalb sogar mehr Strom als die mobilen Einheiten mit \emph{Assoziations-Lokalisierung} aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Strom als diese.
+Hinzu kommt, dass sich der Verbrauch dieser mobilen Einheiten nicht durch die Bewegung des Trägers erhöht, da keine \emph{Reassoziationen} stattfinden.
 Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten Laufzeiten zu erreichen, werden in Abschnitt \ref{ch:Beschleunigungssensor:sec:Abschaltautomatik} weitere Verbesserungen besprochen.
 Die Implementierung in C mit \texttt{deep\_sleep} wird in Abschnitt \ref{ch:phase2:sec:powerprobereq} genauer untersucht.
 
 \subsubsection{Anzahl der verwendeten Kanäle}
-Eine Lösung die nicht vor dem Versenden das Spektrum nach den Access Points durchsucht muss entweder auf der Annahme beruhen, dass alle Access Points auf einem Kanal agieren oder in allen in Frage kommenden Kanälen senden.\\
+Eine Lösung die nicht vor dem Versenden das Spektrum nach den \emph{Access Points} durchsucht muss entweder auf der Annahme beruhen, dass alle APS auf einem Kanal agieren oder in allen in Frage kommenden Kanälen senden.\\
 Je nach Erweiterung der 802.11 Spezifiktion ergeben sich unterschiedlich viele solcher Kanäle.
 802.11b verwendet eine Kanalbreite von 22 MHz, es stehen daher effektiv nur drei Kanäle zur Verfügung: 1, 7 und 13 in Europa beziehungsweise 1, 6 und 11 in Nordamerika.
 Für 802.11g/n mit 20 MHz Kanalbreite sind zwar in Europa theoretisch vier Kanäle verfügbar (1,5,9,13), es werden aber in der Paxis meist dieselben Kanäle wie bei 802.11b verwendet um die Kompatibilität zu 802.11b zu gewährleisten.
@@ -134,7 +134,7 @@ Erneut soll der Stromverbrauch mit dem INA219 genauer bestimmt werden, der INA21
 \subsubsection{RADAR}
 \label{ch:phase2:sec:powerradar}
 Abbildung \ref{fig:radar5s} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von \emph{RADAR}, wenn ein AP zur Verfügung steht. 
-Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es werden ebenfalls \emph{Scan} und \emph{Join} durchgeführt.\\
+Der Beginn des Lastverlaufs ist dem der \emph{WiFi-LLS-Implementierung} ähnlich, es werden ebenfalls \emph{Scan} und \emph{Join} durchgeführt.\\
 
 \begin{figure}[h!]
   \centering
@@ -143,8 +143,8 @@ Der Beginn des Lastverlaufs ist dem der WiFi-LLS Implementierung ähnlich, es we
   \label{fig:radar5s}
 \end{figure}
 
-Abbildung \ref{fig:radar5ssend} zeigt den Sendevorgang der \emph{RADAR}-Implementierung.
-Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand des UDP Pakets nicht notwendig ist.\\
+Abbildung \ref{fig:radar5ssend} zeigt den Sendevorgang der \emph{RADAR-Implementierung}.
+Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand des UDP-Pakets nicht notwendig ist.\\
 
 \begin{figure}[h!]
   \centering
@@ -154,7 +154,7 @@ Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand
 \end{figure}
 
 In Tabelle \ref{table:radarina} ist der durchschnittliche Verbrauch der \emph{RADAR}-Implementierung über eine Stunde gelistet.
-Es wurde sowohl mit dem ESP8266 Feather, als auch mit dem einzelnen ESP-12F gemessen, die mobile Einheit wurde jeweils erst circa eine Sekunde nach Beginn mit Strom versorgt.
+Es wurde sowohl mit dem \emph{ESP8266} Feather, als auch mit dem einzelnen \emph{ESP-12F} gemessen, die mobile Einheit wurde jeweils erst circa eine Sekunde nach Beginn mit Strom versorgt.
 
 \begin{table}[h!]
 	\centering
@@ -163,47 +163,47 @@ Es wurde sowohl mit dem ESP8266 Feather, als auch mit dem einzelnen ESP-12F geme
 	\begin{tabular}{l|l|p{2.5cm}|p{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
-		ESP8266 Feather & RADAR & 16,7 & 83,8\\
-		ESP-12F & RADAR & 10,1 & 138,6\\
+		\emph{ESP8266} Feather & RADAR & 16,7 & 83,8\\
+		\emph{ESP-12F} & RADAR & 10,1 & 138,6\\
 	\end{tabular}
 \end{table}
 
 \subsubsection{Probe-Request-Lokalisierung}
 \label{ch:phase2:sec:powerprobereq}
-Abbildung \ref{fig:probereqfull} zeigt den Lastverlauf für eine mobile Enheit mit \emph{Probe-Request}-Implementierung und Abbildung \ref{fig:probereqv} zeigt den Lastverlauf für den Sendevorgang, der Verlauf für den ESP8266 Feather ist in Rot und der Verlauf für das ESP-12F Modul ist in Grün dargestellt.\\
-Nachdem der ESP8266 aus dem \texttt{deep\_sleep} erwacht beginnt eine circa 100ms andauerne Startphase, danach sendet er die drei Probe Requests.
-Anschließend soll der ESP8266 wieder in den \texttt{deep\_sleep} versetzt werden, vorher empfängt er jedoch noch 100ms.
-Die restliche Zeit befindet sich der ESP8266 im Tiefschlaf. 
-Bei dem ESP-12F Modul ist der INA219 nicht in der Lage einen Vebrauch zu messen, er liegt unter 0,1 Milliamper.\\
+Abbildung \ref{fig:probereqfull} zeigt den Lastverlauf für eine mobile Enheit mit \emph{Probe-Request}-Implementierung und Abbildung \ref{fig:probereqv} zeigt den Lastverlauf für den Sendevorgang, der Verlauf für den \emph{ESP8266} Feather ist in rot und der Verlauf für das \emph{ESP-12F} Moduls ist in grün dargestellt.\\
+Nachdem der \emph{ESP8266} aus dem \texttt{deep\_sleep} erwacht beginnt eine circa 100 ms andauerne Startphase, danach sendet er die drei \emph{Probe Requests}.
+Anschließend soll der \emph{ESP8266} wieder in den \texttt{deep\_sleep} versetzt werden, vorher empfängt er jedoch noch 100 ms.
+Die restliche Zeit befindet sich der \emph{ESP8266} im Tiefschlaf. 
+Bei dem \emph{ESP-12F} Modul ist der INA219 nicht in der Lage einen Stromvebrauch zu messen, er liegt unter 0,1 Milliamper.\\
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/probereqfull.png}
-  \caption{Stromverbrauchskurve einer Implementierung mit Probe Requests.}
+  \caption{Stromverbrauchskurve einer Implementierung mit \emph{Probe Requests}.}
   \label{fig:probereqfull}
 \end{figure}
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/probereqv.png}
-  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit Probe Requests.}
+  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit \emph{Probe Requests}.}
   \label{fig:probereqv}
 \end{figure}
 
-Beim ESP8266 Feather misst er jedoch durchgehend einen Vebrauch von über 7 Milliamper, daraus ergeben sich die Unterschiede in den Messungen, die in Tabelle \ref{table:probereqina} dargestellt werden.
-Es wurde sowohl mit nur einem versendeten Probe Request, als auch mit drei Probe Requests getestet, die Unterschiede im Verbrauch liegen jedoch im Bereich der Messungenauigkeit.
+Beim \emph{ESP8266} Feather misst er jedoch durchgehend einen Vebrauch von über 7 Milliamper, daraus ergeben sich die Unterschiede in den Messungen, die in Tabelle \ref{table:probereqina} dargestellt werden.
+Es wurde sowohl mit nur einem versendeten \emph{Probe Request}, als auch mit drei \emph{Probe Requests} getestet, die Unterschiede im Verbrauch liegen jedoch im Bereich der Messungenauigkeit.
 
 \begin{table}[h!]
 	\centering
-	\caption{Stromverbrauch mobiler Einheiten mit Probe Request Ortung}
+	\caption{Stromverbrauch mobiler Einheiten mit \emph{Probe-Request-Lokalisierung}}
 	\label{table:probereqina}
-	\begin{tabular}{l|l|p{2.5cm}|p{2.5cm}}
+	\begin{tabular}{l|p{5.3cm}|p{2.5cm}|p{2.2cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
 		\hline
-		ESP8266 Feather & Probe Request drei Kanäle & 9,72 & 144\\
-		ESP-12F & Probe Request drei Kanäle & 1,8 & 777,8\\
-		ESP8266 Feather & Probe Request ein Kanal & 9,74 & 143,7\\
-		ESP-12F & Probe Request ein Kanal & 1,82 & 769,2\\
+		\emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} drei Kanäle & 9,72 & 144\\
+		\emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} drei Kanäle & 1,8 & 777,8\\
+		\emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} ein Kanal & 9,74 & 143,7\\
+		\emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} ein Kanal & 1,82 & 769,2\\
 	\end{tabular}
 \end{table}
 
@@ -217,42 +217,42 @@ Ein Beschleunigungssensor soll bestimmen, wann die mobile Einheit in Bewegung is
 Dadurch wird sie nicht mehr senden, wenn sie nicht getragen wird.
 
 \subsubsection{LIS3DH}
-Der LIS3DH ist ein drei-Achsen-Beschleunigungssensor von ST Microelectronics \cite{st2015lis}.
+Der \emph{LIS3DH} ist ein Drei-Achsen-Beschleunigungssensor von ST Microelectronics \cite{st2015lis}.
 Er zeichnet sich durch einen \emph{ultra-low-power} Modus und einen Pin für externe Unterbrechung (\emph{Interrupt}) aus.
-Der Beschleunigungssensor bietet ein $I^2C$ und ein SPI Interface um ihn zu konfigurieren.
-Der LIS3DH benötigt bei einer Frequenz von einem Herz nur 2 Mikroamper (0,002 mA).\\
+Der Beschleunigungssensor bietet ein $I^2C$ und ein \emph{SPI Interface} um ihn zu konfigurieren.
+Der \emph{LIS3DH} benötigt bei einer Frequenz von einem Herz nur 2 Mikroamper (0,002 mA).\\
 Leider konnte bei einem Herz der \emph{Interrupt} durch Laufbewegungen nicht sicher ausgelöst werden, die Frequenz wurde deshalb auf zehn Herz erhöht.
 Für eine Frequenz von zehn Herz im \emph{ultra-low-power} Modus listet das Datenblatt einen Verbrauch von 3 Mikroamper.
-Abbildung \ref{fig:lis3dh} zeigt eine Platine mit integriertem LIS3DH.
+Abbildung \ref{fig:lis3dh} zeigt eine Platine mit integriertem \emph{LIS3DH}.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=0.5\textwidth]{images/lis3dhada.png}
-  \caption{LIS3DH integriert auf einer Platine für die Entwicklung. Bild von Adafruit Industries\protect \footnotemark.}
+  \caption{\emph{LIS3DH} integriert auf einer Platine für die Entwicklung. Bild von Adafruit Industries\protect \footnotemark.}
   \label{fig:lis3dh}
 \end{figure}
 \footnotetext{\url{https://www.adafruit.com/product/2809}}
 
 \subsubsection{Abschaltautomatik}
 \label{ch:Beschleunigungssensor:sec:Abschaltautomatik}
-Der ESP8266 besitzt einen \emph{Enable Pin} (CH\_PD), ist dieser mit der Versorungsspannung verbunden werden die internen Spannungregler aktiviert und der ESP8266 mit Strom versorgt.
+Der \emph{ESP8266} besitzt einen \emph{Enable Pin} (CH\_PD), ist dieser mit der Versorungsspannung verbunden werden die internen Spannungregler aktiviert und der \emph{ESP8266} mit Strom versorgt.
 Die eigentliche Stromversorgung bezieht er dabei jedoch aus dem \emph{Vcc Pin}.
-Der ESP8266 soll durch den LIS3DH angeschaltet werden, der ESP8266 darf die Stromversorgung bei Bedarf trennen, sie kann danach wieder vom LIS3DH wieder aktiviert werden. \\
+Der \emph{ESP8266} soll durch den \emph{LIS3DH} angeschaltet werden, der \emph{ESP8266} darf die Stromversorgung bei Bedarf trennen, sie kann danach wieder vom \emph{LIS3DH} wieder aktiviert werden. \\
 Um dieses Verhalten zu erreichen wird ein \emph{Latch} eingesetzt \cite{texas2003latch}.
 Es handelt sich dabei um einen digitalen Schalter mit einem SET-Eingang (An), einem RESET-Eingang (Aus) und einem Ausgang.
-Der Ausgang wird mit dem \emph{Enable Pin} verbunden, ist er aktiv, wird der ESP8266 aktiv.
-Der SET-Eingang wird mit dem \emph{Interrupt Pin} des LIS3DH verbunden, er kann damit den den Ausgang aktivieren.
-Der RESET-Eingang wird mit dem ESP8266 verbunden. 
+Der Ausgang wird mit dem \emph{Enable Pin} verbunden, ist er aktiv, wird der \emph{ESP8266} aktiv.
+Der SET-Eingang wird mit dem \emph{Interrupt Pin} des \emph{LIS3DH} verbunden, er kann damit den den Ausgang aktivieren.
+Der RESET-Eingang wird mit dem \emph{ESP8266} verbunden. 
 Es wurde \emph{Pin 16} ausgewählt, da dieser für das Aufwecken aus dem Tiefschlaf zuständig ist. 
 Stattdessen soll er nun die Stromversorgung abschalten und durch die zuvor im \texttt{deep\_sleep} verbrachte Zeit das Sendeintervall abwarten.\\
 Da das Aufwecken mit \emph{Pin 16} durch das Verbinden des Pins mit der Masse funktioniert, kann damit nicht direkt der RESET-Eingang des Latches betrieben werden.
 Stattdessen wird das Ergebnis von \emph{Pin 16} mit der Versorgungsspannung über ein XOR-Gatter verschaltet und mit dem RESET-Eingang verbunden \cite{texas2014xor}.
-Abbildung \ref{fig:schematics} zeigt das Schema der Verbindung von ESP8266 und LISD3H.
+Abbildung \ref{fig:schematics} zeigt das Schema der Verbindung von \emph{ESP8266} und \emph{LISD3H}.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/schematics.png}
-  \caption{Schema der Verbindung von ESP8266 und LIS3DH.}
+  \caption{Schema der Verbindung von \emph{ESP8266} und \emph{LIS3DH}.}
   \label{fig:schematics}
 \end{figure}
 
@@ -260,9 +260,9 @@ Abbildung \ref{fig:schematics} zeigt das Schema der Verbindung von ESP8266 und L
 Der Verbrauch des Beschleunigungssensors ersetzt lediglich den Verbrauch des Mikrocontrollers, die anderen Komponenten bleiben davon unberührt.
 Zu den 3 Mikroamper Verbrauch addiert sich deshalb der Verbrauch des Spannungswandlers (55 Mikroamper) und des Lithium-Polymer-Ladeschaltkreises (bis zu 100 Mirkoamper).
 Hinzu kommen bis zu 1 Mikroamper für das \emph{Latch} und 10 Mikroamper für das XOR-Gatter.\\
-Die Integration des Beschleunigungssensor kann also den Verbrauch des ESP8266 außerhalb der Arbeitszeiten durch einen Verbrauch von 14 Mikroamper ersetzen, die bis zu 166 Mikroamper Verbrauch der umliegenden Komponenten bleibt jedoch vorhanden.
-Die Laufzeit für eine nicht bewegte mobilen Einheit mit ESP8266 beträgt dann mindestens $1400mAh / 0,18mA = 7777,77h$, dies entspricht ca. 324 Tagen.\\
-Bei den vorherigen Prototypen, die eine Assoziation erforderten, muss beachtet werden, dass sie nach dem erneuten Anschalten einen \emph{Scan}- und \emph{Join}-Vorgang ausführen.
+Die Integration des Beschleunigungssensor kann also den Verbrauch des \emph{ESP8266} außerhalb der Arbeitszeiten durch einen Verbrauch von 14 Mikroamper ersetzen, die bis zu 166 Mikroamper Verbrauch der umliegenden Komponenten bleibt jedoch vorhanden.
+Die Laufzeit für eine nicht bewegte mobilen Einheit mit \emph{ESP8266} beträgt dann mindestens $1400mAh / 0,18mA = 7777,77h$, dies entspricht ca. 324 Tagen.\\
+Bei den vorherigen Prototypen, die eine \emph{Assoziation} erforderten, muss beachtet werden, dass sie nach dem erneuten Anschalten einen \emph{Scan}- und \emph{Join}-Vorgang ausführen.
 Damit diese die Einsparung nicht überwiegen, sollte eine Abschaltung erst nach einigen Minuten der Inaktivität erfolgen.
 
 
