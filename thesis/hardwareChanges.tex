@@ -133,18 +133,17 @@ Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, 
 \end{figure}
 
 Hauptverbrauch liegt jedoch in den 7,2 bis 7,6 Milliamper im Ruhezustand, leider ist in diesem Fall kein einzelnes Modul vorhanden, es kann nur auf dem \emph{nRF52} Feather gemessen werden.
-Da jedoch die selben Komponenten wie beim ESP8266 Feather zum Einsatz kommen, kann angenommen werden, dass auch der Ruheverbrauch vergleichbar ist, dieser liegt zwischen 7 und 7,1 Milliamper.
-Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch einen projezierten Verbrauch, bei dem ein Ruheverbrauch von 7,05 Milliamper subtrahiert wurde.
+Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch den normalisierten Stromverbrauch, dafür wurde der Verbrauch im Ruhezustand subtrahiert. 
+Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
 	\centering
 	\caption{Stromverbrauch mobiler Einheiten mit Bluetooth-Low-Energy-Advertising}
 	\label{table:blueina}
 	\begin{tabular}{p{3.5cm}|p{5cm}|p{2.5cm}|p{2.5cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
+		Hardware & Programm & $\varnothing$ Verbrauch in mA (normalisiert) & Laufzeit in Stunden\\
 		\hline
-		\emph{nRF52} Feather & Bluetooth-Low-Energy-Advertising & 7,37 & 190\\
-		\emph{nRF52} (projeziert) & Bluetooth-Low-Energy-Advertising & 0,32 & 4375\\
+		\emph{nRF52} Feather & Bluetooth-Low-Energy-Advertising & 7,37 (0,04) & 190\\
 	\end{tabular}
 \end{table}
 

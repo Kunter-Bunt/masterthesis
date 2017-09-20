@@ -359,18 +359,20 @@ Nach Empfangen der Antworten wird ein Paket an den Ortungsdienst gesendet und de
 
 Tabelle \ref{table:wifillsina} listet den durchschnittlichen Verbrauch der Einheiten über eine Stunde.
 Die Stromversorgung der Einheiten wurden circa eine Sekunde nach Beginn des Experiments angeschaltet, anschließend treten keine Veränderungen mehr auf.
+Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
+Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
 	\centering
-	\caption{Stromverbrauch mobiler Einheiten mit WiFi-LLS Implementierung}
+	\caption{Stromverbrauch mobiler Einheiten mit \emph{WiFi-LLS-Implementierung}}
 	\label{table:wifillsina}
 	\begin{tabular}{l|l|p{2.5cm}|p{2.5cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA (X)& Laufzeit in Stunden (Y)\\
+		Hardware & Programm & $\varnothing$ Verbrauch in mA \emph{X} (normalisiert) & Laufzeit in Stunden \emph{Y} \\
 		\hline
-		\emph{ESP8266} Feather & WiFi-LLS alle Kanäle & 42,2 & 33,2\\
-		\emph{ESP-12F} & WiFi-LLS alle Kanäle & 36,5 & 38,3\\
-		\emph{ESP8266} Feather & WiFi-LLS ein Kanal & 18,7 & 74,9\\
-		\emph{ESP-12F} & WiFi-LLS ein Kanal & 11,4 & 122,8\\
+		\emph{ESP8266} Feather & WiFi-LLS alle Kanäle & 42,2 (34,1) & 33,2\\
+		\emph{ESP-12F} & WiFi-LLS alle Kanäle & 36,5 (35,2) & 38,3\\
+		\emph{ESP8266} Feather & WiFi-LLS ein Kanal & 18,7 (10,6)& 74,9\\
+		\emph{ESP-12F} & WiFi-LLS ein Kanal & 11,4 (10,1) & 122,8\\
 	\end{tabular}
 \end{table}
 
@@ -405,18 +407,20 @@ Abbildung \ref{fig:tcpdisco} zeigt dieses Verhalten.\\
 \end{figure}
 
 Auch diese Implementierungen wurden sowohl mit einem \emph{ESP8266} Feather, als auch mit einem einzelnen \emph{ESP-12F} Modul getestet, die Ergebnisse sind in Tabelle \ref{table:associatonina} zu finden.
+Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
+Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
 	\centering
 	\caption{Stromverbrauch mobiler Einheiten mit Bereichsortung}
 	\label{table:associatonina}
 	\begin{tabular}{l|p{5cm}|p{2.5cm}|p{2.5cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
+		Hardware & Programm & $\varnothing$ Verbrauch in mA (normalisiert) & Laufzeit in Stunden\\
 		\hline
-		\emph{ESP8266} Feather & \emph{Assoziations-Lokalisierung} TCP-Verbindung halten & 15,5 & 90,3\\
-		\emph{ESP-12F} & \emph{Assoziations-Lokalisierung} TCP-Verbindung halten & 8,8 & 159,1\\
-		\emph{ESP8266} Feather & \emph{Assoziations-Lokalisierung} TCP-Verbindung schließen & 15,4 & 90,9\\
-		\emph{ESP-12F} & \emph{Assoziations-Lokalisierung} TCP-Verbindung schließen & 8,8 & 159,1\\
+		\emph{ESP8266} Feather & \emph{Assoziations-Lokalisierung} TCP-Verbindung halten & 15,5 (7,4) & 90,3\\
+		\emph{ESP-12F} & \emph{Assoziations-Lokalisierung} TCP-Verbindung halten & 8,8 (7,5) & 159,1\\
+		\emph{ESP8266} Feather & \emph{Assoziations-Lokalisierung} TCP-Verbindung schließen & 15,4 (7,3) & 90,9\\
+		\emph{ESP-12F} & \emph{Assoziations-Lokalisierung} TCP-Verbindung schließen & 8,8 (7,5) & 159,1\\
 	\end{tabular}
 \end{table}
 
@@ -440,6 +444,7 @@ Die rote Kurve zeigt dabei die Implementierung aus dem vorherigen Abschnitt, die
 
 Die Ergebnisse dere Messungen ohne verfügbaren AP sind in Tabelle \ref{table:noapina} gelistet.
 Auch mit der Optimierung ist der Stromverbrauch fast doppelt so hoch wie der Verbrauch wenn ein AP verfügbar ist.
+In diesem Fall werden keine normalisierten Verbrauchswerte angegeben, da der \emph{ESP8266} entweder durgehend aktiv ist oder im Tiefschlaf keinen messbaren Verbrauch aufweist.
 
 \begin{table}[h!]
 	\centering

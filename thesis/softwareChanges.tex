@@ -155,16 +155,18 @@ Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand
 
 In Tabelle \ref{table:radarina} ist der durchschnittliche Verbrauch der \emph{RADAR}-Implementierung über eine Stunde gelistet.
 Es wurde sowohl mit dem \emph{ESP8266} Feather, als auch mit dem einzelnen \emph{ESP-12F} gemessen, die mobile Einheit wurde jeweils erst circa eine Sekunde nach Beginn mit Strom versorgt.
+Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
+Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
 	\centering
 	\caption{Stromverbrauch mobiler Einheiten mit \emph{RADAR}-Implementierung}
 	\label{table:radarina}
 	\begin{tabular}{l|l|p{2.5cm}|p{2.5cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
+		Hardware & Programm & $\varnothing$ Verbrauch in mA (normalisiert) & Laufzeit in Stunden\\
 		\hline
-		\emph{ESP8266} Feather & RADAR & 16,7 & 83,8\\
-		\emph{ESP-12F} & RADAR & 10,1 & 138,6\\
+		\emph{ESP8266} Feather & RADAR & 16,7 (8,6) & 83,8\\
+		\emph{ESP-12F} & RADAR & 10,1 (8,8) & 138,6\\
 	\end{tabular}
 \end{table}
 
@@ -192,18 +194,20 @@ Bei dem \emph{ESP-12F} Modul ist der INA219 nicht in der Lage einen Stromvebrauc
 
 Beim \emph{ESP8266} Feather misst er jedoch durchgehend einen Vebrauch von über 7 Milliamper, daraus ergeben sich die Unterschiede in den Messungen, die in Tabelle \ref{table:probereqina} dargestellt werden.
 Es wurde sowohl mit nur einem versendeten \emph{Probe Request}, als auch mit drei \emph{Probe Requests} getestet, die Unterschiede im Verbrauch liegen jedoch im Bereich der Messungenauigkeit.
+Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
+Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
 	\centering
 	\caption{Stromverbrauch mobiler Einheiten mit \emph{Probe-Request-Lokalisierung}}
 	\label{table:probereqina}
 	\begin{tabular}{l|p{5.3cm}|p{2.5cm}|p{2.2cm}}
-		Hardware & Programm & $\varnothing$ Verbrauch in mA & Laufzeit in Stunden\\
+		Hardware & Programm & $\varnothing$ Verbrauch in mA (normalisiert) & Laufzeit in Stunden\\
 		\hline
-		\emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} drei Kanäle & 9,72 & 144\\
-		\emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} drei Kanäle & 1,8 & 777,8\\
-		\emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} ein Kanal & 9,74 & 143,7\\
-		\emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} ein Kanal & 1,82 & 769,2\\
+		\emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} drei Kanäle & 9,7 (2,7) & 144\\
+		\emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} drei Kanäle & 1,8 (1,8) & 777,8\\
+		\emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} ein Kanal & 9,7 (2,7) & 143,7\\
+		\emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} ein Kanal & 1,8 (1,8) & 769,2\\
 	\end{tabular}
 \end{table}
 
