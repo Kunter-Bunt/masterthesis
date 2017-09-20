@@ -32,8 +32,8 @@ void loop() {
   rf95.send((uint8_t *)radiopacket, 8);
   delay(10);
   rf95.waitPacketSent();
+  rf95.sleep();
   
   LowPower.sleep(10000);
-  //delay(10000);
 }
 

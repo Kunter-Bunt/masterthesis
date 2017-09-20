@@ -83,7 +83,7 @@ void wifi_event_cb(System_Event_t *evt) {
 			espconn_connect(&user_tcp_conn);
 		}
 		else if (evt->event == EVENT_STAMODE_DISCONNECTED) {
-			system_deep_sleep(5000000);
+			//system_deep_sleep(5000000);
 		}
 		wifi_set_sleep_type(LIGHT_SLEEP_T);
 }
@@ -102,7 +102,7 @@ user_set_station_config(void)
 	   stationConf.bssid_set = 0; 
 		
 	   //Set ap settings 
-	   os_memcpy(&stationConf.ssid, "Lothlorien", 32); 
+	   os_memcpy(&stationConf.ssid, "bLothlorien", 32); 
 	   os_memcpy(&stationConf.password, "JarJarBinks&R2D2", 64); 
 	   wifi_station_set_config(&stationConf); 
 
@@ -110,8 +110,6 @@ user_set_station_config(void)
 		wifi_set_event_handler_cb(wifi_event_cb);
 
 		//os_timer_setfn(&test_timer, (os_timer_func_t *)user_check_ip, NULL);
-	
-	//OLD BEHAVIOR
 		//os_timer_arm(&test_timer, 500, 1); 
 
 		user_tcp_conn.proto.tcp = &user_tcp;
