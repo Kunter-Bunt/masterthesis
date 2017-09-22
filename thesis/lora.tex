@@ -26,10 +26,9 @@ Für die Basisstation wird ein Feather M0 \emph{RFM95} LoRa Radio mit fester Ant
 \footnotetext{\url{https://www.adafruit.com/product/3178}}
 
 \subsubsection{RadioHead RFM9x für Arduino}
-Der M0 Mikrocontroller ist Arduino kompatibel, wird zusätzlich die RadioHead RFM9x Bibliothek verwendet, kann er über ein SPI-Interface das Radio steuern.
-Dazu muss zunächst in den Optionen der Arduino IDE unter \textit{Additional Boards Manager URLs} die URL \url{https://adafruit.github.io/arduino-board-index/package_adafruit_index.json} hinzugefügt werden \cite{treece2016lora}.
-Nach einem Neustart der IDE können im \textit{Board Manager} die \texttt{Arduino SAMD Boards} installiert werden. 
-Der M0 kann nun programmiert werden, um das \emph{RFM95} verwenden zu können muss die RadioHead RFM9x Bibliothek von \url{https://cdn-learn.adafruit.com/assets/assets/000/035/106/original/RadioHead-1.62.zip} heruntergeladen und nach \\\texttt{/Arduino/libraries/} entpackt werden.
+Der M0 Mikrocontroller ist Arduino kompatibel, wird zusätzlich die \emph{RadioHead RFM9x} Bibliothek verwendet, kann er über ein SPI-Interface das Radio steuern.
+Adafruit stellt dazu eine englischsprachige Anleitung zur Verfügung\footnote{\url{https://learn.adafruit.com/adafruit-feather-m0-radio-with-lora-radio-module/setup}}.
+Es wird die \emph{RadioHead RFM9x} Bibliothek Version 1.62 verwendet.
 
 \subsection{Reichweite von LoRa}
 Die Versuche mit LoRa wurden an einer anderen Tunnelbaustelle durchgeführt.

@@ -47,18 +47,14 @@ Der \emph{ESP8266} wurde wegen seines geringen Preises, guter Verfügbarkeit und
 
 \subsubsection{ESP8266 Arduino Core}
 Eine einfache Möglichkeit den \emph{ESP8266} zu programmieren stellt die bekannte Arduino IDE dar \cite{banzi2017arduino}.\\
-Unter Windows muss zunächst der Treiber für den \textit{CP2104 USB-to-Serial Chip} installiert werden, auf Linux und Mac entfällt dieser Schritt \cite{fried2017feather}.
-Nach der Installation der Arduino IDE muss dort in den Einstellungen unter \textit{Additional Boards Manager URLs} die URL \url{http://arduino.ESP8266.com/stable/package_ESP8266com_index.json} hinzugefügt werden.  
-Nach einem Neustart der IDE kann im \textit{Boards Manager} das Paket für den \emph{ESP8266} heruntergeladen werden und anschließend das Board \textit{Adafruit HUZZAH \emph{ESP8266}} ausgewählt werden. \\
-Ist das Board über USB mit dem Computer verbunden, kann nun eigener Code oder eines der Beispiele aus \textit{Examples for Adafruit HUZZAH ESP8266} mit STRG+U auf den ESP geladen werden. 
-Dieser Vorgang wird im Folgenden als \emph{flashen} bezeichnet. \\
+Adafruit stellt eine englischsprachige Anleitung zur Verwendung des \textit{Adafruit Feather HUZZAH ESP8266} mit Arduino zur Verfügung\footnote{\url{https://learn.adafruit.com/adafruit-feather-huzzah-esp8266/using-arduino-ide}}.
 Der \emph{ESP8266} Arduino Core wird als Open Source Projekt gepflegt und setzt die ESP Open SDK auf einen für die Arduino IDE üblichen Stil um \cite{arduino2017core}. 
 Dabei wird möglichst die Kompatibilität zu Arduino gewahrt, das führt oft dazu, dass bereitgestellte Funktionen der SDK nicht in Arduino umgesetzt wurden.
 Sollten die Funktionen dennoch benötigt werden, können die Header-Dateien der SDK direkt importiert werden:
 
 \begin{verbatim}
-//Hier wird ein Header des \emph{ESP8266} Arduino Core importiert
-#include <\emph{ESP8266}WiFi.h> 
+//Hier wird ein Header des ESP8266 Arduino Core importiert
+#include <ESP8266WiFi.h> 
 
 //Hier wird ein Header der ESP Open SDK importiert
 extern "C" {#include "user_interface.h"} 
@@ -68,13 +64,9 @@ Der \emph{ESP8266} Arduino Core wurde in der Version 2.3.0 verwendet.
 
 \subsubsection{ESP Open SDK}
 Statt mit der Arduino Core Umsetzung der ESP Open SDK kann natürlich auch direkt mit ihr programmiert werden \cite{esp2017open}. \\
-Dazu muss zunächst das Github Projekt geklont werden: \texttt{git clone --recursive \url{https://github.com/pfalcon/esp-open-sdk}.git} und anschließend mit \texttt{make} kompiliert werden.
-Wurde die Kompilierung erfolgreich abgeschlossen, sollte die Pfadvariable (PATH) entsprechend der Meldung des make-Tools erweitert werden. \\
-Die in C geschriebenen Programme können nun mit einem modifizierten \emph{GCC-Kompiler} kompiliert und anschließend mit dem esptool.py zunächst in ein \emph{Image} umgewandelt und dann \emph{geflasht} werden. 
-Das in \textit{examples} enthaltene \textit{blinky} Beispiel beinhaltet neben dem Beispielcode eine \emph{Makefile}, in der diese Schritte nachvollzogen werden können, mit \texttt{make flash} wird das Beispiel kompiliert und \emph{geflasht}. \\
-Programme werden in regulärem C unter Zuhilfenahme der in \texttt{/sdk/include} enthaltenen \emph{Header}-Dateien geschrieben, zu beachten ist nur, dass einige Funktionen der \texttt{stdlib.h} nicht verwendet werden können.
-Dies betrifft vor allem direkten Speicherzugriff wie zum Beispiel \texttt{memcpy}, hier muss stattdessen \texttt{os\_memcpy} verwendet werden.
-Alle betroffenen Funktionen sind in \texttt{osapi.h} beschrieben. \\
+Das dazugehörige Github-Projekt liefert neben einer Anleitung zum Kompilieren ein \textit{blinky} Beispiel mit.
+Es enthält neben dem Code eine \emph{Makefile}, in der die Schritte für das kompilieren und \emph{flashen} des Programms nachvollzogen werden können.
+Für die Nutzung der Schnittstellen können die in \texttt{/sdk/include} enthaltenen \emph{Header}-Dateien verwendet werden. \\
 Einige frühe Experimente zeigten, dass Programme, die mit der ESP Open SDK geschrieben wurden auf dem \emph{ESP8266} schneller starten als solche, die mit dem \emph{ESP8266} Arduino Core geschrieben wurden.
 Diese Andeutung von Ineffizienzen bei der Übersetzung von Arduino Code wurde zum Anlass genommen, für die nachfolgenden Implementierungen nach der Fertigstellung des Prototypen in Arduino ebenfalls eine Implementierung in C hinzuzufügen, um ein optimales Programm zu erhalten. \\
 Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
