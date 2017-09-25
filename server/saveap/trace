@@ -1,0 +1,312 @@
+marius@ideapad:~$ sshpass -p key4Lancom! ssh root@192.168.200.254 
+Local password authentication for root
+
+
+#
+| LANCOM LN-862
+| Ver. 10.10.0137RU2 / 08.06.2017
+| SN.  4004319032100197
+| Copyright (c) LANCOM Systems
+
+LN-862, Connection No.: 003 (WLAN)
+
+
+root@LN-862:/
+> trace + wlan-data @ ProbeReq
+WLAN-DATA            ON  @ ProbeReq
+
+root@LN-862:/
+> 
+[WLAN-DATA] 1900/01/01 07:46:36,471
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -54 dBm
+-->Chain Signals:  -57/-73 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -81/-82 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 19
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 2
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:36,492
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -54 dBm
+-->Chain Signals:  -57/-70 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -81/-82 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 20
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 2
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:36,516
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -56 dBm
+-->Chain Signals:  -59/-71 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -81/-82 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 21
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 1
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:36,533
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -57 dBm
+-->Chain Signals:  -61/-71 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -81/-82 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 22
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 1
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:43,078
+Send frame to address ff:ff:ff:ff:ff:ff (Broadcast) on WLAN-1:
+-->Orig Length:    70 bytes
+-->Rate:           1*1M, 15 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 00:a0:57:2d:ab:a2 (LANCOM 2d:ab:a2)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 3679
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : LDPC 20MHz-ShortGI Tx-STBC 40MHz-DSSS/CCK SMPS-Disabled 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-32767 A-MPDU-Spacing-4us
+                      single-stream MCS: all (up to 65/135/150M)
+                      double-stream MCS: all (up to 130/270/300M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:43,078
+Send frame to address ff:ff:ff:ff:ff:ff (Broadcast) on WLAN-1:
+-->Orig Length:    89 bytes
+-->Rate:           1*1M, 15 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 00:a0:57:2d:ab:a2 (LANCOM 2d:ab:a2)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 3680
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : devolo-bcf2afd7840a
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : LDPC 20MHz-ShortGI Tx-STBC 40MHz-DSSS/CCK SMPS-Disabled 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-32767 A-MPDU-Spacing-4us
+                      single-stream MCS: all (up to 65/135/150M)
+                      double-stream MCS: all (up to 130/270/300M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:47,321
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -56 dBm
+-->Chain Signals:  -60/-72 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -82/-81 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 19
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 2
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:47,364
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -57 dBm
+-->Chain Signals:  -61/-77 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -82/-81 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 21
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 1
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+
+[WLAN-DATA] 1900/01/01 07:46:47,385
+Received frame from address 60:fa:cd:92:d6:1a (Apple 92:d6:1a) on WLAN-1:
+-->Orig Length:    116 bytes
+-->Rate:           1M
+-->Signal:         -56 dBm
+-->Chain Signals:  -60/-71 dBm
+-->Noise:          -78 dBm
+-->Chain Noises:   -82/-81 dBm
+-->IEEE 802.11 Header
+Protocol Version    : 0
+Flags               :
+Type                : Mgmt
+Subtype             : ProbeReq
+Duration            : 0000
+Address1 [DA ]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Address2 [SA ]      : 60:fa:cd:92:d6:1a (Apple 92:d6:1a)
+Address3 [BSS]      : ff:ff:ff:ff:ff:ff (Broadcast)
+Sequence Number     : 22
+Fragment Number     : 0
+-->802.11 Management Frame:
+SSID                : 
+Supported Rates     : [1.0M] [2.0M] [5.5M] [11.0M]
+Ext. Supp. Rates    : [6.0M] [9.0M] [12.0M] [18.0M] [24.0M] [36.0M] [48.0M] [54.0M]
+HT Capabilities     : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+DS Param Set        : 1
+Vendor Specific     : 00:10:18 (Broadcom) Type 2
+<trailer>           : 00 00 04 00 00          .....
+Pre-n HT Caps       : Static-SMPS 1-Rx-STBC Max-A-MSDU-3839
+                      Max-A-MPDU-16383 A-MPDU-Spacing-8us
+                      single-stream MCS: all (up to 65/135/150M)
+
+exit
+
+Goodbye
+
+Connection to 192.168.200.254 closed.
+

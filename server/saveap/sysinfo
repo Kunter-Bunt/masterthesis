@@ -1,0 +1,65 @@
+marius@ideapad:~$ sshpass -p key4Lancom! ssh root@192.168.200.254 
+Local password authentication for root
+
+
+#
+| LANCOM LN-862
+| Ver. 10.10.0137RU2 / 08.06.2017
+| SN.  4004319032100197
+| Copyright (c) LANCOM Systems
+
+LN-862, Connection No.: 003 (WLAN)
+
+
+root@LN-862:/
+> sysinfo
+
+DEVICE:                LANCOM LN-862
+HW-RELEASE:            A
+SERIAL-NUMBER:         4004319032100197
+MAC-ADDRESS:           00a0572bc460
+IP-ADDRESS:            192.168.200.254
+IP-NETMASK:            255.255.255.0
+INTRANET-ADDRESS:      0.0.0.0
+INTRANETMASK:          0.0.0.0
+VERSION:               10.10.0137RU2 / 08.06.2017
+VERSION-GIT:           876910bbd20d4b8f30ff8e97c16215b5cd2f9137
+NAME:                  LN-862
+CONFIG-STATUS:         33824;0;0d9ce21beef72975dac780312fe235413a31483b.00000000000000.40
+FIRMWARE-STATUS:       0;0.5;0.1;10.10.0137RU2.08062017.5;10.10.0102RU1.10042017.4
+LOADER:                4.36.0002
+HW-MASK:               00001100000000000000000000000010
+FEATUREWORD:           00000000000000000100000000010000
+REGISTERED-WORD:       00000000000000000100000000010000
+FEATURE-LIST:          04/F
+FEATURE-LIST:          0e/F
+FEATURE-LIST:          2b/F
+TIME:                  00000000000000
+HTTP-PORT:             80
+HTTPS-PORT:            443
+TELNET-PORT:           23
+TELNET-SSL-PORT:       992
+SSH-PORT:              22
+SNMP-PORT:             161
+TFTP-PORT:             69
+Production-Date:       2017-04-03
+MOD-Level:             A1
+LOCATION:              
+COUNTRY-CODE:          0/0 (NA)
+COMMENT:               
+EXTENDED-NAME:         LANCOM LN-862
+WLAN-1 MAC:            00a0572daba2 
+WLAN-2 MAC:            00a0572dfd11 
+SNMP-PASSWORD-REQ:     0
+OEM:                   
+VENDOR:                LANCOM Systems
+OEMFILE:               1.01;"LANCOM Systems";"LANCOM LN-862"
+IRQ:                   OK(AR9382-abgn);OK(QCA9888-anac)
+PROJECT:               nos2 ln862
+OpenSSL:               OpenSSL 1.0.2k  26 Jan 2017
+HW-ID:                 NOS2L
+
+root@LN-862:/
+> Inactivity timer expired, terminating session ...
+Connection to 192.168.200.254 closed.
+
