@@ -1,0 +1,13 @@
+marius@ideapad:~/masterthesis/server$ python3 dbserver.py 
+received data: {"time": 1506419357.1441114, "apmac": "00:a0:57:2b:c4:60", "stamac": "84:ef:18:22:3d:82", "rssi": -23} from: ('127.0.0.1', 56250)
+received data: {"time": 1506419358.45974, "apmac": "00:a0:57:2b:c4:60", "stamac": "84:ef:18:22:3d:82", "rssi": -23} from: ('127.0.0.1', 56250)
+received data: {"time": 1506419359.7743828, "apmac": "00:a0:57:2b:c4:60", "stamac": "74:e2:8c:70:a1:4c", "rssi": -63} from: ('127.0.0.1', 56250)
+received data: {"time": 1506419360.9924436, "apmac": "00:a0:57:2b:c4:60", "stamac": "84:ef:18:22:3d:82", "rssi": -54} from: ('127.0.0.1', 56250)
+received data: {"time": 1506419362.4126172, "apmac": "00:a0:57:2b:c4:60", "stamac": "74:e2:8c:70:a1:4c", "rssi": -62} from: ('127.0.0.1', 56250)
+received data: {"time": 1506419365.432739, "apmac": "00:a0:57:2b:c4:60", "stamac": "ec:10:7b:28:3a:bd", "rssi": -67} from: ('127.0.0.1', 56250)
+received data: {"time": 1506419486.4280066, "stamac": "50:f0:d3:29:83:7c", "rssi": -70, "apmac": "00:a0:57:2b:c4:60"} from: ('127.0.0.1', 56254)
+received data: {"time": 1506419488.053223, "stamac": "50:f0:d3:29:83:7c", "rssi": -64, "apmac": "00:a0:57:2b:c4:60"} from: ('127.0.0.1', 56254)
+received data: {"time": 1506419490.4120607, "stamac": "dc:ef:09:dd:ea:64", "rssi": -72, "apmac": "00:a0:57:2b:c4:60"} from: ('127.0.0.1', 56254)
+received data: {"time": 1506419492.1550577, "stamac": "0c:47:c9:54:cd:3b", "rssi": -73, "apmac": "00:a0:57:2b:c4:60"} from: ('127.0.0.1', 56254)
+received data: {"time": 1506419496.2185218, "stamac": "de:ef:09:dc:ea:64", "rssi": -75, "apmac": "00:a0:57:2b:c4:60"} from: ('127.0.0.1', 56254)
+

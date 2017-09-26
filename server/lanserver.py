@@ -7,7 +7,7 @@ import re
 import json
 import pexpect
 
-verbose = False;
+verbose = True;
 logging = True;
 
 #the thread function for every ap
@@ -24,7 +24,7 @@ def readcmd(proc):
 	while True: 
 		dp = parse_line(proc, apmac);
 		if dp and logging: print(asJSON(dp).decode("UTF-8"));
-		#if dp: s.send(asJSON(dp));
+		if dp: s.send(asJSON(dp));
 		time.sleep(0.05);
 
 #___ is separator
@@ -50,6 +50,7 @@ def parse_sysinfo(proc):
 	found = False;
 	while not found:
 		line = decline(proc);
+		if verbose: print (line);
 		if re.match((r"MAC-ADDRESS:."), line): 
 			lines = re.split(r"\s", line);
 			apmac = list(filter(re.compile(r"[a-z0-9]+").search, lines));
@@ -71,11 +72,15 @@ def parse_line(proc, apmac):
 			if stamac: 
 				stamac = stamac[0];
 
-				#iterate to "Signal: "
-				for i in range(3):
+				#iterate to "-->Signal: " to catch rssi
+				rssi = "";
+				found = False;
+				while not found:
 					line = decline(proc);
 					if verbose: print (line);
-				rssi = list(re.findall(r"-\d+", line));
+					if re.match((r"-->Signal:."), line): 
+						rssi = list(re.findall(r"-\d+", line));
+						found = True;
 				if rssi: 
 					return DataPoint(time.time(),apmac,stamac,int(rssi[0]));
 				else: print ("Corrupted RSSI");
@@ -83,10 +88,11 @@ def parse_line(proc, apmac):
 
 #server connection
 s = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
-#s.connect(('ideapad', 8080))
+s.connect(('ideapad', 8080))
 
 #start the sessions
 for i in range(1):
+	#child = pexpect.spawn('cat saveap/full');
 	child = pexpect.spawn('ssh -t root@192.168.200.254');
 	child.expect('Password:');
 	child.sendline('key4Lancom!');
