@@ -8,12 +8,14 @@ Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einhe
 \subsection{RFM95}
 \label{ch:hardwarechanges:sec:rfm95}
 Bei dem \emph{RFM95} handelt es sich um ein \emph{Long Range} (LoRa)-fähiges Radio-Modul für den Frequenzbereich 868/915 MHz \cite{hope2006rfm}. 
-915 MHz sind jedoch nur in Amerika lizenzfrei, in Deutschland muss das Radio mit 868 MHz betrieben werden.\\
+915 MHz sind jedoch nur in Amerika lizenzfrei, in Deutschland muss das Radio mit 868 MHz betrieben werden.
+
 Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 \emph{RFM95} LoRa Radio verwendet.
 Dieses verwendet einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler.
 Zusätzlich ist eine Antenne notwendig. 
 Die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
-Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).\\
+Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).
+
 Abbildung \ref{fig:lorafeather} zeigt ein Adafruit Feather M0 \emph{RFM95} LoRa Radio. 
 Für die Basisstation wird ein Feather M0 \emph{RFM95} LoRa Radio mit fester Antenne verwendet.
 
@@ -61,7 +63,8 @@ Die mobile Einheit wurde jeweils direkt an der Bewehrung platziert und es wurde 
 Danach wurde die Basisstation immer weiter entfernt, bis keine Pakete der mobilen Einheit mehr empfangen werden konnten.
 Abbildung \ref{fig:lorabasis} zeigt die Platzierung der mobilen Einheit an der Bewehrung.
 Erneut konnte die Plastikbox aufgrund des Versuchsaufbaus nicht geschlossen werden.
-Die mobile Einheit wurde als "{}außer Reichweite"{} angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
+
+Die mobile Einheit wurde als "`außer Reichweite"' angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.
 Es wurde sowohl mit einer Sendeleistung von 5 dBm für einen geringen Sendeverbrauch als auch mit 23 dBm Sendeleistung für maximale Reichweite gemessen.
 Die Messungen werden in 12,5 Meter Abständen angegeben, da in diesem Tunnel die Länge eines Schalungselements 12,5 Meter beträgt.
@@ -86,7 +89,7 @@ Für eine sichere Erkennung des 250-Meter-Abschnitts müsste daher alle 500 Mete
 	\centering
 	\caption{Sendereichweite LoRa-basierter mobiler Einheiten}
 	\label{table:rangelora}
-	\begin{tabular}{p{2.2cm}|p{1.5cm}|p{2.5cm}|p{3.5cm}|p{3cm}}
+	\begin{tabular}{p{2.2cm}|p{1.5cm}|R{2.5cm}|p{3.5cm}|R{3cm}}
 		Verwendetes Modul & Aufbau & Sendeleistung & Strecke & Maximale Sendereichweite \\
 		\hline
 		\emph{RFM95} & Offen & 5 dBm & Wenige Hindernisse & 250 m \\
@@ -103,7 +106,8 @@ Voll nutzen lässt sich die Reichweite jedoch nicht, da die Varianz des RSSI den
 Hingegen führt eine starke Reduktion der Sendeleistung zu einer mangelnder Penetration von Hindernissen.
 Daher sollte ein Kompromiss der Sendeleistung geschlossen werden. 
 Eine Sendeleistung von 10 dBm sollte eine ausreichende Reichweite im Szenario mit vielen Hindernissen bieten.
-Alternativ kann die mobile Einheit auch ein \emph{Send-Receive-Schema} umsetzen und von der Basisstation eine dynamisch angepasste Sendeleistung empfangen, die sich nach der Menge der Hindernisse richtet.\\
+Alternativ kann die mobile Einheit auch ein \emph{Send-Receive-Schema} umsetzen und von der Basisstation eine dynamisch angepasste Sendeleistung empfangen, die sich nach der Menge der Hindernisse richtet.
+
 Wird die Sendeleistung dynamisch so festgelegt, dass eine Reichweite von 250 Metern erreicht wird, benötigt ein Mitarbeiter bei 30 km/h 30 Sekunden um sie zu durchqueren.
 Eine derart lange Intervallzeit würde jedoch dazu führen, dass eine volle Minute ohne Aktualisierung der Position vergeht, sollte ein Paket verloren gehen.
 Das Sendeintervall wird deshalb auf zehn Sekunden gesetzt.
@@ -111,9 +115,11 @@ Das Sendeintervall wird deshalb auf zehn Sekunden gesetzt.
 \subsection{LoRa-Implementierung}
 Die Implementierung für die Lokalisierung mit LoRa ist sehr simpel.
 Die mobile Einheit versendet regelmäßig ein Paket, welches einen Identifikator für die mobile Einheit enthält.
-Das Sendeintervall beträgt entsprechend der hohen Reichweite zehn Sekunden.\\
+Das Sendeintervall beträgt entsprechend der hohen Reichweite zehn Sekunden.
+
 Die Basisstation empfängt durchgehend und bestimmt den RSSI für eingehende Pakete.
-Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem RSSI und einer Kennung für die Basisstation an den Ortungsdienst weiter.\\
+Anschließend leitet sie den Identifikator der mobilen Einheit zusammen mit dem RSSI und einer Kennung für die Basisstation an den Ortungsdienst weiter.
+
 Auf der mobilen Einheit müssen lediglich die Sendefrequenz, die Sendeleistung und der Identifikator gesetzt werden, dann kann immer nach Ablauf des Sendeintervalls gesendet werden.
 Die Basisstation muss dabei auf der selben Frequenz aktiv sein und empfangen.
 
@@ -139,25 +145,29 @@ Die dort gelisteten Verbräuche sind in Tabelle \ref{table:m0power} und Tabelle 
   \label{table:lorapower}
 \end{table}
 
-Da das Adadfruit Feather M0 \emph{RFM95} Lora Radio sich nur durch die Ersetzung des CP2014 durch den Cortex-M0 zum Adafruit Feather nRF52 unterscheidet werden die 155 Mikroamper für die sonstigen Komponenten übernommen.\\
+Da das Adadfruit Feather M0 \emph{RFM95} Lora Radio sich nur durch die Ersetzung des CP2014 durch den Cortex-M0 zum Adafruit Feather nRF52 unterscheidet werden die 155 \textmu A für die sonstigen Komponenten übernommen.
+
 Die Sendeleistung des \emph{RFM95} Radio ist zwischen 5 dBm und 23 dBm einstellbar. 
 Das Datenblatt listet jedoch nur Verbräuche zwischen 7 dBm und 20 dBm Sendeleistung, der Verbrauch wird für diese beiden Sendeleistungen berechnet.
-Für die Nachricht "{}TagTest"{} werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.\\[1cm]
+Für die Nachricht "`TagTest"' werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.
+Damit ergibt sich ein durchschnittlicher Verbrauch $y$ in Höhe von: 
 
-$y = \frac{1}{10} * [(10 - \frac{Bits\_gesendet}{21875 b/s} - \frac{Bits\_empfangen}{21875 b/s}) * (M0\_Deep\_sleep\_mode + RMF95\_IDDIDLE + 155 {\mu}A) + \frac{Bits\_gesendet}{21875 b/s} * RFM95\_XdBm + \frac{Bits\_empfangen}{21875 b/s} * RFM95\_IDDR]$\\[0.5cm]
+$y = \frac{1}{10} * [(10 - \frac{Bits\_gesendet}{21875 b/s} - \frac{Bits\_empfangen}{21875 b/s}) * (M0\_Deep\_sleep\_mode + RMF95\_IDDIDLE + 155 {\mu}A) + \frac{Bits\_gesendet}{21875 b/s} * RFM95\_XdBm + \frac{Bits\_empfangen}{21875 b/s} * RFM95\_IDDR]$
+
 $y_{20dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 120mA + 0,0229s * 12,1mA]$\\[0.5cm]
-$y_{20dBm} \approx \frac{1}{10} * (1,58mA + 0,876mA + 0,2771mA) = 0,2683mA$\\[1cm]
+$y_{20dBm} \approx \frac{1}{10} * (1,58mA + 0,876mA + 0,2771mA) = 0,2683mA$
 
 $y_{7dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 20mA + 0,0229s * 12,1mA]$\\[0.5cm]
-$y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$\\[1cm]
+$y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$
 
 \subsubsection{Tatsächlicher Stromverbrauch von LoRa}
 \label{ch:phase3:sec:powerlora}
 Der Stromverbrauch der Implementierung mit LoRa wurde mit 5 dBm und 23 dBm Sendeleistung überprüft.
-Abbildung \ref{fig:lora5} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRa bei 5 dBm.\\
+Abbildung \ref{fig:lora5} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRa bei 5 dBm.
+
 Nach einer circa drei sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach zehn Sekunden Ruhezustand senden.
 Dieser jedoch vom Zeitgeber nicht ganz eingehalten, die mobile Einheit befindet sich zwischen den Sendevorgängen circa elf Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
-Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 0,9 bis 1,0 Milliamper, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.\\
+Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 0,9 bis 1,0 mA, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.
 
 \begin{figure}[h!]
   \centering
@@ -176,8 +186,8 @@ Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger a
   \label{fig:lora235send}
 \end{figure}
 
-Die Ergebnisse der Messungen sind in Tabelle \ref{table:lora235ina} gelistet.\\
-Für den \emph{RFM95} Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der \emph{CP2104}, welcher zum Programmieren des \emph{ESP8266} beziehungsweise \emph{nRF52} dient, mindestens 6 Milliamper zu verbrauchen.
+Die Ergebnisse der Messungen sind in Tabelle \ref{table:lora235ina} gelistet.
+Für den \emph{RFM95} Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der \emph{CP2104}, welcher zum Programmieren des \emph{ESP8266} beziehungsweise \emph{nRF52} dient, mindestens 6 mA zu verbrauchen.
 Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
 Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
@@ -185,11 +195,11 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 	\centering
 	\caption{Stromverbrauch mobiler Einheiten mit LoRa}
 	\label{table:lora235ina}
-	\begin{tabular}{l|l|p{2.5cm}|p{2cm}}
+	\begin{tabular}{l|l|R{2.5cm}|R{2cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA (normalisiert) & Laufzeit in Stunden\\
 		\hline
 		LoRa Feather & LoRa 23 dBm Sendeleistung & 1,47 (0,57) & 952,4\\
-		LoRa Feather & LoRa 5 dBm Sendeleistung & 1,2 (0,3) & 1166,7\\
+		LoRa Feather & LoRa 5 dBm Sendeleistung & 1,20 (0,30) & 1166,7\\
 	\end{tabular}
 \end{table}
 
@@ -206,7 +216,7 @@ Die Ergebnisse des \emph{ESP-12S} sind jedoch zugunsten des \emph{ESP-12F} nicht
 	\centering
 	\caption{Sendereichweite mobiler Einheiten}
 	\label{table:ranges}
-	\begin{tabular}{l|l|l|p{3cm}}
+	\begin{tabular}{l|l|l|R{3cm}}
 		Protokoll & Verwendetes Modul & Strecke & Maximale Sendereichweite \\
 		\hline
 		IEEE 802.11b & \emph{ESP-12F} & Wenige Hindernisse & 88 m \\
@@ -225,10 +235,13 @@ Der Abstand der Basisstationen für die Bereichsortung ist mit 250 Metern gegebe
 Die einzige Funktechnologie, die über 125 Meter im Tunnel erreicht, ist LoRa.
 Sie ist deshalb die einzige getestete Funktechnologie, die eine lückenlose Ortung ermöglicht.
 Zu beachten ist, dass LoRa keine Kollisionvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet, es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
-Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, das Sendeintervall wurde in dieser Arbeit auf zehn Sekunden gesetzt.\\
+Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden. 
+Um das Problem durch redundantes Senden zu umgehen, wurde das Sendeintervall in dieser Arbeit auf zehn Sekunden gesetzt.
+
 Bei BLE und IEEE 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
 Sie werden dabei so gesetzt, dass beim Durchqueren des abgedeckten Bereichs mit 30 km/h mehrfach gesendet wird.
-In dieser Arbeit wurden die Sendeintervalle für IEEE 802.11 auf fünf Sekunden und für BLE auf eine Sekunde gesetzt.\\
+In dieser Arbeit wurden die Sendeintervalle für IEEE 802.11 auf fünf Sekunden und für BLE auf eine Sekunde gesetzt.
+
 Kürzere Sendeintervalle führen dabei zu einer höheren Erkennungszuverlässigkeit, längere Sendeintervalle senken den Stromverbrauch.
 
 \subsection{Mobile Einheiten}
@@ -267,38 +280,42 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 	\centering
 	\caption{Stromverbrauch mobiler Einheiten}
 	\label{table:consumptions}
-	\begin{tabular}{l|p{3.4cm}|p{5.8cm}|p{2.5cm}}
+	\begin{tabular}{l|p{3.2cm}|p{5.5cm}|R{2.5cm}}
 		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
 		\hline
-		IEEE 802.11 & \emph{ESP8266} Feather & \emph{WiFi-LLS} & 42,2 (34,1)\\
-		IEEE 802.11 & \emph{ESP-12F} & \emph{WiFi-LLS} & 36,5 (35,2)\\
-		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Assoziations-Lokalisierung} & 15,4 (7,3) \\
-		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} & 8,8 (7,5)\\
-		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} (kein \emph{Access Point} in Reichweite) & 17,1 (17,1)\\
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{WiFi-LLS} & 42,20 (34,10)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{WiFi-LLS} & 36,50 (35,20)\\
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Assoziations-Lokalisierung} & 15,40 (7,30) \\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} & 8,80 (7,50)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} (kein \emph{Access Point} in Reichweite) & 17,10 (17,10)\\
 		\hline
-		IEEE 802.11 & \emph{ESP8266} Feather & \emph{RADAR} & 16,7 (8,6)\\
-		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,1 (8,8) \\
-		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,7 (2,7)\\
-		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,8 (1,8)\\
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{RADAR} & 16,70 (8,60)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,70 (2,70)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
 		\hline
 		BLE & \emph{nRF52} Feather & Ortung mit \emph{BLE-Advertising} & 7,37 (0,04)\\
 		\hline
-		LoRa & \emph{RFM95} Feather 5 dBM & Ortung mit LoRa RSSI & 1,2 (0,3)\\
+		LoRa & \emph{RFM95} Feather 5 dBM & Ortung mit LoRa RSSI & 1,20 (0,30)\\
 		LoRa & \emph{RFM95} Feather 23 dBM & Ortung mit LoRa RSSI & 1,47 (0,57)\\
 	\end{tabular}
 \end{table}
 
 Zu erkennen ist, dass die umliegenden Komponenten der verwendeten Adafruit Feather einen hohen passiven Stromverbrauch verursachen.
-Direkt gezeigt werden konnte dieser Effekt jedoch im Zuge dieser Arbeit nur für das \emph{ESP8266} Feather, da nur dort ein einzelnes Modul vorhanden war.\\
+Direkt gezeigt werden konnte dieser Effekt jedoch im Zuge dieser Arbeit nur für das \emph{ESP8266} Feather, da nur dort ein einzelnes Modul vorhanden war.
+
 Außerdem wurde gezeigt, dass IEEE 802.11-basierte Lösungen, die einem Netzwerk einloggen beitreten mehr Strom verbrauchen als solche, die darauf verzichten.
 Die Einsparungen der \emph{Probe-Request-Lokalisierung} resultieren aus tieferen Schlafzuständen und dem Verzicht auf das empfangen von \emph{Beacons}.
 Zusätzlich leiden IEEE 802.11-basierte Lösungen, die einem Netzwerk beitreten an den besonderen Bedingungen im Tunnelbau.
 Da in Arbeitsbereichen vor dem Tunnel keine Abdeckung durch ein WLAN-Netzwerk herrscht, sucht die mobile Einheit nach dem WLAN-Netzwerk.
-Dieser Vorgang ist energetisch deutlich teurer wie das halten einer Verbindung zu einem Netzwerk.\\
+Dieser Vorgang ist energetisch deutlich teurer wie das halten einer Verbindung zu einem Netzwerk.
+
 Mittelt man den zusätzlichen Verbrauch der Komponenten des \emph{ESP8266} Feather und überträgt diese auf das \emph{nRF52} Feather, ist BLE beim Stromverbrauch den anderen Protokollen weit überlegen.
-Die Sendevorgänge von BLE sind sehr kurz und verbrauchen vergleichsweise wenig Strom.\\
+Die Sendevorgänge von BLE sind sehr kurz und verbrauchen vergleichsweise wenig Strom.
+
 LoRa verbraucht mehr Strom als BLE, hat aber auch eine deutlich höhere Reichweite.
-Es ordnet sich beim Verbrauch zwischen BLE und IEEE 802.11 ein, wobei der Ruheverbrauch von knapp einem Milliamper den Sendeverbrauch überwiegt, die mobilen Einheiten mit 5 dBm und 23 dBm Sendeleistung liegen deshalb beim Verbrauch über eine Stunde recht nah beieinander.\\
+Es ordnet sich beim Verbrauch zwischen BLE und IEEE 802.11 ein, wobei der Ruheverbrauch von knapp 1 mA den Sendeverbrauch überwiegt, die mobilen Einheiten mit 5 dBm und 23 dBm Sendeleistung liegen deshalb beim Verbrauch über eine Stunde recht nah beieinander.
+
 Abbildung \ref{fig:alle} gibt einen Überblick über den Verbrauch der Implementierungen bei der Ortung. 
 \emph{RADAR} wird nicht gezeigt, da es keine Vorteile gegenüber der \emph{Probe-Request-Lokalisierung} bietet und mehr Strom verbraucht.
 Die \emph{Assoziations-Lokalisierung} wird nicht gezeigt, da hier die Ortung im Zuge des \emph{Join} stattfindet.
@@ -312,18 +329,22 @@ Die \emph{Assoziations-Lokalisierung} wird nicht gezeigt, da hier die Ortung im 
 
 
 \section{Auswertung}
-Es wurden mobile Einheiten mit IEEE 802.11, Bluetooth Low Energy und LoRa implementiert und bezüglich ihrer Reichweite und ihres Energieverbrauchs untersucht.\\
+Es wurden mobile Einheiten mit IEEE 802.11, Bluetooth Low Energy und LoRa implementiert und bezüglich ihrer Reichweite und ihres Energieverbrauchs untersucht.
+
 IEEE 802.11 ist den anderen Protokollen weder bei der Reichweite, noch beim Energieverbrauch überlegen. 
 Sein Vorteil liegt in der Verfügbarkeit von WLAN Access Points, welche als Basisstationen verwendet werden können.
 IEEE 802.11 hat jedoch im gegebenen Szenario für den Tunnelbau Probleme mit Bereichen, die durch das WLAN-Netzwerk nicht abgedeckt sind. 
-Diese können vermieden werden, wenn spezielle Funktionen beim AP vorraussgesetzt werden können.\\
+Diese können vermieden werden, wenn spezielle Funktionen beim AP vorraussgesetzt werden können.
+
 BLE zeichnet sich durch einen niedrigen Energieverbrauch pro Sendevorgang aus, allerdings zeigte sich bei der Prüfung der Reichweite von BLE auch, dass diese mit 14 bis 32 Meter nicht sehr groß ist.
-Dies wirkt sich negativ auf die Erkennungszuverlässigkeit bei Bereichswechseln aus, außerdem gibt es dadurch große Bereiche, in denen die mobilen Einheiten nicht geortet werden können.\\
+Dies wirkt sich negativ auf die Erkennungszuverlässigkeit bei Bereichswechseln aus, außerdem gibt es dadurch große Bereiche, in denen die mobilen Einheiten nicht geortet werden können.
+
 Dieses Problem hat LoRa nicht. 
 Seine enorme Reichweite von bis zu 1250 Meter erlaubt es, dass eine mobile Einheit an jedem Punkt im Tunnel von mehreren Basisstationen geortet werden kann.
 Diese Eigenschaft macht die mobile Einheit mit LoRa zu einer sehr zuverlässigen Einheit für die Ortung.
 Beachtet werden muss jedoch, dass LoRa Kollisionen nur durch die zufällige Wahl des Kanals zu verhindern versucht, es muss daher mit gelegentlichen Kollisionen gerechnet werden.
-Daher sollte das Sendeintervall auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, um eine zuverlässige Ortung im Ortungsintervall zu erreichen.\\
+Daher sollte das Sendeintervall auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, um eine zuverlässige Ortung im Ortungsintervall zu erreichen.
+
 Aufgrund seiner hohen Reichweite und daraus resultierenden lückenlosen Ortung der mobilen Einheiten schlägt diese Arbeit LoRa für \emph{zuverlässige funkbasierte Bereichsortung im Tunnelbau} vor.
 
 

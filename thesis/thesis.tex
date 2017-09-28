@@ -12,6 +12,8 @@
 \usepackage[numbers,sort&compress]{natbib}
 \usepackage{url}
 \usepackage{amssymb}
+\usepackage{textcomp}
+\usepackage{tabularx}
 %\usepackage{graphicx} 
 % \usepackage{varioref}
 % \usepackage{verbatim}
@@ -25,12 +27,14 @@
 
 %\svnversion{$Id: thesis.tex 65 2012-05-10 10:32:11Z bless $} % In case that you want to include version information in the footer
 
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
 %% Informationen für die PDF-Datei
 \hypersetup{
- pdfauthor={N.N.},
- pdftitle={Not set}
- pdfsubject={Not set},
- pdfkeywords={Not set}
+ pdfauthor={Marius Wodtke},
+ pdftitle={Funkbasierte Bereichsortung}
+ pdfsubject={Zuverlässige funkbasierte Bereichsortung im Tunnelbau},
+ pdfkeywords={802.11, wifi, wlan, bluetooth low energy, lora, localisation}
 }
 
 % Macros, nicht unbedingt notwendig
