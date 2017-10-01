@@ -88,7 +88,7 @@ Damit werden auch bei einer Reichweite von nur 14 Metern auf der Tunnelbohrmasch
 \subsection{BLE-Advertising-Implementierung}
 \label{ch:phase3:sec:advertising}
 Die \emph{Bluetooth-Low-Energy-Implementierung} ist an die Arbeit von Jianyong et al. angelehnt.
-Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising} Paket gesendet.
+Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising}-Paket gesendet.
 
 In der Praxis wird dazu das \emph{Advertising}-Intervall entsprechend gesetzt, dabei handelt es sich um einen in Bluetooth 4.0 spezifizierten Parameter für die Häufigkeit des \emph{Advertisings}.
 Da die \emph{Bluefruit} \emph{nRF52} API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
@@ -127,7 +127,7 @@ $y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$
 
 \subsubsection{Tatsächlicher Stromverbrauch von BLE}
 \label{ch:phase3:sec:powerble}
-Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit Bluetooth-Low-Energy-Advertising.
+Abbildung \ref{fig:blue} zeigt den Lastverlauf für den Start einer mobilen Einheit mit \emph{Bluetooth-Low-Energy-Advertising}.
 
 Zu Beginn ist eine Startphase zu erkennen, ab 2 Sekunden nach Start des Experiments ist dann das regelmäßige Muster aus Verbrauch im Ruhezustand und kurzen Verbrauchsspitzen beim Senden zu erkennen.
 Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, die Samplingrate von 333 Hz reicht hier offenbar nicht aus um dem Sendevorgang vollständig zu erfassen.

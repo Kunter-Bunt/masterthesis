@@ -101,7 +101,7 @@ Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei grö
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/luiRSSI.png}
-  \caption{Gemessener RSSI mit verschiedenen \emph{Access Points} und Distanzen, aus \cite{lui2011differences}.}
+  \caption{Gemessener RSSI mit verschiedenen \emph{Access Points} und Distanzen aus \cite{lui2011differences}.}
   \label{fig:luiRSSI}
 \end{figure}
 
@@ -215,7 +215,7 @@ Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für e
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/bluetoothmess.png}
-  \caption{Korrelation der Messwerte mit der Distanz, aus \cite{hossain2007comprehensive}}
+  \caption{Korrelation der Messwerte mit der Distanz aus \cite{hossain2007comprehensive}}
   \label{fig:bluetoothmess}
 \end{figure}
 
@@ -233,7 +233,7 @@ Tabelle \ref{table:irr} zeigt die abnehmende Warscheinlichkeit für eine Antwort
 
 \begin{table}[h]
   \centering
-  \caption{Rate der beantworteten \emph{Inquiry Messages} (\emph{Inquiry Response Rate}, IRR) gegen Distanz, aus \cite{bargh2008indoor}}
+  \caption{Rate der beantworteten \emph{Inquiry Messages} (\emph{Inquiry Response Rate}, IRR) gegen Distanz aus \cite{bargh2008indoor}}
 	\includegraphics[width=0.7\textwidth]{images/irr.png}
 
   \label{table:irr}
@@ -274,11 +274,11 @@ Abbildung \ref{fig:blemodel} zeigt außerdem, dass die verwendeten \emph{CC2540 
 \subsubsection{Lokalisierung mit LoRa}
 \label{ch:Vorherige:sec:lora}
 Kim et al. stellen ein System zur Lokalisierung mit \emph{Long Range} (LoRa) vor \cite{kim2016poster}.
-Sie beziehen sich dabei auf eine Lokalisierung im Außenbereich in einem 30x30km Areal. 
+Sie beziehen sich dabei auf eine Lokalisierung im Außenbereich in einem 30x30 km Areal. 
 Sie senden Pakete von der mobilen Einheit und messen die \emph{Time of Arrival} (TOA) an den Basisstationen.
 Dazu müssen die Basisstationen zeitsynchron arbeiten, dies wird über GPS sichergestellt.
 
-Eine Lokalisierung über den RSSI lehnen sie ab, da dieser im Bereich von 20 bis 30 Kilometer Entfernung nur um 3 bis 6 dBm fällt und die Varianz die Korrelation von RSSI und Distanz über lange Distanzen überdeckt.
+Eine Lokalisierung über den RSSI lehnen sie ab, da dieser im Bereich von 20 bis 30 km Entfernung nur um 3 bis 6 dBm fällt und die Varianz die Korrelation von RSSI und Distanz über lange Distanzen überdeckt.
 Sie erreichen, abhängig von der Anzahl der verwendeten Basisstationen, eine Genauigkeit zwischen wenigen Hundert und fast eintausend Metern, siehe dazu Abbildung \ref{fig:loraacc}.
 
 \begin{figure}[h]
@@ -297,16 +297,16 @@ Soll das bestehende WLAN-Netzwerk genutzt werden, ist die Wahl auf die IEEE 802.
 
 Kann man aber die Hardware für die Basisstationen frei wählen, kann auch das Protokoll frei gewählt werden.
 Es werden deshalb zusätzlich BLE und LoRa betrachtet.
-\emph{Bluetooth Low Energy} wird gegenüber normalem Bluetooth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.
+BLE wird gegenüber normalem Bluetooth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.
 LoRa bietet zwar theoretisch eine sehr hohe Reichweite, diese ist jedoch stark von verwendeten Antennen und den Hindernissen abhängig.
-Ob LoRa einen signifikanten Vorteil bei der Reichweite hat muss geprüft werden.
+Ob LoRa einen signifikanten Vorteil bei der Reichweite hat, muss geprüft werden.
 Sollte dieser Vorteil bestehen, bietet LoRa durch seine bessere Abdeckung eine höhere Zuverlässigkei bei der Erkennung von Abschnittswechseln. 
 Außerdem ist es dadurch potentiell möglich auf triangulierte Positionen zu wechseln ohne mehr Basisstationen aufbauen zu müssen.
 
 \subsection{Auswahl der Topologie}
 Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
 Das Sicherheitssystem fungiert daher konzeptionell auch als zentraler Ortungsdienst.
-Es muss deshalb eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. 
+Es muss eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. 
 
 Weil laut IEEE 802.11 keine für die Lokalisierung geeigneten Messwerte vom AP in das angeschlossene Netzwerk propagiert werden, kommt keine der verwandten Arbeiten zur direkten Fernlokalisierung mit IEEE 802.11 ohne Zugriff auf die Software des AP aus.
 Es werden deshalb sowohl die direkte, als auch die indirekte Fernlokalisierung mit IEEE 802.11 untersucht, obwohl eine Lösung mit indirekter Fernlokalisierung wegen des nötigen Empfangs von Signalen potentiell mehr Energie verbraucht.
@@ -326,7 +326,7 @@ Messgrößen, die Zeitsynchronität vorraussetzen sind daher nicht geeignet.
 Als Messgröße wird der \emph{Received Signal Strength Indicator} (RSSI) für alle drei Protokolle gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.
 
 Auch bei LoRa wird der RSSI entgegen der Empfehlung von Kim et al. gewählt.
-Da sich das Szenario im Gegensatz zu dem aus ihrer  Veröffentlichung unter Tage abspielt kann keine Synchronisierung über GPS gewährleistet werden. 
+Da sich das Szenario im Gegensatz zu dem aus ihrer  Veröffentlichung unter Tage abspielt, kann keine Synchronisierung über GPS gewährleistet werden. 
 Außerdem müssen die Distanzen zwischen den Basisstationen geringer gewählt werden, da die Ungenauigkeiten aus dieser Veröffentlichung zu hoch für das Szenario sind.
 
 \subsection{Auswahl der Hardware}
@@ -359,19 +359,27 @@ Abschließend werden in jedem Kapitel die Charakteristika des Stromverbrauchs de
 \chapter{Konzept}
 Basierend auf der Auswahl des vorherigen Kapitels müssen Konzepte für die Implementierungen von vier Kombinationen aus Topologie und Protokoll entstehen.
 Jede der folgenden Sektionen befasst sich mit einer Kombination, beginnend mit IEEE 802.11, bei welchem sowohl direkte als auch indirekte Fernlokalisierung implementiert werden.
-Danach folgt die direkte Fernlokalisierung mit Bluetooth Low Energy und LoRa.
+Danach folgt die direkte Fernlokalisierung mit \emph{Bluetooth Low Energy} (BLE) und \emph{Long Range} (LoRa).
 
 \section{Indirekte Fernlokalisierung mit IEEE 802.11}
-Für die Indirekte Fernlokalisierung mit IEEE 802.11 wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender Pakete von \emph{Access Points} (APs) auf der mobilen Einheit bestimmt.
+Für die indirekte Fernlokalisierung mit IEEE 802.11 wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender Pakete von \emph{Access Points} (APs) auf der mobilen Einheit bestimmt.
 Die gesammelten Werte werden anschließend mit WLAN an den Ortungsdienst übertragen.
 Dieser berechnet dann die Position der mobilen Einheit mit den übertragenen RSSI-Werten und den bekannten Positionen der APs.
 Die APs fungieren daher als Basisstationen für die Lokalisierung.
 
 \subsection{WiFi-LLS}
 Das \emph{WiFi-based Local Location System} (\emph{WiFi-LLS}) von Chen et al. nutzt zur Ermittelung der RSSI-Werte den \emph{Scan}-Vorgang \cite{chen2007design}.
-Es wird zunächst ein aktiver \emph{Scan} ausgeführt, dazu werden nacheinander auf allen überlappungsfreien Kanälen \emph{Probe Requests} versendet und bei empfangen der \emph{Probe Responses} die MAC-Adresse des antwortenden APs zusammen mit dem RSSI protokolliert.
-Nach Beenden des \emph{Scans} werden die Ergebnisse an dem Ortungsdienst übermittelt. 
+Es wird zunächst ein aktiver \emph{Scan} ausgeführt, dazu werden nacheinander auf allen überlappungsfreien Kanälen \emph{Probe Requests} versendet und beim Empfangen der \emph{Probe Responses} die MAC-Adresse des antwortenden APs zusammen mit dem RSSI protokolliert.
+Nach Beenden des \emph{Scans} werden die Ergebnisse an den Ortungsdienst übermittelt. 
 Die mobile Einheit muss dazu einem Netzwerk beigetreten sein, welches mit dem Ortungsdienst kommunizieren kann.
+Der Ablauf eines \emph{Scans} wird in Abbildung \ref{fig:activescan} gezeigt, dieser Vorgang muss für jeden nicht überlappenden Kanal durchgeführt werden.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.9\textwidth]{images/activescan.png}
+  \caption{Ablaufdiagramm eines aktiven Scan aus \cite{ieee2012active}.}
+  \label{fig:activescan}
+\end{figure}
 
 \subsection{Assoziations-Lokalisierung}
 Um eine Bereichsortung zu erhalten, reicht das Wissen um einen nahen AP aus.
@@ -380,35 +388,53 @@ Eine \emph{Station} (hier: die mobile Einheit), die einem Netzwerk beigetreten i
 Verschlechtert sich der RSSI zu diesem stark, versucht die Station sich mit einem AP mit besserem RSSI zu \emph{reassoziieren}.
 
 Eine mobile Einheit mit \emph{Assoziations-Lokalisierung} protokolliert daher nur die \emph{Assoziationen} und \emph{Reassoziationen} und versendet die MAC-Adresse des assozierten APs immer dann an den Ortungsdienst, wenn eine \emph{(Re-)Assoziation} stattgefunden hat.
+Der Wechsel zwischen zwei APs wird exemplarisch in Abbildung \ref{fig:reassociation} dargestellt.
+
+\begin{figure}[h!]
+  \centering
+	\includegraphics[width=\textwidth]{images/reassociation.eps}
+  \caption{Vorgang von \emph{Assoziation} und \emph{Reassoziation}.}
+  \label{fig:reassociation}
+\end{figure}
 
 \section{Direkte Fernlokalisierung mit IEEE 802.11}
-Für die direkte Fernlokalisierung mit IEEE 802.11 wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender Pakete von den mobilen Einheiten an den \emph{Access Points} (APs) bestimmt.
+Für die direkte Fernlokalisierung mit IEEE 802.11 wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender Pakete von den mobilen Einheiten an den APs bestimmt.
 Die gesammelten Werte werden anschließend für den Ortungsdienst in Form eines Protokolls verfügbar gemacht.
 Dieser berechnet dann die Position der mobilen Einheit mit den übertragenen RSSI-Werten und den bekannten Positionen der APs.
 Auch hier fungieren die APs als Basisstationen für die Lokalisierung.
 
 \subsection{RADAR}
-Für das \emph{RADAR} System von Bahl et al. versenden die mobilen Einheiten UDP-Pakete mit einem sechs Byte langen Identifikator \cite{bahl2000radar}.
+Für das \emph{RADAR} System von Bahl et al. versenden die mobilen Einheiten UDP-Pakete mit einem 6 Byte langen Identifikator \cite{bahl2000radar}.
 Der RSSI dieser Pakete wird dann von den APs bestimmt und zusammen mit dem Identifikator protokolliert.
 Die Werte können anschließend vom Ortungsdienst abgerufen werden. 
 
 \subsection{Probe-Request-Lokalisierung}
 Statt UDP-Paketen verwenden mobile Einheiten mit \emph{Probe-Request-Lokalisierung} \emph{Probe Requests} als Paket.
-Beim \emph{Probe Request} handelt es sich um einen \emph{Management Frame}, der auch für den \emph{Scan} verwendet wird.
+Bei einem \emph{Probe Request} handelt es sich um einen \emph{Management Frame}, der auch für den \emph{Scan} verwendet wird.
 Der AP protokolliert beim Empfang den RSSI, als Identifikator dient die MAC-Adresse der mobilen Einheit, sie ist in \emph{Probe Requests} enthalten.
 Auch für diese Implementierung müssen die APs dem Ortungsdienst eine Möglichkeit bieten die Protokolle abzurufen.
+Abbildung \ref{fig:probeReq} zeigt den Vorgang schematisch.
+
+\begin{figure}[h]
+  \centering
+	\includegraphics[width=0.5\textwidth]{images/probeReq.eps}
+  \caption{Schema der Bereichsortung mit Probe Request.}
+  \label{fig:probeReq}
+\end{figure}
+
 
 \section{Direkte Fernlokalisierung mit Bluetooth Low Energie}
-Für die direkte Fernlokalisierung mit Bluetooth Low Energy (BLE) wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender \emph{Advertising}-Pakete von den mobilen Einheiten an den BLE-fähigen Basisstationen bestimmt.
+Für die direkte Fernlokalisierung mit BLE wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender \emph{Advertising}-Pakete an den BLE-fähigen Basisstationen bestimmt.
+Die \emph{Advertising}-Pakete werden dafür von den mobilen Einheiten versendet.
 
 \emph{Advertising} ist eine Möglichkeit für BLE-Geräte kleine Datenmengen in regelmäßigen Abständen zu versenden oder \emph{Services}, welche sie zur Verfügung stellen, zu bewerben. 
 Für die Lokalisierung kann ein Identifikator im \emph{Advertising}-Paket versendet werden.
 Alternativ kann auch die eindeutige MAC-Adresse der mobilen Einheit als Identifikator verwendet werden.
 
-\section{Direkte Fernlokalisierung mit LoRa}
-Für die direkte Fernlokalisierung mit LoRa wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender Pakete von den mobilen Einheiten an den LoRa-fähigen Basisstationen bestimmt.
+\section{Direkte Fernlokalisierung mit Long Range}
+Für die direkte Fernlokalisierung mit LoRa senden die mobilen Einheiten regelmäßig und der \emph{Received Signal Strength Indicator} (RSSI) eingehender Pakete wird an den LoRa-fähigen Basisstationen bestimmt.
 
 Die mobile Einheit versendet dazu in regelmäßigen Abständen ein Paket mit einem Identifikator.
 Da in den Paketen der LoRaWAN Spezifikation nur eine gekürzte MAC-Adresse versendet wird, sollte diese nicht als Identifikator verwendet werden.
-Wird eine große Zahl mobiler Einheiten betrieben könnten dann Duplikate auftreten.
+Wird eine große Zahl mobiler Einheiten betrieben, könnten dann Duplikate auftreten.
 Außerdem ist der Versand von Paketen ohne Inhalt nicht vorgesehen.

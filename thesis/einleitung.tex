@@ -5,9 +5,10 @@ Während die Ortung im Außenbereich fest in der Hand von Satellitennavigationss
 So hat die Ortung mittels WLAN gerade im medizinischen Bereich durch kommerzielle Lösungen Verbreitung gefunden, Probleme finden sich aber bei Ortungsgenauigkeit gegenüber anderen Techniken und dem vergleichsweise hohen Energieverbrauch des WLAN-Protokolls.
 Während sich viele wissenschaftliche Arbeiten der Ortungsgenauigkeit widmen, ist für den alltäglichen Einsatz die kurze Batterielaufzeit der mobilen Einheiten hinderlich, wenn nicht zum Beispiel Smartphones als mobile Einheiten in Frage kommen. 
 
-Auch im Tunnelbau ist eine Ortung von Mitarbeitern und Besuchern von Nöten um in Notfällen bestimmen zu können, ob und wie viele Personen sich im Gefahrenbereich befinden. 
+Auch im Tunnelbau ist eine Ortung von Mitarbeitern und Besuchern von Nöten, um in Notfällen bestimmen zu können, ob und wie viele Personen sich im Gefahrenbereich befinden. 
 Dies beeinflusst die Arbeit der Rettungskräfte. 
-Das veränderliche Umfeld der Baustelle, auf der große Stahl- und Betonelemente bewegt werden, stellt dabei die genaue Ortung mittels Radiowellen vor große Probleme und es wird nur eine Bereichsortung durchgeführt, bei der jede Tunnelröhre in mehrere hundert Meter große Abschnitte aufgeteilt wird und der Wechsel der Mitarbeiter zwischen den Abschnitten beobachtet wird. 
+Das veränderliche Umfeld der Baustelle, auf der große Stahl- und Betonelemente bewegt werden, stellt dabei die genaue Ortung mittels Radiowellen vor große Probleme.
+Es wird nur eine Bereichsortung durchgeführt, bei der jede Tunnelröhre in mehrere hundert Meter große Abschnitte aufgeteilt wird und der Wechsel der Mitarbeiter zwischen den Abschnitten beobachtet wird. 
 Dies stellt zwar nur eine geringe Genauigkeit dar, erlaubt es aber bei Bränden zu erkennen, welche Personen sich durch die Abschnitte Richtung Ausgang bewegen und welche in ihrem Abschnitt verharren. 
 Solche Personen sind vermutlich bewegungsunfähig oder eingeschlossen.
 
@@ -16,9 +17,10 @@ Solche Personen sind vermutlich bewegungsunfähig oder eingeschlossen.
 Die Ortung wird derzeit bei der Ed. Züblin AG mittels Bluetooth durchgeführt. 
 Dabei sind die Basisstationen eigenständige Bluetooth-Einheiten, die mit dem Ethernet Backbone verbunden sind.
 Als mobile Einheiten kommen sowohl batteriebetriebene "`Tags"' als auch Smartphones zum Einsatz. 
-Das zentrale Sicherheitssystem fragt die gesehenen mobilen Einheiten bei den Basisstationen an und bereitet die Ergebnisse graphisch auf.
+Das zentrale Sicherheitssystem fragt die erkannten mobilen Einheiten bei den Basisstationen an und bereitet die Ergebnisse graphisch auf.
 
-Der Tunnel wird in Bereiche zu circa 500 Meter aufgeteilt, die Tunnelbohrmaschine (TBM) stellt dabei einen Sonderbereich dar, weil sie sich im Gegensatz zu den anderen Bereichen langsam bewegt. 
+Der Tunnel wird in Bereiche zu circa 500 Meter aufgeteilt. 
+Die Tunnelbohrmaschine (TBM) stellt dabei einen Sonderbereich dar, weil sie sich im Gegensatz zu den anderen Bereichen langsam bewegt. 
 Neue Bereiche werden hinter der TBM eingefügt und sind dann stationär.
 
 Die Bluetooth-Basisstationen werden in Kästen verstaut, die weitere notwendige Technik, wie etwa ein Notfalltelefon, enthalten.
@@ -26,26 +28,26 @@ Weil diese Kästen nur etwa alle 500 Meter montiert sind, existieren große Lüc
 Eine mobile Einheit wird im System so lange im selben Bereich angezeigt, bis sie wieder von einer Basisstation erkannt wird.
 
 Wird die mobile Einheit von der Erfassungseinheit vor dem Portal (Tunneleingang) erkannt gilt sie als außerhalb des Tunnels.
-Abbildung \ref{fig:bisherige} zeigt die bisherige Situation mit Bluetooth-Basisstaionen. 
-Die Reichweite der der Basistationen ist dabei nicht maßstabsgetreu.
+Abbildung \ref{fig:bisherige} zeigt die bisherige Situation mit Bluetooth-Basisstationen. 
+Die Reichweite der Basisstationen ist dabei nicht maßstabsgetreu.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/bisherige.png}
-  \caption{Bereichsortung mit Bluetooth, aus \cite{maurer2016unterstuetzung}.}
+  \caption{Bereichsortung mit Bluetooth aus \cite{maurer2016unterstuetzung}.}
   \label{fig:bisherige}
 \end{figure}
 
  
 \section{Umgebung für funkbasierte Ortung}
-Als Versuchsumgebung dient die Tunnelbaustelle Rastatt.
+Als Versuchsumgebung dient die Tunnelbaustelle \emph{ARGE Tunnel Rastatt}.
 Dort gelten die Positionen der Kästen für die Technik als unveränderlich.
 Nur sie bieten Strom, Netzwerkanbindung (LAN) und Schutz vor dem Baustellenumfeld.
 Für Funkprotokolle, die weniger als 250 Meter Reichweite entfalten muss daher mit Erfasssungslücken gerechnet werden.
 Auf der TBM und anderen technischen Fahrzeugen sind jedoch mehr Basisstationen möglich.
 
-Es existiert bereits ein WLAN-Netzwerk, dessen Access Points als Basisstationen genutzt werden können.
-Es handelt sich um APs der Firma Lancom, diese stellt auch ein Modell LN-862 für Versuche.
+Es existiert bereits ein WLAN-Netzwerk, dessen \emph{Access Points} (APs) als Basisstationen genutzt werden können.
+Es handelt sich um APs der Firma Lancom, welche auch ein Modell \emph{LN-862} für Versuche bereitstellt.
 Für zukünftige Baustellen soll der Abstand der Versorgungskästen auf 250 Meter sinken. 
 Diese Situation ist in Abbildung \ref{fig:zukuenftige} skizziert.
 
@@ -58,7 +60,7 @@ Diese Situation ist in Abbildung \ref{fig:zukuenftige} skizziert.
 
 \section{Problemstellung}
 Es muss ein System geschaffen werden, welches Mitarbeiter einem 250 Meter langen Abschnitt innerhalb eines im Bau befindlichen Tunnels zuordnet.
-Dazu soll keine Nutzerinteraktion nötig sein, der Nutzer wird wird über eine mobile Einheit geortet.
+Dazu soll keine Nutzerinteraktion nötig sein, der Nutzer wird über eine mobile Einheit geortet.
 Die Ortung muss unterirdisch funktionieren und robust gegenüber Stahlhindernissen sein.
 Außerdem können Basisstation für die Ortung nur alle 250 Meter platziert werden.
 
@@ -69,10 +71,10 @@ Ziel der Arbeit soll der Entwurf und die Implementierung eines Bereichsortungssy
 Bei einem Bereichsortungssystem handelt es sich um ein Ortungssystem, bei dem die Positionen nicht genau bestimmt werden. 
 Stattdessen wird das Areal, auf dem geortet werden soll, in einzelne Bereiche unterteilt und jede mobile Einheit beim Vorgang des Ortens einem dieser Bereiche zugeordnet.
 
-Diese Arbeit grenzt sich von vorherigen Arbeiten dadurch ab, dass die Laufzeit beziehungsweise der Energieverbrauch der mobilen Einheiten im Vordergrund steht. 
+Diese Arbeit grenzt sich von vorherigen Arbeiten dadurch ab, dass die Laufzeit beziehungsweise der Stromverbrauch der mobilen Einheiten im Vordergrund steht. 
 Ziel dieser Arbeit ist eine mehrmonatige Laufzeit der mobilen Einheiten. 
 
-Für diese Arbeit werden mehrere Prototypen für mobile Einheiten entwickelt und auf ihre Charakteristik bezüglich des Energieverbrauchs und der Erkennungszuverlässigkeit untersucht.
+Für diese Arbeit werden mehrere Prototypen für mobile Einheiten entwickelt und auf ihre Charakteristik bezüglich des Stromverbrauchs und der Erkennungszuverlässigkeit untersucht.
 Der Entwurfsraum umfasst dabei die Hardware und Software der mobilen Enheit sowie die Implementierung des Ortungsdienstes. 
 Die für die Funktechnologie benötigte Infrastruktur wird jeweils als gegeben angenommen.
 
@@ -83,11 +85,11 @@ Da es sich um ein Bereichsortungssystem handeln soll, werden keine direkten Anfo
 Jedoch soll ein klarer Wechsel zwischen zwei Bereichen, und damit zwei Basisstationen, zuverlässig erkannt werden. 
 Die mobilen Einheiten sollen von Personen um den Hals getragen werden können. 
 Dies bedingt ein geringes Gewicht des Akkus, gleichzeitig soll aber die Laufzeit der mobilen Einheit maximiert werden, sodass ein Akku mit möglichst großer Kapazität gewählt werden sollte.
-Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der benötigten IT-Infrastruktur so gering wie möglich gehalten werden um ein stabiles und kostengünstiges System zu garantieren. 
+Zuletzt soll unter Rücksichtnahme auf das beschriebene Szenario die Komplexität der benötigten IT-Infrastruktur so gering wie möglich gehalten werden, um ein stabiles und kostengünstiges System zu garantieren. 
 
 
 \section{Gliederung der Arbeit}
 \label{ch:Einleitung:sec:Gliederung}
 Nachdem zunächst in Kapitel \ref{ch:Grundlagen} die Grundlagen der funkbasierten Ortung und der verwendeten Funkprotokolle behandelt werden, wird in Kapitel \ref{ch:Analyse} das Problem analysiert und verwandte Arbeiten aufgezeigt.
-Kapitel \ref{ch:Implementierung} beschäftigt sich mit der Implementierung und Untersuchung der Prototypen. 
+Kapitel \ref{ch:Konzept} stellt dann ein Konzept für die Imlementierungen auf, aschließend beschaftig sich Kapitel \ref{ch:Implementierung} mit der Implementierung und Untersuchung der Prototypen. 
 Das Fazit in Kapitel \ref{ch:Fazit} fasst die Arbeit noch einmal zusammen, vergleicht und bewertet die Ergebnisse.
