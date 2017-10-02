@@ -81,7 +81,7 @@ Beliebte Messgrößen für die Positionsbestimmung sind Ankunftszeit des Signals
 TOA beruht auf der begrenzten Ausbreitungsgeschwindigkeit des Signals.
 Hochfrequente Signale breiten sich mit Lichtgeschwindigkeit $c = 299.792.458\ m/s$, Ultraschall mit Schallgeschwindigkeit $c \approx 343\ m/s$ bei $20^{\ \circ}C$ aus. 
 Die Distanz ergibt sich aus $d_i = c\ *\ (t_{empfangen,i} - t_{gesendet})$ mit $i$ als empfangende Basisstation.
-Die Position der mobilen Einheit kann mit der Methode der kleinsten Quadrate bestimmt werden, dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i f^2_i(x,y,t_{gesendet})$ mit $f_i(x,y,t_{gesendet}) = d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2}$ und ${\alpha}_i$ als Konfidenz von Basisstation $i$, minimiert. Dies erfordert, dass die Basisstationen zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird, um Varianzen zu vermeiden. Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss. 
+Die Position der mobilen Einheit kann mit der Methode der kleinsten Quadrate bestimmt werden, dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i (d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2})^2$ mit ${\alpha}_i$ als Konfidenz von Basisstation $i$, minimiert. Dies erfordert, dass die Basisstationen zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird, um Varianzen zu vermeiden. Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss. 
 $t_{gesendet}$ kann entsprechend der Synchronisation und dem Sendeintervall als gegeben angenommen werden. 
 Die Forderung nach Synchronität ist jedoch für $c = 299.792.458\ m/s$ sehr stark, da das Signal nur $3.36\ ns/m$ benötigt. 
 Somit verursachen bereits kleine zeitliche Ungenauigkeiten große Fehler und erst durch zusätzliche Messungen oder Glättungstechniken können hohe Genauigkeiten erreicht werden. 
@@ -93,7 +93,7 @@ Bei einer Selbstlokalisierung ist zu beachten, dass $t_{gesendet}$ den Sendezeit
 Bei TDOA wird statt der direkten Ankunftszeiten die Differenz der Ankunftszeiten gemessen. 
 Dies erfordert üblicherweise Zeitsynchronität bei den Basisstationen, nicht jedoch bei der mobilen Einheit, da nur die Ankuftszeiten für die Berechnung relevant sind. 
 Die mobile Einheit liegt dabei auf dem Schnittpunkt zweier Hyperboloiden, die jeweils zwischen den Basisstation, die TDOA gemessen haben, und einer Referenzstation aufgespannt werden. 
-Die Hyperboloiden werden aufgestellt durch \\
+Die Hyperboloiden werden aufgestellt durch 
 $R_{i,j} = \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2} - \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2}$ mit $(x_i,y_i,z_i)$ als Position der jeweiligen Messstation, $(x_j,y_j,z_j)$ als Position der gemeinsamen Referenzstation und $(x,y,z)$ als Position der mobilen Einheit. 
 Abbildung \ref{fig:tdoa} zeigt die Lösung graphisch, Drane et. al. und Torrieri beschreiben die analytische Lösung der Gleichung mit nichtlinearer Regression \cite{drane1998positioning} beziehungsweise Taylor-Entwicklung \cite{torrieri1984statistical}. 
 Li et al. eliminiert zusätzlich die Forderung nach Synchronisation für mobile Einheiten, die sowohl Senden als auch Empfangen können \cite{li2000comparison}. 
@@ -227,12 +227,12 @@ Nachdem der \emph{Master} die \emph{Inquiry Message} versendet hat antwortet der
 Soll eine erweiterte \emph{Inquiry Response} zum Einsatz kommen, wird dies in der \emph{Inquiry Response} gekennzeichnet und die erweiterte \emph{Inquiry Response} 1250 $\mu$s später gesendet.
 Diese Zeiten sind den bei Bluetooth vorgesehenen Frequenzsprüngen angepasst.
 Abbildung \ref{fig:inqscan} zeigt den Vorgang inklusive erweiterter \emph{Inquiry Response}.
-Die Pakete sind entsprechend ihrer Inhaltsspezifikation benannt: \emph{ID} entspricht der \emph{Inquiry Message}, \emph{FHS} der \emph{Inquiry Response} und \emph{Extended Inquiry Response Packet} der erweiterten \emph{Inquiry Response}.
+
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/inqscan.png}
-  \caption{\emph{Inquiry Scan} Vorgang, aus \cite{blue2010inquiry}.}
+  \caption{\emph{Inquiry Scan} Vorgang aus \cite{blue2010inquiry}. Die Pakete sind entsprechend ihrer Inhaltsspezifikation benannt: \emph{ID} entspricht der \emph{Inquiry Message}, \emph{FHS} der \emph{Inquiry Response} und \emph{Extended Inquiry Response Packet} der erweiterten \emph{Inquiry Response}.}
   \label{fig:inqscan}
 \end{figure}
 

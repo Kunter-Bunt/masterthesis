@@ -1,6 +1,6 @@
-\section{Direkte Fernlokalisierung mit LoRa}
+\section{Direkte Fernlokalisierung mit Long Range}
 \label{ch:phase4}
-Für die direkte Fernlokalisierung mit LoRa werden dedizierte Basisstationen eingesetzt. 
+Für die direkte Fernlokalisierung mit \emph{Long Range} (LoRa) werden dedizierte Basisstationen eingesetzt. 
 Die Kommunikation zwischen Basisstation und Ortungsdienst kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
 Die Basisstationen bestimmen den \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsdienst.
 Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
@@ -150,12 +150,17 @@ Da das Adadfruit Feather M0 \emph{RFM95} Lora Radio sich nur durch die Ersetzung
 Die Sendeleistung des \emph{RFM95} Radio ist zwischen 5 dBm und 23 dBm einstellbar. 
 Das Datenblatt listet jedoch nur Verbräuche zwischen 7 dBm und 20 dBm Sendeleistung, der Verbrauch wird für diese beiden Sendeleistungen berechnet.
 Für die Nachricht "`TagTest"' werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.
+Für die restliche Zeit wird angenommen, dass sich der \emph{M0} Microcontroller im \emph{Deep-sleep mode} und das \emph{RFM95W} Radio im \emph{IDDIDLE} Modus befindet.
 Damit ergibt sich ein durchschnittlicher Verbrauch $y$ in Höhe von: 
 
 $y = \frac{1}{10} * [(10 - \frac{Bits\_gesendet}{21875 b/s} - \frac{Bits\_empfangen}{21875 b/s}) * (M0\_Deep\_sleep\_mode + RMF95\_IDDIDLE + 155 {\mu}A) + \frac{Bits\_gesendet}{21875 b/s} * RFM95\_XdBm + \frac{Bits\_empfangen}{21875 b/s} * RFM95\_IDDR]$
 
+Für die folgende Rechnung wird eine Sendeleistung von 20 dBm angenommen:
+
 $y_{20dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 120mA + 0,0229s * 12,1mA]$\\[0.5cm]
 $y_{20dBm} \approx \frac{1}{10} * (1,58mA + 0,876mA + 0,2771mA) = 0,2683mA$
+
+Als Stromsparmaßnahme wird für die folgende Rechnung die Sendeleistung auf 7 dBm reduziert:
 
 $y_{7dBm} = \frac{1}{10} * [(10s - 0,0073s - 0,0229s) * 0,1585mA + 0,0073s * 20mA + 0,0229s * 12,1mA]$\\[0.5cm]
 $y_{7dBm} \approx \frac{1}{10} * (1,58mA + 0,146mA + 0,2771mA) = 0,1953mA$
@@ -203,6 +208,11 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 	\end{tabular}
 \end{table}
 
+
+
+
+
+
 \section{Zusammenfassung}
 Die folgenden Abschnitte sollen die Ergebnisse des Kapitels zusammengefassen und aufgearbeiten.
 
@@ -240,7 +250,7 @@ Um das Problem durch redundantes Senden zu umgehen, wurde das Sendeintervall in 
 
 Bei BLE und IEEE 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
 Sie werden dabei so gesetzt, dass beim Durchqueren des abgedeckten Bereichs mit 30 km/h mehrfach gesendet wird.
-In dieser Arbeit wurden die Sendeintervalle für IEEE 802.11 auf fünf Sekunden und für BLE auf eine Sekunde gesetzt.
+In dieser Arbeit wurden die Sendeintervalle für IEEE 802.11 auf 5 Sekunden und für BLE auf eine Sekunde gesetzt.
 
 Kürzere Sendeintervalle führen dabei zu einer höheren Erkennungszuverlässigkeit, längere Sendeintervalle senken den Stromverbrauch.
 

@@ -11,7 +11,7 @@ Das Kapitel schließt mit einer Zusammenfassung der Ergebnisse.
 Bei der indirekten Fernlokalisierung wird die Messgröße auf der mobilen Einheit gemessen.
 Die Ortungsinformation wird dann implizit durch versenden der gemessenen Werte oder explizit durch versenden der berechneten Position an den Ortungsdienst übermittelt.
 Wird IEEE 802.11 verwendet muss die mobile Einheit mit einem \emph{Access Point} (AP) \emph{assoziiert} sein um Informationen an den Ortungsdienst übermitteln zu können.
-Eine Lösung zur indirekten Fernlokalisierung muss deshalb mindestens auf Protokollebene vier (Transportschicht) des OSI-Modells arbeiten.
+Eine Lösung zur indirekten Fernlokalisierung muss deshalb mindestens auf Protokollebene 4 (Transportschicht) des OSI-Modells arbeiten.
 Für die Übermittelung steht ein WLAN-Netzwerk zur Verfügung.
 
 \begin{figure}[h]
@@ -134,7 +134,7 @@ Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebr
 In jedem Fall war es möglich durch das Entfernen des körperlichen Hindernisses wieder eine Verbindung herzustellen.
 
 Zur Bestimmung der Distanz wurden die \emph{Tübbinge} verwendet, dies sind Schalungselemente im Tunnel.
-Im Tunnel Raststatt sind diese fortlaufend nummeriert und genau zwei Meter breit, die Messungen sind deshalb ebenfalls in zwei Meter Schritten angegeben.
+Im Tunnel Raststatt sind diese fortlaufend nummeriert und genau 2 m breit, die Messungen sind deshalb ebenfalls in 2 m Schritten angegeben.
 
 \subsubsection{Ergebnisse}
 Tabelle \ref{table:rangewifi} zeigt die Ergebnisse für die zwei verwendeten \emph{ESP8266} Module.
@@ -165,12 +165,12 @@ Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tu
 \label{ch:Reichweite:sec:bewertung}
 Das \emph{ESP-12F} Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das \emph{ESP-12S}, es ist daher im weiteren Verlauf zu bevorzugen.
 
-Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von $30\ $km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
-Um die gemessenen 88 Meter bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 Sekunden, bei einem Sendeintervall von zehn Sekunden finden demnach zwei Sendevorgänge beim durchqueren des Einflussbereichs eines APs statt.
-Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden, eine Halbierung auf fünf Sekunden ist daher für eine zuverlässige Erkennung sinnvoll.
+Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von 30 km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
+Um die gemessenen 88 m bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 Sekunden, bei einem Sendeintervall von zehn Sekunden finden demnach zwei Sendevorgänge beim durchqueren des Einflussbereichs eines APs statt.
+Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden, eine Halbierung auf 5 Sekunden ist daher für eine zuverlässige Erkennung sinnvoll.
 
 Für die Teststrecke mit vielen Hindernissen wurden geringere Reichweiten gemessen, eine solche Teststecke findet sich aber nur auf der Tunnelbohrmaschine, welche nur zu Fuß begangen werden kann. 
-Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus durquerte diese in fünf Sekunden 14 Meter, also deutlich weniger als die gemessenen 32 Meter.
+Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus durquerte diese in 5 Sekunden 14 m, also deutlich weniger als die gemessenen 32 m.
 
 
 
@@ -191,7 +191,7 @@ Er kann aber auch manuell aufgerufen werden, beides wurde getestet.
 
 Einige Parameter können gewählt werden. 
 Die Intervallzeit bestimmt, wie oft der ESP aktiv ist und damit auch wie viel Strom er verbraucht.
-Die Intervallzeit wird entsprechend der Untersuchung der Reichweite auf fünf Sekunden gesetzt.
+Die Intervallzeit wird entsprechend der Untersuchung der Reichweite auf 5 Sekunden gesetzt.
 Des Weiteren kann theoretisch die Zahl der \emph{gescannten} Kanäle gewählt werden. 
 Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier überlappungsfreien Kanäle zu verteilen. 
 Eine Implementierung, die nur einen Kanal \emph{scannt} tritt deshalb nur außer Konkurenz an.
@@ -347,7 +347,7 @@ Dagegen gibt das Datenblatt des \emph{ESP8266} nur einen Verbrauch von 0,9 mAA a
 Das Experiment wurde deshalb mit einem \emph{ESP-12F} Modul wiederholt, welches nicht auf einem \emph{ESP8266} Feather verbaut war. 
 Dabei zeigte sich, dass dieses in der selben Situation nur 1,2 mA verbraucht.
 Die Stromverbrauchskurve des einzelnen \emph{ESP-12F} Modul ist in Abbildung \ref{fig:wifillssendv} grün dargestellt.
-Daraus lässt sich schließen, dass die zusätzlichen Komponenten auf dem \emph{ESP8266} Feather sieben mA Vebrauch erzeugen, dies ist im Zuge der Laufzeitoptimierung nicht tragbar.
+Daraus lässt sich schließen, dass die zusätzlichen Komponenten auf dem \emph{ESP8266} Feather 7 mA Vebrauch erzeugen, dies ist im Zuge der Laufzeitoptimierung nicht tragbar.
 
 Zusätzlich wurde die Implementierung von WiFi-LLS mit nur einem \emph{gescannten} Kanal geprüft.
 Abbildung \ref{fig:wifills1chsend} zeigt den verkürzten Ortungsvorgang.
