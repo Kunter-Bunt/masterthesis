@@ -20,6 +20,10 @@
 \usepackage{templates/beamerthemekit}
 %\usepackage{templates/beamerthemekitwide}
 \usepackage{multirow}
+
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[ngerman]{babel}
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -58,8 +62,8 @@ Bereichsortung im Tunnelbau}
 
 % Bibliography
 
-\usepackage[citestyle=authoryear,bibstyle=numeric,hyperref,backend=biber]{biblatex}
-\addbibresource{templates/example.bib}
+\usepackage[citestyle=numeric,bibstyle=numeric,hyperref,backend=bibtex8]{biblatex}
+\addbibresource{templates/thesis.bib}
 \bibhang1em
 
 \begin{document}
@@ -114,6 +118,8 @@ Bereichsortung im Tunnelbau}
 	\end{tabular}
 \end{frame}
 
+
+
 \begin{frame}
 	\begin{block}{Messgrößen}
 		\begin{itemize}
@@ -134,6 +140,8 @@ Bereichsortung im Tunnelbau}
 		\end{itemize}
 	\end{block} 
 \end{frame}
+%TODO Lokalisierungsprinzip
+
 
 \begin{frame}{Hardware}
 	\begin{tabular}{cc}
@@ -176,6 +184,25 @@ Bereichsortung im Tunnelbau}
 	\end{tabular}
 \end{frame}
 
+\begin{frame}{RADAR}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{block}{RADAR}
+				\begin{itemize}
+					\item Bahl et al. \cite{bahl2000radar}
+					\item Direkte Fernlokalisierung
+					\item 6 Byte mit UDP
+					\item RSSI an Basisstation messen
+					\item Szenenanalyse
+				\end{itemize}
+			\end{block}
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/direktefern.eps}
+		\column{0.5\textwidth}
+			\includegraphics[width=\textwidth]{images/reupper.png}
+	\end{columns}
+\end{frame}
+
 \begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
@@ -190,7 +217,27 @@ Bereichsortung im Tunnelbau}
 	\end{minipage}
 \end{frame}
 
+\subsection{WiFi-LLS}
 \begin{frame}{WiFi-LLS}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{block}{WiFi-LLS}
+				\begin{itemize}
+					\item Chen et al. \cite{chen2007design}
+					\item Indirekte Fernlokalisierung
+					\item RSSI der Probe Responses
+					\item An mobiler Einheit gemessen
+					\item Geometrische Bestimmung
+				\end{itemize}
+			\end{block}
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/indirektefern.eps}
+		\column{0.5\textwidth}
+			\includegraphics[width=\textwidth]{images/reupper.png}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
 		\includegraphics[height=0.95\textheight]{plots/wifills.png}
@@ -215,6 +262,14 @@ Bereichsortung im Tunnelbau}
 	\begin{tabular}{cc}
 		\includegraphics[height=0.5\textheight]{images/reupper.png} & \includegraphics[height=0.5\textheight]{images/relower.png}\\
 	\end{tabular}
+	\begin{block}{Assoziations-Lokalisierung}
+		\begin{itemize}
+			\item Indirekte Fernlokalisierung
+			\item Erfolgreiche (Re-)Assoziation, implizit RSSI der Probe Responses
+			\item Umgebungsprinzip
+			\item Für Bereichsortung geeignet
+		\end{itemize}
+	\end{block}
 \end{frame}
 
 \begin{frame}
@@ -231,7 +286,26 @@ Bereichsortung im Tunnelbau}
 	\end{minipage}
 \end{frame}
 
+\subsection{Probe-Request-Lokalisierung}
 \begin{frame}{Probe-Request-Lokalisierung}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{block}{Probe-Request-Lokalisierung}
+				\begin{itemize}
+					\item Direkte Fernlokalisierung
+					\item RSSI der Probe Requests
+					\item An Access Point gemessen
+					\item Umgebungsprinzip
+				\end{itemize}
+			\end{block}
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/direktefern.eps}
+		\column{0.5\textwidth}
+			\includegraphics[width=\textwidth]{images/reupper.png}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
 		\includegraphics[height=0.95\textheight]{plots/probereqfull.png}
@@ -245,11 +319,47 @@ Bereichsortung im Tunnelbau}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}{BLE-Advertising}
+\subsection{Bluetooth Low Energy}
+\begin{frame}{Bluetooth Low Energy}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{block}{BLE-Advertising}
+				\begin{itemize}
+					\item Jianyong et al. \cite{jianyong2014rssi}
+					\item Direkte Fernlokalisierung
+					\item RSSI von Advertising Paketen
+					\item An Basisstation gemessen
+					\item Umgebungsprinzip
+				\end{itemize}
+			\end{block}
+		\column{0.5\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/direktefern.eps}
+	\end{columns}
+\end{frame}
+
+\begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
 		\includegraphics[height=0.95\textheight]{plots/blue.png}
 	\end{minipage}
+\end{frame}
+
+\subsection{Lokalisierung mit LoRa}
+\begin{frame}{Lokalisierung mit LoRa}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{block}{Lokalisierung mit LoRa}
+				\begin{itemize}
+					\item Direkte Fernlokalisierung
+					\item RSSI an Basisstation gemessen
+					\item Geometrische Bestimmung
+				\end{itemize}
+			\end{block}
+		\column{0.5\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/direktefern.eps}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{LoRa}
