@@ -13,50 +13,90 @@ Ein Beispiel für ein solches Protokoll ist die Ortung mit Ultra-Breitband-Signa
 
 \subsection{Topologie}
 Die Topologie hat zwei Dimensionen, Fernlokalisierung versus Selbstlokalisierung und direkt versus indirekt und beschreibt wie Basisstationen und mobile Einheiten zusammenwirken. 
-Alle besprochenen Topologien sind in Abbildung \ref{fig:topo} veranschaulicht, gewellte Pfeile stellen hier zu messende Signale dar, gerade Pfeile sind gerichtete Datenverbindungen.
+Alle besprochenen Topologien sind im entsprechenden Abschnitt veranschaulicht, gewellte Pfeile stellen hier zu messende Signale dar, gerade Pfeile sind gerichtete Datenverbindungen.
+
 
 \subsubsection{Direkte Fernlokalisierung} 
-Bei der direkten Fernlokalisierung werden von mobilen Einheiten gesendete Signale an Basisstationen gemessen und die Ergebnisse an einen zentralen Ortungsdienst weitergegeben, dieser führt dann die Lokalisierung durch. Das Ergebnis der Lokalisierung ist nur zentral verfügbar. 
+	\begin{minipage}{\textwidth}
+		\begin{minipage}[c][6cm][c]{0.5\textwidth\relax}
+			\centering
+			\includegraphics[width=0.9\textwidth]{images/direktefern.eps} 
+		\end{minipage}\hfill
+		\begin{minipage}[c][6cm][t]{0.5\textwidth\relax}
+			Bei der direkten Fernlokalisierung werden von mobilen Einheiten gesendete Signale an Basisstationen gemessen und die Ergebnisse an einen zentralen Ortungsdienst weitergegeben, dieser führt dann die Lokalisierung durch. Das Ergebnis der Lokalisierung ist nur zentral verfügbar.
+		\end{minipage}
+	\end{minipage}
+
 
 \subsubsection{Direkte Selbstlokalisierung} 
-Bei der direkten Selbstlokalisierung senden hingegen die Basisstationen und die mobilen Einheiten messen die eingehenden Signale. Anhand der Messergebnisse bestimmt jede mobile Einheit seine Position. 
-Die Ergebnisse der Lokalisierung sind anschließend nur auf der mobilen Einheit verfügbar. 
+	\begin{minipage}{\textwidth}
+		\begin{minipage}[c][6cm][t]{0.5\textwidth\relax}
+			Bei der direkten Selbstlokalisierung senden hingegen die Basisstationen und die mobilen Einheiten messen die eingehenden Signale. Anhand der Messergebnisse bestimmt jede mobile Einheit seine Position. 
+			Die Ergebnisse der Lokalisierung sind anschließend nur auf der mobilen Einheit verfügbar. 
+		\end{minipage}\hfill
+		\begin{minipage}[c][6cm][c]{0.5\textwidth\relax}
+			\centering
+			\includegraphics[width=0.9\textwidth]{images/direkteselbst.eps} 
+		\end{minipage}
+	\end{minipage}
+
 
 \subsubsection{Indirekte Fernlokalisierung} 
-Die indirekte Fernlokalisierung gleicht der direkten Selbstlokalisierung, allerdings besteht zusätzlich eine Datenverbindung zu einem zentralen Ortungsdienst, dem die berechnete Position mitgeteilt wird. 
-Das Ergebnis steht nach kurzer Verzögerung sowohl auf der mobilen Einheit als auch zentral zur Verfügung.
+	\begin{minipage}{\textwidth}
+		\begin{minipage}[c][6cm][c]{0.5\textwidth\relax}
+			\centering
+			\includegraphics[width=0.9\textwidth]{images/indirektefern.eps} 
+		\end{minipage}\hfill
+		\begin{minipage}[c][6cm][t]{0.5\textwidth\relax}
+			Die indirekte Fernlokalisierung gleicht der direkten Selbstlokalisierung, allerdings besteht zusätzlich eine Datenverbindung zu einem zentralen Ortungsdienst, dem die berechnete Position mitgeteilt wird. 
+			Das Ergebnis steht nach kurzer Verzögerung sowohl auf der mobilen Einheit als auch zentral zur Verfügung.
 Optional können dort die Daten von anderen mobilen Einheiten abgerufen werden, um sich über deren Positionen zu informieren. 
+		\end{minipage}
+	\end{minipage}
+
 
 \subsubsection{Indirekte Selbstlokalisierung} 
-Auch die indirekte Selbstlokalisierung erweitert die direkte Fernlokalisierung um eine Datenverbindung zwischen mobiler Einheit und zentralem Ortungsdienst. 
-So kann sie sich über die eigene und eventuelle auch andere mobile Einheiten informieren. 
-Dies kann insbesondere bei der Verwendung von Mischtechnologien notwendig sein, wenn die zur Ortung genutzte Technik es nicht erlaubt an den mobilen Einheiten zu empfangen, aber dennoch eine Selbstlokalisierung durchgeführt werden soll.
+	\begin{minipage}{\textwidth}
+		\begin{minipage}[c][6cm][t]{0.6\textwidth\relax}
+			Auch die indirekte Selbstlokalisierung erweitert die direkte Fernlokalisierung um eine Datenverbindung zwischen mobiler Einheit und zentralem Ortungsdienst. 
+			So kann sie sich über die eigene und eventuelle auch andere mobile Einheiten informieren. 
+			Dies kann insbesondere bei der Verwendung von Mischtechnologien notwendig sein, wenn die zur Ortung genutzte Technik es nicht erlaubt an den mobilen Einheiten zu empfangen, aber dennoch eine Selbstlokalisierung durchgeführt werden soll.
+		\end{minipage}\hfill
+		\begin{minipage}[c][6cm][c]{0.4\textwidth\relax}
+			\centering
+			\includegraphics[width=0.95\textwidth]{images/indirekteselbst.eps} 
+		\end{minipage}
+	\end{minipage}
+
 
 \subsubsection{Lokalisierung ohne Basisstationen} 
-Die mobilen Einheiten können sich auch gegenseitig lokalisieren, dazu messen sie die Distanz zu anderen mobilen Einheiten.
-Sie können diese Ergebnisse dann wiederum anderen mobilen \emph{Stationen} mitteilen, um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
-Dadurch ensteht eine maßstabslose Karte, die die relative Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
-Diese kann zusätzlich an einen zentralen Ortungsdienst versendet werden, um sie dort verfügbar zu machen.
+	\begin{minipage}{\textwidth}
+		\begin{minipage}[c][6cm][c]{0.4\textwidth\relax}
+			\centering
+			\includegraphics[width=0.7\textwidth]{images/ohnebasis.eps} 
+		\end{minipage}\hfill
+		\begin{minipage}[c][6cm][t]{0.6\textwidth\relax}
+			Die mobilen Einheiten können sich auch gegenseitig lokalisieren, dazu messen sie die Distanz zu anderen mobilen Einheiten.
+			Sie können diese Ergebnisse dann wiederum anderen mobilen \emph{Stationen} mitteilen, um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
+			Dadurch ensteht eine maßstabslose Karte, die die relative Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
+			Diese kann zusätzlich an einen zentralen Ortungsdienst versendet werden, um sie dort verfügbar zu machen.
+		\end{minipage}
+	\end{minipage}
+
 
 \subsubsection{Hybride Topologie}
-In einer hybriden Topologie orten sich die mobilen Einheiten gegenseitig, werden dabei aber von wenigen Basisstationen unterstützt.
-Diese Basisstationen geben ihre feste Position bekannt, dadurch ist es möglich der enstehenden Karte Punkte für die Ausrichtung und Skalierung hinzuzufügen.
-Außerdem können sie mit dem zentralen Ortungsdienst kommunizieren, um eine indirekte Fernlokalisierung mittels der durch die mobilen Einheiten propagierten Karten durchzuführen.
+	\begin{minipage}{\textwidth}
+		\begin{minipage}[c][6cm][t]{0.6\textwidth\relax}
+			In einer hybriden Topologie orten sich die mobilen Einheiten gegenseitig, werden dabei aber von wenigen Basisstationen unterstützt.
+			Diese Basisstationen geben ihre feste Position bekannt, dadurch ist es möglich der enstehenden Karte Punkte für die Ausrichtung und Skalierung hinzuzufügen.
+			Außerdem können sie mit dem zentralen Ortungsdienst kommunizieren, um eine indirekte Fernlokalisierung mittels der durch die mobilen Einheiten propagierten Karten durchzuführen.
+		\end{minipage}\hfill
+		\begin{minipage}[c][6cm][c]{0.4\textwidth\relax}
+			\centering
+			\includegraphics[width=0.95\textwidth]{images/hybrid.eps} 
+		\end{minipage}
+	\end{minipage}
 
-\begin{figure}[h!]
-	\centering
-
-	\begin{tabular}{cc}
-		\includegraphics[width=0.4\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.4\textwidth]{images/indirekteselbst.eps} \\
-		(a) Direkte Selbstlokalisierung & (b) Indirekte Selbstlokalisierung \\
-		\includegraphics[width=0.4\textwidth]{images/direktefern.eps} & \includegraphics[width=0.4\textwidth]{images/indirektefern.eps} \\
-		(c) Direkte Fernlokalisierung & (d) Indirekte Fernlokalisierung \\
-		\includegraphics[width=0.25\textwidth]{images/ohnebasis.eps} & \includegraphics[width=0.4\textwidth]{images/hybrid.eps} \\
-		(e) Lokalisierung ohne Basisstation & (f) Hybride Topologie \\
-	\end{tabular}
-	\caption{Topologien für die Lokalisierung}
-	\label{fig:topo}
-\end{figure}
 
 \subsection{Lokalisierungsprinzip}
 Das einfachste Lokalisierungsprinzip ist das Umgebungsprinzip. 
