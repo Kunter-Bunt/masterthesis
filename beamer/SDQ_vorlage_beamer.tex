@@ -21,6 +21,9 @@
 %\usepackage{templates/beamerthemekitwide}
 \usepackage{multirow}
 
+\usepackage{tabularx}
+\newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
+
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
@@ -40,7 +43,7 @@
 % for a custom logo on the front page, copy your file into the 'logos'
 % directory, insert the filename in the line below and uncomment it
 
-%\titlelogo{mylogo}
+\titlelogo{zueblin}
 
 % (*.eps format if you use latex+dvips+ps2pdf,
 % *.jpg/*.png/*.pdf if you use pdflatex)
@@ -104,12 +107,12 @@ Bereichsortung im Tunnelbau}
 		\begin{itemize}
 			\item Nichtintrusiv 
 			\item Zuverlässige Erkennung von Abschnittswechseln
-			\item Wenig Interaktion mit mobiler Einheit
+			\item Wenig Interaktion mit mobiler Einheit erforderlich
 		\end{itemize}
 	\end{block}
 \end{frame}
 
-\section{Analyse}
+\section{Grundlagen \& Analyse}
 \begin{frame}{Topologien}
 	\begin{tabular}{c|c|c}
 		\includegraphics[width=0.3\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.3\textwidth]{images/direktefern.eps} & \includegraphics[width=0.2\textwidth]{images/ohnebasis.eps}\\
@@ -118,6 +121,21 @@ Bereichsortung im Tunnelbau}
 	\end{tabular}
 \end{frame}
 
+\begin{frame}{Fernlokalisierung}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/direktefern.eps}
+
+			Direkte Fernlokalisierung
+	
+		\column{0.5\textwidth}
+			\centering
+			\includegraphics[width=\textwidth]{images/indirektefern.eps}
+
+			Indirekte Fernlokalisierung
+	\end{columns}
+\end{frame}
 
 
 \begin{frame}
@@ -129,18 +147,27 @@ Bereichsortung im Tunnelbau}
 			\item Received Signal Strength (Indicator)
 		\end{itemize}
 	\end{block}  
-	\includegraphics[width=0.3\textwidth]{images/tdoa.png} \\
 
+	\begin{columns}
+			\column{0.5\textwidth}
+				\begin{block}{Lokalisierungsprinzip}
+					\begin{itemize}
+						\item Umgebungsprinzip
+						\item Geometrische Bestimmung
+						\item Szenenanalyse
+					\end{itemize}
+				\end{block} 
 
-	\begin{block}{Protokolle}
-		\begin{itemize}
-			\item 802.11
-			\item Zuverlässige Erkennung von Abschnittswechseln
-			\item Wenig Interaktion mit mobiler Einheit
-		\end{itemize}
-	\end{block} 
+		\column{0.5\textwidth}
+			\begin{block}{Protokolle}
+				\begin{itemize}
+					\item IEEE 802.11
+					\item Bluetooth (Low Energy)
+					\item Long Range
+				\end{itemize}
+			\end{block} 
+	\end{columns}
 \end{frame}
-%TODO Lokalisierungsprinzip
 
 
 \begin{frame}{Hardware}
@@ -164,26 +191,20 @@ Bereichsortung im Tunnelbau}
 	\begin{tabular}{l|l|l}
 		Protokoll & Strecke & Reichweite \\
 		\hline
-		BLE & Wenige Hindernisse & 32m \\
-		802.11b & Wenige Hindernisse & 88m \\
-		LoRa 5 dBm & Wenige Hindernisse & 250m \\
-		LoRa 23 dBm & Wenige Hindernisse & 1250m \\
+		BLE & Wenige Hindernisse & 32 m \\
+		802.11b & Wenige Hindernisse & 88 m \\
+		LoRa 5 dBm & Wenige Hindernisse & 250 m \\
+		LoRa 23 dBm & Wenige Hindernisse & 1250 m \\
 		\hline
-		BLE & Viele Hindernisse & 14m \\
-		802.11b & Viele Hindernisse & 32m \\
-		LoRa 5 dBm & Viele Hindernisse & 100m \\
-		LoRa 23 dBm & Viele Hindernisse & $>$350m \\
+		\pause
+		BLE & Viele Hindernisse & 14 m \\
+		802.11b & Viele Hindernisse & 32 m \\
+		LoRa 5 dBm & Viele Hindernisse & 100 m \\
+		LoRa 23 dBm & Viele Hindernisse & $>$350 m \\
 	\end{tabular}\\
 \end{frame}
 
 \section{Implementierungen}
-\subsection{RADAR}
-\begin{frame}{RADAR}
-	\begin{tabular}{cc}
-		\includegraphics[height=0.5\textheight]{images/reupper.png} & \includegraphics[height=0.5\textheight]{images/relower.png}\\
-	\end{tabular}
-\end{frame}
-
 \begin{frame}{RADAR}
 	\begin{columns}
 		\column{0.5\textwidth}
@@ -247,17 +268,24 @@ Bereichsortung im Tunnelbau}
 \begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/wifillssendv.png}
-	\end{minipage}
-\end{frame}
-%TODO Folien mergen
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
-		\centering
-		\includegraphics[height=0.95\textheight]{plots/wifills1chsend.png}
+		\includegraphics[height=0.95\textheight]{plots/llsalle.png}
 	\end{minipage}
 \end{frame}
 
+
+\begin{frame}
+	\begin{tabular}{l|l|l|R{2.5cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{RADAR} & 16,70 (8,60)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{WiFi-LLS} & 42,20 (34,10)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{WiFi-LLS} & 36,50 (35,20)\\
+	\end{tabular}
+\end{frame}
+
+\subsection{Assoziations-Lokalisierung}
 \begin{frame}{Assoziations-Lokalisierung}
 	\begin{tabular}{cc}
 		\includegraphics[height=0.5\textheight]{images/reupper.png} & \includegraphics[height=0.5\textheight]{images/relower.png}\\
@@ -284,6 +312,21 @@ Bereichsortung im Tunnelbau}
 		\centering
 		\includegraphics[height=0.95\textheight]{plots/noap.png}
 	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\begin{tabular}{l|l|p{3.1cm}|R{2.1cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{RADAR} & 16,70 (8,60)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{WiFi-LLS} & 42,20 (34,10)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{WiFi-LLS} & 36,50 (35,20)\\
+		\hline
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} & 8,80 (7,50)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} (kein \emph{Access Point}) & 17,10 (17,10)\\
+	\end{tabular}
 \end{frame}
 
 \subsection{Probe-Request-Lokalisierung}
@@ -319,6 +362,20 @@ Bereichsortung im Tunnelbau}
 	\end{minipage}
 \end{frame}
 
+\begin{frame}
+	\begin{tabular}{l|l|p{3.1cm}|R{2.1cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		\hline
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} & 8,80 (7,50)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} (kein \emph{Access Point}) & 17,10 (17,10)\\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,70 (2,70)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
+		\hline
+	\end{tabular}
+\end{frame}
+
+
 \subsection{Bluetooth Low Energy}
 \begin{frame}{Bluetooth Low Energy}
 	\begin{columns}
@@ -345,6 +402,17 @@ Bereichsortung im Tunnelbau}
 	\end{minipage}
 \end{frame}
 
+\begin{frame}
+	\begin{tabular}{l|l|p{3.1cm}|R{2.1cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,70 (2,70)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
+		\hline
+		BLE & \emph{nRF52} Feather & Ortung mit \emph{BLE-Advertising} & 7,37 (0,04)\\
+	\end{tabular}
+\end{frame}
+
 \subsection{Lokalisierung mit LoRa}
 \begin{frame}{Lokalisierung mit LoRa}
 	\begin{columns}
@@ -362,7 +430,7 @@ Bereichsortung im Tunnelbau}
 	\end{columns}
 \end{frame}
 
-\begin{frame}{LoRa}
+\begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
 		\includegraphics[height=0.95\textheight]{plots/lora5.png}
@@ -375,6 +443,82 @@ Bereichsortung im Tunnelbau}
 		\includegraphics[height=0.95\textheight]{plots/lora235send.png}
 	\end{minipage}
 \end{frame}
+
+\begin{frame}
+	\begin{tabular}{l|p{3cm}|p{3cm}|R{2.1cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		\hline
+		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,70 (2,70)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
+		\hline
+		BLE & \emph{nRF52} Feather & Ortung mit \emph{BLE-Advertising} & 7,37 (0,04)\\
+		\hline
+		LoRa & \emph{RFM95} Feather 5 dBM & Ortung mit LoRa RSSI & 1,20 (0,30)\\
+		LoRa & \emph{RFM95} Feather 23 dBM & Ortung mit LoRa RSSI & 1,47 (0,57)\\
+	\end{tabular}
+\end{frame}
+
+\section{Zusammenfassung}
+\begin{frame}
+	\begin{minipage}[c][\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[height=0.95\textheight]{plots/alle.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\begin{tabular}{l|p{3cm}|p{3.1cm}|R{2.1cm}}
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		\hline
+		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
+		\hline
+		IEEE 802.11 & \emph{ESP-12F} & \emph{WiFi-LLS} & 36,50 (35,20)\\
+		\hline
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} & 8,80 (7,50)\\
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} (kein \emph{Access Point}) & 17,10 (17,10)\\
+		\hline
+		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
+		\hline
+		BLE & \emph{nRF52} Feather & Ortung mit \emph{BLE-Advertising} & 7,37 (0,04)\\
+		\hline
+		LoRa & \emph{RFM95} Feather 5 dBM & Ortung mit LoRa RSSI & 1,20 (0,30)\\
+		LoRa & \emph{RFM95} Feather 23 dBM & Ortung mit LoRa RSSI & 1,47 (0,57)\\
+	\end{tabular}
+\end{frame}
+
+\section{Fazit}
+\begin{frame}{Fazit}
+	\begin{columns}
+		\column{0.5\textwidth}
+			\begin{block}{Reichweite}
+				\begin{enumerate}
+					\item LoRa
+					\item IEEE 802.11
+					\item Bluetooth Low Energy
+				\end{enumerate}
+			\end{block}
+
+		\column{0.5\textwidth}
+			\begin{block}{Stromverbrauch}
+				\begin{enumerate}
+					\item Bluetooth Low Energy
+					\item LoRa
+					\item IEEE 802.11
+				\end{enumerate}
+			\end{block}
+	\end{columns}
+
+	\begin{block}{Ergebnis}
+			\begin{itemize}
+				\item Halbordnung
+				\item LoRa > 802.11
+				\item LoRa ohne Erfassungslücken => Hohe Zuverlässigkeit
+				\item BLE hat niedrigen Stromverbrauch
+			\end{itemize}
+	\end{block}
+
+\end{frame}
+
 
 \appendix
 \beginbackup
