@@ -61,10 +61,10 @@ Bereichsortung im Tunnelbau}
 \subtitle{Masterarbeit von Marius Wodtke}
 \author{Marius Wodtke}
 
-\institute{Instuitut für angewandte Informatik und Formale Beschreibungsverfahren}
+\institute{Institut für angewandte Informatik und Formale Beschreibungsverfahren}
 
 % Bibliography
-
+\setbeamertemplate{bibliography item}[text]
 \usepackage[citestyle=numeric,bibstyle=numeric,hyperref,backend=bibtex8]{biblatex}
 \addbibresource{templates/thesis.bib}
 \bibhang1em
@@ -105,7 +105,7 @@ Bereichsortung im Tunnelbau}
 
 	\begin{block}{Anforderungen}
 		\begin{itemize}
-			\item Nichtintrusiv 
+			\item Nichtintrusiv (Keine Tore, Schranken, ...)
 			\item Zuverlässige Erkennung von Abschnittswechseln
 			\item Wenig Interaktion mit mobiler Einheit erforderlich
 		\end{itemize}
@@ -116,8 +116,10 @@ Bereichsortung im Tunnelbau}
 \begin{frame}{Topologien}
 	\begin{tabular}{c|c|c}
 		\includegraphics[width=0.3\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.3\textwidth]{images/direktefern.eps} & \includegraphics[width=0.2\textwidth]{images/ohnebasis.eps}\\
+		Direkte Selbstlokal. & Direkte Fernlokal. & Ohne Basisstation\\
 		\hline
 		\includegraphics[width=0.3\textwidth]{images/indirekteselbst.eps} & \includegraphics[width=0.3\textwidth]{images/indirektefern.eps} & \includegraphics[width=0.3\textwidth]{images/hybrid.eps} \\
+	Indirekte Selbstlokal. & Indirekte Fernlokal. & Hybride Topologie\\
 	\end{tabular}
 \end{frame}
 
@@ -143,8 +145,9 @@ Bereichsortung im Tunnelbau}
 		\begin{itemize}
 			\item Time of Arrival
 			\item Time Difference of Arrival
-			\item Roundtrip Time of Flight
-			\item Received Signal Strength (Indicator)
+			\item (Roundtrip) Time of Flight
+			\item Received Signal Strength (Indicator) 
+			\item Heartbeat
 		\end{itemize}
 	\end{block}  
 
@@ -173,7 +176,9 @@ Bereichsortung im Tunnelbau}
 \begin{frame}{Hardware}
 	\begin{tabular}{cc}
 		\multicolumn{2}{c}{\includegraphics[width=0.9\textwidth]{images/espmodules.png}}\\
+		\multicolumn{2}{c}{Adafruit Feather HUZZAH ESP8266}\\
 		\includegraphics[width=0.45\textwidth]{images/loraada.png} & \includegraphics[width=0.45\textwidth]{images/nrf52ada.png}\\
+		Feather M0 RFM95 LoRa Radio & Feather nRF52 Bluefruit\\
 	\end{tabular}
 \end{frame}
 
@@ -448,7 +453,6 @@ Bereichsortung im Tunnelbau}
 	\begin{tabular}{l|p{3cm}|p{3cm}|R{2.1cm}}
 		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
 		\hline
-		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,70 (2,70)\\
 		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
 		\hline
 		BLE & \emph{nRF52} Feather & Ortung mit \emph{BLE-Advertising} & 7,37 (0,04)\\
@@ -463,6 +467,27 @@ Bereichsortung im Tunnelbau}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
 		\includegraphics[height=0.95\textheight]{plots/alle.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\begin{minipage}[c][\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[height=0.95\textheight]{plots/alle2.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\begin{minipage}[c][\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[height=0.95\textheight]{plots/alle3.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}
+	\begin{minipage}[c][\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[height=0.95\textheight]{plots/alle4.png}
 	\end{minipage}
 \end{frame}
 
@@ -487,33 +512,18 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Fazit}
-\begin{frame}{Fazit}
-	\begin{columns}
-		\column{0.5\textwidth}
-			\begin{block}{Reichweite}
-				\begin{enumerate}
-					\item LoRa
-					\item IEEE 802.11
-					\item Bluetooth Low Energy
-				\end{enumerate}
-			\end{block}
+\begin{frame}
+	\begin{minipage}[t][0.6\textheight][c]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{plots/barcomp.png}
+	\end{minipage}
+	
 
-		\column{0.5\textwidth}
-			\begin{block}{Stromverbrauch}
-				\begin{enumerate}
-					\item Bluetooth Low Energy
-					\item LoRa
-					\item IEEE 802.11
-				\end{enumerate}
-			\end{block}
-	\end{columns}
-
-	\begin{block}{Ergebnis}
+	\begin{block}{Fazit}
 			\begin{itemize}
-				\item Halbordnung
 				\item LoRa > 802.11
 				\item LoRa ohne Erfassungslücken => Hohe Zuverlässigkeit
-				\item BLE hat niedrigen Stromverbrauch
+				\item BLE hat niedrigen Stromverbrauch => Wenig Interaktion notwendig
 			\end{itemize}
 	\end{block}
 
