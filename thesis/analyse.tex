@@ -51,9 +51,9 @@ Diese wird laut IEEE 802.11 als Indikator (RSSI) von der Hardware zurückgegeben
 Für die Ortung wird zunächst der RSSI von Paketen naher \emph{Access Points} gemessen und zusammen mit der MAC-Adresse der mobilen Einheit in ein Paket gepackt und an den Ortungsdienst versendet.
 Anschließend wird auf dem Ortungsdienst ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1$ m zur Bestimmung der Position der mobilen Einheit verwendet. 
 
-$P(d_0)$, der Pfadverlustexponent $n$ und der Hindernisdämpfungsfaktor $OAF$ müssen bestimmt werden, jedoch lassen sich $P(d_0)$ und $n$ auf einer einzelnen Teststrecke mit unterschiedlichen Abständen von AP und mobiler Einheit bestimmen. $OAF$ kann sogar für einen Gebäudetyp einmalig bestimmt werden.
+$P(d_0)$, der Pfadverlustexponent $n$ und der Hindernisdämpfungsfaktor $OAF$ müssen bestimmt werden; $P(d_0)$ und $n$ lassen sich auf einer einzelnen Teststrecke mit unterschiedlichen Abständen von AP und mobiler Einheit bestimmen. $OAF$ kann sogar für einen Gebäudetyp einmalig bestimmt werden.
 Dadurch hat das Modell einen konstanten Aufwand. 
-Dies ist für Baustellen interessant, da sich diese Werte einmalig messen und dann sogar über mehrere gleichartige Baustellen übertragen ließen.
+Dies ist für Baustellen interessant, da sich diese Werte einmalig messen und dann sogar über mehrere gleichartige Baustellen übertragen lassen.
 
 In dieser Veröffentlichung steht die Ortungsgenauigkeit im Vordergrund und es werden keine Angaben zum Energieverbrauch gemacht. 
 Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen \emph{Scan} (siehe Abschnitt \ref{ch:phase1:sec:scan}) durchführt, dann werden die Signalstärken entdeckter APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsdienst versendet.
@@ -95,7 +95,8 @@ Die Arbeit zeigt aber die Volatilität der empfangenen Signalstärke auf, dies w
 Lui et al. zeigen, dass die gemessene empfangene Signalstärke stark von der beteiligten Hardware abhängt und die Systeme jedes mal neu kalibriert werden müssen wenn sie auf ein neues AP-Modell portiert werden. 
 Auf dem Areal sollte deshalb optimalerweise nur ein AP-Modell verwendet werden. 
 
-Abbildung \ref{fig:luiRSSI} zeigt die gemessenen RSSI-Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen, für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
+Abbildung \ref{fig:luiRSSI} zeigt die gemessenen RSSI-Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen. 
+Für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
 Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei größeren Veränderungen aktualisieren und dass die Antenne signifikanten Einfluss auf den protokollierten Wert hat.
 
 \begin{figure}[h]
@@ -199,7 +200,7 @@ Hossain et al. untersuchen die laut Bluetooth Spezifikation zurückgegebenen Mes
 Der Wert wird aus der Bitfehlerrate beim Empfänger berechnet, allerdings ist nicht spezifiziert, wie der Wert zu berechnen ist, er hängt also in hohem Maße vom Hersteller des Empfängers ab. 
 
 Der \emph{Received Signal Strength Indicator} (RSSI) misst die Stärke des eingehenden Signals, die Spezifikation sieht jedoch eine \emph{Golden Receive Power Range} (GRPR) vor. 
-Liegt der RSSI über oder unter dieser wird eine Anfrage zum erhöhen oder verringern der Sendeleistung an das andere Gerät verschickt, dies dient während einer aktiven Verbindung dazu den Energieverbrauch zu senken.
+Liegt der RSSI über oder unter der GRPR wird eine Anfrage zum erhöhen oder verringern der Sendeleistung an das andere Gerät verschickt, dies dient während einer aktiven Verbindung dazu den Energieverbrauch zu senken.
 Problematisch am RSSI ist, dass er relativ zur GRPR bestimmt wird.
 In der Untersuchung von Hossain et al. führte das dazu, dass der RSSI mit 0 gemessen wurde, wenn er innerhalb der GRPR lag. 
 
@@ -357,6 +358,7 @@ Abschließend werden in jedem Kapitel die Charakteristika des Stromverbrauchs de
 
 
 \chapter{Konzept}
+\label{ch:Konzept}
 Basierend auf der Auswahl des vorherigen Kapitels müssen Konzepte für die Implementierungen von vier Kombinationen aus Topologie und Protokoll entstehen.
 Jede der folgenden Sektionen befasst sich mit einer Kombination, beginnend mit IEEE 802.11, bei welchem sowohl direkte als auch indirekte Fernlokalisierung implementiert werden.
 Danach folgt die direkte Fernlokalisierung mit \emph{Bluetooth Low Energy} (BLE) und \emph{Long Range} (LoRa).

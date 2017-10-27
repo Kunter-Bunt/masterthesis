@@ -12,7 +12,7 @@ Prinzipiell lassen sich verwendete Frequenzen, Modulationsverfahren und Sendelei
 Ein Beispiel für ein solches Protokoll ist die Ortung mit Ultra-Breitband-Signalen (UWB), mit dem Genauigkeiten im Zentimeterbereich erreicht werden können. Bestehende Protokolle zu verwenden hat dagegen den Vorteil, dass üblicherweise \emph{commodity-of-the-shelf}-Komponenten verwendet werden können, was die Kosten des Systems senkt. Im Gegenzug können für die Genauigkeit wichtige Parameter nicht mehr frei gewählt werden und der \emph{Overhead} des Protokolls muss in Kauf genommen werden. Beispiele für solche Protokolle sind IEEE 802.11 (WLAN), Bluetooth und Radio Frequency Identification (RFID).
 
 \subsection{Topologie}
-Die Topologie hat zwei Dimensionen, Fernlokalisierung versus Selbstlokalisierung und direkt versus indirekt und beschreibt wie Basisstationen und mobile Einheiten zusammenwirken. 
+Die Topologie hat zwei Dimensionen, Fernlokalisierung versus Selbstlokalisierung sowie direkt versus indirekt und beschreibt wie Basisstationen und mobile Einheiten zusammenwirken. 
 Alle besprochenen Topologien sind im entsprechenden Abschnitt veranschaulicht, gewellte Pfeile stellen hier zu messende Signale dar, gerade Pfeile sind gerichtete Datenverbindungen.
 
 
@@ -108,11 +108,12 @@ Für eine erfolgreiche Lokalisierung muss nur eine Basisstation in Reichweite de
 Die geometrische Bestimmung der Position einer mobilen Einheit mit drei oder mehr Basisstationen nennt man Trilateration. Dabei wird üblicherweise für jede Basisstation die Distanz zur mobilen Einheit bestimmt, anschließend wird ein Kreis mit der gemessenen Distanz um jede Basisstation gebildet und der Schnittpunkt der drei Kreise bestimmt die Position der mobilen Einheit. Da die Distanzen aus den gemessenen Signalparametern geschätzt werden müssen, sind sie fehlerbehaftet und es ergibt sich oft kein eindeutiger Schnittpunkt. 
 Dann wird zum Beispiel die Mitte der Schnittpunkte gewählt. 
 
-Die geometrische Bestimmung ist ebenfalls über die Berechnung der Winkel zu den Basisstationen möglich, dies nennt man Triangulation. Der Winkel kann zum Beispiel über die zeitliche Differenz der ankommenden Signale an den zeitlich synchronisierten Basisstationen bestimmt werden, nun wird von jeder Basisstation aus eine Halbgerade in diesem Winkel gefällt und der Schnittpunkt bestimmt die Position der mobilen Einheit. 
+Die geometrische Bestimmung ist ebenfalls über die Berechnung der Winkel zu den Basisstationen möglich; dies nennt man Triangulation. Der Winkel kann zum Beispiel über die zeitliche Differenz der ankommenden Signale an den zeitlich synchronisierten Basisstationen bestimmt werden. 
+Nun wird von jeder Basisstation aus eine Halbgerade in diesem Winkel gefällt und der Schnittpunkt bestimmt die Position der mobilen Einheit. 
 Wenn mit gerichteten Antennen gearbeitet wird, kann der Winkel des eingehenden Signals direkt bestimmt werden.
 Hier müssen nur zwei Basisstationen in Reichweite sein, um die mobile Einheit zu lokalisieren. 
 
-Das aufwendigste Lokalisierungsprinzip ist die Szenenanalyse. Hier werden zunächst in einer \emph{Offline-Phase} Vektoren $(m_1,m_2,...,m_n,p_x,p_y,p_z)^T$ aus Messgrößen und Positionsmarken gesammelt, anhand dieser Fingerabdrücke werden in der \emph{Online-Phase} die Positionen neuer Messergebnisse bestimmt. Üblicherweise kommen dabei Verfahren des maschinellen Lernens wie \emph{k-Nearest-Neighbour}, \emph{Neuronale Netze} oder \emph{Support Vektor Machines} (SVM) zum Einsatz, um die Muster der Fingerabdrücke aus der \emph{Offline-Phase} zu erkennen und die Positionen $(p_x,p_y,p_z)^T$ in der \emph{Online-Phase} aus den gemessenen Größen $(m_1,m_2,...,m_n)^T$ zu schätzen. Im zweidimensionalen Fall wird dabei $p_z = 0$ angenommen.
+Das aufwendigste Lokalisierungsprinzip ist die Szenenanalyse. Hier werden zunächst in einer \emph{Offline-Phase} Vektoren $(m_1,m_2,...,m_n,p_x,p_y,p_z)^T$ aus Messgrößen und Positionsmarken gesammelt und anhand dieser Fingerabdrücke werden in der \emph{Online-Phase} die Positionen neuer Messergebnisse bestimmt. Üblicherweise kommen dabei Verfahren des maschinellen Lernens wie \emph{k-Nearest-Neighbour}, \emph{Neuronale Netze} oder \emph{Support Vektor Machines} (SVM) zum Einsatz, um die Muster der Fingerabdrücke aus der \emph{Offline-Phase} zu erkennen und die Positionen $(p_x,p_y,p_z)^T$ in der \emph{Online-Phase} aus den gemessenen Größen $(m_1,m_2,...,m_n)^T$ zu schätzen. Im zweidimensionalen Fall wird dabei $p_z = 0$ angenommen.
 
 \subsection{Messgrößen}
 Beliebte Messgrößen für die Positionsbestimmung sind Ankunftszeit des Signals (\emph{Time of Arrival}, TOA), die Differenz der Ankuftszeiten (\emph{Time Difference of Arrival}, TDOA), die Paketumlaufzeit (\emph{Roundtrip Time of Flight}, RTOF) und die Stärke des empfangenen Signals (\emph{Received Signal Strength}, RSS). Es existieren aber noch mehr messbare Größen, wie etwa die Messung der empfangenen Phase des Signals (\emph{Received Signal Phase}, RSP) und die Messung des Einfallsswinkel des Signals mit mehreren gerichteten Antennen (\emph{Angle of Arrival}, AOA). 
@@ -121,7 +122,9 @@ Beliebte Messgrößen für die Positionsbestimmung sind Ankunftszeit des Signals
 TOA beruht auf der begrenzten Ausbreitungsgeschwindigkeit des Signals.
 Hochfrequente Signale breiten sich mit Lichtgeschwindigkeit $c = 299.792.458\ m/s$, Ultraschall mit Schallgeschwindigkeit $c \approx 343\ m/s$ bei $20^{\ \circ}C$ aus. 
 Die Distanz ergibt sich aus $d_i = c\ *\ (t_{empfangen,i} - t_{gesendet})$ mit $i$ als empfangende Basisstation.
-Die Position der mobilen Einheit kann mit der Methode der kleinsten Quadrate bestimmt werden, dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i (d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2})^2$ mit ${\alpha}_i$ als Konfidenz von Basisstation $i$, minimiert. Dies erfordert, dass die Basisstationen zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird, um Varianzen zu vermeiden. Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss. 
+Die Position der mobilen Einheit kann mit der Methode der kleinsten Quadrate bestimmt werden.
+Dazu wird die Kostenfunktion $F(x,y,t_{gesendet}) = \sum_{i=1}^{N} {\alpha}^2_i (d_i - \sqrt{(x_i - x)^2 + (y_i - y)^2})^2$ mit ${\alpha}_i$ als Konfidenz von Basisstation $i$, minimiert. Dies erfordert, dass die Basisstationen zeitsynchronisiert sind und $t_{empfangen,i}$ möglichst ohne vorherige Verarbeitung bestimmt wird, um Varianzen zu vermeiden. 
+Zusätzlich ist es von Vorteil, wenn auch die mobile Einheit synchronisiert ist, da dann nur noch mit zwei Variablen optimiert werden muss. 
 $t_{gesendet}$ kann entsprechend der Synchronisation und dem Sendeintervall als gegeben angenommen werden. 
 Die Forderung nach Synchronität ist jedoch für $c = 299.792.458\ m/s$ sehr stark, da das Signal nur $3.36\ ns/m$ benötigt. 
 Somit verursachen bereits kleine zeitliche Ungenauigkeiten große Fehler und erst durch zusätzliche Messungen oder Glättungstechniken können hohe Genauigkeiten erreicht werden. 
@@ -137,7 +140,8 @@ Die Hyperboloiden werden aufgestellt durch
 $R_{i,j} = \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2} - \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2}$ mit $(x_i,y_i,z_i)$ als Position der jeweiligen Messstation, $(x_j,y_j,z_j)$ als Position der gemeinsamen Referenzstation und $(x,y,z)$ als Position der mobilen Einheit. 
 Abbildung \ref{fig:tdoa} zeigt die Lösung graphisch, Drane et. al. und Torrieri beschreiben die analytische Lösung der Gleichung mit nichtlinearer Regression \cite{drane1998positioning} beziehungsweise Taylor-Entwicklung \cite{torrieri1984statistical}. 
 Li et al. eliminiert zusätzlich die Forderung nach Synchronisation für mobile Einheiten, die sowohl Senden als auch Empfangen können \cite{li2000comparison}. 
-Dabei wird ein Datenpaket an die mobile \emph{Station} gesendet und von dieser mit einem \emph{Acknowledgement} beantwortet, diese Kommunikation wird von anderen Basisstationen beobachtet und die Differenz der Ankunftszeiten des Datenpakets und des \emph{Acknowledgements} als $t_{i,1}$ mit $i \in Basisstationen$ protokolliert. 
+Dabei wird ein Datenpaket an die mobile \emph{Station} gesendet und von dieser mit einem \emph{Acknowledgement} beantwortet. 
+Diese Kommunikation wird von anderen Basisstationen beobachtet und die Differenz der Ankunftszeiten des Datenpakets und des \emph{Acknowledgements} als $t_{i,1}$ mit $i \in Basisstationen$ protokolliert. 
 Zusätzlich ist $t_{i,0}$ als die Differenz zwischen dem Senden des Datenpakets und dem Empfangen an den anderen Basisstationen durch die bekannte Position aller Basisstationen ebenfalls bekannt. 
 Damit kann die Differenz der Ankunftszeit $TDOA_{i,j} = (t_{i,0} + t_{i,1}) - (t_{j,0} + t_{j,1})$ mit $i,j \in Basisstationen$ ohne vorherige Synchronisation berechnet werden. 
 
@@ -155,7 +159,7 @@ Zunächst muss die Verarbeitungszeit gemessen werden, indem Basisstation und mob
 Die Position wird analog zu TOA bestimmt. Diese Messgröße kann sowohl für die Fern- als auch für die Selbstlokalisierung verwendet werden, ist aber sehr anfällig gegenüber Schwankungen in der Verarbeitungszeit, die bei Protokollen wie IEEE 802.11 häufig auftreten. 
 
 \subsubsection{Received Signal Strength}
-RSS überprüft wie stark das empfangene Signal aus dem allgemeinen Rauschen auf der verwendeten Frequenz hervor sticht. 
+RSS überprüft wie stark das empfangene Signal aus dem allgemeinen Rauschen auf der verwendeten Frequenz hervorsticht. 
 Dafür ist es wichtig, dass immer mit der selben Leistung gesendet wird. 
 Mit einem theoretisch oder empirisch ermittelten Ausbreitungsmodell kann die Entfernung zwischen mobiler Einheit und Basisstation anhand des Pfadverlustes bestimmt werden. 
 Dann ist $d = F(S_{gesendet},S_{empfangen})$ mit $F$ als Ausbreitungsmodell. 
@@ -197,9 +201,9 @@ Die \emph{Station} schließt den Vorgang mit einem \emph{Acknowlegement} ab.
 
 Das 2,4 GHz ISM-Band wird in Europa in 13 je 10 MHz breite Kanäle aufgeteilt, da ein AP immer nur auf einem Kanal aktiv ist, müsste jeder Kanal gescannt werden.
 Praktisch werden jedoch breitere Kanäle verwendet. 
-IEEE 802.11g verwendet beispielsweise 20 MHz breite Kanäle, sodass effektiv nur die Kanäle 1, 5, 9 und 13 geprüft werden müssen. 
+IEEE 802.11g verwendet beispielsweise 20 MHz breite Kanäle, so dass effektiv nur die Kanäle 1, 5, 9 und 13 geprüft werden müssen. 
 
-Tabelle \ref{table:management} listet alle in der IEEE 802.11 Spezifikation gelisteten \emph{Management Frames}.
+Die Tabelle \ref{table:management} listet alle in der IEEE 802.11 Spezifikation gelisteten \emph{Management Frames}.
 Ein \emph{Management Frame} wird durch die Typenbits markiert und durch die Bits für den Subtypen weiter unterschieden.
 
 \begin{table}[h]
@@ -226,12 +230,12 @@ Ist eine \emph{Station} assoziert kann sie Datenverbindungen mit anderen Teilneh
 
 \subsection{Reassociation}
 Eine \emph{Reassoziation} wird durchgeführt, wenn die \emph{Station} keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
-Um diesen neuen AP zu entdecken muss, zunächst ein \emph{Scan} durchgeführt werden. 
+Um diesen neuen AP zu entdecken, muss zunächst ein \emph{Scan} durchgeführt werden. 
 
 Anschließend sendet die \emph{Station} einen \emph{Reassociation Request} an den neuen AP. 
-Im \emph{Reassociation Request} wird der alte AP benannt, sodass der neue AP überprüfen kann, ob die \emph{Station} tatsächlich mit ihm \emph{assoziert} ist, gepufferte Pakete von ihm entgegennehmen und die \emph{Assoziation} mit ihm auflösen kann.
+Im \emph{Reassociation Request} wird der alte AP benannt, so dass der neue AP überprüfen kann, ob die \emph{Station} tatsächlich mit ihm \emph{assoziert} ist und gepufferte Pakete von ihm entgegennehmen und die \emph{Assoziation} mit ihm auflösen kann.
 Der Kommunikationsvorgang zwischen den APs wird auch als \emph{Handoff} bezeichnet. 
-Wird dieser erfolgreich abgeschlossen antwortet der neue AP der \emph{Station} mit einer \emph{Reassiciation Response}.
+Wird dieser erfolgreich abgeschlossen, antwortet der neue AP der \emph{Station} mit einer \emph{Reassiciation Response}.
 Abschließend wird dem Netzwerk die neue \emph{Assoziation} mittels ARP mitgeteilt.
 
 

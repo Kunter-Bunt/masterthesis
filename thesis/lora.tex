@@ -13,8 +13,8 @@ Bei dem \emph{RFM95} handelt es sich um ein \emph{Long Range} (LoRa)-fähiges Ra
 Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 \emph{RFM95} LoRa Radio verwendet.
 Dieses verwendet einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler.
 Zusätzlich ist eine Antenne notwendig. 
-Die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868MHz verwendet werden.
-Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3cm).
+Die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868 MHz verwendet werden.
+Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3 cm).
 
 Abbildung \ref{fig:lorafeather} zeigt ein Adafruit Feather M0 \emph{RFM95} LoRa Radio. 
 Für die Basisstation wird ein Feather M0 \emph{RFM95} LoRa Radio mit fester Antenne verwendet.
@@ -192,7 +192,7 @@ Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger a
 \end{figure}
 
 Die Ergebnisse der Messungen sind in Tabelle \ref{table:lora235ina} gelistet.
-Für den \emph{RFM95} Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen scheint der \emph{CP2104}, welcher zum Programmieren des \emph{ESP8266} beziehungsweise \emph{nRF52} dient, mindestens 6 mA zu verbrauchen.
+Für den \emph{RFM95} Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen, scheint der \emph{CP2104}, welcher zum Programmieren des \emph{ESP8266} beziehungsweise \emph{nRF52} dient, mindestens 6 mA zu verbrauchen.
 Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
 Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
@@ -214,7 +214,7 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 
 
 \section{Zusammenfassung}
-Die folgenden Abschnitte sollen die Ergebnisse des Kapitels zusammengefassen und aufgearbeiten.
+Die folgenden Abschnitte sollen die Ergebnisse des Kapitels zusammengefassen und aufarbeiten.
 
 \subsection{Reichweite}
 Die Zuverlässigkeit bei der Erkennung von Bereichswechseln hängt maßgeblich von der Reichweite der Funktechnologie und der Länge des Sendeintervalls ab.
@@ -244,7 +244,8 @@ Die Ergebnisse des \emph{ESP-12S} sind jedoch zugunsten des \emph{ESP-12F} nicht
 Der Abstand der Basisstationen für die Bereichsortung ist mit 250 Metern gegeben. 
 Die einzige Funktechnologie, die über 125 Meter im Tunnel erreicht, ist LoRa.
 Sie ist deshalb die einzige getestete Funktechnologie, die eine lückenlose Ortung ermöglicht.
-Zu beachten ist, dass LoRa keine Kollisionvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet, es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
+Zu beachten ist, dass LoRa keine Kollisionvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet.
+Es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
 Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden. 
 Um das Problem durch redundantes Senden zu umgehen, wurde das Sendeintervall in dieser Arbeit auf zehn Sekunden gesetzt.
 
@@ -255,12 +256,12 @@ In dieser Arbeit wurden die Sendeintervalle für IEEE 802.11 auf 5 Sekunden und 
 Kürzere Sendeintervalle führen dabei zu einer höheren Erkennungszuverlässigkeit, längere Sendeintervalle senken den Stromverbrauch.
 
 \subsection{Mobile Einheiten}
-Im Laufe dieser Arbeit wurden mehrere mobile Einheiten implementiert, diese sind in Tabelle \ref{table:consumptions} gelistet.
+Im Laufe dieser Arbeit wurden mehrere mobile Einheiten implementiert, diese sind in Tabelle \ref{table:implemen} gelistet.
 
 \begin{table}[h]
 	\centering
 	\caption{Implementierungen}
-	\label{table:ranges}
+	\label{table:implemen}
 	\begin{tabular}{l|l|p{2.5cm}|p{5.8cm}}
 		Protokoll & Hardware & Art der Fernlokalisierung & Programm \\
 		\hline
@@ -314,9 +315,9 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 Zu erkennen ist, dass die umliegenden Komponenten der verwendeten Adafruit Feather einen hohen passiven Stromverbrauch verursachen.
 Direkt gezeigt werden konnte dieser Effekt jedoch im Zuge dieser Arbeit nur für das \emph{ESP8266} Feather, da nur dort ein einzelnes Modul vorhanden war.
 
-Außerdem wurde gezeigt, dass IEEE 802.11-basierte Lösungen, die einem Netzwerk einloggen beitreten mehr Strom verbrauchen als solche, die darauf verzichten.
-Die Einsparungen der \emph{Probe-Request-Lokalisierung} resultieren aus tieferen Schlafzuständen und dem Verzicht auf das empfangen von \emph{Beacons}.
-Zusätzlich leiden IEEE 802.11-basierte Lösungen, die einem Netzwerk beitreten an den besonderen Bedingungen im Tunnelbau.
+Außerdem wurde gezeigt, dass IEEE 802.11-basierte Lösungen, die einem Netzwerk beitreten mehr Strom verbrauchen als solche, die darauf verzichten.
+Die Einsparungen der \emph{Probe-Request-Lokalisierung} resultieren aus tieferen Schlafzuständen und dem Verzicht auf das Empfangen von \emph{Beacons}.
+Zusätzlich leiden IEEE 802.11-basierte Lösungen, die einem Netzwerk beitreten, an den besonderen Bedingungen im Tunnelbau.
 Da in Arbeitsbereichen vor dem Tunnel keine Abdeckung durch ein WLAN-Netzwerk herrscht, sucht die mobile Einheit nach dem WLAN-Netzwerk.
 Dieser Vorgang ist energetisch deutlich teurer wie das halten einer Verbindung zu einem Netzwerk.
 
@@ -352,7 +353,8 @@ Dies wirkt sich negativ auf die Erkennungszuverlässigkeit bei Bereichswechseln 
 Dieses Problem hat LoRa nicht. 
 Seine enorme Reichweite von bis zu 1250 Meter erlaubt es, dass eine mobile Einheit an jedem Punkt im Tunnel von mehreren Basisstationen geortet werden kann.
 Diese Eigenschaft macht die mobile Einheit mit LoRa zu einer sehr zuverlässigen Einheit für die Ortung.
-Beachtet werden muss jedoch, dass LoRa Kollisionen nur durch die zufällige Wahl des Kanals zu verhindern versucht, es muss daher mit gelegentlichen Kollisionen gerechnet werden.
+Beachtet werden muss jedoch, dass LoRa Kollisionen nur durch die zufällige Wahl des Kanals zu verhindern versucht.
+Es muss daher mit gelegentlichen Kollisionen gerechnet werden.
 Daher sollte das Sendeintervall auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, um eine zuverlässige Ortung im Ortungsintervall zu erreichen.
 
 Aufgrund seiner hohen Reichweite und daraus resultierenden lückenlosen Ortung der mobilen Einheiten schlägt diese Arbeit LoRa für \emph{zuverlässige funkbasierte Bereichsortung im Tunnelbau} vor.

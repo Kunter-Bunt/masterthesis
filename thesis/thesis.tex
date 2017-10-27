@@ -14,6 +14,7 @@
 \usepackage{amssymb}
 \usepackage{textcomp}
 \usepackage{tabularx}
+\usepackage{caption} 
 %\usepackage{graphicx} 
 % \usepackage{varioref}
 % \usepackage{verbatim}
@@ -30,14 +31,16 @@
 \newlength\Colsep
 \setlength\Colsep{10pt}
 
+\captionsetup[table]{position=above,skip=0.5cm} 
+
 \newcolumntype{R}[1]{>{\raggedleft\arraybackslash}p{#1}}
 
 %% Informationen für die PDF-Datei
 \hypersetup{
  pdfauthor={Marius Wodtke},
- pdftitle={Funkbasierte Bereichsortung}
+ pdftitle={Zuverlässige funkbasierte Bereichsortung im Tunnelbau}
  %pdfsubject={Zuverlässige funkbasierte Bereichsortung im Tunnelbau},
- pdfkeywords={802.11, wifi, wlan, bluetooth low energy, lora, localisation}
+ pdfkeywords={802.11, WiFi, WLAN, Bluetooth Low Energy, LoRa, localisation}
 }
 
 % Macros, nicht unbedingt notwendig
