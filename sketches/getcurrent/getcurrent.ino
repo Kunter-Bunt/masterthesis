@@ -41,7 +41,7 @@ void loop(void)
   
   //if (current_mA > 13.0) {
     //Serial.print(current_mA); Serial.print(" "); Serial.print(sum_mA); Serial.print(" "); Serial.print(avg_mA); Serial.print(" "); Serial.print(steps); Serial.println(" ");
-    //Serial.print(steps*3); Serial.print(","); Serial.println(current_mA);
+    Serial.print(steps*3); Serial.print(","); Serial.println(current_mA);
   //}
   
   /*
