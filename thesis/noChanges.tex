@@ -165,8 +165,8 @@ Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tu
 Das \emph{ESP-12F} Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das \emph{ESP-12S}, es ist daher im weiteren Verlauf zu bevorzugen.
 
 Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von 30 km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
-Um die gemessenen 88 m bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 s, bei einem Sendeintervall von 10 s finden demnach zwei Sendevorgänge beim Durchqueren des Einflussbereichs eines APs statt.
-Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden, eine Halbierung auf 5 s ist daher für eine zuverlässige Erkennung sinnvoll.
+Um die gemessenen 88 m bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 s, bei einem Sendeintervall von 10 Sekunden finden demnach zwei Sendevorgänge beim Durchqueren des Einflussbereichs eines APs statt.
+Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden, eine Halbierung auf 5 Sekunden ist daher für eine zuverlässige Erkennung sinnvoll.
 
 Für die Teststrecke mit vielen Hindernissen wurden geringere Reichweiten gemessen, eine solche Teststecke findet sich aber nur auf der Tunnelbohrmaschine, welche nur zu Fuß begangen werden kann. 
 Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus, benötigt diese 5 s, um 14 m zu durchqueren, also deutlich weniger als die gemessenen 32 m.
@@ -177,7 +177,7 @@ Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine lauf
 
 \subsection{WiFi-LLS-Implementierung}
 \label{ch:phase1:sec:wifills}
-Die mobile Einheit des WiFi-LLS-Systems führt alle 5 s einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsdienst \cite{chen2007design}.
+Die mobile Einheit des WiFi-LLS-Systems führt alle 5 Sekunden einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsdienst \cite{chen2007design}.
 Da der Fokus dieser Arbeit auf dem Stromverbrauch liegt, werden für die Referenzimplementierung einer mobilen WiFi-LLS-Einheit die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsdienst übermittelt. 
 Damit wird der \emph{Overhead} einer TCP-Verbindung vermieden.
 
@@ -190,7 +190,7 @@ Er kann aber auch manuell aufgerufen werden, beides wurde getestet.
 
 Einige Parameter können gewählt werden. 
 Die Intervallzeit bestimmt, wie oft der ESP aktiv ist und damit auch wie viel Strom er verbraucht.
-Die Intervallzeit wird entsprechend der Untersuchung der Reichweite auf 5 s gesetzt.
+Die Intervallzeit wird entsprechend der Untersuchung der Reichweite auf 5 Sekunden gesetzt.
 Des Weiteren kann theoretisch die Zahl der \emph{gescannten} Kanäle gewählt werden. 
 Da sich die Einflussbereiche der APs in einem WLAN-Netzwerk üblicherweise überlappen, ist es aber sinnvoll diese über die vier überlappungsfreien Kanäle zu verteilen. 
 Eine Implementierung, die nur einen Kanal \emph{scannt} tritt deshalb nur außer Konkurenz an.
@@ -324,13 +324,13 @@ Abbildung \ref{fig:wifills} zeigt den Lastverlauf nach Anschalten der mobilen Ei
   \label{fig:wifills}
 \end{figure}
 
-Diese beginnt bei circa einer Sekunde mit dem \emph{Scan}, nachdem sie diesen beendet hat, beginnt sie bei 5 s mit dem \emph{Join}-Vorgang.
+Diese beginnt bei circa einer Sekunde mit dem \emph{Scan}, nachdem sie diesen beendet hat, beginnt sie bei 5 Sekunden mit dem \emph{Join}-Vorgang.
 
 Der \emph{ESP8266} empfängt während des \emph{Join} die gesamte Zeit und verbraucht dabei circa 70 mA, nachdem dieser jedoch abgeschlossen ist, synchronisiert er sich mit dem AP und lauscht alle 100 ms auf den \emph{Beacon} des AP.
 Ist im \emph{Beacon} eine Aufforderung zum Empfangen für den \emph{ESP8266} enthalten empfängt er länger, um die Nachricht zu erhalten.
-Ein solches Verhalten ist bei circa 19 s zu erkennen.
+Ein solches Verhalten ist bei circa 19 Sekunden zu erkennen.
 
-Bei 12, 17 und 22 s werden weitere \emph{Scans} ausgeführt, diese stehen im Zentrum der Implementierung, da sie implizit die Position bestimmen.
+Bei 12, 17 und 22 Sekunden werden weitere \emph{Scans} ausgeführt, diese stehen im Zentrum der Implementierung, da sie implizit die Position bestimmen.
 Die rote Kurve in Abbildung \ref{fig:wifillssendv} zeigt diesen Vorgang genauer, ein \emph{Scan} besteht für jeden gescannten Kanal aus dem Versenden eines \emph{Probe Request} und anschließendem Empfangen der \emph{Probe Responses}. 
 Abschließend wird ein Paket an den Ortungsdienst versendet und der Chip wechselt wieder in einen Zustand, in dem er periodisch die \emph{Beacons} des AP empfängt.
 
@@ -381,7 +381,7 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 
 Um die finale Laufzeit zu bestimmen, muss die Kapazität des Akkus und der durchschnittliche Stromverbrauch X bekannt sein.
 Ein 1400 mAh Lithium-Polymer-Akku wurde als leicht genug angesehen, um um den Hals getragen werden zu können.
-Die Laufzeiten in Tabelle \ref{table:wifillsina} wurden für diesen 1400 mAh Akku mit 1400 mAh / X mA = Y h bestimmt.
+Die Laufzeiten in Tabelle \ref{table:wifillsina} wurden für diesen 1400 mAh Akku mit 1400 mAh / X mA = Y Stunden bestimmt.
 
 
 
