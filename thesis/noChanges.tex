@@ -1,7 +1,7 @@
 \chapter{Implementierung \& Evaluation}
 \label{ch:Implementierung}
 Dieses Kapitel ist in fünf Abschnitte geteilt. 
-Jede der ersten vier Abschnitte betrachtet eine Kombination von Topologie und Funkprotokoll, es werden die indirekte und direkte Fernlokalisierung mit IEEE 802.11, direkte Fernlokalisierung mit Bluetooth Low Energy und die direkte Fernlokalisierung mit LoRa betrachtet.
+Jeder der ersten vier Abschnitte betrachtet eine Kombination von Topologie und Funkprotokoll, es werden die indirekte und direkte Fernlokalisierung mit IEEE 802.11, direkte Fernlokalisierung mit Bluetooth Low Energy und die direkte Fernlokalisierung mit LoRa betrachtet.
 Für jedes Protokoll wird zunächst kurz in die Programmierung eingeführt, anschließend wird die Reichweite im Tunnel ermittelt. %TODO Zusammenhang nicht da
 Danach folgt ein Abschnitt zur Implementierung mit einigen Voruntersuchungen zum Stromverbrauch, die verbrauchsärmsten Implementierungen werden abschließend genauer untersucht.
 Das Kapitel schließt mit einer Zusammenfassung der Ergebnisse.
@@ -33,16 +33,16 @@ Das neuere \emph{ESP-12F} sollte eine höhere Reichweite bei der Funkübertragun
 Abbildung \ref{fig:espmodules} zeigt die beiden Module nebeneinander, die unterschiedlichen Antennenformen sind deutlich zu erkennen.
 
 Espressif gibt im Datenblatt auch Aufschluss über den Stromverbrauch des \emph{ESP8266}, siehe dazu Tabelle \ref{table:esppower}.
-Für die Prototypenentwicklung wird ein \emph{ESP-12S} Modul auf einem Adafruit Feather Huzzah verwendet. 
+Für die Prototypenentwicklung wird ein \emph{ESP-12S} Modul auf einem Adafruit Feather HUZZAH verwendet. 
 Dieses stellt mit dem CP2104 eine serielle Verbindung zum ESP her, reguliert die Spannung für das Modul auf 3,3 V und bringt den 2 mm Pinabstand des \emph{ESP-12S} Moduls auf die für \emph{Breadboards} üblichen 2,5 mm.
-Das Adafruit Feather Huzzah \emph{ESP8266} mit \emph{ESP-12S} ist in Abbildung \ref{fig:espmodules} links abgebildet.
+Das Adafruit Feather HUZZAH \emph{ESP8266} mit \emph{ESP-12S} ist in Abbildung \ref{fig:espmodules} links abgebildet.
 
 Der \emph{ESP8266} wurde wegen seines geringen Preises, guter Verfügbarkeit und breiter Unterstützung bei der Implementierung ausgewählt.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/espmodules.png}
-  \caption{Vergleich der Antennen (im rot markierten Bereich), links: \emph{ESP-12S} verbaut auf einem Adafruit Feather Huzzah, rechts: \emph{ESP-12F}.}
+  \caption{Vergleich der Antennen (im rot markierten Bereich), links: \emph{ESP-12S} verbaut auf einem Adafruit Feather HUZZAH, rechts: \emph{ESP-12F}.}
   \label{fig:espmodules}
 \end{figure}
 
@@ -61,7 +61,7 @@ Adafruit stellt eine englischsprachige Anleitung zur Verwendung des \textit{Adaf
 Der \emph{ESP8266} Arduino Core wurde in der Version 2.3.0 verwendet.
 Der \emph{ESP8266} Arduino Core wird als Open Source Projekt gepflegt und setzt die ESP Open SDK auf einen für die Arduino IDE üblichen Stil um \cite{arduino2017core}. 
 Dabei wird möglichst die Kompatibilität zu Arduino gewahrt, das führt oft dazu, dass bereitgestellte Funktionen der SDK nicht in Arduino umgesetzt wurden.
-Sollten die Funktionen dennoch benötigt werden, können die Header-Dateien der SDK direkt importiert werden:
+Sollten die Funktionen dennoch benötigt werden, können die \emph{Header}-Dateien der SDK direkt importiert werden:
 
 \begin{verbatim}
 //Hier wird ein Header des ESP8266 Arduino Core importiert
@@ -89,7 +89,7 @@ Die ESP Open SDK wurde in der Version 2.0.0 verwendet.
 \label{ch:phase1:sec:rangewlan}
 Um die Intervallzeit für die Lokalisierung festzulegen, muss die Reichweite von IEEE 802.11 im Tunnel bestimmt werden.
 Für die Tests wurde ein \emph{LN-862} \emph{Access Point} von der Firma Lancom zur Verfügung gestellt.
-Dieser wurde am hinteren Ende einer Tunnelbohrmaschine der Tunnelbaustelle Rastatt montiert.
+Dieser wurde am hinteren Ende einer Tunnelbohrmaschine (TBM) der Tunnelbaustelle Rastatt montiert.
 Der Durchmesser des Bahntunnels beträgt 9 m, das Ende der Tunnelbohrmaschine befand sich zum Zeitpunkt der Messungen circa 2 km weit im Tunnel.
 
 Der AP konnte aufgrund des geringen Platzangebots und den wenigen zur Verfügung stehenden Steckdosen nicht frei platziert werden.
@@ -165,11 +165,13 @@ Wenige Hindernisse bezeichnet dabei die Richtung des bereits fertig gebohrten Tu
 Das \emph{ESP-12F} Modul hatte in jedem der vier Testszenarien eine höhere Reichweite als das \emph{ESP-12S}, es ist daher im weiteren Verlauf zu bevorzugen.
 
 Für Mitarbeiter im Tunnel kann von einer Maximalgeschwindigkeit von 30 km/h ausgegangen werden, diese wird durch Schienen- oder Lastkraftfahrzeuge erreicht. 
-Um die gemessenen 88 m bei 30 km/h zu durchqueren benötigte ein Mitarbeiter circa 10,5 s, bei einem Sendeintervall von 10 Sekunden finden demnach zwei Sendevorgänge beim Durchqueren des Einflussbereichs eines APs statt.
-Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden, eine Halbierung auf 5 Sekunden ist daher für eine zuverlässige Erkennung sinnvoll.
+Um die gemessenen 88 m bei 30 km/h zu durchqueren, benötigt ein Mitarbeiter circa 10,5 Sekunden. 
+Bei einem Sendeintervall von 10 Sekunden finden demnach zwei Sendevorgänge beim Durchqueren des Einflussbereichs eines APs statt.
+Da eine zuverlässige Erkennung von Bereichswechseln gefordert wurde, sollte das Sendeintervall jedoch konservativer gesetzt werden. 
+Eine Halbierung auf 5 Sekunden ist daher für eine zuverlässige Erkennung sinnvoll.
 
 Für die Teststrecke mit vielen Hindernissen wurden geringere Reichweiten gemessen, eine solche Teststecke findet sich aber nur auf der Tunnelbohrmaschine, welche nur zu Fuß begangen werden kann. 
-Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus, benötigt diese 5 s, um 14 m zu durchqueren, also deutlich weniger als die gemessenen 32 m.
+Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine laufende Person aus, benötigt diese 5 Sekunden, um 14 m zu durchqueren, also deutlich weniger als die gemessenen 32 m.
 
 
 
@@ -177,8 +179,8 @@ Geht man von einer maximalen Bewegungsgeschwindigkeit von 10 km/h für eine lauf
 
 \subsection{WiFi-LLS-Implementierung}
 \label{ch:phase1:sec:wifills}
-Die mobile Einheit des WiFi-LLS-Systems führt alle 5 Sekunden einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsdienst \cite{chen2007design}.
-Da der Fokus dieser Arbeit auf dem Stromverbrauch liegt, werden für die Referenzimplementierung einer mobilen WiFi-LLS-Einheit die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsdienst übermittelt. 
+Die mobile Einheit des \emph{WiFi-LLS} Systems führt alle 5 Sekunden einen \emph{Scan} aus, kodiert die Ergebnisse in XML und versendet sie an den Ortungsdienst \cite{chen2007design}.
+Da der Fokus dieser Arbeit auf dem Stromverbrauch liegt, werden für die Referenzimplementierung einer mobilen \emph{WiFi-LLS}-Einheit die Kodierung in XML durch eine simple String Kodierung ersetzt und die Ergebnisse werden über UDP an den Ortungsdienst übermittelt. 
 Damit wird der \emph{Overhead} einer TCP-Verbindung vermieden.
 
 Zunächst muss die mobile Einheit dem Netzwerk beitreten (\emph{Join}), einen \emph{Scan} ausführen und ein UDP-Paket versenden.
@@ -209,7 +211,7 @@ Unter realen Bedingungen finden durch die Bewegung des Mitarbeiters regelmäßig
 %TODO Abstand Tabellenüberschrift
 \begin{table}[h]
 	\centering
-	\caption{Stromverbrauch WiFi-LLS-artiger Tags}
+	\caption{Stromverbrauch \emph{WiFi-LLS}-artiger Tags}
 	\label{table:llsconsumption}
 	\begin{tabular}{l|p{2.2cm}|l|R{2cm}|R{2cm}|R{2cm}}
 		SDK & manueller \texttt{light\_sleep} & Kanäle & Versuchs-dauer in Stunden & Gesamt-verbrauch in mAh & $\varnothing$ Verbrauch in mA  \\
@@ -239,7 +241,7 @@ Die Implementierung in C mit manuellem \texttt{light\_sleep} werden in Abschnitt
 
 \subsection{Assoziations-Lokalisierung}
 \label{ch:phase1:sec:anpassungbereich}
-Bei WiFi-LLS wird der \emph{Scan} durchgeführt, um den RSSI zu nahen APs zu erhalten und dann beim Ortungsdienst die Position der mobilen Einheit mit einer Trilateration zu berechnen.
+Bei \emph{WiFi-LLS} wird der \emph{Scan} durchgeführt, um den RSSI zu nahen APs zu erhalten und dann beim Ortungsdienst die Position der mobilen Einheit mit einer Trilateration zu berechnen.
 Im Tunnel sind oft nur ein bis zwei APs in Reichweite, außerdem wird eine Bereichsortung als ausreichend angesehen. 
 
 Werden die APs geschickt den Bereichen zugeordnet, reicht das Wissen um einen nahen AP, um die mobile Einheit einem Bereich zuzuordnen.
@@ -262,7 +264,7 @@ Tabelle \ref{table:naiveconsumption} zeigt den gemessenen Verbrauch der Implemen
 	\end{tabular}
 \end{table}
 
-Der Verbrauch liegt wie erwartet unter dem der WiFi-LLS-Implementierung, sogar unter der Implementierung, die nur einen Kanal scannt.
+Der Verbrauch liegt wie erwartet unter dem der \emph{WiFi-LLS}-Implementierung, sogar unter der Implementierung, die nur einen Kanal scannt.
 Als weitere Optimierung könnte eine mobile Einheit nur dann senden, wenn eine \emph{Reassoziation} stattgefunden hat.
 Die mangelnde Transportsicherheit von UDP macht dieses Vorgehen jedoch riskant, wenn das Paket verloren geht wird kein Bereichswechsel erkannt.
 Um wieder eine begrenzte Transportsicherheit zu erhalten, kann entweder das UDP-Paket mehrfach versendet werden, ohne \emph{Reassoziation} in einen festen aber größeren Intervall gesendet werden oder statt eine UDP-Verbindung eine TCP-Verbindung verwendet werden.
@@ -315,18 +317,18 @@ Abbildung \ref{fig:ina219} zeigt den INA219 integriert auf einer Platine, diese 
 
 \subsubsection{WiFi-LLS}
 \label{ch:phase1:sec:powerwifills}
-Abbildung \ref{fig:wifills} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von WiFi-LLS, wenn ein AP zur Verfügung steht. 
+Abbildung \ref{fig:wifills} zeigt den Lastverlauf nach Anschalten der mobilen Einheit für die Implementierung von \emph{WiFi-LLS}, wenn ein AP zur Verfügung steht. 
 
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/wifills.png}
-  \caption{Stromverbrauchskurve einer Implementierung von WiFi-LLS.}
+  \caption{Stromverbrauchskurve einer Implementierung von \emph{WiFi-LLS}.}
   \label{fig:wifills}
 \end{figure}
 
 Diese beginnt bei circa einer Sekunde mit dem \emph{Scan}, nachdem sie diesen beendet hat, beginnt sie bei 5 Sekunden mit dem \emph{Join}-Vorgang.
 
-Der \emph{ESP8266} empfängt während des \emph{Join} die gesamte Zeit und verbraucht dabei circa 70 mA, nachdem dieser jedoch abgeschlossen ist, synchronisiert er sich mit dem AP und lauscht alle 100 ms auf den \emph{Beacon} des AP.
+Der \emph{ESP8266} empfängt während des \emph{Join} die gesamte Zeit und verbraucht dabei circa 70 mA, nachdem dieser jedoch abgeschlossen ist, synchronisiert er sich mit dem AP und lauscht alle 100 Millisekunden auf den \emph{Beacon} des AP.
 Ist im \emph{Beacon} eine Aufforderung zum Empfangen für den \emph{ESP8266} enthalten empfängt er länger, um die Nachricht zu erhalten.
 Ein solches Verhalten ist bei circa 19 Sekunden zu erkennen.
 
@@ -337,7 +339,7 @@ Abschließend wird ein Paket an den Ortungsdienst versendet und der Chip wechsel
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/wifillssendv.png}
-  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit WiFi-LLS.}
+  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit \emph{WiFi-LLS}.}
   \label{fig:wifillssendv}
 \end{figure}
 
@@ -345,10 +347,10 @@ Auffällig ist, dass der Chip circa 8,2 mA verbraucht, wenn er nicht empfängt.
 Dagegen gibt das Datenblatt des \emph{ESP8266} nur einen Verbrauch von 0,9 mA an.
 Das Experiment wurde deshalb mit einem \emph{ESP-12F} Modul wiederholt, welches nicht auf einem \emph{ESP8266} Feather verbaut war. 
 Dabei zeigte sich, dass dieses in der selben Situation nur 1,2 mA verbraucht.
-Die Stromverbrauchskurve des einzelnen \emph{ESP-12F} Modul ist in Abbildung \ref{fig:wifillssendv} grün dargestellt.
+Die Stromverbrauchskurve des einzelnen \emph{ESP-12F} Moduls ist in Abbildung \ref{fig:wifillssendv} grün dargestellt.
 Daraus lässt sich schließen, dass die zusätzlichen Komponenten auf dem \emph{ESP8266} Feather 7 mA Vebrauch erzeugen, dies ist im Zuge der Laufzeitoptimierung nicht tragbar.
 
-Zusätzlich wurde die Implementierung von WiFi-LLS mit nur einem \emph{gescannten} Kanal geprüft.
+Zusätzlich wurde die Implementierung von \emph{WiFi-LLS} mit nur einem \emph{gescannten} Kanal geprüft.
 Abbildung \ref{fig:wifills1chsend} zeigt den verkürzten Ortungsvorgang.
 Da nur ein Kanal \emph{gescannt} wird, wird nur ein \emph{Probe Request} versendet.
 Nach Empfangen der Antworten wird ein Paket an den Ortungsdienst gesendet und der \emph{ESP8266} wechselt wieder in den Zustand des periodischen Empfangens.
@@ -372,10 +374,10 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 	\begin{tabular}{l|l|R{2.5cm}|R{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA \emph{X} (normalisiert) & Laufzeit in Stunden \emph{Y} \\
 		\hline
-		\emph{ESP8266} Feather & WiFi-LLS alle Kanäle & 42,2 (34,1) & 33,2\\
-		\emph{ESP-12F} & WiFi-LLS alle Kanäle & 36,5 (35,2) & 38,3\\
-		\emph{ESP8266} Feather & WiFi-LLS ein Kanal & 18,7 (10,6)& 74,9\\
-		\emph{ESP-12F} & WiFi-LLS ein Kanal & 11,4 (10,1) & 122,8\\
+		\emph{ESP8266} Feather & \emph{WiFi-LLS} alle Kanäle & 42,2 (34,1) & 33,2\\
+		\emph{ESP-12F} & \emph{WiFi-LLS} alle Kanäle & 36,5 (35,2) & 38,3\\
+		\emph{ESP8266} Feather & \emph{WiFi-LLS} ein Kanal & 18,7 (10,6)& 74,9\\
+		\emph{ESP-12F} & \emph{WiFi-LLS} ein Kanal & 11,4 (10,1) & 122,8\\
 	\end{tabular}
 \end{table}
 
@@ -434,11 +436,12 @@ Außerdem besteht vor dem Portal des Tunnels ein großer Arbeitsbereich ohne WLA
 
 Es muss deshalb auch die Situation ohne erreichbaren AP geprüft werden.
 Die Untersuchung dazu zeigt unmittelbar, dass der \emph{ESP8266} sofort den nächsten \emph{Scan} startet, nachdem der vorherige nicht erfolgreich war.
-Ist also kein AP erreichbar \emph{scannt} der \emph{ESP8266} durchgehend, sein Verbrauch ist entsprechend hoch.
+Ist also kein AP erreichbar, \emph{scannt} der \emph{ESP8266} durchgehend, sein Verbrauch ist entsprechend hoch.
 
 Als Optimierung kann der nicht erfolgreiche \emph{Scan} als Event verarbeitet und der \emph{ESP8266} in den \texttt{deep\_sleep} versetzt werden.
 Abbildung \ref{fig:noap} zeigt das Profil des Stromverbrauchs eines einzelnen \emph{ESP-12F} Moduls, wenn kein AP des angefragten Netzwerks verfügbar ist.
-Die rote Kurve zeigt dabei die Implementierung aus dem vorherigen Abschnitt, die Implementierung, die den fehlgeschlagenen \emph{Scan} abfängt ist in grün dargestellt.
+Die rote Kurve zeigt dabei die Implementierung aus dem vorherigen Abschnitt. 
+Die Implementierung, die den fehlgeschlagenen \emph{Scan} abfängt, ist in grün dargestellt.
 
 \begin{figure}[h!]
   \centering

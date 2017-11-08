@@ -17,7 +17,7 @@ Tabelle \ref{table:radarconsumption} zeigt den mit dem \emph{TM103} gemessenen V
 
 \begin{table}[h]
 	\centering
-	\caption{Stromverbrauch RADAR-artiger mobiler Einheiten}
+	\caption{Stromverbrauch \emph{RADAR}-artiger mobiler Einheiten}
 	\label{table:radarconsumption}
 	\begin{tabular}{l|p{2.2cm}|R{1.6cm}|R{2cm}|R{2cm}|R{2cm}}
 		SDK & manueller \texttt{light\_sleep} & Sende"-intervall in Sekunden & Versuchs-dauer in Stunden & Gesamt"-verbrauch in mAh & $\varnothing$ Verbrauch in mA \\
@@ -80,7 +80,7 @@ uint8_t packet[26] = {
 /*25*/ 	0x00, //Tag length
 }; 
 \end{verbatim}
-Ein gewöhnlicher \emph{Probe Request} beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichenkeiten, wie etwa unterstützte Standards und Datenraten. 
+Ein gewöhnlicher \emph{Probe Request} beinhaltet noch zusätzliche Informationen bezüglich seiner technischen Möglichkeiten, wie etwa unterstützte Standards und Datenraten. 
 Da die mobile Einheit aber nicht tatsächlich beitreten will, kann darauf verzichtet werden. 
 
 Weil keine Verbindung mehr aufrecht erhalten werden muss, können tiefere Schlafzustände eingenommen werden. 
@@ -112,7 +112,7 @@ Tabelle \ref{table:probeconsumption} zeigt den Stromverbrauch der Implementierun
 
 Zu erkennen ist, dass die Verwendung des \texttt{deep\_sleep} zu einem geringeren Verbrauch führt. 
 Allerdings benötigt die mit dem Arduino Core programmierte mobile Einheit im Vergleich zu der mit der ESP Open SDK programmierten Einheit deutlich länger zum Starten.
-Sie verbraucht deshalb sogar mehr Strom als die mobilen Einheiten mit \emph{Assoziations-Lokalisierung} aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Strom als diese.
+Sie verbraucht deshalb sogar mehr Strom als die mobile Einheiten mit \emph{Assoziations-Lokalisierung} aus Abschnitt \ref{ch:phase1:sec:anpassungbereich}, die Implementierung mit der ESP Open SDK verbraucht aber weniger Strom als diese.
 Hinzu kommt, dass sich der Verbrauch dieser mobilen Einheiten nicht durch die Bewegung des Trägers erhöht, da keine \emph{Reassoziationen} stattfinden.
 Um die in Abschnitt \ref{ch:Einleitung:sec:Anforderungen} geforderten Laufzeiten zu erreichen, werden in Abschnitt \ref{ch:Beschleunigungssensor:sec:Abschaltautomatik} weitere Verbesserungen besprochen.
 Die Implementierung in C mit \texttt{deep\_sleep} wird in Abschnitt \ref{ch:phase2:sec:powerprobereq} genauer untersucht.
@@ -120,7 +120,7 @@ Die Implementierung in C mit \texttt{deep\_sleep} wird in Abschnitt \ref{ch:phas
 \subsubsection{Anzahl der verwendeten Kanäle}
 Eine Lösung, die nicht vor dem Versenden das Spektrum nach den APs durchsucht, muss entweder auf der Annahme beruhen, dass alle APs auf einem Kanal agieren oder auf allen in Frage kommenden Kanälen senden.
 
-Je nach Erweiterung der 802.11 Spezifiktion ergeben sich unterschiedlich viele solcher Kanäle.
+Je nach Erweiterung der 802.11 Spezifikation ergeben sich unterschiedlich viele solcher Kanäle.
 802.11b verwendet eine Kanalbreite von 22 MHz, es stehen daher effektiv nur drei Kanäle zur Verfügung: 1, 7 und 13 in Europa beziehungsweise 1, 6 und 11 in Nordamerika.
 Für 802.11g/n mit 20 MHz Kanalbreite sind zwar in Europa theoretisch vier Kanäle verfügbar (1,5,9,13), es werden aber in der Praxis meist dieselben Kanäle wie bei 802.11b verwendet, um die Kompatibilität zu 802.11b zu gewährleisten.
 802.11n ist auch für eine Kanalbreite von 40 MHz spezifiziert, hier stehen effektiv nur noch zwei Kanäle zur Verfügung. 
@@ -153,7 +153,7 @@ Auffällig ist, dass längerfristig empfangen wird, obwohl dies für den Versand
 \begin{figure}[h!]
   \centering
 	\includegraphics[width=\textwidth]{plots/radar5ssend.png}
-  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit RADAR.}
+  \caption{Stromverbrauchskurve eines Ortungsvorgangs mit \emph{RADAR}.}
   \label{fig:radar5ssend}
 \end{figure}
 
@@ -169,8 +169,8 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 	\begin{tabular}{l|l|R{2.5cm}|R{2.5cm}}
 		Hardware & Programm & $\varnothing$ Verbrauch in mA (normalisiert) & Laufzeit in Stunden\\
 		\hline
-		\emph{ESP8266} Feather & RADAR & 16,7 (8,6) & 83,8\\
-		\emph{ESP-12F} & RADAR & 10,1 (8,8) & 138,6\\
+		\emph{ESP8266} Feather & \emph{RADAR} & 16,7 (8,6) & 83,8\\
+		\emph{ESP-12F} & \emph{RADAR} & 10,1 (8,8) & 138,6\\
 	\end{tabular}
 \end{table}
 
@@ -230,7 +230,7 @@ Dadurch wird sie nicht mehr senden, wenn sie nicht getragen wird.
 
 \subsubsection{LIS3DH}
 Der \emph{LIS3DH} ist ein Drei-Achsen-Beschleunigungssensor von ST Microelectronics \cite{st2015lis}.
-Er zeichnet sich durch einen \emph{ultra-low-power} Modus und einen Pin für externe Unterbrechungen (\emph{Interrupt}) aus.
+Er zeichnet sich durch einen \emph{ultra-low-power}-Modus und einen Pin für externe Unterbrechungen (\emph{Interrupt}) aus.
 Der Beschleunigungssensor bietet ein \emph{I²C} und ein \emph{SPI Interface}, um ihn zu konfigurieren.
 Der \emph{LIS3DH} benötigt bei einer Frequenz von 1 Hz nur 2 \textmu A (0,002 mA).
 
@@ -278,7 +278,7 @@ Zu den 3 \textmu A Verbrauch addiert sich deshalb der Verbrauch des Spannungswan
 Hinzu kommen bis zu 1 \textmu A für das \emph{Latch} und 10 \textmu A für das XOR-Gatter.
 
 Die Integration des Beschleunigungssensor kann also den Verbrauch des \emph{ESP8266} außerhalb der Arbeitszeiten durch einen Verbrauch von 14 \textmu A ersetzen, die bis zu 166 \textmu A Verbrauch der umliegenden Komponenten bleibt jedoch vorhanden.
-Die Laufzeit für eine nicht bewegte mobilen Einheit mit \emph{ESP8266} beträgt dann mindestens $1400\ mAh / 0,18\ mA = 7777,77\ h$, dies entspricht ca. 324 Tagen.
+Die Laufzeit für eine nicht bewegte mobile Einheit mit \emph{ESP8266} beträgt dann mindestens $1400\ mAh / 0,18\ mA = 7777,77\ h$, dies entspricht ca. 324 Tagen.
 
 Bei den vorherigen Prototypen, die eine \emph{Assoziation} erforderten, muss beachtet werden, dass sie nach dem erneuten Anschalten einen \emph{Scan}- und \emph{Join}-Vorgang ausführen.
 Damit diese die Einsparung nicht überwiegen, sollte eine Abschaltung erst nach einigen Minuten der Inaktivität erfolgen.

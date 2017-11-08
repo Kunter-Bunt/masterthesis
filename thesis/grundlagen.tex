@@ -77,7 +77,7 @@ Optional können dort die Daten von anderen mobilen Einheiten abgerufen werden, 
 		\end{minipage}\hfill
 		\begin{minipage}[c][6cm][t]{0.6\textwidth\relax}
 			Die mobilen Einheiten können sich auch gegenseitig lokalisieren, dazu messen sie die Distanz zu anderen mobilen Einheiten.
-			Sie können diese Ergebnisse dann wiederum anderen mobilen \emph{Stationen} mitteilen, um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
+			Sie können diese Ergebnisse dann wiederum anderen mobilen Einheiten mitteilen, um so indirekt mit weiteren Referenzen die Lokalisierung zu präzisieren. 
 			Dadurch ensteht eine maßstabslose Karte, die die relative Position der mobilen Einheit zu den anderen mobilen Einheiten erfasst.
 			Diese kann zusätzlich an einen zentralen Ortungsdienst versendet werden, um sie dort verfügbar zu machen.
 		\end{minipage}
@@ -134,7 +134,7 @@ Bei einer Selbstlokalisierung ist zu beachten, dass $t_{gesendet}$ den Sendezeit
 
 \subsubsection{Time Difference of Arrival}
 Bei TDOA wird statt der direkten Ankunftszeiten die Differenz der Ankunftszeiten gemessen. 
-Dies erfordert üblicherweise Zeitsynchronität bei den Basisstationen, nicht jedoch bei der mobilen Einheit, da nur die Ankuftszeiten für die Berechnung relevant sind. 
+Dies erfordert üblicherweise Zeitsynchronität bei den Basisstationen, nicht jedoch bei der mobilen Einheit, da nur die Ankunftszeiten für die Berechnung relevant sind. 
 Die mobile Einheit liegt dabei auf dem Schnittpunkt zweier Hyperboloiden, die jeweils zwischen den Basisstation, die TDOA gemessen haben, und einer Referenzstation aufgespannt werden. 
 Die Hyperboloiden werden aufgestellt durch 
 $R_{i,j} = \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2} - \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2}$ mit $(x_i,y_i,z_i)$ als Position der jeweiligen Messstation, $(x_j,y_j,z_j)$ als Position der gemeinsamen Referenzstation und $(x,y,z)$ als Position der mobilen Einheit. 
@@ -154,7 +154,7 @@ Damit kann die Differenz der Ankunftszeit $TDOA_{i,j} = (t_{i,0} + t_{i,1}) - (t
 
 \subsubsection{Roundtrip Time of Flight}
 Wird RTOF gemessen, muss die mobile Einheit sowohl Senden als auch Empfangen können. 
-Dabei wird die Zeit vom Aussenden eines Paketes bis zur Ankunft der Antwort gemessen, wichtig sind hier zum einen möglichst spät/früh gesetzten Zeitstempel beim Senden/Empfangen des Signals und eine konstante Verarbeitungszeit des Kommunikationspartners. 
+Dabei wird die Zeit vom Aussenden eines Paketes bis zur Ankunft der Antwort gemessen, wichtig sind hier möglichst spät/früh gesetzten Zeitstempel beim Senden/Empfangen des Signals und eine konstante Verarbeitungszeit des Kommunikationspartners. 
 Zunächst muss die Verarbeitungszeit gemessen werden, indem Basisstation und mobile Einheit auf einen Abstand von null Metern gebracht werden, anschließend kann die Entfernung $d = c\ *\ (t_{empfangen} - t_{gesendet} - t_{Verarbeitung})$ bestimmt werden. 
 Die Position wird analog zu TOA bestimmt. Diese Messgröße kann sowohl für die Fern- als auch für die Selbstlokalisierung verwendet werden, ist aber sehr anfällig gegenüber Schwankungen in der Verarbeitungszeit, die bei Protokollen wie IEEE 802.11 häufig auftreten. 
 
@@ -165,7 +165,7 @@ Mit einem theoretisch oder empirisch ermittelten Ausbreitungsmodell kann die Ent
 Dann ist $d = F(S_{gesendet},S_{empfangen})$ mit $F$ als Ausbreitungsmodell. 
 Um gute Ergebnisse zu erzielen, sollten jeweils möglichst gleichförmige mobile Einheiten und Basisstationen verwendet werden, denn Lui et al. konnte für IEEE 802.11 zeigen, dass unterschiedliche Hardware bei Basisstationen und mobiler Einheit erhebliche Varianz in den gemessenen RSS Werten erzeugt \cite{lui2011differences}. 
 Zusätzliche Probleme entstehen, wenn Spezifikationen wie Bluetooth eine Anpassung der Sendeleistung vorsehen \cite{hossain2007comprehensive}, dann muss eine solche Anpassung umgangen werden. 
-Bei Bluetooth geschieht das durch die Verwendung von \emph{Inquiry Paketen}, diese dienen zur Entdeckung anderer Bluetooth-fähiger Geräte und werden immer mit voller Sendeleistung gesendet, um möglichst alle Geräte in Reichweite zu erreichen.
+Bei Bluetooth geschieht das durch die Verwendung von \emph{Inquiry}-Paketen, diese dienen zur Entdeckung anderer Bluetooth-fähiger Geräte und werden immer mit voller Sendeleistung gesendet, um möglichst alle Geräte in Reichweite zu erreichen.
 Ein weiteres Problem von RSS ist der starke Einfluss von Hindernissen und anderen Signalen auf dem selben Frequenzband. 
 Gerade bei der Ortung in Innenräumen wirken diese Einflüsse begrenzend auf die Genauigkeit und oft muss eine Kalibrierung durchgeführt werden, um die Einflüsse von Wänden und anderen Hindernissen zu eliminieren.
 
@@ -226,7 +226,8 @@ Anschließend kann die \emph{Station} mit dem AP assoziiert werden \cite{ieee201
 Sie erhält nun eine IP und der AP gibt dem Netzwerk bekannt, dass er für die \emph{Station} zuständig ist. 
 Dies geschieht üblicherweise über das \emph{Address Resolution Protokoll} (ARP) oder das \emph{Internet Group Management Protocol} (IGMP).
 
-Ist eine \emph{Station} assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen, sie könnte beispielweise das HTTP-Protokoll nutzen, um eine Webseite anzufordern.
+Ist eine \emph{Station} assoziert kann sie Datenverbindungen mit anderen Teilnehmern im Netzwerk aufbauen.
+Sie könnte beispielweise das HTTP-Protokoll nutzen, um eine Webseite anzufordern.
 
 \subsection{Reassociation}
 Eine \emph{Reassoziation} wird durchgeführt, wenn die \emph{Station} keine gute Verbindung mehr zu ihrem AP hat und ein AP des selben Netzwerks verfügbar ist, der eine bessere Verbindung bietet \cite{ieee2012reassociate}.
@@ -235,7 +236,7 @@ Um diesen neuen AP zu entdecken, muss zunächst ein \emph{Scan} durchgeführt we
 Anschließend sendet die \emph{Station} einen \emph{Reassociation Request} an den neuen AP. 
 Im \emph{Reassociation Request} wird der alte AP benannt, so dass der neue AP überprüfen kann, ob die \emph{Station} tatsächlich mit ihm \emph{assoziert} ist und gepufferte Pakete von ihm entgegennehmen und die \emph{Assoziation} mit ihm auflösen kann.
 Der Kommunikationsvorgang zwischen den APs wird auch als \emph{Handoff} bezeichnet. 
-Wird dieser erfolgreich abgeschlossen, antwortet der neue AP der \emph{Station} mit einer \emph{Reassiciation Response}.
+Wird dieser erfolgreich abgeschlossen, antwortet der neue AP der \emph{Station} mit einer \emph{Reassociation Response}.
 Abschließend wird dem Netzwerk die neue \emph{Assoziation} mittels ARP mitgeteilt.
 
 
@@ -247,11 +248,11 @@ Diese wird allerdings nicht mehr vom \emph{Institute of Electrical and Electroni
 Bluetooth ist bereits in der Version 5.0 erschienen, da jedoch zum Zeitpunkt der Recherche für diese Arbeit kaum kompatible Geräte verfügbar waren, wird im Folgenden auf Bluetooth 4.0 Bezug genommen \cite{blue2010spec}.
 Bluetooth erlaubt nach der Entdeckung eines Kommunikationspartners den Aufbau einer Verbindung mit ihm im 2,4 GHz ISM-Band.
 Die Reichweite für die Verbindung hängt neben äußeren Hindernissen und den verwendeten Antennen auch von der jeweiligen Sendeleistung ab.
-Bluetooth Geräte werden dazu in drei Klassen eingeteilt, siehe Tabelle \ref{table:blclass}.
+Bluetooth-Geräte werden dazu in drei Klassen eingeteilt, siehe Tabelle \ref{table:blclass}.
 
 \begin{table}[h]
   \centering
-	\caption{Klasseneinteilung für Bluetooth Geräte nach Sendeleistung, aus \cite{blue2010classes}.}
+	\caption{Klasseneinteilung für Bluetooth-Geräte nach Sendeleistung, aus \cite{blue2010classes}.}
 	\includegraphics[width=0.9\textwidth]{images/blueclasses.png}
   \label{table:blclass}
 \end{table}
@@ -282,15 +283,15 @@ Abbildung \ref{fig:inqscan} zeigt den Vorgang inklusive erweiterter \emph{Inquir
 
 \subsection{Advertising}
 Für das \emph{Advertising} stellt die Bluetooth Spezifikation drei über das Frequenzband verteilte Kanäle bereit \cite{blue2010channel}.
-Auf diesen können BLE-Geräte \emph{Advertising Pakete} in einem unidirektionalen \emph{Broadcast} versenden.
-\emph{Advertising} Pakete dürfen auch Nutzdaten enthalten, diese können dann von anderen, scannenden BLE-Geräten empfangen werden \cite{blue2010advertising}.
+Auf diesen können BLE-Geräte \emph{Advertising}-Pakete in einem unidirektionalen \emph{Broadcast} versenden.
+\emph{Advertising}-Pakete dürfen auch Nutzdaten enthalten, diese können dann von anderen, scannenden BLE-Geräten empfangen werden \cite{blue2010advertising}.
 Allerdings dürfen die Nutzdaten maximal eine Länge von 31 Byte aufweisen \cite{blue2010pdu}.
 Wurde zusätzlich im \emph{Advertising}-Paket markiert, dass das Gerät verbindungsfähig ist, kann ein scannendes Gerät nach Empfangen des \emph{Advertising}-Paketes einen \emph{Scan Request} an das verbindungsfähige Gerät richten, um die Parameter für eine Verbindung auszuhandeln \cite{blue2010scanning}.
 
 \section{Grundlagen von LoRa}
 \emph{Long Range} (LoRa) ist eine proprietäre Modulationstchnik und beschreibt somit eine physische Schicht.
 LoRa ist für hohe Reichweiten optimiert, bietet aber auch eine variable Sendeleistung, um den Energieverbrauch zu reduzieren.
-LoRa beherrscht neben unterschiedlichen Frequenzen des ISM Bands, in Europa beispielsweise 433 und 868 MHz, auch eine adaptive Datenrate zwischen 0,3 und 50 kbps.
+LoRa beherrscht neben unterschiedlichen Frequenzen des ISM-Bands, in Europa beispielsweise 433 und 868 MHz, auch eine adaptive Datenrate zwischen 0,3 und 50 kbps.
 
 Um den Mediumszugriff zu regeln, wird die MAC-Schicht von \emph{Long Range Wide Area Network} (LoRaWAN) verwendet \cite{lora2015spec}.
 LoRaWAN verwendet keine Kollisionsvermeidung, stattdessen dürfen Endgeräte zu jedem Zeitpunkt senden, solange sie dabei den Kanal zufällig wählen und die maximale Sendezeit beziehungsweise die relative Frequenzbelegungsdauer nicht überschreiten.
