@@ -210,6 +210,7 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Implementierungen}
+\subsection{RADAR}
 \begin{frame}{RADAR}
 	\begin{columns}
 		\column{0.5\textwidth}
@@ -273,7 +274,7 @@ Bereichsortung im Tunnelbau}
 \begin{frame}
 	\begin{minipage}[c][\textheight][c]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/llsalle.png}
+		\includegraphics[height=0.95\textheight]{plots/wifillssendv.png}
 	\end{minipage}
 \end{frame}
 
@@ -535,6 +536,64 @@ Bereichsortung im Tunnelbau}
 
 \begin{frame}[allowframebreaks]{References}
 \printbibliography
+\end{frame}
+
+\begin{frame}{ESP8266 Verbrauch}%Verbrauch ESP
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{plots/wifillssendv2.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{TDOA}%TDOA
+	\begin{minipage}[t][0.8\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[height=0.6\textheight]{images/tdoa.png}\\
+		$R_{i,j} = \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2} - \sqrt{(x_j - x)^2 + (y_j - y)^2 + (z_j - z)^2}$
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{Inquiry Scan}%Inquiry Scan
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{images/inqscan.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{IEEE 802.11 RSSI}%RSSI 802.11
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[height=0.8\textheight]{images/luiRSSI.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{Bluetooth Messgrößen}%Bluetooth Messwerte
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[height=0.8\textheight]{images/bluetoothmess.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{ESP8266 Verbrauch}%Verbrauch ESP
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[width=0.95\textwidth]{images/esppower.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{nRF52 Verbrauch}%Verbrauch nRF52
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[width=0.9\textwidth]{images/nrf52consumption.png}
+	\end{minipage}
+\end{frame}
+
+\begin{frame}{M0/RFM95 Verbrauch}%Verbrauch M0/RFM95
+	\begin{minipage}[t][\textheight][t]{\textwidth}
+		\centering
+		\includegraphics[height=0.4\textheight]{images/m0power.png}
+		\includegraphics[height=0.4\textheight]{images/lorapower.png}
+	\end{minipage}
 \end{frame}
 
 \backupend

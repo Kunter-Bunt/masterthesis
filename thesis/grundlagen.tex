@@ -137,7 +137,7 @@ Bei TDOA wird statt der direkten Ankunftszeiten die Differenz der Ankunftszeiten
 Dies erfordert üblicherweise Zeitsynchronität bei den Basisstationen, nicht jedoch bei der mobilen Einheit, da nur die Ankunftszeiten für die Berechnung relevant sind. 
 Die mobile Einheit liegt dabei auf dem Schnittpunkt zweier Hyperboloiden, die jeweils zwischen den Basisstation, die TDOA gemessen haben, und einer Referenzstation aufgespannt werden. 
 Die Hyperboloiden werden aufgestellt durch 
-$R_{i,j} = \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2} - \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2}$ mit $(x_i,y_i,z_i)$ als Position der jeweiligen Messstation, $(x_j,y_j,z_j)$ als Position der gemeinsamen Referenzstation und $(x,y,z)$ als Position der mobilen Einheit. 
+$R_{i,j} = \sqrt{(x_i - x)^2 + (y_i - y)^2 + (z_i - z)^2} - \sqrt{(x_j - x)^2 + (y_j - y)^2 + (z_j - z)^2}$ mit $(x_i,y_i,z_i)$ als Position der jeweiligen Messstation, $(x_j,y_j,z_j)$ als Position der gemeinsamen Referenzstation und $(x,y,z)$ als Position der mobilen Einheit. 
 Abbildung \ref{fig:tdoa} zeigt die Lösung graphisch, Drane et. al. und Torrieri beschreiben die analytische Lösung der Gleichung mit nichtlinearer Regression \cite{drane1998positioning} beziehungsweise Taylor-Entwicklung \cite{torrieri1984statistical}. 
 Li et al. eliminiert zusätzlich die Forderung nach Synchronisation für mobile Einheiten, die sowohl Senden als auch Empfangen können \cite{li2000comparison}. 
 Dabei wird ein Datenpaket an die mobile \emph{Station} gesendet und von dieser mit einem \emph{Acknowledgement} beantwortet. 
