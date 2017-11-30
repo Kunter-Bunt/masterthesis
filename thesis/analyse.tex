@@ -2,8 +2,8 @@
 \label{ch:Analyse}
 In diesem Kapitel werden zunächst einige verwandte Arbeiten vorgestellt und danach werden auf Basis dieser die Topologie, Protokolle und Messwerte für die Implementierungen dieser Arbeit ausgewählt.
 
-\section{Verwandte Arbeiten} 
-Die verwandten Arbeiten wurden in drei Unterkategorien unterteilt. 
+\section{Verwandte Arbeiten}
+Die verwandten Arbeiten wurden in drei Unterkategorien unterteilt.
 Die erste Kategorie beschäftigt sich mit Selbstlokalisierung beziehungsweise indirekter Fernlokalisierung mittels IEEE 802.11.
 Die Arbeiten der zweiten Kategorie basieren ebenfalls auf IEEE 802.11, hier wird jedoch eine Fernlokalisierung oder eine indirekte Selbstlokalisierung durchgeführt.
 In der letzten Kategorie werden Verfahren beschrieben, die andere Protokolle verwenden.
@@ -45,17 +45,17 @@ Diese Information kann anschließend an einen Ortungsdienst übertragen werden, 
 \subsubsection{WiFi-LLS}
 \label{ch:Vorherige:sec:LLS}
 Chen et al. stellen mit dem \emph{WiFi-based Local Location System} (\emph{WiFi-LLS}) ein System zur indirekten Fernlokalisierung vor \cite{chen2007design}.
-Als Messgröße wird die Stärke des empfangenen Signals (\emph{Received Signal Strength}, RSS) genutzt. 
-Diese wird laut IEEE 802.11 als Indikator (RSSI) von der Hardware zurückgegeben. 
+Als Messgröße wird die Stärke des empfangenen Signals (\emph{Received Signal Strength}, RSS) genutzt.
+Diese wird laut IEEE 802.11 als Indikator (RSSI) von der Hardware zurückgegeben.
 
 Für die Ortung wird zunächst der RSSI von Paketen naher \emph{Access Points} gemessen und zusammen mit der MAC-Adresse der mobilen Einheit in ein Paket gepackt und an den Ortungsdienst versendet.
-Anschließend wird auf dem Ortungsdienst ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1$ m zur Bestimmung der Position der mobilen Einheit verwendet. 
+Anschließend wird auf dem Ortungsdienst ein theoretisches Signalausbreitungsmodell $P(d) = P(d_0) - 10log_{10}(\frac{d}{d_0})^n - OAF$ mit der Distanz $d$, der Signalstärke $P(d)$ und der Referenzdistanz $d_0 = 1$ m zur Bestimmung der Position der mobilen Einheit verwendet.
 
 $P(d_0)$, der Pfadverlustexponent $n$ und der Hindernisdämpfungsfaktor $OAF$ müssen bestimmt werden; $P(d_0)$ und $n$ lassen sich auf einer einzelnen Teststrecke mit unterschiedlichen Abständen von AP und mobiler Einheit bestimmen. $OAF$ kann sogar für einen Gebäudetyp einmalig bestimmt werden.
-Dadurch hat das Modell einen konstanten Aufwand. 
+Dadurch hat das Modell einen konstanten Aufwand.
 Dies ist für Baustellen interessant, da sich diese Werte einmalig messen und dann sogar über mehrere gleichartige Baustellen übertragen lassen.
 
-In dieser Veröffentlichung steht die Ortungsgenauigkeit im Vordergrund und es werden keine Angaben zum Energieverbrauch gemacht. 
+In dieser Veröffentlichung steht die Ortungsgenauigkeit im Vordergrund und es werden keine Angaben zum Energieverbrauch gemacht.
 Als Referenz kann dienen, dass die mobile Einheit bei WiFi-LLS alle 5 Sekunden einen \emph{Scan} (siehe Abschnitt \ref{ch:phase1:sec:scan}) durchführt, dann werden die Signalstärken entdeckter APs zusammen mit der eigenen MAC-Adresse in XML codiert und das so erzeugte Paket an den Ortungsdienst versendet.
 
 \subsubsection{AiRISTA Flow RTLS}
@@ -67,7 +67,7 @@ Bezüglich des Energieverbrauchs gibt sich das Informationsblatt des \emph{B4 Ba
 Das Informationsblatt zum \emph{Ekahau W4}, welches statt um den Hals am Handgelenk getragen wird, gibt an, dass der verbaute 530 mAh Akku bei einem Ortungsintervall von 15 Sekunden 500 Stunden (ca. 21 Tage) hält \cite{ekahau2017w4}.
 
 \emph{AiRISTA Flow} spricht auf ihrer Website zum Beispiel Krankenhäuser, Schulen und Regierungseinrichtungen an, hier sollen zusätzlich bewegliche Objekte, wie etwa Krankenhausbetten, geortet werden.
-Die dazu verwendeten Asset Tags werden über einen Beschleunigungssensor aktiviert und können, wenn die Objekte selten bewegt werden, deutlich längere Laufzeiten erreichen \cite{ekahau2017a4}. 
+Die dazu verwendeten Asset Tags werden über einen Beschleunigungssensor aktiviert und können, wenn die Objekte selten bewegt werden, deutlich längere Laufzeiten erreichen \cite{ekahau2017a4}.
 
 Im Umfeld des Tunnelbaus zeigte sich jedoch, dass die Tags keinesfalls wochenlange Laufzeiten aufwiesen, stattdessen entluden sie sich teilweise in unter 12 Stunden.
 
@@ -75,27 +75,27 @@ Im Umfeld des Tunnelbaus zeigte sich jedoch, dass die Tags keinesfalls wochenlan
 Auch das \emph{AeroScout} System von \emph{Stanley Healthcare} richtet sich an den medizinischen Sektor und soll Objekte und Personen orten \cite{aeroscout2017asset}, \cite{aeroscout2017staff}.
 Da sich auch dieses System in das bestehende WLAN-Netzwerk einfügt, sollte es ebenfalls auf einer indirekten Fernlokalisierung beruhen und demnach ähnliche Eigenschaften bezüglich des Energieverbrauchs aufweisen.
 
-Das Informationsblatt ihres \emph{T14} Tags für Personen gibt eine Laufzeit von bis zu drei Wochen, abhängig von Konfiguration und Typ des Tags, an \cite{aeroscout2017t14}. 
+Das Informationsblatt ihres \emph{T14} Tags für Personen gibt eine Laufzeit von bis zu drei Wochen, abhängig von Konfiguration und Typ des Tags, an \cite{aeroscout2017t14}.
 Eine Angabe zu dem verwendeten Typ, der Konfiguration oder der Kapazität des verbauten Akkus wird nicht gemacht.
 
 \subsubsection{Selbstlokalisierung mit Szenenanalyse}
 \label{ch:Vorherige:sec:RSS-basierte}
-Prasithsangaree et al. stellen ein System zur Selbstlokalisierung vor \cite{prasithsangaree2002indoor}. 
-Es verwendet aber eine \emph{Offline-Phase} zum Sammeln von Fingerabdrücken für Positionen in einem Abstand von 1,5 beziehungsweise 3 m. 
+Prasithsangaree et al. stellen ein System zur Selbstlokalisierung vor \cite{prasithsangaree2002indoor}.
+Es verwendet aber eine \emph{Offline-Phase} zum Sammeln von Fingerabdrücken für Positionen in einem Abstand von 1,5 beziehungsweise 3 m.
 In diesen Fingerabdrücken werden die gemessenen RSSI der von den APs empfangenen Pakete als Merkmale zusammen mit der Position als Label gespeichert.
-In der anschließenden \emph{Online-Phase} werden die gemessenen RSSI mit den Fingerabdrücken verglichen und die Position als gewichtetes Mittel der Labels bestimmt. 
+In der anschließenden \emph{Online-Phase} werden die gemessenen RSSI mit den Fingerabdrücken verglichen und die Position als gewichtetes Mittel der Labels bestimmt.
 
 Die \emph{Offline-Phase} ist natürlich im Sinne der Aufgabenstellung nicht sinnvoll, da für eine Tunnelbreite von im Schnitt 10 m 4000 beziehungsweise 2000 Messungen pro Kilometer vorgenommen werden müssten.
-Generell eignen sich Lösungen mit Szenenanalyse nicht gut für Baustellen, da diese nicht auf die potentiell höhere Genauigkeit angewiesen sind. 
+Generell eignen sich Lösungen mit Szenenanalyse nicht gut für Baustellen, da diese nicht auf die potentiell höhere Genauigkeit angewiesen sind.
 Üblicherweise müssen dort sehr große Flächen vermessen werden und die Veränderungen durch den Baufortschritt führen dazu, dass regelmäßig neu gemessen werden muss.
 Außerdem müssen bewegliche Störquellen wie Baumaschinen vorher aus dem Bereich entfernt werden, um unverfälschte Fingerabdrücke zu erhalten.
-Der Aufwand ein System mit Szenenanalyse auf einer Baustelle zu betreiben ist deshalb sehr hoch und widerspricht der Forderung nach geringer Komplexität. 
+Der Aufwand ein System mit Szenenanalyse auf einer Baustelle zu betreiben ist deshalb sehr hoch und widerspricht der Forderung nach geringer Komplexität.
 
 Die Arbeit zeigt aber die Volatilität der empfangenen Signalstärke auf, dies wurde 2011 von Lui et al. genauer untersucht \cite{lui2011differences}.
-Lui et al. zeigen, dass die gemessene empfangene Signalstärke stark von der beteiligten Hardware abhängt und die Systeme jedes mal neu kalibriert werden müssen wenn sie auf ein neues AP-Modell portiert werden. 
-Auf dem Areal sollte deshalb optimalerweise nur ein AP-Modell verwendet werden. 
+Lui et al. zeigen, dass die gemessene empfangene Signalstärke stark von der beteiligten Hardware abhängt und die Systeme jedes mal neu kalibriert werden müssen wenn sie auf ein neues AP-Modell portiert werden.
+Auf dem Areal sollte deshalb optimalerweise nur ein AP-Modell verwendet werden.
 
-Abbildung \ref{fig:luiRSSI} zeigt die gemessenen RSSI-Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen. 
+Abbildung \ref{fig:luiRSSI} zeigt die gemessenen RSSI-Werte für die von ihnen getesten Netzwerkkarten mit unterschiedlichen Distanzen.
 Für einige Karten korreliert die empfangene Signalstärke nur sehr schwach mit der Distanz zwischen Basisstation und mobiler Einheit.
 Sie zeigen außerdem, dass einige AP-Modelle den RSSI speichern und nur bei größeren Veränderungen aktualisieren und dass die Antenne signifikanten Einfluss auf den protokollierten Wert hat.
 
@@ -116,12 +116,12 @@ Diese Information kann anschließend an die mobile Einheit übertragen werden, d
 \subsubsection{RADAR}
 \label{ch:Vorherige:sec:RADAR}
 Das \emph{RADAR} System von Bahl et al. (Microsoft Research) hat als eines der ersten WLAN-basierten Ortungssysteme viel Aufmerksamkeit erfahren \cite{bahl2000radar}.
-Als Messgröße wird die Stärke des empfangenen Signals (\emph{Received Signal Strength}, RSS) genutzt, diese wird laut IEEE 802.11 als Indikator (RSSI) von der Hardware zurückgegeben. 
-Das \emph{RADAR} System ist auf eine \emph{Offline-Phase} angewiesen, in der empirisch ein Signalausbreitungsmodell aufgebaut wird. 
+Als Messgröße wird die Stärke des empfangenen Signals (\emph{Received Signal Strength}, RSS) genutzt, diese wird laut IEEE 802.11 als Indikator (RSSI) von der Hardware zurückgegeben.
+Das \emph{RADAR} System ist auf eine \emph{Offline-Phase} angewiesen, in der empirisch ein Signalausbreitungsmodell aufgebaut wird.
 Es handelt sich also um ein System mit Szenenanalyse.
 
-Die Verwendung einer \emph{Offline-Phase} ist im stark veränderlichen Baustellenumfeld nicht akzeptabel. 
-Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus. 
+Die Verwendung einer \emph{Offline-Phase} ist im stark veränderlichen Baustellenumfeld nicht akzeptabel.
+Zum einen führt der ständige Baufortschritt dazu, dass regelmäßig neu kalibriert werden muss und zum anderen wirken sich auch die großen Baumaschinen auf die Signalausbreitung aus.
 Damit sich dies nicht im Modell wiederfindet, müssten zunächst alle beweglichen Maschinen aus dem Bereich entfernt werden, um anschließend in der \emph{Online-Phase} ihren Einfluss glätten zu können.
 Die \emph{Offline-Phase} ist deshalb wirtschaftlich gesehen nicht durchführbar und das empirisch ermittelte Signalausbreitungsmodell müsste durch ein theoretisches ersetzt werden, für eine grobkörnige Bereichsortung sollte dies jedoch ausreichend sein.
 
@@ -129,9 +129,9 @@ Bei \emph{RADAR} sendet die mobile Einheit vier UDP-Pakete pro Sekunde aus, an d
 Die Autoren weisen jedoch darauf hin, dass sich dieser Vorgang leicht umkehren ließe, um von einer Fernlokalisierung auf eine Selbstlokalisierung zu kommen.
 Bezüglich des Energieverbrauchs äußern sie sich jedoch zu keiner der beiden Varianten.
 
-Die Position wird anschließend bestimmt, indem aus den in der \emph{Offline-Phase} aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird. 
+Die Position wird anschließend bestimmt, indem aus den in der \emph{Offline-Phase} aufgenommenen Werten derjenige mit dem geringsten Abstand zu den gemessen Werten gewählt wird.
 Dies wird im \emph{nearest neighbour in signal space} (NNSS) Algorithmus beschrieben.
-Für die Ortung wird mehrfach gemessen und dann gemittelt, um im Median eine Genauigkeit von unter 3 m zu erhalten. 
+Für die Ortung wird mehrfach gemessen und dann gemittelt, um im Median eine Genauigkeit von unter 3 m zu erhalten.
 Das kurze Sendeintervall von 0,25 Sekunden führt auch bei bewegten Personen zu einer Genauigkeit von 3,5 m.
 Gleichzeitig sorgt das kurze Sendeintervall aber auch für einem hohen Energieverbrauch auf Seiten der mobilen Einheit, eine Reduktion der Sendevorgänge sollte im Kontext der Bereichsortung angestrebt werden, um den Energieverbrauch zu senken und die Batterielaufzeit der mobilen Einheit zu steigern.
 
@@ -145,15 +145,15 @@ Auch hier äußern sich die Autoren nicht zum Energieverbrauch, wohl auch deshal
 
 \subsubsection{Time-of-flight Lokalisierung}
 \label{ch:Vorherige:sec:TOF}
-Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die \emph{Time of Flight} (TOF) messen. 
-Ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}. 
+Aufgrund der Schwächen von RSS-basierten Systemen wurde auch über solche nachgedacht, die stattdessen oder zusätzlich die \emph{Time of Flight} (TOF) messen.
+Ein Beispiel für ein solches zeigen Wibowo et al. \cite{wibowo2009time}.
 Sie fordern optimalerweise Zugriff auf die physische Schicht (PHY) des IEEE 802.11 Protokolls, da auf diesen aber üblicherweise kein Zugriff besteht, messen sie TOF in der darüber liegenden MAC-Schicht.
 
 Eine Basisstation sendet einen \emph{Beacon} aus und protokolliert die Sendezeit, die mobile Einheit empfängt den \emph{Beacon}, protokolliert die Empfangszeit und die Sendezeit der gesendeten Antwort, die Basisstation sichert die Empfangszeit der Antwort.
 Nun sendet die mobile Einheit die zwei gespeicherten Zeitstempel an die Basisstation, der mit diesen die Verarbeitungszeit auf der mobilen Einheit berechnen kann, um dann die Distanz $d = c * (\frac{t_{empfangen} - t_{gesendet} - t_{Verarbeitung}}{2})$ zur mobilen Einheit zu bestimmen.
 Dieses Schema lässt sich leicht von einer Fernlokalisierung in eine Selbstlokalisierung umwandeln, indem man den Initiator des Vorgangs tauscht.
 
-Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Basisstation verwendeten APs. 
+Die Notwendigkeit die Zeitstempel bereits in der PHY- beziehungsweise MAC-Schicht zu setzen erfordert Zugriff auf die Software des als Basisstation verwendeten APs.
 Außerdem müssen die Zeitstempel im Bereich von Nanosekunden gesetzt werden und die Verarbeitungszeit vor/nach dem Setzen muss sehr konstant sein, da eine Abweichung von 100 ns bei c = 299.792.458 m/s bereits einen Fehler von 30 m verursacht.
 
 Muthukrishnan et al. beschreiben diese Problematik bei dem Versuch TOF ohne Zugriff auf die Software des APs umzusetzen \cite{muthukrishnan2006using}.
@@ -162,27 +162,27 @@ Sie kommen zu dem Ergebnis, dass sich die in der Spezifikation eingebauten Zeits
 \subsubsection{Ortung ohne mobile Einheit}
 \label{ch:Vorherige:sec:CSI}
 Eine Ortung ohne mobile Einheit erfüllt wegen ihrer Abwesenheit offensichtlich jede Anforderung an die Batterielaufzeit der mobilen Einheit.
-Mit \emph{MonoPHY} stellen Abdel-Nasser et al. ein System zur Ortung ohne mobile Einheit vor \cite{abdel2013monophy}. 
+Mit \emph{MonoPHY} stellen Abdel-Nasser et al. ein System zur Ortung ohne mobile Einheit vor \cite{abdel2013monophy}.
 
 Dazu verwenden sie einen IEEE 802.11n-fähigen Laptop und \emph{Access Point} und analysieren die \emph{Channel State Information} (CSI) der physischen Schicht (PHY) der zwischen AP und Laptop übertragenen Daten.
 Um die bestehende Struktur von APs zu nutzen, sollte das System angepasst und die CSI zwischen den APs gemessen werden.
 Es hat jedoch einige Aspekte, die es ungeeignet für die Aufgabenstellung machen.
 
-Das System unterscheidet nicht zwischen Personen, sondern erkennt nur, dass jemand anwesend ist. 
+Das System unterscheidet nicht zwischen Personen, sondern erkennt nur, dass jemand anwesend ist.
 Außerdem ist es nur für eine Person in einem 100 $m^2$ Apartment gestaltet worden und müsste auf Baustellengröße und die Verfolgung vieler Personen erweitert werden.
 Aber auch dann ist fraglich, wie gesichert werden kann, dass alle Personen durchgehend erkannt werden können, zum Beispiel wenn sich mehrere Personen auf oder in einem Transportfahrzeug aufhalten.
-Auch ist es ohne Identifikation schwerer Fehler zu erkennen. 
-Wird fälschlicherweise angezeigt, dass sich noch eine Peron im Tunnel befindet, kann oft durch ausrufen des Betreffenden festgestellt werden, dass dieser nicht im Tunnel ist. 
+Auch ist es ohne Identifikation schwerer Fehler zu erkennen.
+Wird fälschlicherweise angezeigt, dass sich noch eine Peron im Tunnel befindet, kann oft durch ausrufen des Betreffenden festgestellt werden, dass dieser nicht im Tunnel ist.
 Hat man dagegen nur die Information, dass sich noch eine Person im Tunnel befindet, hat man keine Möglichkeit schnell herauszufinden ob dies der Wahrheit entspricht.
 
-Weitere Probleme entstehen durch die Baumaschinen und Container. 
+Weitere Probleme entstehen durch die Baumaschinen und Container.
 Diese haben einen starken Einfluss auf die CSI und verdecken dadurch möglicherweise nahe Personen und die Fahrzeugführer.
-Deshalb müssten diese Objekte ebenfalls als Entitäten angezeigt werden. 
+Deshalb müssten diese Objekte ebenfalls als Entitäten angezeigt werden.
 Die Anzeige diverser Kommandostände, Pausenräume und stehen gelassener Baumaschinen verwirrt im Notfall jedoch, da sich in jedem Objekt potentiell eine Person befinden könnte.
 
 Die Veröffentlichung beruht außerdem auf der Verfügbarkeit der CSI, diese sind dort durch die Auswahl einer bestimmten Netzwerkkarte gegeben und sind nicht zwingend in einer bestehenden Struktur von APs verfügbar.
-Als letzter Kritikpunkt steht die Verwendung eine \emph{Offline-Phase}, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist. 
- 
+Als letzter Kritikpunkt steht die Verwendung eine \emph{Offline-Phase}, die, wie bereits diskutiert, wirtschaftlich nicht umsetzbar ist.
+
 Somit erfüllt die Ortung ohne mobile Einheit zwar die Anforderungen an den Energieverbrauch, jedoch nicht die Forderung nach zuverlässiger Erkennung von Abschnittswechseln, deshalb scheidet diese Technik zumindestens für Baustellen aus.
 
 
@@ -197,14 +197,14 @@ Sie verwenden stattdessen andere Protokolle, die sich durch einen geringeren Ene
 Hossain et al. untersuchen die laut Bluetooth Spezifikation zurückgegebenen Messwerte bezüglich ihrer Eignung für die Lokalisierung \cite{hossain2007comprehensive}.
 
 \emph{Link Quality} (LQ) beschreibt, wie gut die Verbindung zwischen zwei Geräten ist.
-Der Wert wird aus der Bitfehlerrate beim Empfänger berechnet, allerdings ist nicht spezifiziert, wie der Wert zu berechnen ist, er hängt also in hohem Maße vom Hersteller des Empfängers ab. 
+Der Wert wird aus der Bitfehlerrate beim Empfänger berechnet, allerdings ist nicht spezifiziert, wie der Wert zu berechnen ist, er hängt also in hohem Maße vom Hersteller des Empfängers ab.
 
-Der \emph{Received Signal Strength Indicator} (RSSI) misst die Stärke des eingehenden Signals, die Spezifikation sieht jedoch eine \emph{Golden Receive Power Range} (GRPR) vor. 
+Der \emph{Received Signal Strength Indicator} (RSSI) misst die Stärke des eingehenden Signals, die Spezifikation sieht jedoch eine \emph{Golden Receive Power Range} (GRPR) vor.
 Liegt der RSSI über oder unter der GRPR wird eine Anfrage zum erhöhen oder verringern der Sendeleistung an das andere Gerät verschickt, dies dient während einer aktiven Verbindung dazu den Energieverbrauch zu senken.
 Problematisch am RSSI ist, dass er relativ zur GRPR bestimmt wird.
-In der Untersuchung von Hossain et al. führte das dazu, dass der RSSI mit 0 gemessen wurde, wenn er innerhalb der GRPR lag. 
+In der Untersuchung von Hossain et al. führte das dazu, dass der RSSI mit 0 gemessen wurde, wenn er innerhalb der GRPR lag.
 
-\emph{Transmission Power Level} (TPL) ist die Sendeleistung eines Geräts. 
+\emph{Transmission Power Level} (TPL) ist die Sendeleistung eines Geräts.
 TPL kann während einer bestehenden Verbindung durch Anfragen des Verbindungspartners verändert werden.
 Dazu muss diese Energiesparfunktion jedoch unterstützt werden, was bei dem von Hossain et al. verwendeten Gerät nicht der Fall war.
 Abbildung \ref{fig:bluetoothmess} zeigt deshalb für TPL eine waagerechte Linie.
@@ -224,7 +224,7 @@ Es handelt sich ebenfalls um den RSSI, um jedoch den Unterschied zum RSSI für e
 \label{ch:Vorherige:sec:irr}
 Bargh et al. stellen ein System zur Fernlokalisierung mittels \emph{Bluetooth Inquiry Scan} vor \cite{bargh2008indoor}.
 Die mobilen Einheiten sind dabei im \emph{discoverable} ("`entdeckbar"') Modus.
-Die Basisstationen senden regelmäßig eine \emph{Inquiry Message} aus, die dann von mobilen Einheiten in Reichweite mit einer \emph{Inquiry Response} beantwortet werden. 
+Die Basisstationen senden regelmäßig eine \emph{Inquiry Message} aus, die dann von mobilen Einheiten in Reichweite mit einer \emph{Inquiry Response} beantwortet werden.
 Anschließend werden die Antworten auf einem zentralen Ortungsdienst gesammelt und die Positionen der mobilen Einheiten bestimmt.
 Diese Information wird aus den beantworteten \emph{Inquiry Messages} jeder mobilen Einheit gewonnen.
 Dazu werden vorher in einer \emph{Offline-Phase} Fingerabdrücke für jeden Raum gesammelt.
@@ -253,15 +253,15 @@ Für die eigentliche Lokalisierung werden die gemessenen RSSI mit den Wahrschein
 
 \subsubsection{RSSI-basierte BLE Lokalisierung}
 \label{ch:Vorherige:sec:adv}
-Jianyong et al. stellen ein System zur Lokalisierung auf Basis von \emph{Bluetooth Low Energie} (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}. 
+Jianyong et al. stellen ein System zur Lokalisierung auf Basis von \emph{Bluetooth Low Energie} (BLE, auch Bluetooth Smart) vor \cite{jianyong2014rssi}.
 
 Sie messen an den Basisstationen den RSSI von \emph{Advertising}-Paketen, die zuvor von den mobilen Einheiten versendet wurden.
 Für die genaue Ortung werden die Ergebnisse mit einem Gauß-Filter geglättet und für jede Basisstation die Parameter für ein Signalausbreitungsmodell bestimmt.
-Die gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke $A$ im Abstand von einem Meter, dem Dämpfungsfaktor $n$ und der Distanz $d$ ab. 
+Die gemessene Signalstärke $P = A - 10n*log(d)$ hängt von der Referenzsignalstärke $A$ im Abstand von einem Meter, dem Dämpfungsfaktor $n$ und der Distanz $d$ ab.
 
 Jianyong et al. bestimmen die Referenzsignalstärke und den Dämpfungsfaktor für jede Basisstation.
 Da jedoch nur eine Bereichsortung für diese Arbeit gefordert wurde, sollten $A$ und $n$ nur beispielhaft für eine Basisstation bestimmt werden, um den Aufwand beim Aufbau der Infrastruktur zu reduzieren.
-Abbildung \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell. 
+Abbildung \ref{fig:blemodel} zeigt die von Jianyong et al. bestimmten Parameter für das Signalausbreitungsmodell.
 Abbildung \ref{fig:blemodel} zeigt außerdem, dass die verwendeten \emph{CC2540 Development Kit} von Texas Instruments von einer Basisstation nur auf 20 m detektiert werden konnte.
 
 
@@ -275,7 +275,7 @@ Abbildung \ref{fig:blemodel} zeigt außerdem, dass die verwendeten \emph{CC2540 
 \subsubsection{Lokalisierung mit LoRa}
 \label{ch:Vorherige:sec:lora}
 Kim et al. stellen ein System zur Lokalisierung mit \emph{Long Range} (LoRa) vor \cite{kim2016poster}.
-Sie beziehen sich dabei auf eine Lokalisierung im Außenbereich in einem 30x30 km Areal. 
+Sie beziehen sich dabei auf eine Lokalisierung im Außenbereich in einem 30x30 km Areal.
 Sie senden Pakete von der mobilen Einheit und messen die \emph{Time of Arrival} (TOA) an den Basisstationen.
 Dazu müssen die Basisstationen zeitsynchron arbeiten, dies wird über GPS sichergestellt.
 
@@ -301,13 +301,13 @@ Es werden deshalb zusätzlich BLE und LoRa betrachtet.
 BLE wird gegenüber normalem Bluetooth aufgrund seiner Charakteristik als Protokoll für geringen Energieverbrauch bevorzugt.
 LoRa bietet zwar theoretisch eine sehr hohe Reichweite, diese ist jedoch stark von verwendeten Antennen und den Hindernissen abhängig.
 Ob LoRa einen signifikanten Vorteil bei der Reichweite hat, muss geprüft werden.
-Sollte dieser Vorteil bestehen, bietet LoRa durch seine bessere Abdeckung eine höhere Zuverlässigkei bei der Erkennung von Abschnittswechseln. 
+Sollte dieser Vorteil bestehen, bietet LoRa durch seine bessere Abdeckung eine höhere Zuverlässigkeit bei der Erkennung von Abschnittswechseln.
 Außerdem ist es dadurch potentiell möglich auf triangulierte Positionen zu wechseln ohne mehr Basisstationen aufbauen zu müssen.
 
 \subsection{Auswahl der Topologie}
-Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen. 
+Das Wissen um die Position der Nutzer soll nach der Ortung dem Sicherheitssystem der Baustelle zur Verfügung stehen.
 Das Sicherheitssystem fungiert daher konzeptionell auch als zentraler Ortungsdienst.
-Es muss eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden. 
+Es muss eine Fernlokalisierung durchgeführt werden, diese kann aber sowohl direkt als auch indirekt durchgeführt werden.
 
 Weil laut IEEE 802.11 keine für die Lokalisierung geeigneten Messwerte vom AP in das angeschlossene Netzwerk propagiert werden, kommt keine der verwandten Arbeiten zur direkten Fernlokalisierung mit IEEE 802.11 ohne Zugriff auf die Software des AP aus.
 Es werden deshalb sowohl die direkte, als auch die indirekte Fernlokalisierung mit IEEE 802.11 untersucht, obwohl eine Lösung mit indirekter Fernlokalisierung wegen des nötigen Empfangs von Signalen potentiell mehr Energie verbraucht.
@@ -327,7 +327,7 @@ Messgrößen, die Zeitsynchronität voraussetzen sind daher nicht geeignet.
 Als Messgröße wird der \emph{Received Signal Strength Indicator} (RSSI) für alle drei Protokolle gewählt, da dieser bei jedem empfangenen Paket von der physischen Schicht gemessen und am empfangenden Gerät leicht ausgelesen werden kann.
 
 Auch bei LoRa wird der RSSI entgegen der Empfehlung von Kim et al. gewählt.
-Da sich das Szenario im Gegensatz zu dem aus ihrer  Veröffentlichung unter Tage abspielt, kann keine Synchronisierung über GPS gewährleistet werden. 
+Da sich das Szenario im Gegensatz zu dem aus ihrer  Veröffentlichung unter Tage abspielt, kann keine Synchronisierung über GPS gewährleistet werden.
 Außerdem müssen die Distanzen zwischen den Basisstationen geringer gewählt werden, da die Ungenauigkeiten aus dieser Veröffentlichung zu hoch für das Szenario sind.
 
 \subsection{Auswahl der Hardware}
@@ -340,7 +340,7 @@ Mobile Einheiten mit Bluetooth werden mit dem \textit{Adafruit Feather nRF52 Blu
 Unterstützung für LoRa bietet das \textit{Adafruit Feather M0 RFM95 LoRa Radio (900 MHz)}, mit diesem werden mobile Einheiten mit LoRa implementiert.
 
 Als Akku wurde ein Lithium-Polymer-Akkumulator mit 1400 mAh Kapazität ausgewählt.
-Er wurde als leicht genug angesehen, um um den Hals getragen zu werden. 
+Er wurde als leicht genug angesehen, um um den Hals getragen zu werden.
 Ein vergleichbarer 2200 mAh Akkumulator erschien dafür zu schwer.
 
 
@@ -372,7 +372,7 @@ Die APs fungieren daher als Basisstationen für die Lokalisierung.
 \subsection{WiFi-LLS}
 Das \emph{WiFi-based Local Location System} (\emph{WiFi-LLS}) von Chen et al. nutzt zur Ermittelung der RSSI-Werte den \emph{Scan}-Vorgang \cite{chen2007design}.
 Es wird zunächst ein aktiver \emph{Scan} ausgeführt, dazu werden nacheinander auf allen überlappungsfreien Kanälen \emph{Probe Requests} versendet und beim Empfangen der \emph{Probe Responses} die MAC-Adresse des antwortenden APs zusammen mit dem RSSI protokolliert.
-Nach Beenden des \emph{Scans} werden die Ergebnisse an den Ortungsdienst übermittelt. 
+Nach Beenden des \emph{Scans} werden die Ergebnisse an den Ortungsdienst übermittelt.
 Die mobile Einheit muss dazu einem Netzwerk beigetreten sein, welches mit dem Ortungsdienst kommunizieren kann.
 Der Ablauf eines \emph{Scans} wird in Abbildung \ref{fig:activescan} gezeigt, dieser Vorgang muss für jeden nicht überlappenden Kanal durchgeführt werden.
 
@@ -386,7 +386,7 @@ Der Ablauf eines \emph{Scans} wird in Abbildung \ref{fig:activescan} gezeigt, di
 \subsection{Assoziations-Lokalisierung}
 Um eine Bereichsortung zu erhalten, reicht das Wissen um einen nahen AP aus.
 Dieses kann zum Beispiel über die \emph{Assoziation} erlangt werden.
-Eine \emph{Station} (hier: die mobile Einheit), die einem Netzwerk beigetreten ist, ist mit genau einem AP \emph{assoziiert}. 
+Eine \emph{Station} (hier: die mobile Einheit), die einem Netzwerk beigetreten ist, ist mit genau einem AP \emph{assoziiert}.
 Verschlechtert sich der RSSI zu diesem stark, versucht die Station sich mit einem AP mit besserem RSSI zu \emph{reassoziieren}.
 
 Eine mobile Einheit mit \emph{Assoziations-Lokalisierung} protokolliert daher nur die \emph{Assoziationen} und \emph{Reassoziationen} und versendet die MAC-Adresse des assozierten APs immer dann an den Ortungsdienst, wenn eine \emph{(Re-)Assoziation} stattgefunden hat.
@@ -408,7 +408,7 @@ Auch hier fungieren die APs als Basisstationen für die Lokalisierung.
 \subsection{RADAR}
 Für das \emph{RADAR} System von Bahl et al. versenden die mobilen Einheiten UDP-Pakete mit einem 6 Byte langen Identifikator \cite{bahl2000radar}.
 Der RSSI dieser Pakete wird dann von den APs bestimmt und zusammen mit dem Identifikator protokolliert.
-Die Werte können anschließend vom Ortungsdienst abgerufen werden. 
+Die Werte können anschließend vom Ortungsdienst abgerufen werden.
 
 \subsection{Probe-Request-Lokalisierung}
 Statt UDP-Paketen verwenden mobile Einheiten mit \emph{Probe-Request-Lokalisierung} \emph{Probe Requests} als Paket.
@@ -429,7 +429,7 @@ Abbildung \ref{fig:probeReq} zeigt den Vorgang schematisch.
 Für die direkte Fernlokalisierung mit BLE wird der \emph{Received Signal Strength Indicator} (RSSI) eingehender \emph{Advertising}-Pakete an den BLE-fähigen Basisstationen bestimmt.
 Die \emph{Advertising}-Pakete werden dafür von den mobilen Einheiten versendet.
 
-\emph{Advertising} ist eine Möglichkeit für BLE-Geräte kleine Datenmengen in regelmäßigen Abständen zu versenden oder \emph{Services}, welche sie zur Verfügung stellen, zu bewerben. 
+\emph{Advertising} ist eine Möglichkeit für BLE-Geräte kleine Datenmengen in regelmäßigen Abständen zu versenden oder \emph{Services}, welche sie zur Verfügung stellen, zu bewerben.
 Für die Lokalisierung kann ein Identifikator im \emph{Advertising}-Paket versendet werden.
 Alternativ kann auch die eindeutige MAC-Adresse der mobilen Einheit als Identifikator verwendet werden.
 

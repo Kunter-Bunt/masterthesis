@@ -1,22 +1,22 @@
 \section{Direkte Fernlokalisierung mit Long Range}
 \label{ch:phase4}
-Für die direkte Fernlokalisierung mit \emph{Long Range} (LoRa) werden dedizierte Basisstationen eingesetzt. 
+Für die direkte Fernlokalisierung mit \emph{Long Range} (LoRa) werden dedizierte Basisstationen eingesetzt.
 Die Kommunikation zwischen Basisstation und Ortungsdienst kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
 Die Basisstationen bestimmen den \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsdienst.
 Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
 
 \subsection{RFM95}
 \label{ch:hardwarechanges:sec:rfm95}
-Bei dem \emph{RFM95} handelt es sich um ein LoRa-fähiges Radio-Modul für den Frequenzbereich 868/915 MHz \cite{hope2006rfm}. 
+Bei dem \emph{RFM95} handelt es sich um ein LoRa-fähiges Radio-Modul für den Frequenzbereich 868/915 MHz \cite{hope2006rfm}.
 915 MHz sind jedoch nur in Amerika lizenzfrei, in Deutschland muss das Radio mit 868 MHz betrieben werden.
 
 Für die Entwicklung wird das Modul auf einem Adafruit Feather M0 \emph{RFM95} LoRa Radio verwendet.
 Dieses verwendet einen M0 Mikrocontroller zur Steuerung, einen Lithium-Akku-Ladeschaltkreis und einen Spannungswandler.
-Zusätzlich ist eine Antenne notwendig. 
+Zusätzlich ist eine Antenne notwendig.
 Die verwendete Antenne kann dabei einen große Unterschiede in der Reichweite verursachen, deshalb sollte eine Antenne für 868 MHz verwendet werden.
 Da jedoch eine feste Antenne die mobile Einheit unhandlich machen würde, wird für diese eine Kabelantenne verwendet, diese hat die Länge einer halben Wellenlänge (17,3 cm).
 
-Abbildung \ref{fig:lorafeather} zeigt ein Adafruit Feather M0 \emph{RFM95} LoRa Radio. 
+Abbildung \ref{fig:lorafeather} zeigt ein Adafruit Feather M0 \emph{RFM95} LoRa Radio.
 Für die Basisstation wird ein Feather M0 \emph{RFM95} LoRa Radio mit fester Antenne verwendet.
 
 \begin{figure}[h]
@@ -34,22 +34,24 @@ Es wird die \emph{RadioHead RFM9x} Bibliothek Version 1.62 verwendet.
 
 \subsection{Reichweite von LoRa}
 Die Versuche mit LoRa wurden an einer anderen Tunnelbaustelle durchgeführt.
-An der Tunnelbaustelle Ulm wird mit Sprengungen vorgetrieben.
-Nach der Sprengung wird der Tunnel mit Spritzbeton ausgekleidet und danach wird in drei Schritten geschalt. 
-Im ersten Schritt wird ein Filz und eine Folie gegen das Eindringen von Wasser eingebracht, danach folgt die Bewehrung und abschließend wird die Bewehrung einbetoniert.
-Für jeden Schritt wird ein stählerner Schalungswagen verwendet, folglich sind drei stählerne Hindernisse im Tunnel, die Signale absorbieren.
-Abbildung \ref{fig:schalungswagen} zeigt einen der Schalungswagen, der als Hindernis gedient hat.
+Der Tunnel Albabstieg bei Ulm wird im kombinierten Spreng- und Baggervortrieb aufgefahren.
+Nach der Sprengung wird das entstandene Haufwerk aus dem Tunnel gebracht und der offene Abschlag mit Spritzbeton ausgekleidet.
+Danach wird in drei Schritten geschalt.
+Im ersten Schritt wird ein Filz und eine Folie gegen das Eindringen von Wasser eingebracht, danach folgt die Bewehrung und abschließend wird die endgültige Beton-Innenschale hergestellt.
+Für jeden Schritt wird ein stählerner Schalwagen verwendet, folglich sind drei jeweils circa 100 m lange, stählerne Hindernisse im Tunnel, die Signale absorbieren.
+Die drei Schalwagen bilden zusammen den Schalungszug.
+Abbildung \ref{fig:schalungswagen} zeigt einen der Schalwagen, der als Hindernis gedient hat.
 
 \begin{figure}[h]
   \centering
 	\includegraphics[width=\textwidth]{images/schalungswagen.jpg}
-  \caption{Schalungswagen für das Betonieren im Tunnel Ulm.}
+  \caption{Schalwagen für das Betonieren im Tunnel Ulm.}
   \label{fig:schalungswagen}
 \end{figure}
 
-\subsubsection{Methodik} 
-Die Reichweite wurde für zwei Situationen bestimmt.
-Zum einen durch einen Schalungswagen und dann durch den freien Tunnel, zum anderen durch alle drei Schalungswagen für eine Situation mit maximaler Abschirmung durch die Hindernisse.
+\subsubsection{Methodik}
+Die Reichweite wurde für zwei Testszenarien bestimmt.
+Zum einen durch einen Schalwagen und dann durch den freien Tunnel, zum anderen durch alle drei Schalwagen für ein Szenario mit maximaler Abschirmung durch die Hindernisse.
 Die zwei Messtrecken werden in Abbildung \ref{fig:rangelora} skizziert.
 
 \begin{figure}[h!]
@@ -59,7 +61,7 @@ Die zwei Messtrecken werden in Abbildung \ref{fig:rangelora} skizziert.
   \label{fig:rangelora}
 \end{figure}
 
-Die mobile Einheit wurde jeweils direkt an der Bewehrung platziert und es wurde auf der selben Seite gelaufen, damit die Abschirmung durch die Schalungswagen maximal ist.
+Die mobile Einheit wurde jeweils direkt an der Bewehrung platziert und es wurde auf der selben Seite gelaufen, damit die Abschirmung durch die Schalwagen maximal ist.
 Danach wurde die Basisstation immer weiter entfernt, bis keine Pakete der mobilen Einheit mehr empfangen werden konnten.
 Abbildung \ref{fig:lorabasis} zeigt die Platzierung der mobilen Einheit an der Bewehrung.
 Erneut konnte die Plastikbox aufgrund des Versuchsaufbaus nicht geschlossen werden.
@@ -68,8 +70,8 @@ Die mobile Einheit wurde als "`außer Reichweite"' angesehen, wenn versendete Pa
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.
 Es wurde sowohl mit einer Sendeleistung von 5 dBm für einen geringen Sendeverbrauch als auch mit 23 dBm Sendeleistung für maximale Reichweite gemessen.
 Die Messungen werden in 12,5 m Abständen angegeben, da in diesem Tunnel die Länge eines Schalungselements 12,5 m beträgt.
-Es werden, wie in Abschnitt \ref{ch:hardwarechanges:sec:rfm95} besprochen, zwei unterscheidliche Typen von Antennen verwendet. 
-Während die Basisstation eine feste Antenne aufweist, verwendet die mobile Einheit eine Kabelantenne entsprechend der halben Wellenlänge. 
+Es werden, wie in Abschnitt \ref{ch:hardwarechanges:sec:rfm95} besprochen, zwei unterscheidliche Typen von Antennen verwendet.
+Während die Basisstation eine feste Antenne aufweist, verwendet die mobile Einheit eine Kabelantenne entsprechend der halben Wellenlänge.
 
 \begin{figure}[h]
   \centering
@@ -80,8 +82,8 @@ Während die Basisstation eine feste Antenne aufweist, verwendet die mobile Einh
 
 \subsubsection{Ergebnisse}
 Tabelle \ref{table:rangelora} zeigt die Ergebnisse für das \emph{RFM95}.
-Da das lose Auflegen des Deckels der Plastikbox zu keiner Veränderung bei der Reichweite führte gibt die Tabelle nur Werte für den offenen Aufbau an. 
-Der Test mit 23 dBm Sendeleistung durch alle drei Schalungswagen musste nach 350 m abgebrochen werden, weil ein weiterkommen nicht möglich war.
+Da das lose Auflegen des Deckels der Plastikbox zu keiner Veränderung bei der Reichweite führte gibt die Tabelle nur Werte für den offenen Aufbau an.
+Der Test mit 23 dBm Sendeleistung durch den gesamten Schalungszug musste nach 350 m abgebrochen werden, weil ein weiterkommen nicht möglich war.
 Da jedoch für diese Sendeleistung bereits nach circa 250 m die Varianz des RSSI den Zusammenhang zwischen Distanz und RSSI überwiegt, kann die tatsächliche Reichweite dieser Sendeleistung nicht ausgenutzt werden.
 Für eine sichere Erkennung des 250-Meter-Abschnitts müsste daher alle 500 m eine Basisstation aufgestellt werden.
 
@@ -102,9 +104,9 @@ Für eine sichere Erkennung des 250-Meter-Abschnitts müsste daher alle 500 m ei
 
 \subsubsection{Bewertung}
 LoRa entfaltet im Tunnel eine sehr hohe Reichweite und es kann eine lückenlose Überwachung von Personen durchgeführt werden.
-Voll nutzen lässt sich die Reichweite jedoch nicht, da die Varianz des RSSI den Zusammenhang zwischen Distanz und RSSI schon nach circa 250 m überwiegt. 
+Komplett ausnutzen lässt sich die Reichweite jedoch nicht, da die Varianz des RSSI den Zusammenhang zwischen Distanz und RSSI schon nach circa 250 m überwiegt.
 Hingegen führt eine starke Reduktion der Sendeleistung zu einer mangelnder Penetration von Hindernissen.
-Daher sollte ein Kompromiss der Sendeleistung geschlossen werden. 
+Daher sollte ein Kompromiss der Sendeleistung geschlossen werden.
 Eine Sendeleistung von 10 dBm sollte eine ausreichende Reichweite im Szenario mit vielen Hindernissen bieten.
 Alternativ kann die mobile Einheit auch ein \emph{Send-Receive-Schema} umsetzen und von der Basisstation eine dynamisch angepasste Sendeleistung empfangen, die sich nach der Menge der Hindernisse richtet.
 
@@ -128,7 +130,7 @@ Die Basisstation muss dabei auf der selben Frequenz aktiv sein und empfangen.
 Der Stromverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und die verwendete Methodik werden in Abschnitt \ref{ch:phase1:sec:energie} beschrieben.
 
 \subsubsection{Theoretische Stromverbrauchsabschätzung}
-Für die Berechnung des theroretischen Verbrauchs der mobilen Einheit werden die Datenblätter des M0 Mikrocontrollers und des \emph{RFM95} Radios herangezogen. 
+Für die Berechnung des theroretischen Verbrauchs der mobilen Einheit werden die Datenblätter des M0 Mikrocontrollers und des \emph{RFM95} Radios herangezogen.
 Die dort gelisteten Verbräuche sind in Tabelle \ref{table:m0power} und Tabelle \ref{table:lorapower} zu finden.
 
 \begin{table}[h]
@@ -147,11 +149,11 @@ Die dort gelisteten Verbräuche sind in Tabelle \ref{table:m0power} und Tabelle 
 
 Da das Adadfruit Feather M0 \emph{RFM95} Lora Radio sich nur durch die Ersetzung des \emph{CP2014} durch den \emph{Cortex-M0} zum Adafruit Feather \emph{nRF52} unterscheidet werden die 155 \textmu A für die sonstigen Komponenten übernommen.
 
-Die Sendeleistung des \emph{RFM95} Radio ist zwischen 5 dBm und 23 dBm einstellbar. 
+Die Sendeleistung des \emph{RFM95} Radio ist zwischen 5 dBm und 23 dBm einstellbar.
 Das Datenblatt listet jedoch nur Verbräuche zwischen 7 dBm und 20 dBm Sendeleistung, der Verbrauch wird für diese beiden Sendeleistungen berechnet.
 Für die Nachricht "`TagTest"' werden 20 Bytes (160 Bits) versendet, es wird angenommen, dass zuvor 500 Bits für die Kollisionskontrolle belauscht werden.
 Für die restliche Zeit wird angenommen, dass sich der \emph{M0} Mikrocontroller im \emph{Deep-sleep mode} und das \emph{RFM95} Radio im \emph{IDDIDLE} Modus befindet.
-Damit ergibt sich ein durchschnittlicher Verbrauch $y$ in Höhe von: 
+Damit ergibt sich ein durchschnittlicher Verbrauch $y$ in Höhe von:
 
 $y = \frac{1}{10} * [(10 - \frac{Bits\_gesendet}{21875 b/s} - \frac{Bits\_empfangen}{21875 b/s}) * (M0\_Deep\_sleep\_mode + RMF95\_IDDIDLE + 155 {\mu}A) + \frac{Bits\_gesendet}{21875 b/s} * RFM95\_XdBm + \frac{Bits\_empfangen}{21875 b/s} * RFM95\_IDDR]$
 
@@ -193,7 +195,7 @@ Gut zu erkennen ist hier auch, dass ein Sendevorgang bei LoRa deutlich länger a
 
 Die Ergebnisse der Messungen sind in Tabelle \ref{table:lora235ina} gelistet.
 Für den \emph{RFM95} Feather liegt der Ruheverbrauch deutlich niedriger, da jedoch die selben Schaltungen für Akku-Ladung und Spannungsregelung zum Einsatz kommen, scheint der \emph{CP2104}, welcher zum Programmieren des \emph{ESP8266} beziehungsweise \emph{nRF52} dient, mindestens 6 mA zu verbrauchen.
-Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
+Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert.
 Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
@@ -218,8 +220,8 @@ Die folgenden Abschnitte sollen die Ergebnisse des Kapitels zusammenfassen und a
 
 \subsection{Reichweite}
 Die Zuverlässigkeit bei der Erkennung von Bereichswechseln hängt maßgeblich von der Reichweite der Funktechnologie und der Länge des Sendeintervalls ab.
-Tabelle \ref{table:ranges} fasst die Ergebnisse der Versuche zur Reichweite zusammen. 
-Es wurden jeweils Ergebnisse ohne Gehäuse ausgewählt, da die Reichweite durch ein Gehäuse nur im Falle des \emph{ESP-12S} zu einer Verringerung der Reichweite geführt hat. 
+Tabelle \ref{table:ranges} fasst die Ergebnisse der Versuche zur Reichweite zusammen.
+Es wurden jeweils Ergebnisse ohne Gehäuse ausgewählt, da die Reichweite durch ein Gehäuse nur im Falle des \emph{ESP-12S} zu einer Verringerung der Reichweite geführt hat.
 Die Ergebnisse des \emph{ESP-12S} sind jedoch zugunsten des \emph{ESP-12F} nicht gelistet.
 
 \begin{table}[h]
@@ -241,12 +243,12 @@ Die Ergebnisse des \emph{ESP-12S} sind jedoch zugunsten des \emph{ESP-12F} nicht
 	\end{tabular}
 \end{table}
 
-Der Abstand der Basisstationen für die Bereichsortung ist mit 250 m gegeben. 
+Der Abstand der Basisstationen für die Bereichsortung ist mit 250 m gegeben.
 Die einzige Funktechnologie, die über 125 m im Tunnel erreichte, ist LoRa.
 Sie ist deshalb die einzige getestete Funktechnologie, die eine lückenlose Ortung ermöglicht.
 Zu beachten ist, dass LoRa keine Kollisionsvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet.
 Es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
-Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden. 
+Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden.
 Um das Problem durch redundantes Senden zu umgehen, wurde das Sendeintervall in dieser Arbeit auf 10 Sekunden gesetzt.
 
 Bei BLE und IEEE 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
@@ -284,7 +286,7 @@ Die Konzepte der anderen Implementierungen entspringen der Literatur.
 \subsection{Stromverbrauch}
 Die Implementierungen wurden anschließend auf ihren Stromverbrauch untersucht.
 Ausgewählte Ergebnisse sind in Tabelle \ref{table:consumptions} aufgelistet.
-Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert. 
+Für den normalisierten Stromverbrauch wurde der Verbrauch im Ruhezustand subtrahiert.
 Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h]
@@ -325,10 +327,10 @@ Mittelt man den zusätzlichen Verbrauch der Komponenten des \emph{ESP8266} Feath
 Die Sendevorgänge von BLE sind sehr kurz und verbrauchen vergleichsweise wenig Strom.
 
 LoRa verbraucht mehr Strom als BLE, hat aber auch eine deutlich höhere Reichweite.
-Es ordnet sich beim Verbrauch zwischen BLE und IEEE 802.11 ein, wobei der Ruheverbrauch von knapp 1 mA den Sendeverbrauch überwiegt. 
+Es ordnet sich beim Verbrauch zwischen BLE und IEEE 802.11 ein, wobei der Ruheverbrauch von knapp 1 mA den Sendeverbrauch überwiegt.
 Die mobilen Einheiten mit 5 dBm und 23 dBm Sendeleistung liegen deshalb beim Verbrauch über eine Stunde recht nah beieinander.
 
-Abbildung \ref{fig:alle} gibt einen Überblick über den Verbrauch der Implementierungen bei der Ortung. 
+Abbildung \ref{fig:alle} gibt einen Überblick über den Verbrauch der Implementierungen bei der Ortung.
 \emph{RADAR} wird nicht gezeigt, da es keine Vorteile gegenüber der \emph{Probe-Request-Lokalisierung} bietet und mehr Strom verbraucht.
 Die \emph{Assoziations-Lokalisierung} wird nicht gezeigt, da hier die Ortung im Zuge des \emph{Join} stattfindet.
 
@@ -343,15 +345,15 @@ Die \emph{Assoziations-Lokalisierung} wird nicht gezeigt, da hier die Ortung im 
 \section{Auswertung}
 Es wurden mobile Einheiten mit IEEE 802.11, Bluetooth Low Energy (BLE) und Long Range (LoRa) implementiert und bezüglich ihrer Reichweite und ihres Energieverbrauchs untersucht.
 
-IEEE 802.11 ist den anderen Protokollen weder bei der Reichweite, noch beim Energieverbrauch überlegen. 
+IEEE 802.11 ist den anderen Protokollen weder bei der Reichweite, noch beim Energieverbrauch überlegen.
 Sein Vorteil liegt in der Verfügbarkeit von WLAN \emph{Access Points} (APs), welche als Basisstationen verwendet werden können.
-IEEE 802.11 hat jedoch im gegebenen Szenario für den Tunnelbau Probleme mit Bereichen, die durch das WLAN-Netzwerk nicht abgedeckt sind. 
+IEEE 802.11 hat jedoch im gegebenen Szenario für den Tunnelbau Probleme mit Bereichen, die durch das WLAN-Netzwerk nicht abgedeckt sind.
 Diese können vermieden werden, wenn spezielle Funktionen beim AP vorausgesetzt werden können.
 
 BLE zeichnet sich durch einen niedrigen Energieverbrauch pro Sendevorgang aus, allerdings zeigte sich bei der Prüfung der Reichweite von BLE auch, dass diese mit 14 bis 32 m nicht sehr groß ist.
 Dies wirkt sich negativ auf die Erkennungszuverlässigkeit bei Bereichswechseln aus, außerdem gibt es dadurch große Bereiche, in denen die mobilen Einheiten nicht geortet werden können.
 
-Dieses Problem hat LoRa nicht. 
+Dieses Problem hat LoRa nicht.
 Seine enorme Reichweite von bis zu 1250 m erlaubt es, dass eine mobile Einheit an jedem Punkt im Tunnel von mehreren Basisstationen geortet werden kann.
 Diese Eigenschaft macht die mobile Einheit mit LoRa zu einer sehr zuverlässigen Einheit für die Ortung.
 Beachtet werden muss jedoch, dass LoRa Kollisionen nur durch die zufällige Wahl des Kanals zu verhindern versucht.
@@ -359,8 +361,3 @@ Es muss daher mit gelegentlichen Kollisionen gerechnet werden.
 Daher sollte das Sendeintervall auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden, um eine zuverlässige Ortung im Ortungsintervall zu erreichen.
 
 Aufgrund seiner hohen Reichweite und daraus resultierenden lückenlosen Ortung der mobilen Einheiten, schlägt diese Arbeit LoRa für \emph{zuverlässige funkbasierte Bereichsortung im Tunnelbau} vor.
-
-
-
-
-

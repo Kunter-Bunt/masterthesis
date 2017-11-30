@@ -1,6 +1,6 @@
 \section{Direkte Fernlokalisierung mit Bluetooth Low Energy}
 \label{ch:phase3}
-Für die direkte Fernlokalisierung mit Bluetooth werden dedizierte Basisstationen eingesetzt. 
+Für die direkte Fernlokalisierung mit Bluetooth werden dedizierte Basisstationen eingesetzt.
 Die Kommunikation zwischen Basisstation und Ortungsdienst kann durch ein LAN- oder WLAN-Netzwerk gewährleistet werden.
 Die Basisstationen bestimmen des \emph{Received Signal Strength Indicator} (RSSI) eingehender Übertragungen der mobilen Enheiten und übermitteln die gemessenen Werte dann an den Ortungsdienst.
 Der Ortungsdienst kann mit den gesammelten Werten die Position der mobilen Einheit berechnen.
@@ -10,7 +10,7 @@ Der nRF52832 ist eine \emph{System-on-Chip}-Lösung von Nordic Semiconductor.
 Er vereint eine 32-bit ARM Cortex-M4F CPU, 512kB RAM und einen 2,4 GHz Transceiver, der Bluetooth 5.0 inklusive Low Energy und das proprietäre ANT Protokoll unterstützt \cite{nordic2017nrf}.
 
 Für diese Arbeit wird ein Adafruit Feather \emph{nRF52} verwendet, der nRF52832 wird deshalb im Folgenden auf \emph{nRF52} abgekürzt.
-Das Adafruit Feather \emph{nRF52} besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus. 
+Das Adafruit Feather \emph{nRF52} besitzt neben dem nRF52832 Spannungswandler für die 3,3 Volt Umwandlung und einen Schaltkreis für die Verwendung mit Lithium Akkus.
 Die verbaute \emph{CP2104} USB-to-Serial-Schnittstelle erlaubt es, den Chip über USB zu programmieren.
 
 Abbildung \ref{fig:nrf52layout} zeigt das Adafruit Feather \emph{nRF52}.
@@ -45,7 +45,7 @@ Der Versuch mit BLE wurde an der selben Stelle wie der mit IEEE 802.11 durchgef�
 Es wurde allerdings ein \emph{Raspberry Pi Zero W} als Basisstation verwendet, dieser wurde auf dem \emph{LN-862} platziert, auf Abbildung \ref{fig:applacement} ist sein rotes Gehäuse zu erkennen.
 
 \subsubsection{Methodik}
-Die Reichweite wurde erneut in zwei Richtungen geprüft. 
+Die Reichweite wurde erneut in zwei Richtungen geprüft.
 Zum einen in Richtung der fertig gebohrten Tunnels mit wenigen Hindernissen, zum anderen in Richtung des Vortriebs durch mehrere Stahlhindernisse.
 Die zwei Messtrecken werden in Abbildung \ref{fig:rangeblue} skizziert.
 
@@ -60,7 +60,7 @@ Um die Abschirmung durch ein Gehäuse zu simulieren, wurde eine stabile Plastikb
 Für die Messung wurde der Körper zwischen mobile Einheit und Basisstation gebracht und eine mobile Einheit wurde dann als "`außer Reichweite"' angesehen, wenn versendete Pakete der mobilen Einheit nicht mehr bei der Basisstation ankamen.
 Durch das Entfernen des körperlichen Hindernisses war es möglich wieder eine Verbindung herzustellen.
 
-Die bestimmten Reichweiten werden in 2 m Schritten angegeben, da sie mit Hilfe der 2 m breiten \emph{Tübbinge} bestimmt wurden.
+Die bestimmten Reichweiten werden in 2 m Schritten angegeben, da sie mit Hilfe der 2 m breiten \emph{Tübbingringe} bestimmt wurden.
 
 \subsubsection{Ergebnisse}
 Tabelle \ref{table:rangeblue} zeigt die Ergebnisse für den nRF52.
@@ -92,7 +92,7 @@ Es wird immer nach Ablauf des Sendeintervalls ein \emph{Advertising}-Paket gesen
 
 In der Praxis wird dazu das \emph{Advertising}-Intervall entsprechend gesetzt, dabei handelt es sich um einen in Bluetooth 4.0 spezifizierten Parameter für die Häufigkeit des \emph{Advertisings}.
 Da die \emph{Bluefruit} \emph{nRF52} API keine Funktion zur Änderung dieses Wertes zur Verfügung stellt muss er direkt geändert werden.
-Die entsprechende \emph{BLEAdvertising}-Klasse ist in \texttt{/.arduino15/packages/adafruit/hardware/}\\\texttt{nrf52/0.6.0/libraries/Bluefruit52Lib/src} zu finden. 
+Die entsprechende \emph{BLEAdvertising}-Klasse ist in \texttt{/.arduino15/packages/adafruit/hardware/}\\\texttt{nrf52/0.6.0/libraries/Bluefruit52Lib/src} zu finden.
 
 In \texttt{BLEAdvertising.cpp} ist \texttt{GAP\_ADV\_INTERVAL\_MS} auf 20 Millisekunden gesetzt, dieser Wert sollte erhöht werden, um den Stromverbrauch zu senken.
 Beim \emph{nRF52} handelt es sich um ein Klasse-2-Bluetooth-Gerät mit einer maximalen Sendeleistung bis 4 dBm.
@@ -102,7 +102,7 @@ Es sollte erneut eine Voruntersuchung des Verbrauchs mit dem Muker \emph{TM103} 
 Dieser ist aber nicht in der Lage den Stromverbrauch des \emph{nRF52} zu messen.
 Die Sendeabschnitte sind zu kurz, um einen messbaren Stromverbrauch zu erzeugen.
 
-Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden. 
+Deshalb wird zunächst Abbildung \ref{table:nrf52consumption} für eine theoretische Betrachtung des Verbrauchs herangezogen werden.
 
 
 
@@ -113,17 +113,17 @@ Der Stromverbrauch soll mit dem INA219 genauer bestimmt werden, der INA219 und d
 \subsubsection{Theoretische Stromverbrauchsabschätzung}
 Für die Zeit in der nicht gesendet wird, wird der Zustand $I_{ON\_RAMOFF\_RTC}$ angenommen, da dieser den höchsten Verbrauch aufweist.
 Für die Sendezeit wird $I_{RADIO\_TX0}$ angenommen, für ein \emph{Advertising}-Paket, welches zusätzlich den Gerätenamen "`TestTag"' versendet, werden 24 Bytes (192 Bit) gesendet.
-Um die Kollisionsvermeidung einzufügen, werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht. 
-Es müssen ebenfalls die weiteren Komponenten auf dem Feather bedacht werden. 
-Adafruit gibt für den Spannungswandler einen Verbrauch von 55 \textmu A und für den Lithium-Polymer-Ladeschaltkreis einen Verbrauch von bis zu 100 \textmu A an \cite{fried2016lora}. 
+Um die Kollisionsvermeidung einzufügen, werden vorher 2000 Bit im Zustand $I_{RADIO\_RX0}$ empfangen, die restliche Zeit wird in $I_{ON\_RAMOFF\_RTC}$ verbracht.
+Es müssen ebenfalls die weiteren Komponenten auf dem Feather bedacht werden.
+Adafruit gibt für den Spannungswandler einen Verbrauch von 55 \textmu A und für den Lithium-Polymer-Ladeschaltkreis einen Verbrauch von bis zu 100 \textmu A an \cite{fried2016lora}.
 Der Verbrauch des anderen Komponenten des Feather wird daher konservativ auf 155 \textmu A geschätzt.
-Damit ergibt sich ein durchschnittlicher Verbrauch $y$ in Höhe von: 
+Damit ergibt sich ein durchschnittlicher Verbrauch $y$ in Höhe von:
 
 $y = (1s-\frac{Bits\_gesendet}{1000000 b/s} - \frac{Bits\_empfangen}{1000000 b/s}) * (I_{ON\_RAMOFF\_RTC} + 155 {\mu}A) + \frac{Bits\_gesendet}{1000000 b/s} * I_{RADIO\_RX0} + \frac{Bits\_empfangen}{1000000 b/s} * I_{RADIO\_RX0}$
 
 $y = (1s - 0,000192s - 0,002s) * 0,1569mA + 0,000192 * 7,1mA + 0,002 * 6,5mA$
 
-$y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$ 
+$y \approx 0,156556mA + 0,001363mA + 0,013mA = 0,170919mA$
 
 \subsubsection{Tatsächlicher Stromverbrauch von BLE}
 \label{ch:phase3:sec:powerble}
@@ -140,7 +140,7 @@ Die Kürze des Sendevorgangs bedingt die starke Schwankung bei den Lastspitzen, 
 \end{figure}
 
 Hauptverbrauch liegt jedoch in den 7,2 bis 7,6 mA im Ruhezustand, leider ist in diesem Fall kein einzelnes Modul vorhanden, es kann nur auf dem \emph{nRF52} Feather gemessen werden.
-Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch den normalisierten Stromverbrauch, dafür wurde der Verbrauch im Ruhezustand subtrahiert. 
+Tabelle \ref{table:blueina} zeigt deshalb neben dem gemessenen Verbrauch den normalisierten Stromverbrauch, dafür wurde der Verbrauch im Ruhezustand subtrahiert.
 Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen Anteil.
 
 \begin{table}[h!]
@@ -153,4 +153,3 @@ Dies beschränkt den Verbrauch auf den für die tatsächliche Funktion nötigen 
 		\emph{nRF52} Feather & Bluetooth-Low-Energy-Advertising & 7,37 (0,04) & 190\\
 	\end{tabular}
 \end{table}
-
