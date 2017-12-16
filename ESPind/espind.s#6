@@ -5024,6 +5024,8 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <wire x1="-25.4" y1="-66.04" x2="-10.16" y2="-66.04" width="0.1524" layer="91"/>
 <label x="-25.4" y="-66.04" size="1.778" layer="95"/>
 </segment>
+</net>
+<net name="RESETLATSCH" class="0">
 <segment>
 <pinref part="U$12" gate="G$1" pin="R1"/>
 <wire x1="30.48" y1="-10.16" x2="15.24" y2="-10.16" width="0.1524" layer="91"/>
