@@ -173,7 +173,7 @@ Der Stromverbrauch der Implementierung mit LoRa wurde mit 5 dBm und 23 dBm Sende
 Abbildung \ref{fig:lora5} zeigt den Lastverlauf für den Start einer mobilen Einheit mit LoRa bei 5 dBm.
 
 Nach einer circa 3-sekündigen Startphase wechselt der LoRa Feather in den regulären Betrieb, er sollte dann immer nach 10 Sekunden Ruhezustand senden.
-Dieser jedoch vom Zeitgeber nicht ganz eingehalten, die mobile Einheit befindet sich zwischen den Sendevorgängen circa 11 Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
+Dieser wird jedoch vom Zeitgeber nicht ganz eingehalten. Die mobile Einheit befindet sich zwischen den Sendevorgängen circa 11 Sekunden im Ruhezustand, dies sollte bei der Implementierung beachtet werden.
 Im Ruhezustand liegt der Verbrauch des LoRa Feather bei 0,9 bis 1,0 mA, beim Senden unterscheiden sich die Vebräuche je nach Sendeleistung deutlich.
 
 \begin{figure}[h!]
@@ -246,9 +246,9 @@ Die Ergebnisse des \emph{ESP-12S} sind jedoch zugunsten des \emph{ESP-12F} nicht
 Der Abstand der Basisstationen für die Bereichsortung ist mit 250 m gegeben.
 Die einzige Funktechnologie, die über 125 m im Tunnel erreichte, ist LoRa.
 Sie ist deshalb die einzige getestete Funktechnologie, die eine lückenlose Ortung ermöglicht.
-Zu beachten ist, dass LoRa keine Kollisionsvermeidung verwendet, stattdessen wird auf einem zufälligem Kanal gesendet.
+Zu beachten ist, dass LoRa keine Kollisionsvermeidung verwendet. %stattdessen wird auf einem zufälligem Kanal gesendet.
 Es muss davon ausgegangen werden, dass manche Nachrichten verloren gehen.
-Das Sendeintervall sollte deshalb deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden.
+Das Sendeintervall sollte deshalb nur auf die Hälfte des gewünschten Ortungsintervalls gesetzt werden.
 Um das Problem durch redundantes Senden zu umgehen, wurde das Sendeintervall in dieser Arbeit auf 10 Sekunden gesetzt.
 
 Bei BLE und IEEE 802.11 entscheidet die Reichweite über das Sendeintervall, da hier Versorungslücken bei der jeweiligen Funktechnologie entstehen.
