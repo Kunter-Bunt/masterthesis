@@ -106,7 +106,7 @@ Bereichsortung im Tunnelbau}
 	\begin{block}{Anforderungen}
 		\begin{itemize}
 			\item Nichtintrusiv (Keine Tore, Schranken, ...)
-			\item Zuverlässige Erkennung von Abschnittswechseln
+			\item Zuverlässige Erkennung der Bereichsswechsel
 			\item Wenig Interaktion mit mobiler Einheit erforderlich
 		\end{itemize}
 	\end{block}
@@ -115,10 +115,10 @@ Bereichsortung im Tunnelbau}
 \section{Grundlagen \& Analyse}
 \begin{frame}{Topologien}
 	\begin{tabular}{c|c|c}
-		\includegraphics[width=0.3\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.3\textwidth]{images/direktefern.eps} & \includegraphics[width=0.2\textwidth]{images/ohnebasis.eps}\\
+		\includegraphics[width=0.25\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.25\textwidth]{images/direktefern.eps} & \includegraphics[width=0.2\textwidth]{images/ohnebasis.eps}\\
 		Direkte Selbstlokal. & Direkte Fernlokal. & Ohne Basisstation\\
 		\hline
-		\includegraphics[width=0.3\textwidth]{images/indirekteselbst.eps} & \includegraphics[width=0.3\textwidth]{images/indirektefern.eps} & \includegraphics[width=0.3\textwidth]{images/hybrid.eps} \\
+		\includegraphics[width=0.25\textwidth]{images/indirekteselbst.eps} & \includegraphics[width=0.25\textwidth]{images/indirektefern.eps} & \includegraphics[width=0.25\textwidth]{images/hybrid.eps} \\
 	Indirekte Selbstlokal. & Indirekte Fernlokal. & Hybride Topologie\\
 	\end{tabular}
 \end{frame}
@@ -166,7 +166,7 @@ Bereichsortung im Tunnelbau}
 				\begin{itemize}
 					\item IEEE 802.11
 					\item Bluetooth (Low Energy)
-					\item Long Range
+					\item Long Range (IEEE 802.15.4g)
 				\end{itemize}
 			\end{block}
 	\end{columns}
@@ -183,7 +183,7 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Reichweiten}
-\begin{frame}{Reichweiten}
+\begin{frame}{Reichweitenevaluation - Aufbau}
 	\begin{tabular}{cc}
 		\includegraphics[width=0.45\textwidth]{images/tunnel.jpg} & \includegraphics[width=0.45\textwidth]{images/schalungswagen.jpg}\\
 		\includegraphics[width=0.45\textwidth]{images/rangewlan.eps} & \includegraphics[width=0.45\textwidth]{images/rangeblue.eps} \\
@@ -191,7 +191,7 @@ Bereichsortung im Tunnelbau}
 	\end{tabular}
 \end{frame}
 
-\begin{frame}{Reichweiten}
+\begin{frame}{Reichweitenevaluation - Ergebnisse}
 	\centering
 	\begin{tabular}{l|l|l}
 		Protokoll & Strecke & Reichweite \\
@@ -230,17 +230,17 @@ Bereichsortung im Tunnelbau}
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - RADAR}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/radar5s.png}
+		\includegraphics[height=0.85\textheight]{plots/radar5s.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - RADAR}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/radar5ssend.png}
+		\includegraphics[height=0.85\textheight]{plots/radar5ssend.png}
 	\end{minipage}
 \end{frame}
 
@@ -264,24 +264,24 @@ Bereichsortung im Tunnelbau}
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - WiFi-LLS}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/wifills.png}
+		\includegraphics[height=0.85\textheight]{plots/wifills.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - WiFi-LLS}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/wifillssendv.png}
+		\includegraphics[height=0.85\textheight]{plots/wifillssendv.png}
 	\end{minipage}
 \end{frame}
 
 
-\begin{frame}
+\begin{frame}{Stromverbrauch - Ergebnisse}
 	\begin{tabular}{l|l|l|R{2.5cm}}
-		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch in mA (normalisiert)\\
 		\hline
 		IEEE 802.11 & \emph{ESP8266} Feather & \emph{RADAR} & 16,70 (8,60)\\
 		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
@@ -306,23 +306,23 @@ Bereichsortung im Tunnelbau}
 	\end{block}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Assoziations-Lok.}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/tcphold.png}
+		\includegraphics[height=0.85\textheight]{plots/tcphold.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Assoziations-Lok.}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/noap.png}
+		\includegraphics[height=0.85\textheight]{plots/noap.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Stromverbrauch - Ergebnisse}
 	\begin{tabular}{l|l|p{3.1cm}|R{2.1cm}}
-		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch in mA (normalisiert)\\
 		\hline
 		IEEE 802.11 & \emph{ESP8266} Feather & \emph{RADAR} & 16,70 (8,60)\\
 		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
@@ -354,23 +354,23 @@ Bereichsortung im Tunnelbau}
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Probe-Request-Lok.}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/probereqfull.png}
+		\includegraphics[height=0.85\textheight]{plots/probereqfull.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Probe-Request-Lok.}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/probereqv.png}
+		\includegraphics[height=0.85\textheight]{plots/probereqv.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Stromverbrauch - Ergebnisse}
 	\begin{tabular}{l|l|p{3.1cm}|R{2.1cm}}
-		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch in mA (normalisiert)\\
 		\hline
 		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} & 8,80 (7,50)\\
 		IEEE 802.11 & \emph{ESP-12F} & \emph{Assoziations-Lokalisierung} (kein \emph{Access Point}) & 17,10 (17,10)\\
@@ -401,16 +401,16 @@ Bereichsortung im Tunnelbau}
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - BLE-Advertising}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/blue.png}
+		\includegraphics[height=0.85\textheight]{plots/blue.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Stromverbrauch - Ergebnisse}
 	\begin{tabular}{l|l|p{3.1cm}|R{2.1cm}}
-		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch in mA (normalisiert)\\
 		\hline
 		IEEE 802.11 & \emph{ESP8266} Feather & \emph{Probe-Request-Lokalisierung} & 9,70 (2,70)\\
 		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
@@ -436,23 +436,23 @@ Bereichsortung im Tunnelbau}
 	\end{columns}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - LoRa}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/lora5.png}
+		\includegraphics[height=0.85\textheight]{plots/lora5.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - LoRa}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/lora235send.png}
+		\includegraphics[height=0.85\textheight]{plots/lora235send.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Stromverbrauch - Ergebnisse}
 	\begin{tabular}{l|p{3cm}|p{3cm}|R{2.1cm}}
-		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch in mA (normalisiert)\\
 		\hline
 		IEEE 802.11 & \emph{ESP-12F} & \emph{Probe-Request-Lokalisierung} & 1,80 (1,80)\\
 		\hline
@@ -464,37 +464,37 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Zusammenfassung}
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Vergleich}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/alle.png}
+		\includegraphics[height=0.85\textheight]{plots/alle.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Vergleich}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/alle2.png}
+		\includegraphics[height=0.85\textheight]{plots/alle2.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Vergleich}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/alle3.png}
+		\includegraphics[height=0.85\textheight]{plots/alle3.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
-	\begin{minipage}[c][\textheight][c]{\textwidth}
+\begin{frame}{Stromverbrauch - Vergleich}
+	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.95\textheight]{plots/alle4.png}
+		\includegraphics[height=0.85\textheight]{plots/alle4.png}
 	\end{minipage}
 \end{frame}
 
-\begin{frame}
+\begin{frame}{Stromverbrauch - Ergebnisse}
 	\begin{tabular}{l|p{3cm}|p{3.1cm}|R{2.1cm}}
-		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch (normalisiert)\\
+		Protokoll & Modul & Programm  & $\varnothing$ Verbrauch in mA (normalisiert)\\
 		\hline
 		IEEE 802.11 & \emph{ESP-12F} & \emph{RADAR} & 10,10 (8,80) \\
 		\hline
@@ -513,14 +513,14 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Fazit}
-\begin{frame}
-	\begin{minipage}[t][0.6\textheight][c]{\textwidth}
+\begin{frame}{Fazit}
+	\begin{minipage}[t][0.5\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{plots/barcomp.png}
+		\includegraphics[width=0.9\textheight]{plots/scatterplot.png}
 	\end{minipage}
 
 
-	\begin{block}{Fazit}
+	\begin{block}{Konklusion}
 			\begin{itemize}
 				\item LoRa > 802.11
 				\item LoRa ohne Erfassungslücken => Hohe Zuverlässigkeit
@@ -591,7 +591,7 @@ Bereichsortung im Tunnelbau}
 \begin{frame}{M0/RFM95 Verbrauch}%Verbrauch M0/RFM95
 	\begin{minipage}[t][\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[height=0.4\textheight]{images/m0power.png}
+		\includegraphics[height=0.4\textheight]{images/m0power.png}\\
 		\includegraphics[height=0.4\textheight]{images/lorapower.png}
 	\end{minipage}
 \end{frame}
