@@ -27,6 +27,8 @@
 \usepackage[utf8]{inputenc}
 \usepackage[T1]{fontenc}
 \usepackage[ngerman]{babel}
+
+
 %% TITLE PICTURE
 
 % if a custom picture is to be used on the title page, copy it into the 'logos'
@@ -81,10 +83,11 @@ Bereichsortung im Tunnelbau}
 
 %table of contents
 \begin{frame}{Gliederung}
-	\tableofcontents
+	\tableofcontents[hideallsubsections]
 \end{frame}
 
 \section{Motivation}
+\stepcounter{subsection}
 \begin{frame}{Bisherige Situation}
 	\includegraphics[width=\textwidth]{images/bisherige.png}\\
 	\cite{maurer2016unterstuetzung}
@@ -106,13 +109,14 @@ Bereichsortung im Tunnelbau}
 	\begin{block}{Anforderungen}
 		\begin{itemize}
 			\item Nichtintrusiv (Keine Tore, Schranken, ...)
-			\item Zuverlässige Erkennung der Bereichsswechsel
+			\item Zuverlässige Erkennung der Bereichswechsel
 			\item Wenig Interaktion mit mobiler Einheit erforderlich
 		\end{itemize}
 	\end{block}
 \end{frame}
 
 \section{Grundlagen \& Analyse}
+\stepcounter{subsection}
 \begin{frame}{Topologien}
 	\begin{tabular}{c|c|c}
 		\includegraphics[width=0.25\textwidth]{images/direkteselbst.eps} & \includegraphics[width=0.25\textwidth]{images/direktefern.eps} & \includegraphics[width=0.2\textwidth]{images/ohnebasis.eps}\\
@@ -182,7 +186,8 @@ Bereichsortung im Tunnelbau}
 	\end{tabular}
 \end{frame}
 
-\section{Reichweiten}
+\section{Reichweitenevaluation}
+\stepcounter{subsection}
 \begin{frame}{Reichweitenevaluation - Aufbau}
 	\begin{tabular}{cc}
 		\includegraphics[width=0.45\textwidth]{images/tunnel.jpg} & \includegraphics[width=0.45\textwidth]{images/schalungswagen.jpg}\\
@@ -209,7 +214,7 @@ Bereichsortung im Tunnelbau}
 	\end{tabular}\\
 \end{frame}
 
-\section{Implementierungen}
+\section{Implementierung \& Stromverbrauchsevaluation}
 \subsection{RADAR}
 \begin{frame}{RADAR}
 	\begin{columns}
@@ -300,8 +305,7 @@ Bereichsortung im Tunnelbau}
 		\begin{itemize}
 			\item Indirekte Fernlokalisierung
 			\item Erfolgreiche (Re-)Assoziation, implizit RSSI der Probe Responses
-			\item Umgebungsprinzip
-			\item Für Bereichsortung geeignet
+			\item Umgebungsprinzip - nur für Bereichsortung geeignet
 		\end{itemize}
 	\end{block}
 \end{frame}
@@ -464,6 +468,7 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Zusammenfassung}
+\stepcounter{subsection}
 \begin{frame}{Stromverbrauch - Vergleich}
 	\begin{minipage}[c][\textheight][t]{\textwidth}
 		\centering
@@ -513,10 +518,11 @@ Bereichsortung im Tunnelbau}
 \end{frame}
 
 \section{Fazit}
+\stepcounter{subsection}
 \begin{frame}{Fazit}
-	\begin{minipage}[t][0.5\textheight][t]{\textwidth}
+	\begin{minipage}[t][0.45\textheight][t]{\textwidth}
 		\centering
-		\includegraphics[width=0.9\textheight]{plots/scatterplot.png}
+		\includegraphics[width=0.85\textheight]{plots/scatterplot.png}
 	\end{minipage}
 
 
