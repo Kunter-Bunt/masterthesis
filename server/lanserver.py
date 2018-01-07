@@ -21,7 +21,7 @@ def readcmd(proc):
 	proc.send('trace + wlan-data @ ProbeReq\r\n');
 
 	#start parsing the log
-	while True: 
+	while True:
 		dp = parse_line(proc, apmac);
 		if dp and logging: print(asJSON(dp).decode("UTF-8"));
 		if dp: s.send(asJSON(dp));
@@ -33,7 +33,7 @@ def asJSON(obj):
 	j += "___";
 	return j.encode();
 
-class DataPoint:
+class DataPoint(object):
 	def __init__(self, time, apmac, stamac, rssi):
 		self.time = time;
 		self.apmac = apmac;
@@ -41,7 +41,7 @@ class DataPoint:
 		self.rssi = rssi;
 
 #reads a line from stdout of proc
-def decline(proc): 
+def decline(proc):
 	return proc.readline().decode("UTF-8");
 
 #find mac in sysinfo
@@ -51,7 +51,7 @@ def parse_sysinfo(proc):
 	while not found:
 		line = decline(proc);
 		if verbose: print (line);
-		if re.match((r"MAC-ADDRESS:."), line): 
+		if re.match((r"MAC-ADDRESS:."), line):
 			lines = re.split(r"\s", line);
 			apmac = list(filter(re.compile(r"[a-z0-9]+").search, lines));
 			found = True;
@@ -62,14 +62,14 @@ def parse_line(proc, apmac):
 	#packet start
 	line = decline(proc);
 	if verbose: print (line);
-	if re.match((r".WLAN-DATA."), line): 
+	if re.match((r".WLAN-DATA."), line):
 
 		#only incoming packets
 		line = decline(proc);
 		if verbose: print (line);
-		if re.match((r"Received."), line): 
+		if re.match((r"Received."), line):
 			stamac = list(re.findall(r"\w+:\w+:\w+:\w+:\w+:\w+", line));
-			if stamac: 
+			if stamac:
 				stamac = stamac[0];
 
 				#iterate to "-->Signal: " to catch rssi
@@ -78,10 +78,10 @@ def parse_line(proc, apmac):
 				while not found:
 					line = decline(proc);
 					if verbose: print (line);
-					if re.match((r"-->Signal:."), line): 
+					if re.match((r"-->Signal:."), line):
 						rssi = list(re.findall(r"-\d+", line));
 						found = True;
-				if rssi: 
+				if rssi:
 					return DataPoint(time.time(),apmac,stamac,int(rssi[0]));
 				else: print ("Corrupted RSSI");
 			else: print ("Corrupted Station MAC");
