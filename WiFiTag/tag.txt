@@ -1,0 +1,68 @@
+Partlist exported from C:/Users/Marius/Documents/masterthesis/WiFiTag/tag.sch at 06-Feb-18 8:55 PM
+
+Part Value           Device                     Package                 Description                                                                                                   
+3.3V                 SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+5V                   SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+AC1                  SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+AC2                  SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+B1                   SWITCH_TACT_SMT4.6X2.8     BTN_KMR2_4.6X2.8        SMT Tact Switches                                                                                             
+BAT                  SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+C1   10uF            CAP_CERAMIC0603            0603                    Ceramic Capacitors                                                                                            
+C2   10uF            CAP_CERAMIC0603            0603                    Ceramic Capacitors                                                                                            
+C3   10uF            CAP_CERAMIC0603            0603                    Ceramic Capacitors                                                                                            
+C4   10uF            CAP_CERAMIC0603            0603                    Ceramic Capacitors                                                                                            
+C5   1uF             CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C6   10nF            CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C7   4.7uF           CAP_CERAMIC0603            0603                    Ceramic Capacitors                                                                                            
+C8   10nF            CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C9   22nF            CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C10  22nF            CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C11  22nF            CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C12  470nF           CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+C13  470nF           CAP_CERAMIC0402            0402                    Ceramic Capacitors                                                                                            
+D1                   DIODESOD-123               SOD-123                 Diode                                                                                                         
+D2                   DIODESOD-123               SOD-123                 Diode                                                                                                         
+EN                   SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+GND                  SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+IC2  MCP73831/OT     MCP73831/OT                SOT23-5L                MCP73831/2                                                                                                    
+LED1 GREEN           LED0603                    CHIPLED_0603            LED                                                                                                           
+LED2 RED             LED0603                    CHIPLED_0603            LED                                                                                                           
+LED3 GREEN           LED0603                    CHIPLED_0603            LED                                                                                                           
+LED4 Orange          LED0603                    CHIPLED_0603            LED                                                                                                           
+LED5 RED             LED0603                    CHIPLED_0603            LED                                                                                                           
+LED6 BLUE            LED0603                    CHIPLED_0603            LED                                                                                                           
+R1                   RESISTOR0402               0402                    Resistors                                                                                                     
+R2   2k              RESISTOR0402               0402                    Resistors                                                                                                     
+R3   10k             RESISTOR0402               0402                    Resistors                                                                                                     
+R4   1k              RESISTOR0402               0402                    Resistors                                                                                                     
+R5   1k              RESISTOR0402               0402                    Resistors                                                                                                     
+R6   10k             RESISTOR0402               0402                    Resistors                                                                                                     
+R7   10k             RESISTOR0402               0402                    Resistors                                                                                                     
+R8   10k             RESISTOR0402               0402                    Resistors                                                                                                     
+R9   10k             RESISTOR0402               0402                    Resistors                                                                                                     
+R10  1k              RESISTOR0402               0402                    Resistors                                                                                                     
+R11  1k              RESISTOR0402               0402                    Resistors                                                                                                     
+R12  100k            RESISTOR0402               0402                    Resistors                                                                                                     
+R13  500k            RESISTOR0402               0402                    Resistors                                                                                                     
+R14  100k            RESISTOR0402               0402                    Resistors                                                                                                     
+R15  2k              RESISTOR0402               0402                    Resistors                                                                                                     
+R16  150             RESISTOR0402               0402                    Resistors                                                                                                     
+R17  150             RESISTOR0402               0402                    Resistors                                                                                                     
+R18  1k              RESISTOR0402               0402                    Resistors                                                                                                     
+R19  150             RESISTOR0402               0402                    Resistors                                                                                                     
+R20  150             RESISTOR0402               0402                    Resistors                                                                                                     
+T1                   MMBT2222ALT1-NPN-SOT23-BEC SOT23-BEC               NPN Transistror                                                                                               
+T2                   MMBT2222ALT1-NPN-SOT23-BEC SOT23-BEC               NPN Transistror                                                                                               
+U$1  BQ51013B        BQ51013B                   VQFN                                                                                                                                  
+U$21 MOUNTINGHOLE2.5 MOUNTINGHOLE2.5            MOUNTINGHOLE_2.5_PLATED Mounting Hole                                                                                                 
+U$24 CD4043B         CD4043B                    TSSOP16                                                                                                                               
+U$47 MOUNTINGHOLE2.5 MOUNTINGHOLE2.5            MOUNTINGHOLE_2.5_PLATED Mounting Hole                                                                                                 
+U$48 MOUNTINGHOLE2.5 MOUNTINGHOLE2.5            MOUNTINGHOLE_2.5_PLATED Mounting Hole                                                                                                 
+U$49 MOUNTINGHOLE2.5 MOUNTINGHOLE2.5            MOUNTINGHOLE_2.5_PLATED Mounting Hole                                                                                                 
+U1                   VREG_SOT23-5               SOT23-5                 SOT23-5 Fixed Voltage Regulators                                                                              
+U2   CP2104-F03-GM   CP2104-F03-GM              QFN-24-4X4                                                                                                                            
+U3                   USB""                      USB-MICRO-SMD           This is a USB AB connector that is compatible with USB OTG. i.e. this connector can serve as a host or device 
+U4                   74LVC1G04                  SOT23-5                 74LVC1G04 - Single Inverter Gate                                                                              
+U5                   ACCEL_LIS3DHTR             LGA16_3X3MM             LIS3DHTR 3-Axis Accelerometer with I2C/SPI Interface                                                          
+VBUS                 SMD2                       SMD1,27-2,54            SMD PAD                                                                                                       
+X1                   ESP-12                     ESP-12                                                                                                                                

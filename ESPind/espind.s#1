@@ -4114,6 +4114,12 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <smd name="PGND2" x="-1.975" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
 <smd name="EN1" x="2.475" y="0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
 <smd name="EN2" x="2.475" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
+<wire x1="-2.593" y1="2.47" x2="3.093" y2="2.47" width="0.127" layer="21"/>
+<wire x1="3.093" y1="2.47" x2="3.093" y2="-2.52" width="0.127" layer="21"/>
+<wire x1="3.093" y1="-2.52" x2="-2.593" y2="-2.52" width="0.127" layer="21"/>
+<wire x1="-2.593" y1="-2.52" x2="-2.593" y2="2.47" width="0.127" layer="21"/>
+<circle x="-2.916" y="2.801" radius="0.05" width="0.127" layer="21"/>
+<text x="-1.27" y="2.921" size="1.27" layer="21">BQ51</text>
 </package>
 <package name="TSSOP16">
 <smd name="NC" x="-0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
@@ -4132,6 +4138,12 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <smd name="R1" x="-0.975" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
 <smd name="Q1" x="-1.625" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
 <smd name="Q4" x="-2.275" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<circle x="-2.921" y="-4.064" radius="0.127" width="0.127" layer="21"/>
+<wire x1="-2.667" y1="3.81" x2="-2.667" y2="-3.81" width="0.127" layer="21"/>
+<wire x1="-2.667" y1="-3.81" x2="2.667" y2="-3.81" width="0.127" layer="21"/>
+<wire x1="2.667" y1="-3.81" x2="2.667" y2="3.81" width="0.127" layer="21"/>
+<wire x1="2.667" y1="3.81" x2="-2.667" y2="3.81" width="0.127" layer="21"/>
+<text x="-2.921" y="-2.921" size="1.27" layer="21" rot="R90">CD4043</text>
 </package>
 </packages>
 <symbols>
@@ -4383,7 +4395,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="R4" library="microbuilder" deviceset="RESISTOR" device="0402" value="10k"/>
 <part name="U$2" library="microbuilder" deviceset="GND" device=""/>
 <part name="U1" library="MicroUSB" deviceset="USB" device="&quot;&quot;"/>
-<part name="U2" library="Silicon Labs" deviceset="CP2104" device="-F03-GM"/>
+<part name="CP2104" library="Silicon Labs" deviceset="CP2104" device="-F03-GM"/>
 <part name="P+3" library="microbuilder" deviceset="VCC" device="" value="3.3V"/>
 <part name="U$3" library="microbuilder" deviceset="GND" device=""/>
 <part name="U$4" library="microbuilder" deviceset="GND" device=""/>
@@ -4404,7 +4416,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="R7" library="microbuilder" deviceset="RESISTOR" device="0402" value="2k"/>
 <part name="C5" library="microbuilder" deviceset="CAP_CERAMIC" device="0402" value="10uF"/>
 <part name="U$11" library="masterthesis" deviceset="BQ51013B" device=""/>
-<part name="U4" library="microbuilder" deviceset="ACCEL_LIS3DHTR" device=""/>
+<part name="LISD3HTR" library="microbuilder" deviceset="ACCEL_LIS3DHTR" device=""/>
 <part name="U5" library="epic" deviceset="SN74LVC1G04" device=""/>
 <part name="U$12" library="masterthesis" deviceset="CD4043B" device=""/>
 <part name="P+9" library="microbuilder" deviceset="VCC" device="" value="3.3V"/>
@@ -4443,7 +4455,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="R12" library="microbuilder" deviceset="RESISTOR" device="0402" value="100k"/>
 <part name="R13" library="microbuilder" deviceset="RESISTOR" device="0402" value="500k"/>
 <part name="U$27" library="microbuilder" deviceset="GND" device=""/>
-<part name="R14" library="microbuilder" deviceset="RESISTOR" device="0402" value="1k"/>
 <part name="R15" library="microbuilder" deviceset="RESISTOR" device="0402" value="1k"/>
 <part name="LED2" library="microbuilder" deviceset="LED" device="0603" value="RED"/>
 <part name="LED3" library="microbuilder" deviceset="LED" device="0603" value="ORANGE"/>
@@ -4480,6 +4491,17 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <part name="P+16" library="supply1" library_urn="urn:adsk.eagle:library:371" deviceset="+5V" device=""/>
 <part name="P+21" library="microbuilder" deviceset="VCC" device="" value="3.3V"/>
 <part name="U$26" library="microbuilder" deviceset="GND" device=""/>
+<part name="U$32" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
+<part name="U$33" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
+<part name="U$34" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
+<part name="U$35" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
+<part name="U$36" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
+<part name="U$37" library="microbuilder" deviceset="MOUNTINGHOLE" device="2.5"/>
+<part name="D2" library="adafruit" deviceset="DIODE" device="SOD-123"/>
+<part name="GND1" library="wirepad" library_urn="urn:adsk.eagle:library:412" deviceset="SMD2" device="" package3d_urn="urn:adsk.eagle:package:30839/1"/>
+<part name="U$38" library="microbuilder" deviceset="GND" device=""/>
+<part name="LED6" library="microbuilder" deviceset="LED" device="0603" value="RED"/>
+<part name="U$39" library="microbuilder" deviceset="GND" device=""/>
 </parts>
 <sheets>
 <sheet>
@@ -4498,7 +4520,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="R4" gate="G$1" x="71.12" y="76.2" rot="R270"/>
 <instance part="U$2" gate="G$1" x="71.12" y="68.58"/>
 <instance part="U1" gate="G$1" x="-38.1" y="-12.7" rot="R180"/>
-<instance part="U2" gate="G$1" x="53.34" y="43.18"/>
+<instance part="CP2104" gate="G$1" x="53.34" y="43.18"/>
 <instance part="P+3" gate="VCC" x="35.56" y="55.88" rot="R90"/>
 <instance part="U$3" gate="G$1" x="68.58" y="27.94" rot="R90"/>
 <instance part="U$4" gate="G$1" x="-30.48" y="-17.78" rot="R90"/>
@@ -4519,7 +4541,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="R7" gate="G$1" x="-10.16" y="45.72" rot="R180"/>
 <instance part="C5" gate="G$1" x="-2.54" y="43.18"/>
 <instance part="U$11" gate="G$1" x="121.92" y="-20.32"/>
-<instance part="U4" gate="G$1" x="124.46" y="91.44"/>
+<instance part="LISD3HTR" gate="G$1" x="124.46" y="91.44"/>
 <instance part="U5" gate="G$1" x="-30.48" y="-66.04"/>
 <instance part="U$12" gate="G$1" x="43.18" y="-12.7"/>
 <instance part="P+9" gate="VCC" x="58.42" y="-5.08" rot="R270"/>
@@ -4558,11 +4580,10 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="R12" gate="G$1" x="73.66" y="-55.88" rot="R90"/>
 <instance part="R13" gate="G$1" x="73.66" y="-66.04" rot="R90"/>
 <instance part="U$27" gate="G$1" x="73.66" y="-73.66"/>
-<instance part="R14" gate="G$1" x="119.38" y="-55.88"/>
 <instance part="R15" gate="G$1" x="119.38" y="-66.04"/>
-<instance part="LED2" gate="G$1" x="129.54" y="-55.88"/>
+<instance part="LED2" gate="G$1" x="129.54" y="-86.36"/>
 <instance part="LED3" gate="G$1" x="129.54" y="-66.04"/>
-<instance part="U$28" gate="G$1" x="134.62" y="-55.88" rot="R90"/>
+<instance part="U$28" gate="G$1" x="134.62" y="-86.36" rot="R90"/>
 <instance part="U$29" gate="G$1" x="134.62" y="-66.04" rot="R90"/>
 <instance part="SW1" gate="G$1" x="154.94" y="-63.5"/>
 <instance part="P+17" gate="VCC" x="157.48" y="-55.88"/>
@@ -4572,7 +4593,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="R17" gate="G$1" x="27.94" y="48.26" rot="R90"/>
 <instance part="P+18" gate="VCC" x="20.32" y="53.34"/>
 <instance part="P+19" gate="VCC" x="27.94" y="55.88"/>
-<instance part="U$30" gate="G$1" x="-27.94" y="-40.64"/>
+<instance part="U$30" gate="G$1" x="-22.86" y="-40.64"/>
 <instance part="U$31" gate="G$1" x="-15.24" y="-40.64"/>
 <instance part="P+20" gate="1" x="-48.26" y="93.98"/>
 <instance part="P+5" gate="1" x="-55.88" y="53.34"/>
@@ -4595,6 +4616,17 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <instance part="P+16" gate="1" x="30.48" y="-76.2" rot="R270"/>
 <instance part="P+21" gate="VCC" x="30.48" y="-91.44" rot="R270"/>
 <instance part="U$26" gate="G$1" x="129.54" y="7.62" rot="R180"/>
+<instance part="U$32" gate="G$1" x="-22.86" y="-30.48"/>
+<instance part="U$33" gate="G$1" x="-15.24" y="-30.48"/>
+<instance part="U$34" gate="G$1" x="-7.62" y="-40.64"/>
+<instance part="U$35" gate="G$1" x="-7.62" y="-30.48"/>
+<instance part="U$36" gate="G$1" x="0" y="-30.48"/>
+<instance part="U$37" gate="G$1" x="0" y="-40.64"/>
+<instance part="D2" gate="G$1" x="38.1" y="53.34" rot="R180"/>
+<instance part="GND1" gate="1" x="25.4" y="-99.06"/>
+<instance part="U$38" gate="G$1" x="30.48" y="-99.06" rot="R90"/>
+<instance part="LED6" gate="G$1" x="129.54" y="-76.2"/>
+<instance part="U$39" gate="G$1" x="134.62" y="-76.2" rot="R90"/>
 </instances>
 <busses>
 </busses>
@@ -4606,7 +4638,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="60.96" y="96.52" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="RXD"/>
+<pinref part="CP2104" gate="G$1" pin="RXD"/>
 <wire x1="66.04" y1="55.88" x2="71.12" y2="55.88" width="0.1524" layer="91"/>
 <label x="66.04" y="55.88" size="1.778" layer="95"/>
 </segment>
@@ -4618,7 +4650,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="60.96" y="93.98" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="TXD"/>
+<pinref part="CP2104" gate="G$1" pin="TXD"/>
 <wire x1="66.04" y1="58.42" x2="71.12" y2="58.42" width="0.1524" layer="91"/>
 <label x="66.04" y="58.42" size="1.778" layer="95"/>
 </segment>
@@ -4670,6 +4702,11 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <wire x1="45.72" y1="-99.06" x2="48.26" y2="-99.06" width="0.1524" layer="91"/>
 <label x="45.72" y="-99.06" size="1.778" layer="95"/>
 </segment>
+<segment>
+<pinref part="D2" gate="G$1" pin="C"/>
+<wire x1="35.56" y1="53.34" x2="33.02" y2="53.34" width="0.1524" layer="91"/>
+<label x="33.02" y="50.8" size="1.778" layer="95"/>
+</segment>
 </net>
 <net name="VCC" class="0">
 <segment>
@@ -4681,7 +4718,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="P+2" gate="VCC" pin="VCC"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="VIO"/>
+<pinref part="CP2104" gate="G$1" pin="VIO"/>
 <pinref part="P+3" gate="VCC" pin="VCC"/>
 <wire x1="38.1" y1="55.88" x2="40.64" y2="55.88" width="0.1524" layer="91"/>
 </segment>
@@ -4708,11 +4745,11 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="P+11" gate="VCC" pin="VCC"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="VDD"/>
+<pinref part="LISD3HTR" gate="G$1" pin="VDD"/>
 <pinref part="P+12" gate="VCC" pin="VCC"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="VDDIO"/>
+<pinref part="LISD3HTR" gate="G$1" pin="VDDIO"/>
 <pinref part="P+13" gate="VCC" pin="VCC"/>
 </segment>
 <segment>
@@ -4742,7 +4779,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="U$2" gate="G$1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="GND"/>
+<pinref part="CP2104" gate="G$1" pin="GND"/>
 <pinref part="U$3" gate="G$1" pin="GND"/>
 </segment>
 <segment>
@@ -4776,15 +4813,15 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="U$14" gate="G$1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="GND@1"/>
+<pinref part="LISD3HTR" gate="G$1" pin="GND@1"/>
 <pinref part="U$15" gate="G$1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="RES(GND)"/>
+<pinref part="LISD3HTR" gate="G$1" pin="RES(GND)"/>
 <pinref part="U$16" gate="G$1" pin="GND"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="GND@2"/>
+<pinref part="LISD3HTR" gate="G$1" pin="GND@2"/>
 <pinref part="U$17" gate="G$1" pin="GND"/>
 </segment>
 <segment>
@@ -4847,6 +4884,14 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <pinref part="U$11" gate="G$1" pin="RES"/>
 <pinref part="U$26" gate="G$1" pin="GND"/>
 </segment>
+<segment>
+<pinref part="GND1" gate="1" pin="P"/>
+<pinref part="U$38" gate="G$1" pin="GND"/>
+</segment>
+<segment>
+<pinref part="LED6" gate="G$1" pin="C"/>
+<pinref part="U$39" gate="G$1" pin="GND"/>
+</segment>
 </net>
 <net name="SCL" class="0">
 <segment>
@@ -4855,7 +4900,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="60.96" y="91.44" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="SCL"/>
+<pinref part="LISD3HTR" gate="G$1" pin="SCL"/>
 <wire x1="109.22" y1="88.9" x2="104.14" y2="88.9" width="0.1524" layer="91"/>
 <label x="104.14" y="88.9" size="1.778" layer="95"/>
 </segment>
@@ -4867,7 +4912,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="60.96" y="88.9" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="SDA"/>
+<pinref part="LISD3HTR" gate="G$1" pin="SDA"/>
 <wire x1="121.92" y1="76.2" x2="121.92" y2="71.12" width="0.1524" layer="91"/>
 <label x="121.92" y="71.12" size="1.778" layer="95" rot="R90"/>
 </segment>
@@ -4914,7 +4959,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="114.3" y="33.02" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="DTR"/>
+<pinref part="CP2104" gate="G$1" pin="DTR"/>
 <wire x1="66.04" y1="48.26" x2="71.12" y2="48.26" width="0.1524" layer="91"/>
 <label x="66.04" y="48.26" size="1.778" layer="95"/>
 </segment>
@@ -4932,7 +4977,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="109.22" y="45.72" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="RTS"/>
+<pinref part="CP2104" gate="G$1" pin="RTS"/>
 <wire x1="66.04" y1="53.34" x2="71.12" y2="53.34" width="0.1524" layer="91"/>
 <label x="66.04" y="53.34" size="1.778" layer="95"/>
 </segment>
@@ -4969,7 +5014,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="-30.48" y="-12.7" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="D+"/>
+<pinref part="CP2104" gate="G$1" pin="D+"/>
 <wire x1="40.64" y1="40.64" x2="35.56" y2="40.64" width="0.1524" layer="91"/>
 <label x="35.56" y="40.64" size="1.778" layer="95"/>
 </segment>
@@ -4981,7 +5026,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="-30.48" y="-10.16" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="D-"/>
+<pinref part="CP2104" gate="G$1" pin="D-"/>
 <wire x1="40.64" y1="38.1" x2="35.56" y2="38.1" width="0.1524" layer="91"/>
 <label x="35.56" y="38.1" size="1.778" layer="95"/>
 </segment>
@@ -4996,17 +5041,12 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <junction x="-30.48" y="-7.62"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="VBUS"/>
+<pinref part="CP2104" gate="G$1" pin="VBUS"/>
 <wire x1="40.64" y1="43.18" x2="35.56" y2="43.18" width="0.1524" layer="91"/>
 <label x="35.56" y="43.18" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="VDD"/>
-<wire x1="35.56" y1="53.34" x2="40.64" y2="53.34" width="0.1524" layer="91"/>
-<label x="35.56" y="53.34" size="1.778" layer="95"/>
-</segment>
-<segment>
-<pinref part="U2" gate="G$1" pin="REGIN"/>
+<pinref part="CP2104" gate="G$1" pin="REGIN"/>
 <wire x1="40.64" y1="58.42" x2="35.56" y2="58.42" width="0.1524" layer="91"/>
 <label x="35.56" y="58.42" size="1.778" layer="95"/>
 </segment>
@@ -5047,9 +5087,14 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="17.78" y="81.28" size="1.778" layer="95"/>
 </segment>
 <segment>
-<wire x1="101.6" y1="-55.88" x2="114.3" y2="-55.88" width="0.1524" layer="91"/>
-<pinref part="R14" gate="G$1" pin="1"/>
-<label x="101.6" y="-55.88" size="1.778" layer="95"/>
+<pinref part="LED6" gate="G$1" pin="A"/>
+<wire x1="124.46" y1="-76.2" x2="119.38" y2="-76.2" width="0.1524" layer="91"/>
+<label x="119.38" y="-76.2" size="1.778" layer="95"/>
+</segment>
+<segment>
+<pinref part="LED2" gate="G$1" pin="A"/>
+<wire x1="124.46" y1="-86.36" x2="119.38" y2="-86.36" width="0.1524" layer="91"/>
+<label x="119.38" y="-86.36" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="N$5" class="0">
@@ -5096,7 +5141,7 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="15.24" y="-12.7" size="1.778" layer="95"/>
 </segment>
 <segment>
-<pinref part="U4" gate="G$1" pin="INT1"/>
+<pinref part="LISD3HTR" gate="G$1" pin="INT1"/>
 <wire x1="139.7" y1="91.44" x2="157.48" y2="91.44" width="0.1524" layer="91"/>
 <label x="144.78" y="91.44" size="1.778" layer="95"/>
 </segment>
@@ -5253,12 +5298,6 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <label x="101.6" y="-66.04" size="1.778" layer="95"/>
 </segment>
 </net>
-<net name="N$15" class="0">
-<segment>
-<pinref part="R14" gate="G$1" pin="2"/>
-<pinref part="LED2" gate="G$1" pin="A"/>
-</segment>
-</net>
 <net name="N$16" class="0">
 <segment>
 <pinref part="R15" gate="G$1" pin="2"/>
@@ -5280,13 +5319,13 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <net name="N$19" class="0">
 <segment>
 <pinref part="LED4" gate="G$1" pin="C"/>
-<pinref part="U2" gate="G$1" pin="GPIO0"/>
+<pinref part="CP2104" gate="G$1" pin="GPIO0"/>
 <wire x1="27.94" y1="35.56" x2="40.64" y2="35.56" width="0.1524" layer="91"/>
 </segment>
 </net>
 <net name="N$20" class="0">
 <segment>
-<pinref part="U2" gate="G$1" pin="GPIO1"/>
+<pinref part="CP2104" gate="G$1" pin="GPIO1"/>
 <pinref part="LED5" gate="G$1" pin="C"/>
 <wire x1="40.64" y1="33.02" x2="20.32" y2="33.02" width="0.1524" layer="91"/>
 </segment>
@@ -5357,6 +5396,12 @@ BF959 corrected 2008.03.06&lt;br&gt;</description>
 <wire x1="160.02" y1="-12.7" x2="170.18" y2="-12.7" width="0.1524" layer="91"/>
 <pinref part="C3" gate="G$1" pin="P$2"/>
 <junction x="152.4" y="-12.7"/>
+</segment>
+</net>
+<net name="N$21" class="0">
+<segment>
+<pinref part="CP2104" gate="G$1" pin="VDD"/>
+<pinref part="D2" gate="G$1" pin="A"/>
 </segment>
 </net>
 </nets>

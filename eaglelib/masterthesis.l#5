@@ -6,7 +6,7 @@
 <setting alwaysvectorfont="no"/>
 <setting verticaltext="up"/>
 </settings>
-<grid distance="0.65" unitdist="mm" unit="mm" style="lines" multiple="1" display="yes" altdistance="0.065" altunitdist="mm" altunit="mm"/>
+<grid distance="50" unitdist="mil" unit="mil" style="lines" multiple="1" display="yes" altdistance="5" altunitdist="mil" altunit="mil"/>
 <layers>
 <layer number="1" name="Top" color="4" fill="1" visible="yes" active="yes"/>
 <layer number="2" name="Route2" color="1" fill="3" visible="no" active="yes"/>
@@ -95,26 +95,36 @@
 <smd name="PGND2" x="-1.975" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
 <smd name="EN1" x="2.475" y="0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
 <smd name="EN2" x="2.475" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
+<wire x1="-2.593" y1="2.47" x2="3.093" y2="2.47" width="0.127" layer="21"/>
+<wire x1="3.093" y1="2.47" x2="3.093" y2="-2.52" width="0.127" layer="21"/>
+<wire x1="3.093" y1="-2.52" x2="-2.593" y2="-2.52" width="0.127" layer="21"/>
+<wire x1="-2.593" y1="-2.52" x2="-2.593" y2="2.47" width="0.127" layer="21"/>
+<circle x="-2.916" y="2.801" radius="0.05" width="0.127" layer="21"/>
+<text x="-1.27" y="2.921" size="1.27" layer="21">BQ51</text>
 </package>
 <package name="TSSOP16">
-<smd name="P$1" x="-0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$2" x="0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$3" x="0.975" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$4" x="0.975" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$5" x="2.275" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$6" x="1.625" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$7" x="-0.975" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$8" x="-0.975" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$9" x="-1.625" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$10" x="-2.275" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$11" x="2.275" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$12" x="1.625" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$13" x="0.975" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$14" x="0.325" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$15" x="-0.325" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$16" x="-0.975" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$17" x="-1.625" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
-<smd name="P$18" x="-2.275" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="NC" x="-0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="S3" x="0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="R3" x="0.975" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="Q2" x="2.275" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="Q3" x="1.625" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="S4" x="-0.975" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="R4" x="-1.625" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="VCC" x="-2.275" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="GND" x="2.275" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="R2" x="1.625" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="S2" x="0.975" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="EN" x="0.325" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="S1" x="-0.325" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="R1" x="-0.975" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="Q1" x="-1.625" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<smd name="Q4" x="-2.275" y="-2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
+<circle x="-2.921" y="-4.064" radius="0.127" width="0.127" layer="21"/>
+<wire x1="-2.667" y1="3.81" x2="-2.667" y2="-3.81" width="0.127" layer="21"/>
+<wire x1="-2.667" y1="-3.81" x2="2.667" y2="-3.81" width="0.127" layer="21"/>
+<wire x1="2.667" y1="-3.81" x2="2.667" y2="3.81" width="0.127" layer="21"/>
+<wire x1="2.667" y1="3.81" x2="-2.667" y2="3.81" width="0.127" layer="21"/>
+<text x="-2.921" y="-2.921" size="1.27" layer="21" rot="R90">CD4043</text>
 </package>
 </packages>
 <symbols>
@@ -143,6 +153,7 @@
 <pin name="PGND2" x="2.54" y="25.4" length="middle" rot="R270"/>
 <pin name="EN1" x="-2.54" y="-22.86" length="middle" rot="R90"/>
 <pin name="EN2" x="2.54" y="-22.86" length="middle" rot="R90"/>
+<pin name="RES" x="7.62" y="25.4" length="middle" rot="R270"/>
 </symbol>
 <symbol name="CD4043B">
 <wire x1="-7.62" y1="10.16" x2="7.62" y2="10.16" width="0.254" layer="94"/>
@@ -192,6 +203,7 @@
 <connect gate="G$1" pin="PGND" pad="PGND"/>
 <connect gate="G$1" pin="PGND2" pad="PGND2"/>
 <connect gate="G$1" pin="RECT" pad="RECT"/>
+<connect gate="G$1" pin="RES" pad="BGND4"/>
 <connect gate="G$1" pin="TS/CTRL" pad="TS/CTRL"/>
 <connect gate="G$1" pin="~AD-EN" pad="~AD-EN"/>
 <connect gate="G$1" pin="~CHG" pad="~CHG"/>
@@ -204,9 +216,28 @@
 </deviceset>
 <deviceset name="CD4043B">
 <gates>
+<gate name="G$1" symbol="CD4043B" x="0" y="0"/>
 </gates>
 <devices>
-<device name="">
+<device name="" package="TSSOP16">
+<connects>
+<connect gate="G$1" pin="EN" pad="EN"/>
+<connect gate="G$1" pin="GND" pad="GND"/>
+<connect gate="G$1" pin="NC" pad="NC"/>
+<connect gate="G$1" pin="Q1" pad="Q1"/>
+<connect gate="G$1" pin="Q2" pad="Q2"/>
+<connect gate="G$1" pin="Q3" pad="Q3"/>
+<connect gate="G$1" pin="Q4" pad="Q4"/>
+<connect gate="G$1" pin="R1" pad="R1"/>
+<connect gate="G$1" pin="R2" pad="R2"/>
+<connect gate="G$1" pin="R3" pad="R3"/>
+<connect gate="G$1" pin="R4" pad="R4"/>
+<connect gate="G$1" pin="S1" pad="S1"/>
+<connect gate="G$1" pin="S2" pad="S2"/>
+<connect gate="G$1" pin="S3" pad="S3"/>
+<connect gate="G$1" pin="S4" pad="S4"/>
+<connect gate="G$1" pin="VCC" pad="VCC"/>
+</connects>
 <technologies>
 <technology name=""/>
 </technologies>
