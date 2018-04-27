@@ -74,33 +74,33 @@
 <library>
 <packages>
 <package name="VQFN">
-<smd name="OUT" x="-0.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="CLAMP1" x="0" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="COMM1" x="0.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="~CHG" x="1" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="~AD-EN" x="1.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="BOOT1" x="-1" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="AD" x="2" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="AC1" x="-1.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="CLAMP2" x="0" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="COMM2" x="0.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="FOD" x="1" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="TS/CTRL" x="1.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="ILIM" x="2" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="BOOT2" x="-0.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="RECT" x="-1" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
-<smd name="AC2" x="-1.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="BOOT2" x="-0.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="CLAMP2" x="0" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="COMM2" x="0.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="FOD" x="1" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="TS/CTRL" x="1.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="RECT" x="-1" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="ILIM" x="2" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="AC2" x="-1.5" y="1.725" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="CLAMP1" x="0" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="COMM1" x="0.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="~CHG" x="1" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="~AD-EN" x="1.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="AD" x="2" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="OUT" x="-0.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="BOOT1" x="-1" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
+<smd name="AC1" x="-1.5" y="-1.775" dx="0.85" dy="0.28" layer="1" rot="R90"/>
 <smd name="BGND4" x="0.25" y="0" dx="3.05" dy="2.05" layer="1" rot="R180"/>
-<smd name="PGND" x="-1.975" y="0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
-<smd name="PGND2" x="-1.975" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
-<smd name="EN1" x="2.475" y="0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
-<smd name="EN2" x="2.475" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
-<wire x1="-2.593" y1="2.47" x2="3.093" y2="2.47" width="0.127" layer="21"/>
-<wire x1="3.093" y1="2.47" x2="3.093" y2="-2.52" width="0.127" layer="21"/>
-<wire x1="3.093" y1="-2.52" x2="-2.593" y2="-2.52" width="0.127" layer="21"/>
-<wire x1="-2.593" y1="-2.52" x2="-2.593" y2="2.47" width="0.127" layer="21"/>
-<circle x="-2.916" y="2.801" radius="0.05" width="0.127" layer="21"/>
-<text x="-1.27" y="2.921" size="1.27" layer="21">BQ51</text>
+<smd name="PGND2" x="-1.975" y="0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
+<smd name="PGND1" x="-1.975" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
+<smd name="EN2" x="2.475" y="0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
+<smd name="EN1" x="2.475" y="-0.75" dx="0.85" dy="0.28" layer="1" rot="R180"/>
+<wire x1="-2.593" y1="2.47" x2="3.093" y2="2.47" width="0.254" layer="21"/>
+<wire x1="3.093" y1="2.47" x2="3.093" y2="-2.52" width="0.254" layer="21"/>
+<wire x1="3.093" y1="-2.52" x2="-2.593" y2="-2.52" width="0.254" layer="21"/>
+<wire x1="-2.593" y1="-2.52" x2="-2.593" y2="2.47" width="0.254" layer="21"/>
+<circle x="-2.916" y="2.801" radius="0.05" width="0.254" layer="21"/>
+<text x="-0.889" y="-3.556" size="0.8128" layer="21">BQ51</text>
 </package>
 <package name="TSSOP16">
 <smd name="NC" x="-0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
@@ -124,7 +124,7 @@
 <wire x1="-2.667" y1="-3.81" x2="2.667" y2="-3.81" width="0.127" layer="21"/>
 <wire x1="2.667" y1="-3.81" x2="2.667" y2="3.81" width="0.127" layer="21"/>
 <wire x1="2.667" y1="3.81" x2="-2.667" y2="3.81" width="0.127" layer="21"/>
-<text x="-2.921" y="-2.921" size="1.27" layer="21" rot="R90">CD4043</text>
+<text x="4.191" y="-3.048" size="1.27" layer="21" rot="R90">CD4043</text>
 </package>
 </packages>
 <symbols>
@@ -186,27 +186,27 @@
 <devices>
 <device name="" package="VQFN">
 <connects>
-<connect gate="G$1" pin="AC1" pad="AC1"/>
-<connect gate="G$1" pin="AC2" pad="AC2"/>
-<connect gate="G$1" pin="AD" pad="AD"/>
-<connect gate="G$1" pin="BOOT1" pad="BOOT1"/>
-<connect gate="G$1" pin="BOOT2" pad="BOOT2"/>
-<connect gate="G$1" pin="CLAMP1" pad="CLAMP1"/>
-<connect gate="G$1" pin="CLAMP2" pad="CLAMP2"/>
-<connect gate="G$1" pin="COMM1" pad="COMM1"/>
-<connect gate="G$1" pin="COMM2" pad="COMM2"/>
-<connect gate="G$1" pin="EN1" pad="EN1"/>
-<connect gate="G$1" pin="EN2" pad="EN2"/>
-<connect gate="G$1" pin="FOD" pad="FOD"/>
-<connect gate="G$1" pin="ILIM" pad="ILIM"/>
-<connect gate="G$1" pin="OUT" pad="OUT"/>
-<connect gate="G$1" pin="PGND" pad="PGND"/>
-<connect gate="G$1" pin="PGND2" pad="PGND2"/>
-<connect gate="G$1" pin="RECT" pad="RECT"/>
+<connect gate="G$1" pin="AC1" pad="AC2"/>
+<connect gate="G$1" pin="AC2" pad="AC1"/>
+<connect gate="G$1" pin="AD" pad="ILIM"/>
+<connect gate="G$1" pin="BOOT1" pad="RECT"/>
+<connect gate="G$1" pin="BOOT2" pad="OUT"/>
+<connect gate="G$1" pin="CLAMP1" pad="CLAMP2"/>
+<connect gate="G$1" pin="CLAMP2" pad="CLAMP1"/>
+<connect gate="G$1" pin="COMM1" pad="COMM2"/>
+<connect gate="G$1" pin="COMM2" pad="COMM1"/>
+<connect gate="G$1" pin="EN1" pad="EN2"/>
+<connect gate="G$1" pin="EN2" pad="EN1"/>
+<connect gate="G$1" pin="FOD" pad="~CHG"/>
+<connect gate="G$1" pin="ILIM" pad="AD"/>
+<connect gate="G$1" pin="OUT" pad="BOOT2"/>
+<connect gate="G$1" pin="PGND" pad="PGND2"/>
+<connect gate="G$1" pin="PGND2" pad="PGND1"/>
+<connect gate="G$1" pin="RECT" pad="BOOT1"/>
 <connect gate="G$1" pin="RES" pad="BGND4"/>
-<connect gate="G$1" pin="TS/CTRL" pad="TS/CTRL"/>
-<connect gate="G$1" pin="~AD-EN" pad="~AD-EN"/>
-<connect gate="G$1" pin="~CHG" pad="~CHG"/>
+<connect gate="G$1" pin="TS/CTRL" pad="~AD-EN"/>
+<connect gate="G$1" pin="~AD-EN" pad="TS/CTRL"/>
+<connect gate="G$1" pin="~CHG" pad="FOD"/>
 </connects>
 <technologies>
 <technology name=""/>

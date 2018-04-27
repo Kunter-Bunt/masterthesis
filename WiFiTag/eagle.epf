@@ -1,5 +1,5 @@
 [Eagle]
-Version="08 04 01"
+Version="09 00 00"
 Platform="Windows"
 Globals="Globals"
 Desktop="Desktop"
@@ -357,10 +357,8 @@ UsedLibraryUrn="urn:adsk.eagle:library:420"
 
 [Win_1]
 Type="Control Panel"
-Loc="0 0 1919 1016"
-State=1
 Number=0
 
 [Desktop]
-Screen="1920 1080"
+Screen="3840 1080"
 Window="Win_1"

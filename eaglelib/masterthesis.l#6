@@ -100,7 +100,7 @@
 <wire x1="3.093" y1="-2.52" x2="-2.593" y2="-2.52" width="0.127" layer="21"/>
 <wire x1="-2.593" y1="-2.52" x2="-2.593" y2="2.47" width="0.127" layer="21"/>
 <circle x="-2.916" y="2.801" radius="0.05" width="0.127" layer="21"/>
-<text x="-1.27" y="2.921" size="1.27" layer="21">BQ51</text>
+<text x="-0.889" y="-3.556" size="0.8128" layer="21">BQ51</text>
 </package>
 <package name="TSSOP16">
 <smd name="NC" x="-0.325" y="2.8" dx="1.6" dy="0.35" layer="1" rot="R90"/>
@@ -124,6 +124,7 @@
 <wire x1="-2.667" y1="-3.81" x2="2.667" y2="-3.81" width="0.127" layer="21"/>
 <wire x1="2.667" y1="-3.81" x2="2.667" y2="3.81" width="0.127" layer="21"/>
 <wire x1="2.667" y1="3.81" x2="-2.667" y2="3.81" width="0.127" layer="21"/>
+<text x="4.191" y="-3.048" size="1.27" layer="21" rot="R90">CD4043</text>
 </package>
 </packages>
 <symbols>

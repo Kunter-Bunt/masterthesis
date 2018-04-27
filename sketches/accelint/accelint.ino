@@ -13,7 +13,7 @@
 #define LIS3DH_CS 10
 int intPin = 12;
 //breakout address: 18
-int LIS3DH_ADDR = 0x12; // change this to 0x19 for alternative i2c address
+int LIS3DH_ADDR = 0x18; // change this to 0x19 for alternative i2c address
 int reading = 0; //counter for number of readings taken - for diagnostic use
 
 // software SPI
@@ -80,10 +80,12 @@ void setup(void) {
 
   Serial.begin(115200);
   Serial.println("LIS3DH test!");
-  
-  if (! lis.begin(LIS3DH_ADDR)) {   // change this to 0x19 for alternative i2c address
-    Serial.println("Couldnt start");
-    while (1);
+
+  for (int i = 0x00; i <= 0x30; i++){
+    if (! lis.begin(i)) {   // change this to 0x19 for alternative i2c address
+      Serial.println("Couldnt start");
+    }
+    else Serial.println(i);
   }
   Serial.println("LIS3DH found!");
   
