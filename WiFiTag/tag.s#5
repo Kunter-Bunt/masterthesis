@@ -2298,7 +2298,7 @@ chip</description>
 <part name="U$3" library="microbuilder" deviceset="3.3V" device=""/>
 <part name="U$4" library="microbuilder" deviceset="GND" device=""/>
 <part name="LED1" library="microbuilder" deviceset="LED" device="0603" value="GREEN"/>
-<part name="R1" library="microbuilder" deviceset="RESISTOR" device="0402"/>
+<part name="R1" library="microbuilder" deviceset="RESISTOR" device="0402" value="1k"/>
 <part name="U$5" library="microbuilder" deviceset="4.5V" device=""/>
 <part name="C1" library="microbuilder" deviceset="CAP_CERAMIC" device="0603" value="10uF"/>
 <part name="R2" library="microbuilder" deviceset="RESISTOR" device="0402" value="2k"/>
