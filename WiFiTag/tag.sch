@@ -2695,6 +2695,7 @@ TS-003</description>
 <part name="U2" library="microbuilder" deviceset="74LVC1G04" device=""/>
 <part name="U$24" library="microbuilder" deviceset="3.3V" device=""/>
 <part name="U$25" library="microbuilder" deviceset="GND" device=""/>
+<part name="R8" library="microbuilder" deviceset="RESISTOR" device="0402" value="150"/>
 </parts>
 <sheets>
 <sheet>
@@ -2814,6 +2815,7 @@ TS-003</description>
 <instance part="U2" gate="G$1" x="-71.12" y="-50.8"/>
 <instance part="U$24" gate="G$1" x="-60.96" y="-43.18"/>
 <instance part="U$25" gate="G$1" x="-81.28" y="-58.42"/>
+<instance part="R8" gate="G$1" x="-55.88" y="-55.88" rot="R180"/>
 </instances>
 <busses>
 </busses>
@@ -3182,9 +3184,9 @@ TS-003</description>
 <pinref part="R19" gate="G$1" pin="1"/>
 </segment>
 <segment>
-<pinref part="U2" gate="G$1" pin="Y"/>
-<wire x1="-60.96" y1="-55.88" x2="-55.88" y2="-55.88" width="0.1524" layer="91"/>
-<label x="-60.96" y="-55.88" size="1.778" layer="95"/>
+<pinref part="R8" gate="G$1" pin="1"/>
+<wire x1="-50.8" y1="-55.88" x2="-45.72" y2="-55.88" width="0.1524" layer="91"/>
+<label x="-50.8" y="-55.88" size="1.778" layer="95"/>
 </segment>
 </net>
 <net name="ADC" class="0">
@@ -3557,6 +3559,12 @@ TS-003</description>
 <pinref part="U3" gate="G$1" pin="ADC3"/>
 <wire x1="45.72" y1="-104.14" x2="55.88" y2="-104.14" width="0.1524" layer="91"/>
 <label x="48.26" y="-104.14" size="1.778" layer="95"/>
+</segment>
+</net>
+<net name="N$6" class="0">
+<segment>
+<pinref part="U2" gate="G$1" pin="Y"/>
+<pinref part="R8" gate="G$1" pin="2"/>
 </segment>
 </net>
 </nets>
